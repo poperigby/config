@@ -24,13 +24,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-
 
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.cassidy = {
@@ -50,20 +43,8 @@
   # Specifies where my flake is located
   environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
 
-
   # List services that you want to enable:
   services.openssh.enable = true;
-
-  # Reverse SSH tunnel for SSHing into VM from host
-  #systemd.services."reverse-ssh-tunnel" = {
-  #  description = "Reverse SSH tunnel to allow connecting to VM via host";
-  #  after = ["network.target"];
-  #  wantedBy = ["multi-user.target"];
-  #  serviceConfig = {
-  #    Type = "simple";
-  #    ExecStart = "${pkgs.openssh}/bin/ssh -NT -R 2222:localhost:22 cassidy@10.135.10.46";
-  #  };
-  #};
 
   # Limit the number of generations to keep
   boot.loader.systemd-boot.configurationLimit = 10;
@@ -76,10 +57,6 @@
   };
 
   # Optimize storage
-  # You can also manually optimize the store via:
-  #    nix-store --optimise
-  # Refer to the following link for more details:
-  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
   nix.settings.auto-optimise-store = true;
 
   # DO NOT TOUCH
