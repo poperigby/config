@@ -46,10 +46,8 @@
     git
     neovim
     just
+    podman
   ];
-
-  # Use Neovim as default editor
-  environment.variables.EDITOR = "nvim";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -63,6 +61,17 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # Reverse SSH tunnel for SSHing into VM from host
+  #systemd.services."reverse-ssh-tunnel" = {
+  #  description = "Reverse SSH tunnel to allow connecting to VM via host";
+  #  after = ["network.target"];
+  #  wantedBy = ["multi-user.target"];
+  #  serviceConfig = {
+  #    Type = "simple";
+  #    ExecStart = "${pkgs.openssh}/bin/ssh -NT -R 2222:localhost:22 cassidy@10.135.10.46";
+  #  };
+  #};
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
