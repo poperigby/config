@@ -6,14 +6,9 @@
 
 {
     imports = [
+        ../common.nix
         ./hardware-configuration.nix
     ];
-
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
 
     networking.hostName = "haddock"; # Define your hostname.
 
@@ -39,24 +34,8 @@
         inputs.manix.packages."${pkgs.system}".manix
     ];
 
-    # Specifies where my flake is located
-    environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
-
     # List services that you want to enable:
     services.openssh.enable = true;
-
-    # Limit the number of generations to keep
-    boot.loader.systemd-boot.configurationLimit = 10;
-
-    # Perform garbage collection weekly to maintain low disk usage
-    nix.gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 1w";
-    };
-
-    # Optimize storage
-    nix.settings.auto-optimise-store = true;
 
     # DO NOT TOUCH
     system.stateVersion = "23.11";
