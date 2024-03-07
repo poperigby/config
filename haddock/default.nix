@@ -36,6 +36,7 @@
         podman
         nixpkgs-fmt
         inputs.nh.packages."${pkgs.system}".default
+        inputs.manix.packages."${pkgs.system}".manix
     ];
 
     # Specifies where my flake is located

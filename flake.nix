@@ -10,6 +10,9 @@
             url = "github:viperML/nh";
             inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
         };
+        manix = {
+            url = "github:mlvzk/manix";
+        };
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
