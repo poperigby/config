@@ -45,6 +45,9 @@
     inputs.nh.packages."${pkgs.system}".default
   ];
 
+  # Specifies where my flake is located
+  environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
+
 
   # List services that you want to enable:
   services.openssh.enable = true;
