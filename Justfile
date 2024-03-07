@@ -1,8 +1,8 @@
 rebuild:
-    sudo nixos-rebuild switch
+    sudo nixos-rebuild switch --flake .#haddock
 
 debug:
-    sudo nixos-rebuild switch --show-trace --verbose
+    sudo nixos-rebuild switch --flake .#haddock --show-trace --verbose
 
 update:
     nix flake update
