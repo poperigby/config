@@ -47,6 +47,7 @@
     neovim
     just
     podman
+    nh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
