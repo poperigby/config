@@ -45,6 +45,7 @@
   environment.systemPackages = with pkgs; [
     git
     neovim
+    just
   ];
 
   # Use Neovim as default editor
