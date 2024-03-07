@@ -4,11 +4,11 @@
   # Inputs for building the NixOS system, such as software repositories.
   inputs = {
     nixpkgs = {
-        url = "github:NixOS/nixpkgs/nixos-23.11";
+      url = "github:NixOS/nixpkgs/nixos-23.11";
     };
     nh = {
-        url = "github:viperML/nh";
-        inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
     };
   };
 
