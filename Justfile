@@ -1,11 +1,11 @@
 rebuild:
-    sudo nixos-rebuild switch --flake .#haddock
+    nh os switch .
 
 debug:
-    sudo nixos-rebuild switch --flake .#haddock --show-trace --verbose
+    nh os switch . --verbose
 
 update:
     nix flake update
 
-gc:
-    sudo nix-collect-garbage --delete-old
+clean:
+    nh clean all
