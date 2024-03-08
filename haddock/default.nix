@@ -10,15 +10,16 @@
         ./hardware-configuration.nix
     ];
 
-    networking.hostName = "haddock"; # Define your hostname.
+    # Define hostname
+    networking.hostName = "haddock"; 
 
-    # Set your time zone.
+    # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
     # Define a user account. Don't forget to set a password with 'passwd'.
     users.users.cassidy = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ]; # Enable 'sudo' for the user.
+        extraGroups = [ "wheel" ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -31,8 +32,9 @@
         inputs.manix.packages."${pkgs.system}".manix
     ];
 
-    # List services that you want to enable:
-    services.openssh.enable = true;
+    services = {
+        openssh.enable = true;
+    };
 
     # DO NOT TOUCH
     system.stateVersion = "23.11";
