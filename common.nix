@@ -4,9 +4,10 @@
     # Enable New CLI and Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+    # Allows running random binaries from the internet seamlessly
     programs.nix-ld = {
         enable = true;
-        # Sets up all the libraries to load
+        # Sets up common libraries to load
         libraries = with pkgs; [
             stdenv.cc.cc
             zlib
@@ -19,6 +20,10 @@
             expat
         ];
     };
+
+    # Dynamically populates contents of /bin and /usr/bin/, allowing
+    # programs that assume FHS to work.
+    services.envfs.enable = true;
 
     # Specifies where my flake is located
     environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
