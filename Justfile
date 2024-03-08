@@ -1,4 +1,4 @@
-rebuild:
+switch:
     nh os switch .
 
 debug:
