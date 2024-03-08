@@ -11,7 +11,7 @@
             inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
         };
         manix = {
-            url = "github:mlvzk/manix";
+            url = "github:nix-community/manix";
         };
     };
 
