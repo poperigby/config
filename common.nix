@@ -1,8 +1,24 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     # Enable New CLI and Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    programs.nix-ld = {
+        enable = true;
+        # Sets up all the libraries to load
+        libraries = with pkgs; [
+            stdenv.cc.cc
+            zlib
+            fuse3
+            icu
+            zlib
+            nss
+            openssl
+            curl
+            expat
+        ];
+    };
 
     # Specifies where my flake is located
     environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
