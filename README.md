@@ -2,7 +2,15 @@
 
 ## Setup
 
+### Clone the repository
 ```bash
 git clone git@codeberg.org:PopeRigby/nixos.git
-sudo nixos-rebuild switch --flake .#haddock
+```
+
+### Setup `age`
+Copy the `age` private key from Bitwarden to `~/.config/sops/age/keys.txt`
+
+### Build the flake
+```bash
+sudo nixos-rebuild switch --flake .#<hostname>
 ```
