@@ -26,6 +26,9 @@
     # Specifies where my flake is located
     environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
 
+    # Set neovim as my default editor
+    environment.variables.EDITOR = "nvim";
+
     # Boot loader configuration
     boot.loader = {
         systemd-boot = {
