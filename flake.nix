@@ -3,15 +3,12 @@
 
     # Inputs for building the NixOS system, such as software repositories.
     inputs = {
-        nixpkgs = {
-            url = "github:NixOS/nixpkgs/nixos-23.11";
-        };
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+        manix.url = "github:nix-community/manix";
+        sops-nix.url = "github:Mic92/sops-nix";
         nh = {
             url = "github:viperML/nh";
             inputs.nixpkgs.follows = "nixpkgs"; # override this repo's nixpkgs snapshot
-        };
-        manix = {
-            url = "github:nix-community/manix";
         };
     };
 
