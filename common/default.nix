@@ -11,6 +11,13 @@
     # Select internationalization properties.
     i18n.defaultLocale = "en_US.UTF-8";
 
+    # Secret management
+    sops = {
+        defaultSopsFile = ./secrets.yaml;
+        defaultSopsFormat = "yaml";
+        age.keyFile = "/home/cassidy/.config/sops/age/keys.txt";
+    };
+
     # Dynamically populates contents of /bin and /usr/bin/, allowing
     # programs that assume FHS to work.
     services.envfs.enable = true;
