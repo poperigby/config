@@ -28,6 +28,7 @@
         just
         podman
         nixpkgs-fmt
+        sops
         inputs.nh.packages."${pkgs.system}".default
         inputs.manix.packages."${pkgs.system}".manix
     ];
