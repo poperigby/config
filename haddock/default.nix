@@ -36,6 +36,13 @@
         openssh.enable = true;
     };
 
+    # services.restic.backups = {
+    #     borgbase = {
+    #         user = "backups";
+    #         repository = "";
+    #     };
+    # };
+
     # DO NOT TOUCH
     system.stateVersion = "23.11";
 }
