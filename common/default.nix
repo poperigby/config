@@ -14,7 +14,7 @@
 
     # Secret management
     sops = {
-        defaultSopsFile = ./secrets.yaml;
+        defaultSopsFile = ../secrets.yaml;
         defaultSopsFormat = "yaml";
         age.keyFile = "/home/cassidy/.config/sops/age/keys.txt";
     };
