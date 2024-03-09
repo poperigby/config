@@ -1,28 +1,15 @@
 { pkgs, ... }:
 
 {
+    imports = [
+        ./ld.nix
+    ];
+
     # Enable New CLI and Flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     # Select internationalization properties.
     i18n.defaultLocale = "en_US.UTF-8";
-
-    # Allows running random binaries from the internet seamlessly
-    programs.nix-ld = {
-        enable = true;
-        # Sets up common libraries to load
-        libraries = with pkgs; [
-            stdenv.cc.cc
-            zlib
-            fuse3
-            icu
-            zlib
-            nss
-            openssl
-            curl
-            expat
-        ];
-    };
 
     # Dynamically populates contents of /bin and /usr/bin/, allowing
     # programs that assume FHS to work.
