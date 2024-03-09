@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
     imports = [
         ./ld.nix
+        inputs.sops-nix.nixosModules.sops
     ];
 
     # Enable New CLI and Flakes
