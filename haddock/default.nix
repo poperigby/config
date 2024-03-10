@@ -38,22 +38,12 @@
     };
 
     # Backups
-    users.users.backups = {
-        isSystemUser = true;
-        group = "backups";
-    };
-    users.groups.backups = {};
     sops.secrets = {
-        "haddock/restic/url" = {
-            owner = "backups";
-        };
-        "haddock/restic/password" = {
-            owner = "backups";
-        };
+        "haddock/restic/url" = {};
+        "haddock/restic/password" = {};
     };
     services.restic.backups = {
         borgbase = {
-            user = "backups";
             repositoryFile = config.sops.secrets."haddock/restic/url".path;
             passwordFile = config.sops.secrets."haddock/restic/password".path;
             timerConfig.OnCalendar = "daily";
