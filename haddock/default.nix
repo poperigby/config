@@ -57,6 +57,9 @@
             repositoryFile = config.sops.secrets."haddock/restic/url".path;
             passwordFile = config.sops.secrets."haddock/restic/password".path;
             timerConfig.OnCalendar = "daily";
+            paths = [
+                "/home/*/.local/share"
+            ];
         };
     };
 
