@@ -40,6 +40,7 @@
     # Backups
     users.users.backups = {
         isSystemUser = true;
+        group = "backups";
     };
     sops.secrets = {
         "haddock/restic/url" = {
