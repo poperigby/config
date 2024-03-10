@@ -2,6 +2,7 @@
 
 {
     # Setup sops-nix secrets
+    # The correct secrets will automatically be used based on the hostname
     sops.secrets = {
         "${config.networking.hostName}/restic/url" = {};
         "${config.networking.hostName}/restic/password" = {};
