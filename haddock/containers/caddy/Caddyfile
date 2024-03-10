@@ -1,0 +1,141 @@
+# (crowdsec) {
+#     # crowdsec
+#     log
+# }
+#
+# (auth) {
+#     forward_auth auth-pod:9091 {
+#         uri /api/verify?rd=https://auth.haddock.cc
+#         copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+#     }
+# }
+
+# Global configuration
+{
+    # Cloudflare
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    email {env.PERSONAL_EMAIL}
+
+    # Directive ordering
+    # order webdav before file_server
+    # order crowdsec before forward_auth
+    # order crowdsec before reverse_proxy
+
+    # Logging
+    log stdout_logger {
+        output stdout
+        format console
+        exclude http.log.access
+    }
+    log file_logger {
+        output file /var/log/caddy/access.log
+        include http.log.access
+    }
+
+    # Server
+    servers {
+        # Trust X-Forwarded-For value as real IP when request comes from private IP
+        trusted_proxies static private_ranges
+    }
+
+    # CrowdSec bouncer
+    # crowdsec {
+    #     api_url http://localhost:8080
+    #     api_key {env.CROWDSEC_BOUNCER_API_KEY}
+    #     ticker_interval 15s
+    # }
+}
+
+haddock.cc {
+    import crowdsec
+    respond "Hello, world!"
+}
+
+# # Authelia
+# auth.haddock.cc {
+#     import crowdsec
+#
+#     # This is necessary until Authelia learns prompt handling. It's planned for beta 7 (https://www.authelia.com/roadmap/active/openid-connect/#beta-7).
+#     # Without this, the ownCloud desktop client cannot authenticate.
+#     uri /api/oidc/authorization replace &prompt=select_account%20consent ""
+#
+#     reverse_proxy auth-pod:9091
+# }
+#
+# # Jellyfin
+# media.haddock.cc {
+#     import crowdsec
+#     reverse_proxy jellyfin-pod:8096
+# }
+#
+# # Mealie
+# food.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy mealie-pod:9000
+# }
+#
+# # qBittorrent
+# torrent.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy qbittorrent-pod:8080
+# }
+#
+# # Prowlarr
+# prowl.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy arr-pod:9696
+# }
+#
+# # Sonarr
+# tv.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy arr-pod:8989
+# }
+#
+# # Radarr
+# movies.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy arr-pod:7878
+# }
+#
+# # Nextcloud
+# cloud.haddock.cc {
+#     import crowdsec
+#     encode zstd
+#     reverse_proxy nextcloud-pod:80 {
+#         header_down Strict-Transport-Security "max-age=15552000; includeSubDomains"
+#         header_down X-Content-Type-Options "nosniff"
+#         header_down X-XSS-Protection "1; mode=block"
+#         header_down X-Robots-Tag "noindex, nofollow"
+#         header_down X-Frame-Options "SAMEORIGIN"
+#         header_down Referrer-Policy "no-referrer"
+#
+#     }
+#     rewrite /.well-known/carddav /remote.php/dav
+#     rewrite /.well-known/caldav /remote.php/dav
+# }
+#
+# # FreshRSS
+# news.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy freshrss-pod:80
+# }
+#
+# # OwnCloud
+# drive.haddock.cc {
+#     import crowdsec
+#     import auth
+#     reverse_proxy owncloud-pod:9200
+# }
+#
+# # LLDAP
+# users.haddock.cc {
+#     import crowdsec
+#     reverse_proxy auth-pod:17170
+# }
