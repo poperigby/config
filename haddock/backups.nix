@@ -2,15 +2,19 @@
 
 {
     # Backups
+    let
+        url = "${config.networking.hostname}/restic/url";
+        password = "${config.networking.hostname}/restic/password";
+    in
     sops.secrets = {
-        "${config.networking.hostname}/restic/url" = {};
-        "${config.networking.hostname}/restic/password" = {};
+        url = {};
+        password = {};
     };
 
     services.restic.backups = {
         borgbase = {
-            repositoryFile = config.sops.secrets."${config.networking.hostname}/restic/url".path;
-            passwordFile = config.sops.secrets."${config.networking.hostname}/restic/password".path;
+            repositoryFile = config.sops.secrets.url.path;
+            passwordFile = config.sops.secrets.password.path;
             timerConfig.OnCalendar = "daily";
             paths = [
                 "/home/*/.local/share"
