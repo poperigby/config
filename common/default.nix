@@ -4,6 +4,7 @@
     imports = [
         ./ld.nix
         ./secrets.nix
+        ./backups.nix
     ];
 
     # Enable New CLI and Flakes

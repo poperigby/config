@@ -8,7 +8,6 @@
     imports = [
         ../common
         ./hardware-configuration.nix
-        ./backups.nix
     ];
 
     # Define hostname
