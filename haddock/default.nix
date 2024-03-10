@@ -37,12 +37,25 @@
         openssh.enable = true;
     };
 
-    # services.restic.backups = {
-    #     borgbase = {
-    #         user = "backups";
-    #         repository = "";
-    #     };
-    # };
+    # Backups
+    users.users.backups = {
+        isSystemUser = true;
+    };
+    sops.secrets = {
+        "haddock/restic/url" = {
+            owner = "backups";
+        };
+        "haddock/restic/password" = {
+            owner = "backups";
+        };
+    };
+    services.restic.backups = {
+        borgbase = {
+            user = "backups";
+            repositoryFile = config.sops.secrets."haddock/restic/url".path;
+            passwordFile = config.sops.secrets."haddock/restic/password".path;
+        };
+    };
 
     # DO NOT TOUCH
     system.stateVersion = "23.11";
