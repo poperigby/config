@@ -42,6 +42,7 @@
         isSystemUser = true;
         group = "backups";
     };
+    users.groups.backups = {};
     sops.secrets = {
         "haddock/restic/url" = {
             owner = "backups";
