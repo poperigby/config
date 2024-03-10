@@ -58,7 +58,13 @@
             passwordFile = config.sops.secrets."haddock/restic/password".path;
             timerConfig.OnCalendar = "daily";
             paths = [
-                "/home/*/.local/share/*"
+                "/home/*/.local/share"
+            ];
+            pruneOpts = [
+                "--keep-daily 7"
+                "--keep-weekly 4"
+                "--keep-monthly 3"
+                "--keep-yearly 1"
             ];
         };
     };
