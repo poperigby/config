@@ -3,7 +3,7 @@
 {
     services.caddy = {
         enable = true;
-        package = (pkgs.callPackage "${builtins.fetchurl https://raw.githubusercontent.com/jpds/nixpkgs/a33b02fa9d664f31dadc8a874eb1a5dbaa9f4ecf/pkgs/servers/caddy/default.nix}" {
+        package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 { name = "caddy-dns/porkbun"; repo = "github.com/caddy-dns/porkbun"; version = "4267f6797bf6543d7b20cdc8578a31764face4cf"; }
             ];
