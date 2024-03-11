@@ -4,6 +4,7 @@
     # Inputs for building the NixOS system, such as software repositories.
     inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+        unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         manix.url = "github:nix-community/manix";
         sops-nix.url = "github:Mic92/sops-nix";
         nh = {
@@ -20,7 +21,7 @@
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
                 modules = [
-                    ./haddock
+                    ./hosts/haddock
                 ];
             };
         };
