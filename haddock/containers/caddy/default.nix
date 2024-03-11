@@ -6,7 +6,7 @@
         image = "ghcr.io/poperigby/caddy:latest";
         hostname = "caddy";
         volumes = [
-            "./Caddyfile:/etc/caddy/Caddyfile"
+            "${./Caddyfile}:/etc/caddy/Caddyfile"
             "caddy-config:/config"
             "caddy-data:/data"
         ];
