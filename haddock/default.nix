@@ -7,7 +7,7 @@
 {
     imports = [
         ../common
-        ./containers
+        ./services
         ./hardware-configuration.nix
     ];
 
