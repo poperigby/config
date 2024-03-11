@@ -6,7 +6,7 @@
 
 {
     imports = [
-        ../common
+        ../../common
         ./services
         ./hardware-configuration.nix
     ];
