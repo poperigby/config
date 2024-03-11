@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-    # Allows running random binaries from the internet seamlessly
+    # Allows running random dynamically linked binaries seamlessly
     programs.nix-ld = {
         enable = true;
         # Sets up common libraries to load
