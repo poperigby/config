@@ -12,7 +12,7 @@
     ];
 
     # Define hostname
-    networking.hostName = "haddock"; 
+    networking.hostName = "haddock";
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
