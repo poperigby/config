@@ -1,8 +1,14 @@
 { pkgs, ... }:
 
 {
+    sops.secrets = {
+        "haddock/caddy/cloudflare_api_token" = {};
+        "haddock/caddy/personal_email" = {};
+    };
+
     services.caddy = {
         enable = true;
+        # configFile = "";
         package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 {
