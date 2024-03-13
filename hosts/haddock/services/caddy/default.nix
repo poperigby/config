@@ -6,13 +6,14 @@
         "haddock/caddy/personal_email" = {};
     };
 
+    sops.templates."Caddyfile".content = ''
+        acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
+        email ${config.sops.placeholder."haddock/caddy/personal_email"}
+    '';
+
     services.caddy = {
         enable = true;
-        # configFile = "";
-        globalConfig = ''
-            acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
-            email ${config.sops.placeholder."haddock/caddy/personal_email"}
-        '';
+        configFile = config.sops.templates."Caddyfile".path;
         package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 {
@@ -30,4 +31,6 @@
             vendorHash = "sha256-NoUbcMsdMVdUWbKlnoZ5Y34dQWtNa/OwrmZ0Cy4grVk=";
         });
     };
+
+
 }
