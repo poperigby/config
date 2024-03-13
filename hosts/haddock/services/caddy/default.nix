@@ -16,7 +16,6 @@
         '';
     };
 
-
     services.caddy = {
         enable = true;
         configFile = config.sops.templates.Caddyfile.path;
