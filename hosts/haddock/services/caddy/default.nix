@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
     sops.secrets = {
@@ -9,6 +9,10 @@
     services.caddy = {
         enable = true;
         # configFile = "";
+        globalConfig = ''
+            acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
+            email ${config.sops.placeholder."haddock/caddy/personal_email"}
+        '';
         package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 {
