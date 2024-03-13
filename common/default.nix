@@ -24,10 +24,10 @@
     environment.variables.EDITOR = "nvim";
 
     # Set up me :)
-    sops.secrets.cassidy-password.neededForUsers = true;
+    sops.secrets."common/passwords/cassidy".neededForUsers = true;
     users.users.cassidy = {
         isNormalUser = true;
-        hashedPasswordFile = config.sops.secrets.cassidy-password.path;
+        hashedPasswordFile = config.sops.secrets."common/passwords/cassidy".path;
         extraGroups = [ "wheel" ];
     };
 
