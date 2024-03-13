@@ -17,7 +17,7 @@ let
     builtins.map ({name, repo, version}: "${repo}@${version}") attrs;
 in buildGoModule rec {
   pname = "caddy";
-  version = "2.7.5";
+  version = "2.7.6";
 
   dist = fetchFromGitHub {
     owner = "caddyserver";
