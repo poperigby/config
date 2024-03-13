@@ -7,13 +7,15 @@
     };
 
     sops.templates."Caddyfile".content = ''
-        acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
-        email ${config.sops.placeholder."haddock/caddy/personal_email"}
+        {
+            acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
+            email ${config.sops.placeholder."haddock/caddy/personal_email"}
+        }
     '';
 
     services.caddy = {
         enable = true;
-        configFile = config.sops.templates."Caddyfile".path;
+        configFile = "${config.sops.templates."Caddyfile".path}";
         package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 {
