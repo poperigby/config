@@ -7,7 +7,7 @@
     };
 
     sops.templates.Caddyfile = {
-        user = "caddy";
+        owner = "caddy";
         content = ''
             {
                 acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
@@ -19,7 +19,7 @@
 
     services.caddy = {
         enable = true;
-        configFile = config.sops.templates."Caddyfile".path;
+        configFile = config.sops.templates.Caddyfile.path;
         package = (pkgs.callPackage ./custom-package.nix {
             externalPlugins = [
                 {
