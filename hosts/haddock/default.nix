@@ -17,11 +17,6 @@
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
-    users.users.cassidy = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-    };
-
     environment.systemPackages = with pkgs; [
         git
         neovim

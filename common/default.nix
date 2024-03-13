@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
     imports = [
@@ -22,6 +22,14 @@
 
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
+
+    # Set up me :)
+    sops.secrets.cassidy-password.neededForUsers = true;
+    users.users.cassidy = {
+        isNormalUser = true;
+        hashedPasswordFile = config.sops.secrets.cassidy-password.path;
+        extraGroups = [ "wheel" ];
+    };
 
     # Boot loader configuration
     boot.loader = {
