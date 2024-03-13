@@ -4,20 +4,20 @@
     services.caddy = {
         enable = true;
         package = (pkgs.callPackage ./custom-package.nix {
-            #externalPlugins = [
-                #{
-                #    name = "caddy-dns/cloudflare";
-                #    repo = "github.com/caddy-dns/cloudflare";
-                #    version = "2fa0c8ac916ab13ee14c836e59fec9d85857e429";
-                #}
-                #{
-                #    name = "hslatman/caddy-crowdsec-bouncer";
-                #    repo = "github.com/hslatman/caddy-crowdsec-bouncer";
-                #    version = "054d8c9";
-                #}
-            #];
+            externalPlugins = [
+                {
+                    name = "caddy-dns/cloudflare";
+                    repo = "github.com/caddy-dns/cloudflare";
+                    version = "737bf003fe8af81814013a01e981dc8faea44c07";
+                }
+                {
+                    name = "hslatman/caddy-crowdsec-bouncer";
+                    repo = "github.com/hslatman/caddy-crowdsec-bouncer";
+                    version = "2f58c9f6be2c98b37d07a48c5dfaaf8a7178ac0f";
+                }
+            ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "sha256-Sr3jAogrsYKqRN2PExP3KGCtbuVtAT7LshKFka9S2Zk=";
+            vendorHash = "sha256-NoUbcMsdMVdUWbKlnoZ5Y34dQWtNa/OwrmZ0Cy4grVk=";
         });
     };
 }
