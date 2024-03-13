@@ -1,10 +1,12 @@
-{ config, pkgs, inputs, ... }:
+{ config, ... }:
 
 {
     imports = [
-        ./ld.nix
-        ./secrets.nix
         ./backups.nix
+        ./bootloader.nix
+        ./ld.nix
+        ./reduce-disk-usage.nix
+        ./secrets.nix
     ];
 
     # Enable New CLI and Flakes
@@ -30,25 +32,4 @@
         hashedPasswordFile = config.sops.secrets."common/passwords/cassidy".path;
         extraGroups = [ "wheel" ];
     };
-
-    # Boot loader configuration
-    boot.loader = {
-        systemd-boot = {
-            enable = true;
-            # Limit the number of generations to keep
-            configurationLimit = 10;
-        };
-        efi.canTouchEfiVariables = true;
-    };
-
-
-    # Perform garbage collection weekly to maintain low disk usage
-    nix.gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 1w";
-    };
-
-    # Optimize storage
-    nix.settings.auto-optimise-store = true;
 }
