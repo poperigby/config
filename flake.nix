@@ -17,12 +17,22 @@
     # based on the `inputs` attribute set, and any `modules` specified.
     outputs = inputs@{ self, nixpkgs, ... }: {
         nixosConfigurations = {
-            haddock = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
+            # Custom ISO
+            iso = nixpkgs.lib.nixosSystem {
+                modules = [
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma.nix"
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+                    ./hosts/iso/configuration.nix
+                ];
                 specialArgs = { inherit inputs; };
+            };
+            # Home server
+            haddock = nixpkgs.lib.nixosSystem {
                 modules = [
                     ./hosts/haddock
                 ];
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
             };
         };
     };
