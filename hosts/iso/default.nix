@@ -5,7 +5,7 @@
         ../../common
     ];
 
-    networking.hostname = "iso";
+    networking.hostName = "iso";
 
     users.extraUsers.root.password = "nixos";
 }
