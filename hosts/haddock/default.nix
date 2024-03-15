@@ -16,6 +16,7 @@
         enable = true;
         paths = [
             "/home/*/.local/share"
+            "/var/backup/postgresql"
         ];
     };
 
