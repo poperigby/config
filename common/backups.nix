@@ -14,7 +14,8 @@
         };
     };
 
-    config = lib.mkIf config.common.backups.enable {
+    # Only enable backups if this module's `enable` option is true
+    config = lib.mkIf config.enable {
         # Setup sops-nix secrets
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {
@@ -33,7 +34,7 @@
                     "--keep-monthly 3"
                     "--keep-yearly 1"
                 ];
-                paths = config.common.backups.paths;
+                paths = config.paths;
             };
         };
     };
