@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
     imports = [
@@ -11,9 +11,13 @@
         ./hardware-configuration.nix
     ];
 
-    common.backups.paths = [
-        "/home/*/.local/share"
-    ];
+    # Setup Restic backups
+    common.backups = {
+        enable = true;
+        paths = [
+            "/home/*/.local/share"
+        ];
+    };
 
     # Define hostname
     networking.hostName = "haddock";
