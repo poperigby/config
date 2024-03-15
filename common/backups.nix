@@ -4,7 +4,7 @@
     options = {
         common.backups.enable = lib.mkOption {
             type = lib.types.bool;
-            default = true;
+            default = false;
         };
         common.backups.paths = lib.mkOption {
             type = lib.types.nullOr (lib.types.listOf lib.types.str);
