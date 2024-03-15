@@ -9,6 +9,10 @@
         common.backups.paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;
         };
+        common.backups.frequency = lib.mkOption {
+            type = lib.types.str;
+            default = "daily";
+        };
     };
 
     # Only enable backups if this module's `enable` option is true
@@ -24,7 +28,7 @@
             borgbase = {
                 repositoryFile = config.sops.secrets."${config.networking.hostName}/restic/url".path;
                 passwordFile = config.sops.secrets."${config.networking.hostName}/restic/password".path;
-                timerConfig.OnCalendar = "daily";
+                timerConfig.OnCalendar = config.common.backups.frequency;
                 pruneOpts = [
                     "--keep-daily 7"
                     "--keep-weekly 4"
