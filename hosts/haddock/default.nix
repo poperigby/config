@@ -11,6 +11,10 @@
         ./hardware-configuration.nix
     ];
 
+    config.common.backups.paths = [
+        "/home/*/.local/share"
+    ];
+
     # Define hostname
     networking.hostName = "haddock";
 

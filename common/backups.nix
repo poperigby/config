@@ -7,10 +7,7 @@
             default = true;
         };
         paths = lib.mkOption {
-            type = lib.types.lines;
-            default = [
-                "/home/*/.local/share"
-            ];
+            type = lib.types.nullOr lib.types.listOf lib.type.str;
         };
     };
 
