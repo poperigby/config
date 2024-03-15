@@ -18,17 +18,17 @@
         };
         settings = {
             theme = "auto";
+            # authentication_backend = {
+            #
+            # };
             storage = {
                 postgres = {
-                    address = "tcp://127.0.0.1:5432";
+                    host = "tcp://127.0.0.1:5432";
                     database = "authelia";
                     username = "authelia-haddock";
                     password = "";
                 };
             };
-            # authentication_backend = {
-            #
-            # };
         };
     };
 }
