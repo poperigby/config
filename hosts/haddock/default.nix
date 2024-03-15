@@ -11,7 +11,7 @@
         ./hardware-configuration.nix
     ];
 
-    config.common.backups.paths = [
+    common.backups.paths = [
         "/home/*/.local/share"
     ];
 
