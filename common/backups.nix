@@ -1,22 +1,26 @@
 { config, lib, ... }:
 
+let
+  cfg = config.common.backups;
+in
 {
-    options = {
-        common.backups.enable = lib.mkOption {
+    # Setup common.backups options
+    options.common.backups = {
+        enable = lib.mkOption {
             type = lib.types.bool;
             default = false;
         };
-        common.backups.paths = lib.mkOption {
+        paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;
         };
-        common.backups.frequency = lib.mkOption {
+        frequency = lib.mkOption {
             type = lib.types.str;
             default = "daily";
         };
     };
 
-    # Only enable backups if this module's `enable` option is true
-    config = lib.mkIf config.common.backups.enable {
+    # Only enable backups if `common.backups.enable` is true
+    config = lib.mkIf cfg.enable {
         # Setup sops-nix secrets
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {
@@ -28,14 +32,14 @@
             borgbase = {
                 repositoryFile = config.sops.secrets."${config.networking.hostName}/restic/url".path;
                 passwordFile = config.sops.secrets."${config.networking.hostName}/restic/password".path;
-                timerConfig.OnCalendar = config.common.backups.frequency;
+                timerConfig.OnCalendar = cfg.frequency;
                 pruneOpts = [
                     "--keep-daily 7"
                     "--keep-weekly 4"
                     "--keep-monthly 3"
                     "--keep-yearly 1"
                 ];
-                paths = config.common.backups.paths;
+                paths = cfg.paths;
             };
         };
     };
