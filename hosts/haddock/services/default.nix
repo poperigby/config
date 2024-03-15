@@ -4,6 +4,7 @@
     imports = [
         ./authelia.nix
         ./caddy
+        ./postgresql.nix
     ];
 
     # Automatically prune all unused pods, containers, images,
