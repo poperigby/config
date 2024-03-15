@@ -22,8 +22,9 @@
                 modules = [
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-plasma.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-                    ./hosts/iso/configuration.nix
+                    ./hosts/iso
                 ];
+                system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
             };
             # Home server
