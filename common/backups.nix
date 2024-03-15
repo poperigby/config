@@ -2,6 +2,7 @@
 
 let
   cfg = config.common.backups;
+  hostName = config.networking.hostName;
 in
 {
     # Setup common.backups options
@@ -24,14 +25,14 @@ in
         # Setup sops-nix secrets
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {
-            "${config.networking.hostName}/restic/url" = {};
-            "${config.networking.hostName}/restic/password" = {};
+            "${hostName}/restic/url" = {};
+            "${hostName}/restic/password" = {};
         };
 
         services.restic.backups = {
             borgbase = {
-                repositoryFile = config.sops.secrets."${config.networking.hostName}/restic/url".path;
-                passwordFile = config.sops.secrets."${config.networking.hostName}/restic/password".path;
+                repositoryFile = config.sops.secrets."${hostName}/restic/url".path;
+                passwordFile = config.sops.secrets."${hostName}/restic/password".path;
                 timerConfig.OnCalendar = cfg.frequency;
                 pruneOpts = [
                     "--keep-daily 7"
