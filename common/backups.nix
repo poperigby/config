@@ -2,17 +2,17 @@
 
 {
     options = {
-        enable = lib.mkOption {
+        common.backups.enable = lib.mkOption {
             type = lib.types.bool;
             default = true;
         };
-        paths = lib.mkOption {
-            type = lib.types.nullOr lib.types.listOf lib.type.str;
+        common.backups.paths = lib.mkOption {
+            type = lib.types.nullOr (lib.types.listOf lib.types.str);
         };
     };
 
     # Only enable backups if this module's `enable` option is true
-    config = lib.mkIf config.enable {
+    config = lib.mkIf config.common.backups.enable {
         # Setup sops-nix secrets
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {
@@ -31,7 +31,7 @@
                     "--keep-monthly 3"
                     "--keep-yearly 1"
                 ];
-                paths = config.paths;
+                paths = config.common.backups.paths;
             };
         };
     };
