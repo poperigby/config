@@ -7,7 +7,7 @@
             default = false;
         };
         common.backups.paths = lib.mkOption {
-            type = lib.types.nullOr (lib.types.listOf lib.types.str);
+            type = lib.types.listOf lib.types.str;
         };
     };
 
