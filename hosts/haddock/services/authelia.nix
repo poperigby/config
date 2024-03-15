@@ -3,15 +3,17 @@
 {
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
-            owner = "authelia-haddock";
+            owner = "authelia";
         };
         "haddock/authelia/storage_encryption_key" = {
-            owner = "authelia-haddock";
+            owner = "authelia";
         };
     };
 
     services.authelia.instances.haddock = {
         enable = true;
+        user = "authelia";
+        group = "authelia";
         secrets = {
             jwtSecretFile = config.sops.secrets."haddock/authelia/jwt_secret".path;
             storageEncryptionKeyFile = config.sops.secrets."haddock/authelia/storage_encryption_key".path;
@@ -25,8 +27,8 @@
                 postgres = {
                     host = "tcp://127.0.0.1:5432";
                     database = "authelia";
-                    username = "authelia-haddock";
-                    password = "";
+                    username = "authelia";
+                    password = "authelia";
                 };
             };
         };

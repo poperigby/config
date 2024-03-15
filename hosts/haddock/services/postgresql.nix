@@ -8,10 +8,8 @@
         ];
         ensureUsers = [
             {
-                name = "authelia-haddock";
-                ensurePermissions = {
-                    "DATABASE authelia" = "ALL PRIVILEGES";
-                };
+                name = "authelia";
+                ensureDBOwnership = true;
             }
         ];
     };
