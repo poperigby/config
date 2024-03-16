@@ -9,7 +9,7 @@
         ensureUsers = [
             {
                 name = "authelia-haddock";
-                ensureDbOwnership = true;
+                ensureDBOwnership = true;
             }
         ];
     };
