@@ -4,14 +4,12 @@
     services.postgresql = {
         enable = true;
         ensureDatabases = [
-            "authelia"
+            "authelia-haddock"
         ];
         ensureUsers = [
             {
                 name = "authelia-haddock";
-                ensurePermissions = {
-                    "DATABASE authelia" = "ALL PRIVILEGES";
-                };
+                ensureDbOwnership = true;
             }
         ];
     };
