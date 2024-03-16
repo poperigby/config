@@ -4,6 +4,7 @@
     imports = [
         ./authelia.nix
         ./caddy
+        ./lldap.nix
         ./postgresql.nix
     ];
 
