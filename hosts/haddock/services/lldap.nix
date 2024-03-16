@@ -3,13 +3,13 @@
 {
     sops.secrets = {
         "haddock/lldap/jwt_secret" = {
-            # owner = "lldap";
+            owner = "lldap";
         };
         "haddock/lldap/admin_password" = {
-            # owner = "lldap";
+            owner = "lldap";
         };
         "haddock/lldap/key_seed" = {
-            # owner = "lldap";
+            owner = "lldap";
         };
     };
 
