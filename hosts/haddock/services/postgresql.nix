@@ -5,10 +5,15 @@
         enable = true;
         ensureDatabases = [
             "authelia-haddock"
+            "lldap"
         ];
         ensureUsers = [
             {
                 name = "authelia-haddock";
+                ensureDBOwnership = true;
+            }
+            {
+                name = "lldap";
                 ensureDBOwnership = true;
             }
         ];

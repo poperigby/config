@@ -23,7 +23,7 @@
             # };
             storage = {
                 postgres = {
-                    host = "tcp://127.0.0.1:5432";
+                    host = "tcp://localhost:5432";
                     database = "authelia-haddock";
                     username = "authelia-haddock";
                     password = "authelia";
