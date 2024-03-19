@@ -26,6 +26,8 @@
         };
     };
 
+    users.extraUsers.lldap.isSystemUser = true;
+    users.extraGroups.lldap.members = [ "lldap" ];
     systemd.services.lldap.serviceConfig = {
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
