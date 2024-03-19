@@ -16,7 +16,6 @@
     services.lldap = {
         enable = true;
         settings = {
-            database_url = "postgres://lldap@localhost/lldap";
             ldap_base_dn = "dc=haddock,dc=cc";
         };
         environment = {
