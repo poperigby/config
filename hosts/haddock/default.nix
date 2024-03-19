@@ -17,6 +17,8 @@
         paths = [
             "/home/*/.local/share"
             "/var/backup/postgresql"
+            "/var/lib/lldap"
+            "/var/lib/authelia-haddock"
         ];
     };
 

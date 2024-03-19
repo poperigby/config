@@ -22,12 +22,7 @@
             #
             # };
             storage = {
-                postgres = {
-                    host = "tcp://localhost:5432";
-                    database = "authelia-haddock";
-                    username = "authelia-haddock";
-                    password = "authelia";
-                };
+                local.path = "/var/lib/autheila-haddock/db.sqlite3";
             };
         };
     };
