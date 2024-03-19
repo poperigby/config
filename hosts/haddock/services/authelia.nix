@@ -22,7 +22,7 @@
             #
             # };
             storage = {
-                local.path = "/var/lib/autheila-haddock/db.sqlite3";
+                local.path = "/var/lib/authelia-haddock/db.sqlite3";
             };
         };
     };
