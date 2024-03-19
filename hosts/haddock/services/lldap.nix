@@ -25,4 +25,10 @@
             LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
         };
     };
+
+    systemd.services.lldap.serviceConfig = {
+        # DynamicUser screws up sops-nix ownership because
+        # the user doesn't exist outside of runtime.
+        DynamicUser = false;
+    };
 }
