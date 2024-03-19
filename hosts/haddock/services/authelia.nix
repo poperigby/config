@@ -5,6 +5,9 @@
         "haddock/authelia/jwt_secret" = {
             owner = "authelia-haddock";
         };
+        "haddock/lldap/admin_password" = {
+            owner = "authelia-haddock";
+        };
         "haddock/authelia/storage_encryption_key" = {
             owner = "authelia-haddock";
         };
@@ -30,15 +33,26 @@
                 local.path = "/var/lib/authelia-haddock/db.sqlite3";
             };
             session = {
-                domain = "https://haddock.cc";
-                authelia_url = "https://auth.haddock.cc";
+                url = "https://haddock.cc";
             };
             # notifier = {};
+            access_control = {
+                default_policy = "deny";
+                rules = [
+                    {
+                        domain = "*.haddock.cc";
+                        policy = "one_factor";
+                    }
+                ];
+            };
         };
         secrets = {
             jwtSecretFile = config.sops.secrets."haddock/authelia/jwt_secret".path;
             storageEncryptionKeyFile = config.sops.secrets."haddock/authelia/storage_encryption_key".path;
             sessionSecretFile = config.sops.secrets."haddock/authelia/session_secret".path;
+        };
+        environmentVariables = {
+            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
         };
     };
 }
