@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
     sops.secrets = {
@@ -29,6 +29,6 @@
     systemd.services.lldap.serviceConfig = {
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
-        DynamicUser = false;
+        DynamicUser = lib.mkForce false;
     };
 }
