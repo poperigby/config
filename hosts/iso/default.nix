@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ builtins, pkgs, ... }:
 
 {
     # Set the hostname
@@ -16,5 +16,6 @@
     # Useful packages for installation and recovery
     environment.systemPackages = with pkgs; [
        neovim
+       writeShellScriptBin "install" (builtins.readFile ./install.sh)
     ];
 }
