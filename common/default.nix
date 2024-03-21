@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
     imports = [
@@ -7,6 +7,7 @@
         ./ld.nix
         ./reduce-disk-usage.nix
         ./secrets.nix
+        ./users.nix
     ];
 
     # Enable New CLI and Flakes
@@ -25,11 +26,4 @@
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
 
-    # Set up me :)
-    sops.secrets."common/passwords/cassidy".neededForUsers = true;
-    users.users.cassidy = {
-        isNormalUser = true;
-        hashedPasswordFile = config.sops.secrets."common/passwords/cassidy".path;
-        extraGroups = [ "wheel" ];
-    };
 }
