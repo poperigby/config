@@ -17,7 +17,7 @@
     # based on the `inputs` attribute set, and any `modules` specified.
     outputs = inputs@{ self, nixpkgs, ... }: {
         nixosConfigurations = {
-            # Custom ISO
+            # Installation/recovery ISO
             iso = nixpkgs.lib.nixosSystem {
                 modules = [
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix"
