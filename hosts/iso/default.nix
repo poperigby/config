@@ -10,6 +10,7 @@
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
 
+    # Useful packages for installation and recovery
     environment.systemPackages = with pkgs; [
        neovim
     ];
