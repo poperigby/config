@@ -7,7 +7,7 @@
 
     networking.hostName = "iso";
 
-    users.extraUsers.root.password = "nixos";
+    users.users.root.password = "nixos";
 
     environment.systemPackages = with pkgs; [
        neovim
