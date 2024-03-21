@@ -1,18 +1,6 @@
 { config, ... }:
 
 {
-    sops.secrets = {
-        "haddock/authelia/jwt_secret" = {
-            owner = "authelia-haddock";
-        };
-        "haddock/authelia/storage_encryption_key" = {
-            owner = "authelia-haddock";
-        };
-        "haddock/authelia/session_secret" = {
-            owner = "authelia-haddock";
-        };
-    };
-
     services.authelia.instances.haddock = {
         enable = true;
         settings = {
@@ -52,4 +40,17 @@
         #     AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
         # };
     };
+
+    sops.secrets = {
+        "haddock/authelia/jwt_secret" = {
+            owner = "authelia-haddock";
+        };
+        "haddock/authelia/storage_encryption_key" = {
+            owner = "authelia-haddock";
+        };
+        "haddock/authelia/session_secret" = {
+            owner = "authelia-haddock";
+        };
+    };
+
 }
