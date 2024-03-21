@@ -15,8 +15,9 @@
 
     # Useful packages for installation and recovery
     environment.systemPackages = with pkgs; [
-       neovim
-       gum
-       writeShellScriptBin "install-nixos" (builtins.readFile ./install-nixos.sh)
+        neovim
+        gum
+        inputs.disko.packages."${pkgs.system}".disko
+        writeShellScriptBin "install-nixos" (builtins.readFile ./install-nixos.sh)
     ];
 }
