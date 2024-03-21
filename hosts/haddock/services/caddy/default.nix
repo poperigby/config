@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ builtins, config, pkgs, ... }:
 
 {
     sops.secrets = {
@@ -8,12 +8,7 @@
 
     sops.templates.Caddyfile = {
         owner = "caddy";
-        content = ''
-            {
-                acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
-                email ${config.sops.placeholder."haddock/caddy/personal_email"}
-            }
-        '';
+        content = builtins.readFile ./Caddyfile;
     };
 
     services.caddy = {
