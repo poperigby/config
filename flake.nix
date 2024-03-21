@@ -20,7 +20,7 @@
             # Custom ISO
             iso = nixpkgs.lib.nixosSystem {
                 modules = [
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
                     ./hosts/iso
                 ];
@@ -35,6 +35,7 @@
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
             };
+            # Laptop
             allan = nixpkgs.lib.nixosSystem {
                 modules = [
                     ./hosts/allan
