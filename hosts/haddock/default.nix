@@ -8,7 +8,7 @@
     imports = [
         ../../common
         ./services
-        ./hardware-configuration.nix
+        ./hardware.nix
     ];
 
     # Setup Restic backups
