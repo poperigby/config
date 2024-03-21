@@ -1,16 +1,6 @@
 { builtins, config, pkgs, ... }:
 
 {
-    sops.secrets = {
-        "haddock/caddy/cloudflare_api_token" = {};
-        "haddock/caddy/personal_email" = {};
-    };
-
-    sops.templates.Caddyfile = {
-        owner = "caddy";
-        content = builtins.readFile ./Caddyfile;
-    };
-
     services.caddy = {
         enable = true;
         configFile = config.sops.templates.Caddyfile.path;
@@ -32,5 +22,13 @@
         });
     };
 
+    sops.templates.Caddyfile = {
+        owner = "caddy";
+        content = builtins.readFile ./Caddyfile;
+    };
 
+    sops.secrets = {
+        "haddock/caddy/cloudflare_api_token" = {};
+        "haddock/caddy/personal_email" = {};
+    };
 }

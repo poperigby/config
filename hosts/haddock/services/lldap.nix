@@ -1,18 +1,6 @@
 { config, lib, ... }:
 
 {
-    sops.secrets = {
-        "haddock/lldap/jwt_secret" = {
-            owner = "lldap";
-        };
-        "haddock/lldap/admin_password" = {
-            owner = "lldap";
-        };
-        "haddock/lldap/key_seed" = {
-            owner = "lldap";
-        };
-    };
-
     services.lldap = {
         enable = true;
         settings = {
@@ -34,5 +22,17 @@
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
         DynamicUser = lib.mkForce false;
+    };
+
+    sops.secrets = {
+        "haddock/lldap/jwt_secret" = {
+            owner = "lldap";
+        };
+        "haddock/lldap/admin_password" = {
+            owner = "lldap";
+        };
+        "haddock/lldap/key_seed" = {
+            owner = "lldap";
+        };
     };
 }
