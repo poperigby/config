@@ -1,7 +1,0 @@
-{ ... }:
-
-{
-    disko.devices = {
-        disk = {};
-    };
-}

@@ -17,7 +17,6 @@
     environment.systemPackages = with pkgs; [
         neovim
         gum
-        inputs.disko.packages."${pkgs.system}".disko
         writeShellScriptBin "install-nixos" (builtins.readFile ./install-nixos.sh)
     ];
 }
