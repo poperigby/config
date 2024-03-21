@@ -35,6 +35,13 @@
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
             };
+            allan = nixpkgs.lib.nixosSystem {
+                modules = [
+                    ./hosts/allan
+                ];
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
+            };
         };
     };
 }
