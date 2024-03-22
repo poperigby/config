@@ -26,4 +26,6 @@
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
 
+    # Enable zRAM swap
+    zramSwap.enable = true;
 }
