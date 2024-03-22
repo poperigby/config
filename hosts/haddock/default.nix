@@ -44,6 +44,6 @@
         openssh.enable = true;
     };
 
-    # DO NOT TOUCH
+    # DO NOT TOUCH 💀
     system.stateVersion = "23.11";
 }
