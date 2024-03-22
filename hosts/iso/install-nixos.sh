@@ -15,7 +15,9 @@ if [ -d "$HOME/nixos" ]; then
 fi
 
 # Partition the disk if the user wants to
-if [ $(gum confirm "Would you like to partition your disk?") -eq 0 ]; then
+echo "The following operation will automatically partition and format your disk"
+echo "to have an EFI and root partition, formatted with EXT4."
+if [ $(gum confirm "Would you like to partition and format your disk?") -eq 0 ]; then
     # Choose which disk to partition
     echo "Which disk would you like to partition and install to?"
     DISK = "/dev/$(lsblk -o NAME,TYPE | grep 'disk' | awk '{print $1}' | gum choose)"
