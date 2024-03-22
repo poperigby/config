@@ -1,4 +1,4 @@
-{ builtins, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
     services.caddy = {
