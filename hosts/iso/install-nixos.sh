@@ -9,8 +9,21 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 
-# Clone my NixOS configuration repository
-git clone https://codeberg.org/PopeRigby/nixos.git ${HOME}/nixos
+# Clone my NixOS configuration repository if it's not already there
+if [ -d "$HOME/nixos" ]; then
+    git clone https://codeberg.org/PopeRigby/nixos.git ${HOME}/nixos
+fi
+
+# Partition the disk if the user wants to
+if [ $(gum confirm "Would you like to partition your disk?") -eq 0 ]; then
+    # Choose which disk to partition
+    echo "Which disk would you like to partition and install to?"
+    DISK = "/dev/$(lsblk -o NAME,TYPE | grep 'disk' | awk '{print $1}' | gum choose)"
+
+    # Confirm the user actually wants to partition the disk
+    echo        "          ⚠️⚠️⚠️                   WARNING              ⚠️⚠️⚠️           "
+    gum confirm "Are you sure you want to continue? The selected disk will be wiped!"
+fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
