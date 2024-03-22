@@ -1,12 +1,13 @@
 {
-    lib,
     buildGoModule,
+    builtins,
+    caddy,
     fetchFromGitHub,
     gnused,
-    nixosTests,
-    caddy,
-    testers,
     installShellFiles,
+    lib,
+    nixosTests,
+    testers,
     externalPlugins ? [],
     vendorHash ? "sha256-YNcQtjPGQ0XMSog+sWlH4lG/QdbdI0Lyh/fUGqQUFaY=",
 }:
