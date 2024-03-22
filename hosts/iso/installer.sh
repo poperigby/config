@@ -27,12 +27,7 @@ if gum confirm --default=false "Would you like to partition and format your disk
     gum confirm --default=false "Are you sure you want to continue? The selected disk will be wiped!"
 
     # Partition and mount disks based on the system's Disko configuration
-     sudo nix run github:nix-community/disko \
-         --extra-experimental-features "nix-command flakes" \
-         --no-write-lock-file \
-         -- \
-         --mode disko \
-         "${HOME}/config/hosts/${TARGET_HOST}/disks.nix"
+     sudo disko --mode disko "${HOME}/config/hosts/${TARGET_HOST}/disks.nix"
 fi
 
 echo "Installing NixOS system"

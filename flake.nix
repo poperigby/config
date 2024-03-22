@@ -19,13 +19,14 @@
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
     # based on the `inputs` attribute set, and any `modules` specified.
-    outputs = inputs@{ self, nixpkgs, ... }: {
+    outputs = inputs@{ self, disko, nixpkgs, ... }: {
         nixosConfigurations = {
             # Installation/recovery ISO
             iso = nixpkgs.lib.nixosSystem {
                 modules = [
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+                    disko.nixosModules.disko
                     ./hosts/iso
                 ];
                 system = "x86_64-linux";
@@ -34,6 +35,7 @@
             # Home server
             haddock = nixpkgs.lib.nixosSystem {
                 modules = [
+                    disko.nixosModules.disko
                     ./hosts/haddock
                 ];
                 system = "x86_64-linux";
@@ -42,6 +44,7 @@
             # Laptop
             allan = nixpkgs.lib.nixosSystem {
                 modules = [
+                    disko.nixosModules.disko
                     ./hosts/allan
                 ];
                 system = "x86_64-linux";
