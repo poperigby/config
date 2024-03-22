@@ -1,4 +1,4 @@
-{ builtins, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
     # Set the hostname

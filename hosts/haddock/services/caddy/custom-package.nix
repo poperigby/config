@@ -1,6 +1,5 @@
 {
     buildGoModule,
-    builtins,
     caddy,
     fetchFromGitHub,
     gnused,
