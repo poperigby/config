@@ -21,7 +21,7 @@
             # Installation/recovery ISO
             iso = nixpkgs.lib.nixosSystem {
                 modules = [
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares-plasma6.nix"
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
                     ./hosts/iso
                 ];
