@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
     # Set the hostname
@@ -15,6 +15,7 @@
         git
         gum
         neovim
+        inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
     ];
 }
