@@ -7,9 +7,7 @@
             type = "gpt";
             partitions = {
                 esp = {
-                    # Partition label
-                    name = "esp";
-                    # This code corresponds to EFI system partition
+                    # This code corresponds to a EFI system partition
                     type = "EF00";
                     size = "500M";
                     content = {
@@ -19,7 +17,6 @@
                     };
                 };
                 root = {
-                    name = "root";
                     # Take up the rest of the space on the disk
                     size = "100%";
                     content = {
