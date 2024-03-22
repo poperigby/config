@@ -21,10 +21,10 @@ TARGET_HOST=$(ls -1 "${HOME}/config/hosts/*/default.nix" | cut -d'/' -f6 | grep 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
 echo "based on the chosen system's Disko configuration."
-if [ "$(gum confirm --default false 'Would you like to partition and format your disk?')" -eq 0 ]; then
+if [ "$(gum confirm --default=false 'Would you like to partition and format your disk?')" -eq 0 ]; then
     # Confirm the user actually wants to partition the disk
     echo                        "          ⚠️⚠️⚠️                   WARNING              ⚠️⚠️⚠️           "
-    gum confirm --default false "Are you sure you want to continue? The selected disk will be wiped!"
+    gum confirm --default=false "Are you sure you want to continue? The selected disk will be wiped!"
 
     # Partition and mount disks based on the system's Disko configuration
      sudo nix run github:nix-community/disko \
