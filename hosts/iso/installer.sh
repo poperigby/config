@@ -23,8 +23,8 @@ echo "The following operation will automatically partition and format your disk"
 echo "based on the chosen system's Disko configuration."
 if gum confirm --default=false "Would you like to partition and format your disk?"; then
     # Confirm the user actually wants to partition the disk
-    echo                        "          !!!                   WARNING              !!!           "
-    gum confirm --default=false "Are you sure you want to continue? The selected disk will be wiped!"
+    echo                        "!!!                       WARNING                        !!!"
+    gum confirm --default=false "Are you sure you want to continue? Your disks will be wiped!"
 
     # Partition and mount disks based on the system's Disko configuration
      sudo disko --mode disko "${HOME}/config/hosts/${TARGET_HOST}/disks.nix"
