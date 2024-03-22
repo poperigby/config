@@ -15,6 +15,6 @@
         git
         gum
         neovim
-        (writeShellScriptBin "install-nixos" (builtins.readFile ./install-nixos.sh))
+        (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
     ];
 }
