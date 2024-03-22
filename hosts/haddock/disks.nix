@@ -25,15 +25,15 @@
                     content = {
                         type = "btrfs";
                         subvolumes = {
-                            "/root" = {
+                            "@" = {
                                 mountpoint = "/";
                                 mountOptions = [ "noatime" ];
                             };
-                            "/home" = {
+                            "@home" = {
                                 mountpoint = "/home";
                                 mountOptions = [ "compress=zstd" "noatime" ];
                             };
-                            "/nix" = {
+                            "@nix" = {
                                 mountpoint = "/nix";
                                 mountOptions = [ "compress=ztsd" "noatime" ];
                             };
