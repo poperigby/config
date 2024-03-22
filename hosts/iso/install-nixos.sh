@@ -16,7 +16,7 @@ fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(ls -1 "${HOME}/config/hosts/*/default.nix" | cut -d'/' -f6 | grep -v iso | gum choose)
+TARGET_HOST=$(ls -1 "${HOME}/config/hosts" --ignore "iso" | gum choose)
 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
