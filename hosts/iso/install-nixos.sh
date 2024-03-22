@@ -10,7 +10,7 @@ if [ "$(id -u)" -eq 0 ]; then
 fi
 
 # Clone my NixOS configuration repository if it's not already there
-if [ -d "${HOME}/config" ]; then
+if [ ! -d "${HOME}/config" ]; then
     git clone https://codeberg.org/PopeRigby/nixos.git ${HOME}/config
 fi
 
