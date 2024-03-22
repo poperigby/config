@@ -11,17 +11,17 @@ fi
 
 # Clone my NixOS configuration repository if it's not already there
 if [ ! -d "${HOME}/config" ]; then
-    git clone https://codeberg.org/PopeRigby/nixos.git ${HOME}/config
+    git clone https://codeberg.org/PopeRigby/nixos.git "${HOME}/config"
 fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(ls -1 ${HOME}/config/hosts/*/default.nix | cut -d'/' -f6 | grep -v iso | gum choose)
+TARGET_HOST=$(ls -1 "${HOME}/config/hosts/*/default.nix" | cut -d'/' -f6 | grep -v iso | gum choose)
 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
 echo "based on the chosen system's Disko configuration."
-if [ $(gum confirm --default false "Would you like to partition and format your disk?") -eq 0 ]; then
+if [ "$(gum confirm --default false 'Would you like to partition and format your disk?')" -eq 0 ]; then
     # Confirm the user actually wants to partition the disk
     echo                        "          ⚠️⚠️⚠️                   WARNING              ⚠️⚠️⚠️           "
     gum confirm --default false "Are you sure you want to continue? The selected disk will be wiped!"
