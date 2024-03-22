@@ -1,6 +1,6 @@
 {
     # Setup the primary disk
-    disko.devices.disk.primary = {
+    disko.devices.disk.sda = {
         device = "/dev/sda";
         type = "disk";
         content = {
