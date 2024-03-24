@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ./authelia.nix
+        ./auth
         ./caddy
         ./lldap.nix
         ./postgresql.nix
