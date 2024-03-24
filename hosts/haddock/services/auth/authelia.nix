@@ -36,10 +36,13 @@
             storageEncryptionKeyFile = config.sops.secrets."haddock/authelia/storage_encryption_key".path;
             sessionSecretFile = config.sops.secrets."haddock/authelia/session_secret".path;
         };
-        # environmentVariables = {
-        #     AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
-        # };
+        environmentVariables = {
+            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
+        };
     };
+
+    # This allows the Authelia service to read the LLDAP admin password
+    systemd.service.authelia-haddock.serviceConfig.SupplementaryGroups  = [ "lldap_admin_password" ];
 
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
