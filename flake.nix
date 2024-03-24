@@ -6,6 +6,10 @@
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         sops-nix.url = "github:Mic92/sops-nix";
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         disko = {
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
