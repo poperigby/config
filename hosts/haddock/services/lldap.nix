@@ -13,11 +13,19 @@
         };
     };
 
-    users.users.lldap = {
-        group = "lldap";
-        isSystemUser = true;
+    users = {
+        users.lldap = {
+            group = "lldap";
+            extraGroups = [ "lldap_admin_password" ];
+            isSystemUser = true;
+        };
+        groups = {
+            lldap = {};
+            # Group to allow other services to view the admin password
+            lldap_admin_password = {};
+        };
     };
-    users.groups.lldap.members = [ "lldap" ];
+
     systemd.services.lldap.serviceConfig = {
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
@@ -30,6 +38,8 @@
         };
         "haddock/lldap/admin_password" = {
             owner = "lldap";
+            # We also want Authelia to be able to read this
+            group = "lldap_admin_password";
         };
         "haddock/lldap/key_seed" = {
             owner = "lldap";
