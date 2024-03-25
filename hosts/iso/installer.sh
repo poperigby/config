@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Message that tells user to copy over AGE and SSH key before starting
+
 # Fail if piped commands fail
 set -euo pipefail
 
