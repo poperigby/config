@@ -7,6 +7,7 @@
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         sops-nix.url = "github:Mic92/sops-nix";
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+        nix-colors.url = "github:misterio77/nix-colors";
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
