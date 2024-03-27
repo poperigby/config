@@ -8,7 +8,7 @@ git clone git@codeberg.org:PopeRigby/nixos.git
 ```
 
 ### Setup `age`
-Copy the `age` private key from Bitwarden to `~/.config/sops/age/keys.txt`
+Copy my `age` private key from Bitwarden to `~/.config/sops/age/keys.txt`
 
 ### Build the flake
 ```bash

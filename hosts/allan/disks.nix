@@ -20,19 +20,22 @@
                     # Take up the rest of the space on the disk
                     size = "100%";
                     content = {
-                        type = "btrfs";
-                        subvolumes = {
-                            "@" = {
-                                mountpoint = "/";
-                                mountOptions = [ "noatime" ];
-                            };
-                            "@home" = {
-                                mountpoint = "/home";
-                                mountOptions = [ "compress=zstd" "noatime" ];
-                            };
-                            "@nix" = {
-                                mountpoint = "/nix";
-                                mountOptions = [ "compress=ztsd" "noatime" ];
+                        type = "luks";
+                        content = {
+                            type = "btrfs";
+                            subvolumes = {
+                                "@" = {
+                                    mountpoint = "/";
+                                    mountOptions = [ "noatime" ];
+                                };
+                                "@home" = {
+                                    mountpoint = "/home";
+                                    mountOptions = [ "compress=zstd" "noatime" ];
+                                };
+                                "@nix" = {
+                                    mountpoint = "/nix";
+                                    mountOptions = [ "compress=ztsd" "noatime" ];
+                                };
                             };
                         };
                     };
