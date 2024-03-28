@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
@@ -21,6 +23,8 @@
                     size = "100%";
                     content = {
                         type = "luks";
+                        passwordFile = config.sops.secrets."allan/luks_password".path;
+                        settings.allowDiscards = true;
                         content = {
                             type = "btrfs";
                             subvolumes = {
@@ -42,5 +46,9 @@
                 };
             };
         };
+    };
+
+    sops.secrets = {
+        "allan/luks_password" = {};
     };
 }
