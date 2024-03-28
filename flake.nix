@@ -3,21 +3,32 @@
 
     # Inputs for building the NixOS system, such as software repositories.
     inputs = {
+        # Official inputs
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-        sops-nix.url = "github:Mic92/sops-nix";
-        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-        nix-colors.url = "github:misterio77/nix-colors";
-        home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        # Extra inputs
         disko = {
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         nh = {
             url = "github:viperML/nh";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nix-colors = {
+            url = "github:misterio77/nix-colors";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nixos-hardware = {
+            url = "github:NixOS/nixos-hardware/master";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
