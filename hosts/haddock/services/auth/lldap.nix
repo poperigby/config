@@ -13,6 +13,7 @@
         };
     };
 
+    # Setup a user and group for LLDAP
     users = {
         users.lldap = {
             group = "lldap";
