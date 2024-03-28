@@ -48,8 +48,8 @@
             # Laptop
             allan = nixpkgs.lib.nixosSystem {
                 modules = [
-                    disko.nixosModules.disko
                     nixos-hardware.nixosModules.framework-11th-gen-intel
+                    disko.nixosModules.disko
                     ./hosts/allan
                 ];
                 system = "x86_64-linux";
