@@ -11,4 +11,4 @@ clean:
     nh clean all
 
 build-iso:
-    sudo nix build .#nixosConfigurations.iso.config.system.build.isoImage
+    nix build .#nixosConfigurations.iso.config.system.build.isoImage
