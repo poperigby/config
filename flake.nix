@@ -21,11 +21,9 @@
         };
         nix-colors = {
             url = "github:misterio77/nix-colors";
-            inputs.nixpkgs.follows = "nixpkgs";
         };
         nixos-hardware = {
             url = "github:NixOS/nixos-hardware/master";
-            inputs.nixpkgs.follows = "nixpkgs";
         };
         sops-nix = {
             url = "github:Mic92/sops-nix";
