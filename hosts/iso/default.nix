@@ -15,6 +15,7 @@
         git
         gum
         neovim
+        networkmanager
         inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
     ];
