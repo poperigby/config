@@ -9,6 +9,17 @@
     # Define hostname
     networking.hostName = "allan";
 
+    # Enable backups
+    common.backups = {
+        enable = true;
+        paths = [
+            "/home/*/.local/share"
+        ];
+    };
+
+    # Enable KDE Plasma
+    common.plasma.enable = true;
+
     # Roaming friendly time synchronization daemon
     services.chrony = {
         enable = true;

@@ -5,6 +5,7 @@
         ./backups.nix
         ./bootloader.nix
         ./ld.nix
+        ./plasma.nix
         ./reduce-disk-usage.nix
         ./secrets.nix
         ./users.nix
