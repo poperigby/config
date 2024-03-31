@@ -9,6 +9,9 @@
     # Define hostname
     networking.hostName = "allan";
 
+    # Enable NetworkManager
+    networking.networkmanager.enable = true;
+
     # Enable backups
     common.backups = {
         enable = true;
