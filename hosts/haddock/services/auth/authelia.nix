@@ -15,7 +15,13 @@
                 };
             };
             storage = {
-                local.path = "/var/lib/authelia-haddock/db.sqlite3";
+               postgres = {
+                   address = "unix:///var/run/postgres.sock";
+                   database = "authelia-haddock";
+                   # I'm using peer authentication, so these don't actually matter
+                   username = "authelia";
+                   password = "authelia";
+               };
             };
             session = {
                 url = "https://haddock.cc";
