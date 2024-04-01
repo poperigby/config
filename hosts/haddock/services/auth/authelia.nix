@@ -5,27 +5,22 @@
         enable = true;
         settings = {
             theme = "auto";
-            authentication_backend = {
-                ldap = {
-                    address = "ldap://localhost:3890";
-                    base_dn = "dc=haddock,dc=cc";
-                    users_filter = "(&({username_attribute}={input})(objectClass=person))";
-                    groups_filter = "(member={dn})";
-                    user = "uid=admin,ou=people,dc=haddock,dc=cc";
-                };
+            authentication_backend.ldap = {
+                address = "ldap://localhost:3890";
+                base_dn = "dc=haddock,dc=cc";
+                users_filter = "(&({username_attribute}={input})(objectClass=person))";
+                groups_filter = "(member={dn})";
+                user = "uid=admin,ou=people,dc=haddock,dc=cc";
             };
-            storage = {
-               postgres = {
-                   address = "unix:///var/run/postgres.sock";
-                   database = "authelia-haddock";
-                   # I'm using peer authentication, so these don't actually matter
-                   username = "authelia";
-                   password = "authelia";
-               };
+            storage.postgres = {
+               host = "/run/postgresql";
+               port = 5432;
+               database = "authelia-haddock";
+               # I'm using peer authentication, so these don't actually matter
+               username = "authelia";
+               password = "authelia";
             };
-            session = {
-                url = "https://haddock.cc";
-            };
+            session.url = "https://haddock.cc";
             # notifier = {};
             access_control = {
                 default_policy = "deny";
