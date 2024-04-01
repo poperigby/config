@@ -4,7 +4,6 @@
     imports = [
         ./auth
         ./caddy
-        ./lldap.nix
         ./postgresql.nix
     ];
 
