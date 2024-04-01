@@ -15,15 +15,11 @@
     };
 
     systemd.services.lldap = {
-        unitConfig = {
-            # LLDAP requires PostgreSQL to be running
-            BindsTo = "postgresql.service";
-        };
-        serviceConfig = {
-            # DynamicUser screws up sops-nix ownership because
-            # the user doesn't exist outside of runtime.
-            DynamicUser = lib.mkForce false;
-        };
+        # LLDAP requires PostgreSQL to be running
+        unitConfig.BindsTo = "postgresql.service";
+        # DynamicUser screws up sops-nix ownership because
+        # the user doesn't exist outside of runtime.
+        serviceConfig.DynamicUser = lib.mkForce false;
     };
 
     # Setup a user and group for LLDAP
