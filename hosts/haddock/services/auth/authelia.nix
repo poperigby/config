@@ -40,7 +40,7 @@
     };
 
     # This allows the Authelia service to read the LLDAP admin password
-    systemd.service.authelia-haddock.serviceConfig.SupplementaryGroups  = [ "lldap_admin_password" ];
+    systemd.services.authelia-haddock.serviceConfig.SupplementaryGroups  = [ "lldap_admin_password" ];
 
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
