@@ -4,14 +4,14 @@
     services.postgresql = {
         enable = true;
         ensureDatabases = [
-            "authelia-haddock"
+            # "authelia-haddock"
             "lldap"
         ];
         ensureUsers = [
-            {
-                name = "authelia-haddock";
-                ensureDBOwnership = true;
-            }
+            # {
+            #     name = "authelia-haddock";
+            #     ensureDBOwnership = true;
+            # }
             {
                 name = "lldap";
                 ensureDBOwnership = true;

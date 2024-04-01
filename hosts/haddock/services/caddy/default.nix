@@ -18,7 +18,7 @@
                 }
             ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "sha256-NoUbcMsdMVdUWbKlnoZ5Y34dQWtNa/OwrmZ0Cy4grVk=";
+            vendorHash = "sha256-Cr0LgMaTepCpQ8xhtgWThi4eY7B4ho7oI0B2UX1qJ6U=";
         });
     };
 
