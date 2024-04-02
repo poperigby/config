@@ -4,6 +4,9 @@
     # Set the hostname
     networking.hostName = "iso";
 
+    # Set password for nixos user
+    users.users.nixos.password = "nixos";
+
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
 
