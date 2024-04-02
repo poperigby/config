@@ -7,7 +7,7 @@
 {
     imports = [
         ../../common
-        ./disks.nix
+        ./disk-config.nix
         ./hardware.nix
         ./services
     ];
