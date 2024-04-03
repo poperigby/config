@@ -54,6 +54,15 @@
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
             };
+            # Desktop
+            snowy = nixpkgs.lib.nixosSystem {
+                modules = [
+                    disko.nixosModules.disko
+                    ./hosts/snowy
+                ];
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
+            };
             # Laptop
             allan = nixpkgs.lib.nixosSystem {
                 modules = [
