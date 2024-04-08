@@ -7,6 +7,10 @@
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
         nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         # Extra inputs
+        caligula = {
+            url = "github:ifd3f/caligula";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         disko = {
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
