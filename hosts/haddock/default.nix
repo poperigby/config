@@ -12,19 +12,18 @@
         ./services
     ];
 
+    # Define hostname
+    networking.hostName = "haddock";
+
     # Setup Restic backups
     common.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"
+            "/var/lib/*"
             "/var/backup/postgresql"
-            "/var/lib/lldap"
-            "/var/lib/authelia-haddock"
         ];
     };
-
-    # Define hostname
-    networking.hostName = "haddock";
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
@@ -34,7 +33,6 @@
         neovim
         just
         podman
-        nixpkgs-fmt
         sops
         inputs.nh.packages."${pkgs.system}".nh
     ];
