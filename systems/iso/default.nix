@@ -5,7 +5,7 @@
     networking.hostName = "iso";
 
     # Set password for root user
-    users.users.root.password = "nixos"; # TODO: Should this be an actual good password?
+    users.users.nixos.password = "nixos"; # TODO: Should this be an actual good password?
 
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
