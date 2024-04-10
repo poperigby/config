@@ -44,7 +44,7 @@
                 modules = [
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-                    ./hosts/iso
+                    ./systems/iso
                 ];
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
@@ -53,7 +53,7 @@
             haddock = nixpkgs.lib.nixosSystem {
                 modules = [
                     disko.nixosModules.disko
-                    ./hosts/haddock
+                    ./systems/haddock
                 ];
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
@@ -62,7 +62,7 @@
             snowy = nixpkgs.lib.nixosSystem {
                 modules = [
                     disko.nixosModules.disko
-                    ./hosts/snowy
+                    ./systems/snowy
                 ];
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
@@ -72,7 +72,7 @@
                 modules = [
                     nixos-hardware.nixosModules.framework-11th-gen-intel
                     disko.nixosModules.disko
-                    ./hosts/allan
+                    ./systems/allan
                 ];
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
