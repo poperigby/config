@@ -7,10 +7,7 @@ in
 {
     # Setup common.backups options
     options.common.backups = {
-        enable = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-        };
+        enable = lib.mkEnableOption "Enables Restic backups";
         paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;
         };
