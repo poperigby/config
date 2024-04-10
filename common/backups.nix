@@ -19,13 +19,6 @@ in
 
     # Only enable backups if `common.backups.enable` is true
     config = lib.mkIf cfg.enable {
-        # Setup sops-nix secrets
-        # The correct secrets will automatically be used based on the hostname
-        sops.secrets = {
-            "${hostName}/restic/url" = {};
-            "${hostName}/restic/password" = {};
-        };
-
         services.restic.backups = {
             borgbase = {
                 repositoryFile = config.sops.secrets."${hostName}/restic/url".path;
@@ -39,6 +32,13 @@ in
                 ];
                 paths = cfg.paths;
             };
+        };
+
+        # Setup sops-nix secrets
+        # The correct secrets will automatically be used based on the hostname
+        sops.secrets = {
+            "${hostName}/restic/url" = {};
+            "${hostName}/restic/password" = {};
         };
     };
 }
