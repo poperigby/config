@@ -21,7 +21,7 @@ fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(find "${HOME}/config/systems" -maxdepth 1 -type d ! -name "iso" | gum choose)
+TARGET_HOST=$(ls -1 "${HOME}/config/systems" --ignore "iso" | gum choose)
 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
