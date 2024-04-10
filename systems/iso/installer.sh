@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-# TODO: Message that tells user to copy over AGE and SSH key before starting, and terminate
-# if they aren't present.
+# TODO: Maybe have user setup SSH keys for cloning repository?
+
+# TODO: Tell the user to copy over bootstrapping AGE key to the CWD before starting, and terminate
+# if it isn't present. Then, we copy the key over to /var/lib/sops-nix/age-key.txt
 
 # Fail if piped commands fail
 set -euo pipefail
@@ -19,7 +21,7 @@ fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(ls -1 "${HOME}/config/systems" --ignore "iso" | gum choose)
+TARGET_HOST=$(find "${HOME}/config/systems" -maxdepth 1 -type d ! -name "iso" | gum choose)
 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
@@ -30,8 +32,10 @@ if gum confirm --default=false "Would you like to partition and format your disk
     gum confirm --default=false "Are you sure you want to continue? Disks configured with Disko will be wiped!"
 
     # Partition and mount disks based on the system's Disko configuration
-     sudo disko --mode disko "${HOME}/config/systems/${TARGET_HOST}/disks.nix"
+     sudo disko --mode disko "${HOME}/config/systems/${TARGET_HOST}/drives.nix"
 fi
 
 echo "Installing NixOS system"
 sudo nixos-install --flake "${HOME}/config#${TARGET_HOST}"
+
+echo "Done! Remove your installation media and reboot :)"

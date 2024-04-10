@@ -3,7 +3,7 @@
 {
     imports = [
         ../../common
-        ./disk-config.nix
+        ./drives.nix
     ];
 
     # Define hostname
