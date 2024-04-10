@@ -18,4 +18,4 @@ build-iso:
 install hostname ip:
     mkdir -p {{tmpdir}}/var/lib/sops-nix
     cp ./age-key.txt {{tmpdir}}/var/lib/sops-nix
-    nix run nixpkgs#nixos-anywhere -- --extra-files {{tmpdir}} --flake '.#{{hostname}}' nixos@{{ip}}
+    nix run nixpkgs#nixos-anywhere -- --extra-files {{tmpdir}} --flake '.#{{hostname}}' root@{{ip}}

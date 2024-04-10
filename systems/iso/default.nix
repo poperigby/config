@@ -4,8 +4,8 @@
     # Set the hostname
     networking.hostName = "iso";
 
-    # Set password for nixos user
-    users.users.nixos.password = "nixos";
+    # Set password for root user
+    users.users.root.password = "nixos"; # TODO: Should this be an actual good password?
 
     # Set neovim as my default editor
     environment.variables.EDITOR = "nvim";
@@ -19,6 +19,7 @@
         gum
         neovim
         networkmanager
+        rsync
         inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
     ];
