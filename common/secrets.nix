@@ -9,8 +9,9 @@
     sops = {
         defaultSopsFile = ../secrets.yaml;
         defaultSopsFormat = "yaml";
-        age.keyFile = "/home/cassidy/.config/sops/age/keys.txt";
-        # This will automatically import SSH keys as age keys
+        # This is the default AGE key that will be used for bootstrapping the system
+        age.keyFile = "/var/lib/sops-nix/age-key.txt";
+        # This will automatically import SSH host keys as AGE keys
         age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     };
 }
