@@ -4,10 +4,9 @@ let
   cfg = config.common.plasma;
 in
 {
-    # Setup common.backups options
-    options.common.plasma.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
+    # Setup common.plasma options
+    options.common.plasma = {
+        enable = lib.mkEnableOption "Enable KDE Plasma";
     };
 
     # Only enable KDE Plasma if `common.plasma.enable` is true
