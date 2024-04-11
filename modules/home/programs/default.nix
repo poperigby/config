@@ -17,6 +17,7 @@
         fzf
         lazygit
         ripgrep
+        thefuck
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
