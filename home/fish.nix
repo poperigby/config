@@ -18,7 +18,7 @@
                 src = pkgs.fetchFromGitHub {
                     owner = "franciscolourenco";
                     repo = "done";
-                    rev = "v1.19.2";
+                    rev = "1.19.2";
                     sha256 = "";
                 };
             }
