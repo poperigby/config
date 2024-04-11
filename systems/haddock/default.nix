@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { pkgs, inputs, ... }:
 
 {
@@ -34,17 +30,10 @@
     time.timeZone = "America/Los_Angeles";
 
     environment.systemPackages = with pkgs; [
-        git
         neovim
-        just
-        podman
-        sops
-        inputs.nh.packages."${pkgs.system}".nh
     ];
 
-    services = {
-        openssh.enable = true;
-    };
+    services.openssh.enable = true;
 
     # DO NOT TOUCH 💀
     system.stateVersion = "23.11";

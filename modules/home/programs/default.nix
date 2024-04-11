@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
     imports = [
@@ -19,7 +19,9 @@
         fzf
         lazygit
         ripgrep
+        sops
         thefuck
+        inputs.nh.packages."${pkgs.system}".nh
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
