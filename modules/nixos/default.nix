@@ -8,6 +8,7 @@
         ./plasma.nix
         ./reduce-disk-usage.nix
         ./secrets.nix
+        ./sudo.nix
         ./users.nix
     ];
 
