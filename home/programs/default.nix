@@ -3,6 +3,6 @@
 {
     imports = [
         ./firefox.nix
-        ./wezterm.nix
+        ./wezterm
     ];
 }
