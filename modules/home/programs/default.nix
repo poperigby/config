@@ -4,7 +4,9 @@
     imports = [
         ./eza.nix
         ./firefox.nix
+        ./tealdeer.nix
         ./wezterm
+        ./yazi.nix
     ];
 
     # Programs that don't require any configuration
