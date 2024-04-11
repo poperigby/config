@@ -37,22 +37,13 @@
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
     # based on the `inputs` attribute set, and any `modules` specified.
-    outputs = inputs@{ self, disko, nixpkgs, nixos-hardware, ... }: {
+    outputs = inputs@{ self, disko, home-manager, nixpkgs, nixos-hardware, ... }: {
         nixosConfigurations = {
-            # Installation/recovery ISO
-            iso = nixpkgs.lib.nixosSystem {
-                modules = [
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-                    ./systems/iso
-                ];
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs; };
-            };
             # Home server
             haddock = nixpkgs.lib.nixosSystem {
                 modules = [
                     disko.nixosModules.disko
+                    home-manager.nixosModules.default
                     ./systems/haddock
                 ];
                 system = "x86_64-linux";
@@ -62,6 +53,7 @@
             snowy = nixpkgs.lib.nixosSystem {
                 modules = [
                     disko.nixosModules.disko
+                    home-manager.nixosModules.default
                     ./systems/snowy
                 ];
                 system = "x86_64-linux";
@@ -72,7 +64,18 @@
                 modules = [
                     nixos-hardware.nixosModules.framework-11th-gen-intel
                     disko.nixosModules.disko
+                    home-manager.nixosModules.default
                     ./systems/allan
+                ];
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
+            };
+            # Installation/recovery ISO
+            iso = nixpkgs.lib.nixosSystem {
+                modules = [
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+                    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+                    ./systems/iso
                 ];
                 system = "x86_64-linux";
                 specialArgs = { inherit inputs; };
