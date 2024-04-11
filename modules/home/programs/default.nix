@@ -18,6 +18,7 @@
         bottom
         fd
         fzf
+        just
         lazygit
         ripgrep
         sops
