@@ -1,15 +1,15 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.plasma;
+  cfg = config.modules.nixos.plasma;
 in
 {
-    # Setup common.plasma options
-    options.common.plasma = {
+    # Setup modules.nixos.plasma options
+    options.modules.nixos.plasma = {
         enable = lib.mkEnableOption "Enable KDE Plasma";
     };
 
-    # Only enable KDE Plasma if `common.plasma.enable` is true
+    # Only enable KDE Plasma if `modules.nixos.plasma.enable` is true
     config = lib.mkIf cfg.enable {
         services.xserver = {
             # Enable X11 just in case

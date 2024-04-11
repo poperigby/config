@@ -2,13 +2,13 @@
 
 {
     imports = [
-        ../../common
+        ../../modules/nixos
         ./drives.nix
     ];
 
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
-        users.cassidy = import ../../home;
+        users.cassidy = import ../../modules/home;
     };
 
     # Define hostname
@@ -18,7 +18,7 @@
     networking.networkmanager.enable = true;
 
     # Enable backups
-    common.backups = {
+    modules.nixos.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"
@@ -26,7 +26,7 @@
     };
 
     # Enable KDE Plasma
-    common.plasma.enable = true;
+    modules.nixos.plasma.enable = true;
 
     # Roaming friendly time synchronization daemon
     services.chrony = {

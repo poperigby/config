@@ -1,12 +1,12 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.backups;
+  cfg = config.modules.nixos.backups;
   hostName = config.networking.hostName;
 in
 {
-    # Setup common.backups options
-    options.common.backups = {
+    # Setup modules.nixos.backups options
+    options.modules.nixos.backups = {
         enable = lib.mkEnableOption "Enables Restic backups";
         paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;
@@ -17,7 +17,7 @@ in
         };
     };
 
-    # Only enable backups if `common.backups.enable` is true
+    # Only enable backups if `modules.nixos.backups.enable` is true
     config = lib.mkIf cfg.enable {
         services.restic.backups = {
             borgbase = {

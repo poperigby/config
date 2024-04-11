@@ -6,7 +6,7 @@
 
 {
     imports = [
-        ../../common
+        ../../modules/nixos
         ./drives.nix
         ./hardware.nix
         ./services
@@ -14,14 +14,14 @@
 
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
-        users.cassidy = import ../../home;
+        users.cassidy = import ../../modules/home;
     };
 
     # Define hostname
     networking.hostName = "haddock";
 
     # Setup Restic backups
-    common.backups = {
+    modules.nixos.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"
