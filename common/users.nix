@@ -11,6 +11,7 @@
     users.users.cassidy = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."common/passwords/cassidy".path;
+        description = "Cassidy Wilson";
         extraGroups = [ "wheel" ];
     };
 }
