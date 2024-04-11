@@ -4,6 +4,7 @@
     imports = [
         ../../modules/nixos
         ./drives.nix
+        ./gaming.nix
     ];
 
     home-manager = {
