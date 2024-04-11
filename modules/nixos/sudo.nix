@@ -2,7 +2,7 @@
 
 {
     security.sudo = {
-        # We sudo to be a little sassy
+        # We want sudo to be a little sassy
         extraConfig = "Defaults insults";
         package = pkgs.sudo.override { withInsults = true; };
     };

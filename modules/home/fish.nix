@@ -33,4 +33,8 @@
             syu = "systemctl --user";
         };
     };
+
+    # Having bash be our login shell, but running fish automatically
+    # when opening an interactive shell is safest.
+    programs.bash.initExtra = "fish";
 }
