@@ -19,7 +19,7 @@
                     owner = "franciscolourenco";
                     repo = "done";
                     rev = "1.19.2";
-                    sha256 = "";
+                    sha256 = "sha256-VSCYsGjNPSFIZSdLrkc7TU7qyPVm8UupOoav5UqXPMk=";
                 };
             }
         ];
