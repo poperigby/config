@@ -13,9 +13,10 @@
     home.packages = with pkgs; [
         asciinema
         bottom
+        fd
         fzf
         lazygit
         ripgrep
-        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
