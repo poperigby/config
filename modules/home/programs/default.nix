@@ -5,6 +5,7 @@
         ./bat.nix
         ./eza.nix
         ./firefox.nix
+        ./git.nix
         ./neovim
         ./tealdeer.nix
         ./wezterm
