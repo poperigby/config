@@ -22,6 +22,12 @@
         ];
     };
 
+    # Set time zone.
+    time.timeZone = "America/Los_Angeles";
+
     # Enable KDE Plasma
     modules.nixos.plasma.enable = true;
+
+    # DO NOT TOUCH 💀
+    system.stateVersion = "23.11";
 }

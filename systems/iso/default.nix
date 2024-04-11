@@ -23,4 +23,7 @@
         inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
     ];
+
+    # DO NOT TOUCH 💀
+    system.stateVersion = "23.11";
 }
