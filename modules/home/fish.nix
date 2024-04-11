@@ -28,7 +28,6 @@
             grep = "rg";
             jrn = "sudo journalctl";
             lg = "lazygit";
-            ls = "eza";
             py = "python";
             sys = "sudo systemctl";
             syu = "systemctl --user";
