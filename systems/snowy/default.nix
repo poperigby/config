@@ -1,11 +1,15 @@
-{ ... }:
+{ inputs, ... }:
 
 {
     imports = [
         ../../common
-        ../../home
         ./drives.nix
     ];
+
+    home-manager = {
+        extraSpecialArgs = { inherit inputs; };
+        users.cassidy = import ../../home;
+    };
 
     # Define hostname
     networking.hostName = "snowy";

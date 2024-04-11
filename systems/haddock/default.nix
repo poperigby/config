@@ -7,11 +7,15 @@
 {
     imports = [
         ../../common
-        ../../home
         ./drives.nix
         ./hardware.nix
         ./services
     ];
+
+    home-manager = {
+        extraSpecialArgs = { inherit inputs; };
+        users.cassidy = import ../../home;
+    };
 
     # Define hostname
     networking.hostName = "haddock";
