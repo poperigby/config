@@ -22,7 +22,7 @@
         paths = [
             "/home/*/.local/share"
             "/var/lib/*"
-            "/var/backup/postgresql"
+            "/var/backup/*"
         ];
     };
 
