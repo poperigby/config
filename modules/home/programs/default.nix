@@ -5,6 +5,7 @@
         ./bat.nix
         ./eza.nix
         ./firefox.nix
+        ./neovim
         ./tealdeer.nix
         ./wezterm
         ./yazi.nix
