@@ -6,7 +6,7 @@
         settings = {
             theme = "auto";
             authentication_backend.ldap = {
-                address = "ldap://localhost:3890";
+                url = "ldap://localhost:3890";
                 base_dn = "dc=haddock,dc=cc";
                 users_filter = "(&({username_attribute}={input})(objectClass=person))";
                 groups_filter = "(member={dn})";
@@ -20,7 +20,7 @@
                username = "authelia";
                password = "authelia";
             };
-            session.url = "https://haddock.cc";
+            session.domain = "https://haddock.cc";
             # notifier = {};
             access_control = {
                 default_policy = "deny";
