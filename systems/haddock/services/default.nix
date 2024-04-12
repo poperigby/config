@@ -4,6 +4,7 @@
     imports = [
         ./auth
         ./caddy
+        ./ddclient.nix
         ./postgresql.nix
     ];
 
