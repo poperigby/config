@@ -21,7 +21,12 @@
                password = "authelia";
             };
             session.domain = "https://haddock.cc";
-            # notifier = {};
+            notifier.smtp = {
+                username = "apikey";
+                host = "smtp.sendgrid.net";
+                port = 587;
+                sender = "admin@haddock.cc";
+            };
             access_control = {
                 default_policy = "deny";
                 rules = [
@@ -39,6 +44,7 @@
         };
         environmentVariables = {
             AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets.lldap-admin-password-authelia.path;
+            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets.smtp-password-authelia.path;
         };
     };
 
@@ -49,12 +55,14 @@
         "haddock/authelia/storage_encryption_key" = {
             owner = "authelia-haddock";
         };
-        "haddock/authelia/session_secret" = {
-            owner = "authelia-haddock";
-        };
+        "haddock/authelia/session_secret".owner = "authelia-haddock";
         lldap-admin-password-authelia = {
             owner = "authelia-haddock";
             key = "haddock/lldap/admin_password";
+        };
+        smtp-password-authelia = {
+            owner = "authelia-haddock";
+            key = "haddock/common/smtp_password";
         };
     };
 
