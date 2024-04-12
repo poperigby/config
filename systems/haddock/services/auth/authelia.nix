@@ -38,7 +38,7 @@
             sessionSecretFile = config.sops.secrets."haddock/authelia/session_secret".path;
         };
         environmentVariables = {
-            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
+            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets.lldap-admin-password-authelia.path;
         };
     };
 
