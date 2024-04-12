@@ -1,6 +1,7 @@
 { config, lib, ... }:
 
 {
+    # TODO: Have a special user for Authelia access
     services.lldap = {
         enable = true;
         settings = {

@@ -1,8 +1,8 @@
 { ... }:
 
 {
-    services.miniflux = {
-        enable = true;
-        config = {};
-    };
+    # services.miniflux = {
+    #     enable = true;
+    #     config = {};
+    # };
 }
