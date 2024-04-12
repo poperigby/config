@@ -3,7 +3,7 @@
 {
     # Synchronizes Haddock's public IP with Cloudflare
     services.ddclient = {
-        enable = true;
+        enable = false;
         protocol = "cloudflare";
         zone = "haddock.cc";
         username = "poperigby@mailbox.org";
