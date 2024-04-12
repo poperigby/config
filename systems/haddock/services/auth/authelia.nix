@@ -16,8 +16,9 @@
                host = "/run/postgresql";
                port = 5432;
                database = "authelia-haddock";
-               # I'm using peer authentication, so these don't actually matter
                username = "authelia-haddock";
+               # I'm using peer authentication, so this doesn't actually matter, but Authelia
+               # complains if I don't have it.
                password = "authelia-haddock";
             };
             session.domain = "https://haddock.cc";

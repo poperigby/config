@@ -6,7 +6,7 @@
         enable = true;
         settings = {
             ldap_base_dn = "dc=haddock,dc=cc";
-            database_url = "postgresql://localhost/lldap";
+            database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql/";
         };
         environment = {
             LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
