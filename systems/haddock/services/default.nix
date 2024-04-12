@@ -5,6 +5,7 @@
         ./auth
         ./caddy
         ./ddclient.nix
+        ./miniflux.nix
         ./postgresql.nix
     ];
 
