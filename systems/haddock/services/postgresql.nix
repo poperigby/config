@@ -7,16 +7,6 @@
             "authelia-haddock"
             "lldap"
         ];
-        ensureUsers = [
-            {
-                name = "authelia-haddock";
-                ensureDBOwnership = true;
-            }
-            {
-                name = "lldap";
-                ensureDBOwnership = true;
-            }
-        ];
     };
 
     # Automatically run a database dump daily, to be backed up by Restic
