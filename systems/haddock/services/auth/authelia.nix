@@ -42,9 +42,6 @@
         };
     };
 
-    # This allows the Authelia service to read the LLDAP admin password
-    systemd.services.authelia-haddock.serviceConfig.SupplementaryGroups  = [ "lldap_admin_password" ];
-
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
             owner = "authelia-haddock";
@@ -54,6 +51,10 @@
         };
         "haddock/authelia/session_secret" = {
             owner = "authelia-haddock";
+        };
+        lldap-admin-password-authelia = {
+            owner = "authelia-haddock";
+            key = "haddock/lldap/key_seed";
         };
     };
 

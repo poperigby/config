@@ -41,13 +41,12 @@
         "haddock/lldap/jwt_secret" = {
             owner = "lldap";
         };
-        "haddock/lldap/admin_password" = {
-            owner = "lldap";
-            # We also want Authelia to be able to read this
-            group = "lldap_admin_password";
-        };
         "haddock/lldap/key_seed" = {
             owner = "lldap";
+        };
+        lldap-admin-password-lldap = {
+            owner = "lldap";
+            key = "haddock/lldap/key_seed";
         };
     };
 }
