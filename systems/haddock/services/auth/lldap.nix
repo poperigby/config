@@ -10,8 +10,8 @@
         };
         environment = {
             LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
-            LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
             LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
+            LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets.lldap-admin-password-lldap.path;
         };
     };
 
@@ -41,13 +41,12 @@
         "haddock/lldap/jwt_secret" = {
             owner = "lldap";
         };
-        "haddock/lldap/admin_password" = {
-            owner = "lldap";
-            # We also want Authelia to be able to read this
-            group = "lldap_admin_password";
-        };
         "haddock/lldap/key_seed" = {
             owner = "lldap";
+        };
+        lldap-admin-password-lldap = {
+            owner = "lldap";
+            key = "haddock/lldap/admin_password";
         };
     };
 }
