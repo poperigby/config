@@ -46,7 +46,7 @@
         };
         lldap-admin-password-lldap = {
             owner = "lldap";
-            key = "haddock/lldap/key_seed";
+            key = "haddock/lldap/admin_password";
         };
     };
 }

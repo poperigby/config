@@ -54,7 +54,7 @@
         };
         lldap-admin-password-authelia = {
             owner = "authelia-haddock";
-            key = "haddock/lldap/key_seed";
+            key = "haddock/lldap/admin_password";
         };
     };
 
