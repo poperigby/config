@@ -9,7 +9,7 @@
         # Makes diffs easier to read
         difftastic.enable = true;
         aliases = {
-            yeet = "!\"git restore . && git restore --staged . && git clean -df\"";
+            yeet = "!git restore . && git restore --staged . && git clean -df";
             s = "status";
             sw = "switch";
             m = "switch main";
