@@ -11,6 +11,9 @@
         users.cassidy = import ../../modules/home;
     };
 
+    # Enable River WM
+    modules.home.river.enable = true;
+
     # Define hostname
     networking.hostName = "allan";
 
@@ -24,9 +27,6 @@
             "/home/*/.local/share"
         ];
     };
-
-    # Enable KDE Plasma
-    modules.nixos.plasma.enable = true;
 
     # Roaming friendly time synchronization daemon
     services.chrony = {
