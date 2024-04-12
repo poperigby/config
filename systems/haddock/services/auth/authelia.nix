@@ -17,8 +17,8 @@
                port = 5432;
                database = "authelia-haddock";
                # I'm using peer authentication, so these don't actually matter
-               username = "authelia";
-               password = "authelia";
+               username = "authelia-haddock";
+               password = "authelia-haddock";
             };
             session.domain = "https://haddock.cc";
             notifier.smtp = {
