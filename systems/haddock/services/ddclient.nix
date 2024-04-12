@@ -3,6 +3,7 @@
 {
     # Synchronizes Haddock's public IP with Cloudflare
     services.ddclient = {
+        # TODO: Enable when running on bare metal
         enable = false;
         protocol = "cloudflare";
         zone = "haddock.cc";
@@ -11,11 +12,12 @@
         domains = [ "haddock.cc" ];
     };
 
-    systemd.services.ddclient = {
-        # DynamicUser screws up sops-nix ownership because
-        # the user doesn't exist outside of runtime.
-        serviceConfig.DynamicUser = lib.mkForce false;
-    };
+    # TODO: Enable when running on bare metal
+    # systemd.services.ddclient = {
+    #     # DynamicUser screws up sops-nix ownership because
+    #     # the user doesn't exist outside of runtime.
+    #     serviceConfig.DynamicUser = lib.mkForce false;
+    # };
 
     # Setup a user and group for DDClient
     users = {
