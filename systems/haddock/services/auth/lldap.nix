@@ -6,7 +6,7 @@
         enable = true;
         settings = {
             ldap_base_dn = "dc=haddock,dc=cc";
-            database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql/";
+            database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql";
         };
         environment = {
             LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
@@ -27,23 +27,14 @@
     users = {
         users.lldap = {
             group = "lldap";
-            extraGroups = [ "lldap_admin_password" ];
             isSystemUser = true;
         };
-        groups = {
-            lldap = {};
-            # Group to allow other services to view the admin password
-            lldap_admin_password = {};
-        };
+        groups.lldap = {};
     };
 
     sops.secrets = {
-        "haddock/lldap/jwt_secret" = {
-            owner = "lldap";
-        };
-        "haddock/lldap/key_seed" = {
-            owner = "lldap";
-        };
+        "haddock/lldap/jwt_secret".owner = "lldap";
+        "haddock/lldap/key_seed".owner = "lldap";
         lldap-admin-password-lldap = {
             owner = "lldap";
             key = "haddock/lldap/admin_password";
