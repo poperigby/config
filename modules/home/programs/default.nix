@@ -22,7 +22,7 @@
         lazygit
         ripgrep
         sops
-        thefuck
+        vimv-rs
         inputs.nh.packages."${pkgs.system}".nh
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
