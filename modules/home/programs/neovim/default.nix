@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     programs.neovim = {
@@ -7,4 +7,7 @@
         viAlias = true;
         vimAlias = true;
     };
+
+    # Make Neovim my manpager
+    home.sessionsVariables.MANPAGER = "${pkgs.neovim} -c 'Man!' -o -";
 }
