@@ -9,5 +9,5 @@
     };
 
     # Make Neovim my manpager
-    home.sessionVariables.MANPAGER = "${pkgs.neovim} -c 'Man!' -o -";
+    home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim -c 'Man!' -o -";
 }
