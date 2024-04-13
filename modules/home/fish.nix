@@ -34,6 +34,15 @@
         };
     };
 
+    # Environment variables
+    home.sessionVariables = {
+        # The fish greeting is annoying >:(
+        fish_greeting = "";
+    };
+
+    # Magnificent app that corrects your previous console command
+    programs.thefuck.enable = true;
+
     # Setting fish as our default shell causes some issues. Instead, automatically launch fish
     # when we start an interactive bash shell, but only if we're not opening one from fish.
     programs.bash = {
