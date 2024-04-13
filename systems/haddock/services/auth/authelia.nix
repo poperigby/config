@@ -49,8 +49,11 @@
         };
     };
 
-    # Authelia requires LLDAP to be running
-    systemd.services.authelia-haddock.unitConfig.BindsTo = "lldap.service";
+    # Authelia requires LLDAP and PostgreSQL to be running
+    systemd.services.authelia-haddock.unitConfig.BindsTo = [
+        "lldap.service"
+        "postgresql.service"
+    ];
 
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
