@@ -49,6 +49,9 @@
         };
     };
 
+    # Authelia requires LLDAP to be running
+    systemd.services.authelia-haddock.unitConfig.BindsTo = "lldap.service";
+
     sops.secrets = {
         "haddock/authelia/jwt_secret" = {
             owner = "authelia-haddock";
