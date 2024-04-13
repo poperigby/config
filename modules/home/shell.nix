@@ -1,3 +1,5 @@
+# My shell environment setup
+
 { pkgs, ... }:
 
 {
