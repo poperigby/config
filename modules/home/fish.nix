@@ -36,7 +36,7 @@
 
     # Setting fish as our default shell causes some issues. Instead, automatically launch fish
     # when we start an interactive bash shell, but only if we're not opening one from fish.
-    programs.bash.
+    programs.bash = {
         enable = true;
         initExtra = ''
             if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
@@ -44,4 +44,5 @@
                 exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
             fi
         '';
+    };
 }
