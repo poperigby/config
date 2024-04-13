@@ -8,11 +8,14 @@
         vimAlias = true;
         # Extra packages available to Neovim
         extraPackages = with pkgs; [
+           # TreeSitter needs this to install parsers
            gcc
+           # Some plugins need this to install
            gnumake
         ];
     };
 
+    # Symlink Neovim config to ~/.config/nvim
     home.file.".config/nvim" = {
         source = ./config;
         recursive = true;
