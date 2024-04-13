@@ -4,6 +4,7 @@
     imports = [
         ./backups.nix
         ./bootloader.nix
+        ./gaming.nix
         ./ld.nix
         ./plasma.nix
         ./reduce-disk-usage.nix
