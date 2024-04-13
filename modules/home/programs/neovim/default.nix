@@ -9,6 +9,7 @@
         # Extra packages available to Neovim
         extraPackages = with pkgs; [
            gcc
+           make
         ];
     };
 
