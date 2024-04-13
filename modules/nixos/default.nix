@@ -2,6 +2,7 @@
 
 {
     imports = [
+        ./audio.nix
         ./backups.nix
         ./bootloader.nix
         ./gaming.nix

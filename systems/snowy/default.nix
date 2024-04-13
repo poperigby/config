@@ -24,6 +24,7 @@
     };
 
     modules.nixos.gaming.enable = true;
+    modules.nixos.audio.enable = true;
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";

@@ -28,6 +28,8 @@
         ];
     };
 
+    modules.nixos.audio.enable = true;
+
     # Roaming friendly time synchronization daemon
     services.chrony = {
         enable = true;
