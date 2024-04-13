@@ -8,6 +8,11 @@
         vimAlias = true;
     };
 
+    home.file.".config/nvim" = {
+        source = ./nvim;
+        recursive = true;
+    };
+
     # Make Neovim my manpager
     home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim -c 'Man!' -o -";
 }
