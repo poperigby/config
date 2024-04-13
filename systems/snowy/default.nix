@@ -23,6 +23,8 @@
         ];
     };
 
+    modules.nixos.gaming.enable = true;
+
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
