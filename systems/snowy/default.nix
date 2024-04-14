@@ -7,6 +7,9 @@
         ./gaming.nix
     ];
 
+    # Define hostname
+    networking.hostName = "snowy";
+
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users.cassidy = import ../../modules/home;
@@ -15,8 +18,8 @@
     # Enable River WM
     modules.home.river.enable = true;
 
-    # Define hostname
-    networking.hostName = "snowy";
+    # Enable PipeWire
+    modules.nixos.audio.enable = true;
 
     # Enable backups
     modules.nixos.backups = {
@@ -26,14 +29,8 @@
         ];
     };
 
-    modules.nixos.gaming.enable = true;
-    modules.nixos.audio.enable = true;
-
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
-
-    # Enable KDE Plasma
-    modules.nixos.plasma.enable = true;
 
     # DO NOT TOUCH 💀
     system.stateVersion = "23.11";
