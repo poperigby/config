@@ -8,13 +8,13 @@
         ./services
     ];
 
+    # Define hostname
+    networking.hostName = "haddock";
+
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users.cassidy = import ../../modules/home;
     };
-
-    # Define hostname
-    networking.hostName = "haddock";
 
     # Setup Restic backups
     modules.nixos.backups = {

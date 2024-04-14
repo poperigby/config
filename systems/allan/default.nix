@@ -6,6 +6,9 @@
         ./drives.nix
     ];
 
+    # Define hostname
+    networking.hostName = "allan";
+
     home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users.cassidy = import ../../modules/home;
@@ -14,11 +17,8 @@
     # Enable River WM
     modules.home.river.enable = true;
 
-    # Define hostname
-    networking.hostName = "allan";
-
-    # Enable NetworkManager
-    networking.networkmanager.enable = true;
+    # Enable PipeWire
+    modules.nixos.audio.enable = true;
 
     # Enable backups
     modules.nixos.backups = {
@@ -28,7 +28,8 @@
         ];
     };
 
-    modules.nixos.audio.enable = true;
+    # Enable NetworkManager
+    networking.networkmanager.enable = true;
 
     # Roaming friendly time synchronization daemon
     services.chrony = {
