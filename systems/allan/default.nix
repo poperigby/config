@@ -40,9 +40,6 @@
     # Automatically change timezone based on location
     services.automatic-timezoned.enable = true;
 
-    # Enable fingerprint reader
-    services.fprintd.enable = true;
-
     # Power saving
     services.thermald.enable = true;
     services.auto-cpufreq = {
