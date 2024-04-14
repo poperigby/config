@@ -3,6 +3,8 @@
 {
     programs.neovim = {
         enable = true;
+        # Set EDITOR to nvim
+        defaultEditor = true;
         # Alias vi and vim to nvim
         viAlias = true;
         vimAlias = true;

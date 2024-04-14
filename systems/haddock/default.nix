@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ inputs, ... }:
 
 {
     imports = [
@@ -28,10 +28,6 @@
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
-
-    environment.systemPackages = with pkgs; [
-        neovim
-    ];
 
     services.openssh.enable = true;
 
