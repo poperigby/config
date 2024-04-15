@@ -5,18 +5,11 @@
         ../../modules/nixos
         ./drives.nix
         ./gaming.nix
+        ./home.nix
     ];
 
     # Define hostname
     networking.hostName = "snowy";
-
-    home-manager = {
-        extraSpecialArgs = { inherit inputs; };
-        users.cassidy = import ../../modules/home;
-    };
-
-    # Enable River WM
-    modules.home.river.enable = true;
 
     # Enable PipeWire
     modules.nixos.audio.enable = true;

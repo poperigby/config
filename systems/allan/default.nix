@@ -4,18 +4,11 @@
     imports = [
         ../../modules/nixos
         ./drives.nix
+        ./home.nix
     ];
 
     # Define hostname
     networking.hostName = "allan";
-
-    home-manager = {
-        extraSpecialArgs = { inherit inputs; };
-        users.cassidy = import ../../modules/home;
-    };
-
-    # Enable River WM
-    modules.home.river.enable = true;
 
     # Enable PipeWire
     modules.nixos.audio.enable = true;
