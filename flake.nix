@@ -23,12 +23,12 @@
             url = "github:viperML/nh";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nix-colors = {
-            url = "github:misterio77/nix-colors";
+        nix-colors.url = "github:misterio77/nix-colors";
+        nix-index-database = {
+            url = "github:nix-community/nix-index-database";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
-        nixos-hardware = {
-            url = "github:NixOS/nixos-hardware/master";
-        };
+        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
         sops-nix = {
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
