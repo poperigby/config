@@ -7,6 +7,7 @@
         ./ddclient.nix
         ./miniflux.nix
         ./postgresql.nix
+        ./qbittorrent.nix
     ];
 
     # Automatically prune all unused pods, containers, images,
