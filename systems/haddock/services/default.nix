@@ -5,6 +5,7 @@
         ./auth
         ./caddy
         ./ddclient.nix
+        ./jellyfin.nix
         ./miniflux.nix
         ./postgresql.nix
         ./qbittorrent.nix
