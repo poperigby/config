@@ -1,7 +1,8 @@
-{ ... }:
+{ inputs, ... }:
 
 {
     imports = [
+        inputs.nix-index-database.hmModules.nix-index
         ./shell.nix
         ./programs
     ];
@@ -11,13 +12,14 @@
     home.username = "cassidy";
     home.homeDirectory = "/home/cassidy";
 
-    # Make programs use XDG directories whenever supported
-    home.preferXdgDirectories = true;
-
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    # Make programs use XDG directories whenever supported
+    home.preferXdgDirectories = true;
 
+    # Enable nix-index and integrate with command-not-found helper
+    programs.nix-index.enable = true;
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
