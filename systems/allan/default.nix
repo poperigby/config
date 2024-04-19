@@ -1,8 +1,8 @@
-{ inputs, ... }:
+{ ... }:
 
 {
     imports = [
-        ../../modules/nixos
+        ../../modules/os
         ./drives.nix
         ./home.nix
     ];
