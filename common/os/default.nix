@@ -13,6 +13,7 @@
         ./secrets.nix
         ./sudo.nix
         ./users.nix
+        ./qbittorrent.nix
     ];
 
     # Enable New CLI and Flakes
