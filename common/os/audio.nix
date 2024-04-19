@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.modules.nixos.audio;
+  cfg = config.common.os.audio;
 in
 {
-    options.modules.nixos.audio.enable = lib.mkEnableOption "Enable audio (PipeWire)";
+    options.common.os.audio.enable = lib.mkEnableOption "Enable audio (PipeWire)";
 
     config = lib.mkIf cfg.enable {
         services.pipewire = {

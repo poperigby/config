@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.modules.nixos.gaming;
+  cfg = config.common.os.gaming;
 in
 {
-    options.modules.nixos.gaming.enable = lib.mkEnableOption "Enable gaming related programs/tweaks";
+    options.common.os.gaming.enable = lib.mkEnableOption "Enable gaming related programs/tweaks";
 
     config = lib.mkIf cfg.enable {
         # Enable GameMode to optimize system performance on demand

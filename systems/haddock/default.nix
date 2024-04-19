@@ -13,7 +13,7 @@
     networking.hostName = "haddock";
 
     # Setup Restic backups
-    modules.nixos.backups = {
+    common.os.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"

@@ -12,10 +12,10 @@
     networking.hostName = "snowy";
 
     # Enable PipeWire
-    modules.nixos.audio.enable = true;
+    common.os.audio.enable = true;
 
     # Enable backups
-    modules.nixos.backups = {
+    common.os.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"
