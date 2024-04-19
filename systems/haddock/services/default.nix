@@ -2,6 +2,7 @@
 
 {
     imports = [
+        ./arr.nix
         ./auth
         ./caddy
         ./ddclient.nix
