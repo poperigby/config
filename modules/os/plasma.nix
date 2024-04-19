@@ -1,15 +1,15 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.os.plasma;
+  cfg = config.modules.os.plasma;
 in
 {
-    # Setup common.os.plasma options
-    options.common.os.plasma = {
+    # Setup modules.os.plasma options
+    options.modules.os.plasma = {
         enable = lib.mkEnableOption "Enable KDE Plasma";
     };
 
-    # Only enable KDE Plasma if `common.os.plasma.enable` is true
+    # Only enable KDE Plasma if `modules.os.plasma.enable` is true
     config = lib.mkIf cfg.enable {
         services.xserver = {
             # Enable X11 just in case

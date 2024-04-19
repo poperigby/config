@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.wezterm;
+    cfg = config.modules.home.wezterm;
 in
 {
-    options.common.home.wezterm.enable = lib.mkEnableOption "Enable WezTerm";
+    options.modules.home.wezterm.enable = lib.mkEnableOption "Enable WezTerm";
 
     config = lib.mkIf cfg.enable {
         programs.wezterm = {

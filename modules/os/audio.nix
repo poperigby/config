@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.os.audio;
+  cfg = config.modules.os.audio;
 in
 {
-    options.common.os.audio.enable = lib.mkEnableOption "Enable audio (PipeWire)";
+    options.modules.os.audio.enable = lib.mkEnableOption "Enable audio (PipeWire)";
 
     config = lib.mkIf cfg.enable {
         services.pipewire = {

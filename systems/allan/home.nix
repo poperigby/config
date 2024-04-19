@@ -2,5 +2,5 @@
 
 {
     # Enable River WM
-    common.home.river.enable = true;
+    modules.home.river.enable = true;
 }

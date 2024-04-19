@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.river;
+    cfg = config.modules.home.river;
 in
 {
-    options.common.home.river.enable = lib.mkEnableOption "Enable River WM";
+    options.modules.home.river.enable = lib.mkEnableOption "Enable River WM";
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.river = {

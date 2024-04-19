@@ -1,12 +1,12 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.os.backups;
+  cfg = config.modules.os.backups;
   hostName = config.networking.hostName;
 in
 {
-    # Setup common.os.backups options
-    options.common.os.backups = {
+    # Setup modules.os.backups options
+    options.modules.os.backups = {
         enable = lib.mkEnableOption "Enables Restic backups";
         paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;
@@ -17,7 +17,7 @@ in
         };
     };
 
-    # Only enable backups if `common.os.backups.enable` is true
+    # Only enable backups if `modules.os.backups.enable` is true
     config = lib.mkIf cfg.enable {
         services.restic.backups = {
             borgbase = {
