@@ -5,6 +5,7 @@
         ../../common/os
         ./drives.nix
         ./gaming.nix
+        ./hardware.nix
         ./home.nix
     ];
 
