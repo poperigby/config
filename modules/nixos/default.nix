@@ -6,6 +6,7 @@
         ./backups.nix
         ./bootloader.nix
         ./gaming.nix
+        ./home.nix
         ./ld.nix
         ./plasma.nix
         ./reduce-disk-usage.nix
