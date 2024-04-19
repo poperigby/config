@@ -6,6 +6,7 @@
         ./auth
         ./caddy
         ./ddclient.nix
+        ./frigate.nix
         ./jellyfin.nix
         ./miniflux.nix
         ./postgresql.nix
