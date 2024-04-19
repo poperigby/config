@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ../../modules/os
+        ../../common/os
         ./drives.nix
         ./gaming.nix
         ./home.nix
