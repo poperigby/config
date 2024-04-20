@@ -4,11 +4,13 @@ let
     cfg = config.modules.home.gaming;
 in
 {
+
     options.modules.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
     config = lib.mkIf cfg.enable {
-        # Enable MangoHUD
-        modules.home.mangohud.enable = true;
+        imports = [
+            ./mangohud.nix
+        ];
 
         # Packages
         home.packages = with pkgs; [

@@ -1,0 +1,33 @@
+{ ... }:
+
+{
+    programs.mangohud = {
+        enable = true;
+        # Enable MangoHUD for all applications that support it
+        enableSessionWide = true;
+        settings = {
+            # Display the current GPU information
+            gpu_stats = true;
+            # Display the current CPU information
+            cpu_stats = true;
+            # Display system VRAM / RAM / swap space usage
+            vram = true;
+            ram = true;
+            swap = true;
+            # Display FPS and frametime
+            fps = true;
+            frametime = true;
+            # Frame timing graph
+            frame_timing = true;
+            # Display GPU throttling status. Only shows if
+            # throttling is currently happening
+            throttling_status = true;
+            # Make the corners round
+            round_corners = 1;
+            # Hide the HUD by default
+            no_display = true;
+            # Keybinds
+            toggle_hud = "End";
+        };
+    };
+}
