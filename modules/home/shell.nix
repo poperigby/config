@@ -38,7 +38,7 @@
 
     # Environment variables
     home.sessionVariables = {
-        # The fish greeting is annoying >:(
+        # The fish greeting is annoying 😡🤜🐟
         fish_greeting = "";
     };
 
