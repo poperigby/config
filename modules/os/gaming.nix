@@ -4,7 +4,7 @@ let
   cfg = config.modules.os.gaming;
 in
 {
-    options.modules.os.gaming.enable = lib.mkEnableOption "Enable gaming related programs/tweaks";
+    options.modules.os.gaming.enable = lib.mkEnableOption "Enable system level gaming related programs/tweaks";
 
     config = lib.mkIf cfg.enable {
         # Enable GameMode to optimize system performance on demand
