@@ -6,6 +6,7 @@
         ./eza.nix
         ./firefox.nix
         ./git.nix
+        ./mangohud.nix
         ./neovim
         ./tealdeer.nix
         ./wezterm
