@@ -5,7 +5,7 @@
         inputs.nix-index-database.hmModules.nix-index
         ./gaming
         ./programs
-        ./shell.nix
+        ./shell
     ];
 
     # Home Manager needs a bit of information about you and the paths it should
