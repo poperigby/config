@@ -17,8 +17,6 @@ in
 
         # Packages
         home.packages = with pkgs; [
-            # Choo choo 🚂
-            steam
             # For GOG and Epic Games 🤢
             heroic
             # For managing compatibility tools

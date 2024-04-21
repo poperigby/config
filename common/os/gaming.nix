@@ -7,6 +7,9 @@ in
     options.common.os.gaming.enable = lib.mkEnableOption "Enable system level gaming related programs/tweaks";
 
     config = lib.mkIf cfg.enable {
+        # This does some helpful Steam related tweaks
+        programs.steam.enable = true;
+
         # Enable GameMode to optimize system performance on demand
         programs.gamemode.enable = true;
 
