@@ -25,6 +25,5 @@
         sops
         vimv-rs
         inputs.nh.packages."${pkgs.system}".nh
-        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
