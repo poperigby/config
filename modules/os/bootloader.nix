@@ -5,7 +5,7 @@
         systemd-boot = {
             enable = true;
             # Limit the number of generations to keep
-            configurationLimit = 10;
+            configurationLimit = 3;
         };
         efi.canTouchEfiVariables = true;
     };
