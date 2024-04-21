@@ -12,6 +12,9 @@ in
             ./mangohud.nix
         ];
 
+        # MangoHUD, for monitoring hardware and software during gameplay
+        modules.home.mangohud.enable = true;
+
         # Packages
         home.packages = with pkgs; [
             # Choo choo 🚂
