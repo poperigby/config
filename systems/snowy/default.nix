@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ../../modules/os
+        ../../common/os
         ./drives.nix
         ./gaming.nix
         ./hardware.nix
@@ -13,10 +13,10 @@
     networking.hostName = "snowy";
 
     # Enable PipeWire
-    modules.os.audio.enable = true;
+    common.os.audio.enable = true;
 
     # Enable backups
-    modules.os.backups = {
+    common.os.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"

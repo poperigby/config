@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.modules.home.gaming;
+    cfg = config.common.home.gaming;
 in
 {
 
-    options.modules.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
+    options.common.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
     config = lib.mkIf cfg.enable {
         imports = [
@@ -13,7 +13,7 @@ in
         ];
 
         # MangoHUD, for monitoring hardware and software during gameplay
-        modules.home.mangohud.enable = true;
+        common.home.mangohud.enable = true;
 
         # Packages
         home.packages = with pkgs; [

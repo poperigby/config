@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ../../modules/os
+        ../../common/os
         ./drives.nix
         ./hardware.nix
         ./home.nix
@@ -13,7 +13,7 @@
     networking.hostName = "haddock";
 
     # Setup Restic backups
-    modules.os.backups = {
+    common.os.backups = {
         enable = true;
         paths = [
             "/home/*/.local/share"
