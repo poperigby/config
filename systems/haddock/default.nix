@@ -26,7 +26,4 @@
     time.timeZone = "America/Los_Angeles";
 
     services.openssh.enable = true;
-
-    # DO NOT TOUCH 💀
-    system.stateVersion = "23.11";
 }

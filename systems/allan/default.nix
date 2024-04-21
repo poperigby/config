@@ -49,7 +49,4 @@
           };
         };
     };
-
-    # DO NOT TOUCH 💀
-    system.stateVersion = "23.11";
 }

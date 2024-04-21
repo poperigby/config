@@ -25,7 +25,4 @@
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
-
-    # DO NOT TOUCH 💀
-    system.stateVersion = "23.11";
 }

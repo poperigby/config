@@ -10,8 +10,10 @@
 
     # Home Manager needs a bit of information about you and the paths it should
     # manage.
-    home.username = "cassidy";
-    home.homeDirectory = "/home/cassidy";
+    home = {
+        username = "cassidy";
+        homeDirectory = "/home/cassidy";
+    };
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
@@ -19,15 +21,12 @@
     # Make programs use XDG directories whenever supported
     home.preferXdgDirectories = true;
 
+    # Nicely reload system units when changing configurations
+    systemd.user.startServices = "sd-switch";
+
     # Enable nix-index and integrate with command-not-found helper
     programs.nix-index.enable = true;
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    home.stateVersion = "23.11"; # Please read the comment before changing.
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    home.stateVersion = "23.11";
 }
