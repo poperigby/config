@@ -6,7 +6,7 @@
     ];
 
     stylix = {
-        image = ./wallpaper.png;
+        image = ./wallpaper.jpg;
 
         base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-soft.yaml";
 
