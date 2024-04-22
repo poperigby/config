@@ -8,11 +8,12 @@
         ./gaming.nix
         ./home.nix
         ./ld.nix
+        ./location.nix
+        ./qbittorrent.nix
         ./reduce-disk-usage.nix
         ./secrets.nix
         ./sudo.nix
         ./users.nix
-        ./qbittorrent.nix
     ];
 
     # Enable New CLI and Flakes
