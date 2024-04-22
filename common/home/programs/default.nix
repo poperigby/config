@@ -5,6 +5,7 @@
         ./bat.nix
         ./eza.nix
         ./firefox.nix
+        ./fzf.nix
         ./git.nix
         ./mangohud.nix
         ./neovim
@@ -18,7 +19,6 @@
         asciinema
         bottom
         fd
-        fzf
         just
         lazygit
         ripgrep
