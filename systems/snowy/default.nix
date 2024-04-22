@@ -15,6 +15,9 @@
     # Enable PipeWire
     common.os.audio.enable = true;
 
+    # Automatic location provider (for gammastep)
+    common.os.location.enable = true;
+
     # Enable backups
     common.os.backups = {
         enable = true;
