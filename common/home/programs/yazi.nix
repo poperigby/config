@@ -1,3 +1,11 @@
+{ config, lib, ... }:
+
+{
+    programs.yazi = {
+        enable = true;
+        enableFishIntegration = true;
+    };
+
     # Create a desktop entry for Yazi if the GUI is enabled
     xdg.desktopEntries.yazi = lib.mkIf config.common.home.gui.enable {
         name = "Yazi";
@@ -7,3 +15,4 @@
         categories = [ "System" "FileTools" "FileManager" ];
         mimeType = [ "inode/directory" ];
     };
+}
