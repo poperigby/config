@@ -8,7 +8,7 @@
     stylix = {
         image = ./wallpaper.jpg;
 
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-soft.yaml";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-hard.yaml";
 
         cursor = {
             package = pkgs.gnome.adwaita-icon-theme;
