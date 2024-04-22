@@ -4,14 +4,9 @@ let
     cfg = config.common.home.gaming;
 in
 {
-
     options.common.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
     config = lib.mkIf cfg.enable {
-        imports = [
-            ./mangohud.nix
-        ];
-
         # MangoHUD, for monitoring hardware and software during gameplay
         common.home.mangohud.enable = true;
 
