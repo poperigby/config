@@ -3,6 +3,7 @@
 {
     imports = [
         ./bat.nix
+        ./bottom.nix
         ./eza.nix
         ./firefox.nix
         ./fzf.nix
@@ -17,7 +18,6 @@
     # Programs that don't require any configuration
     home.packages = with pkgs; [
         asciinema
-        bottom
         fd
         just
         lazygit
