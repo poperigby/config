@@ -10,7 +10,7 @@
         ./neovim
         ./tealdeer.nix
         ./wezterm
-        ./yazi
+        ./yazi.nix
     ];
 
     # Programs that don't require any configuration
