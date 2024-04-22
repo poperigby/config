@@ -18,5 +18,11 @@ in
         wayland.windowManager.river = {
             enable = true;
         };
+
+        common.home.gui.dunst.enable = true;
+        common.home.gui.flameshot.enable = true;
+        common.home.gui.gammastep.enable = true;
+        common.home.gui.waybar.enable = true;
+        common.home.gui.wofi.enable = true;
     };
 }
