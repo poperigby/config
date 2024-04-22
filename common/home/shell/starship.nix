@@ -10,6 +10,7 @@
             # Left prompt
             format = lib.concatStrings [
                 "$directory"
+                "$shlvl"
                 "$git_branch"
                 "$git_commit"
                 "$git_state"
@@ -29,6 +30,8 @@
                 error_symbol = "[❯](red)";
             };
             directory = {
+                format = "[$path]($style) [$read_only]($read_only_style)";
+                read_only = " ";
                 fish_style_pwd_dir_length = 3;
                 truncation_length = 3;
             };
