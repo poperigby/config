@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.river;
+    cfg = config.common.home.gui;
 in
 {
-    options.common.home.river.enable = lib.mkEnableOption "Enable River WM";
+    options.common.home.gui.enable = lib.mkEnableOption "Enable GUI";
 
     config = lib.mkIf cfg.enable {
         imports = [

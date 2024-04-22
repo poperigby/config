@@ -4,9 +4,9 @@
     imports = [
         inputs.nix-index-database.hmModules.nix-index
         ./gaming
+        ./gui
         ./programs
         ./shell
-        ./wm
     ];
 
     # Home Manager needs a bit of information about you and the paths it should

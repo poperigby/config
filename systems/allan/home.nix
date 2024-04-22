@@ -2,5 +2,5 @@
 
 {
     # Enable River WM
-    common.home.river.enable = true;
+    common.home.gui.enable = true;
 }
