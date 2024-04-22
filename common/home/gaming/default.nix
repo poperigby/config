@@ -6,9 +6,13 @@ in
 {
     options.common.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
+    imports = [
+        ./mangohud.nix
+    ];
+
     config = lib.mkIf cfg.enable {
         # MangoHUD, for monitoring hardware and software during gameplay
-        common.home.mangohud.enable = true;
+        common.home.gaming.mangohud.enable = true;
 
         # Packages
         home.packages = with pkgs; [

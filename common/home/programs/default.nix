@@ -8,7 +8,6 @@
         ./firefox.nix
         ./fzf.nix
         ./git.nix
-        ./mangohud.nix
         ./neovim
         ./tealdeer.nix
         ./wezterm
