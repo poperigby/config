@@ -10,6 +10,7 @@ in
         imports = [
             ./dunst.nix
             ./flameshot.nix
+            ./gammastep.nix
             ./waybar.nix
             ./wofi.nix
         ];
