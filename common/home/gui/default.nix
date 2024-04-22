@@ -6,15 +6,15 @@ in
 {
     options.common.home.gui.enable = lib.mkEnableOption "Enable GUI";
 
-    config = lib.mkIf cfg.enable {
-        imports = [
-            ./dunst.nix
-            ./flameshot.nix
-            ./gammastep.nix
-            ./waybar.nix
-            ./wofi.nix
-        ];
+    imports = [
+        ./dunst.nix
+        ./flameshot.nix
+        ./gammastep.nix
+        ./waybar.nix
+        ./wofi.nix
+    ];
 
+    config = lib.mkIf cfg.enable {
         wayland.windowManager.river = {
             enable = true;
         };
