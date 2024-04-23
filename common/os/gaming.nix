@@ -9,6 +9,7 @@ in
     config = lib.mkIf cfg.enable {
         nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
             "steam"
+            "steam-original"
         ];
 
         # This does some helpful Steam related tweaks (as well as installing Steam)
