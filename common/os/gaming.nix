@@ -10,6 +10,7 @@ in
         nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
             "steam"
             "steam-original"
+            "steam-run"
         ];
 
         # This does some helpful Steam related tweaks (as well as installing Steam)
