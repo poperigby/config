@@ -19,9 +19,6 @@
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    # Make programs use XDG directories whenever supported
-    home.preferXdgDirectories = true;
-
     # Nicely reload system units when changing configurations
     systemd.user.startServices = "sd-switch";
 
