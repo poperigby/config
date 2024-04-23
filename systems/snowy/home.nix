@@ -3,5 +3,5 @@
 
 {
     # Enable GUI
-    common.home.gui.enable = true;
+    home-manager.users.cassidy.common.home.gui.enable = true;
 }
