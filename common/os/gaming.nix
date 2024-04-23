@@ -7,7 +7,7 @@ in
     options.common.os.gaming.enable = lib.mkEnableOption "Enable system level gaming related programs/tweaks";
 
     config = lib.mkIf cfg.enable {
-        allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
             "steam"
         ];
 
