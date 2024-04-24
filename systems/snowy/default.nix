@@ -28,4 +28,7 @@
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
+
+    # Having SSHD enabled is pretty handy sometimes
+    services.openssh.enable = true;
 }
