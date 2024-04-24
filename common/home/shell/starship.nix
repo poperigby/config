@@ -50,7 +50,8 @@
                 style = "bold yellow";
             };
             hostname = {
-                format = "[$hostname]($style)";
+                format = "[$ssh_symbol$hostname]($style)";
+                ssh_symbol = " ";
                 style = "yellow";
             };
         };
