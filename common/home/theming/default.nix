@@ -10,10 +10,10 @@
 
         base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-hard.yaml";
 
-        # cursor = {
-        #     package = pkgs.gnome.adwaita-icon-theme;
-        #     name = "Adwaita";
-        # };
+        cursor = {
+            package = pkgs.gnome.adwaita-icon-theme;
+            name = "Adwaita";
+        };
 
         fonts = {
             serif = {
