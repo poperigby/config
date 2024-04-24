@@ -13,6 +13,7 @@
         ./reduce-disk-usage.nix
         ./secrets.nix
         ./sudo.nix
+        ./theming
         ./users.nix
     ];
 
