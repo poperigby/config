@@ -5,7 +5,7 @@
     common.os.gaming.enable = true;
 
     # Enable home level gaming programs/tweaks
-    common.home.gaming.enable = true;
+    home-manager.users.cassidy.common.home.gaming.enable = true;
 
     # Enable CoreCtrl, a tool to overclock AMD graphics cards and processors.
     # Automatically adds main user to corectrl group to allow launching without

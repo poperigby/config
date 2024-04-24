@@ -8,12 +8,12 @@ in
         enable = true;
         enableFishIntegration = true;
         keymap = {
-            manager.keymap = [
+            manager.prepend_keymap = [
             ] ++ lib.optionals gui [
                 # Enable mapping for ripdrag if GUI is enabled
                 {
                     on = [ "<C-n>" ];
-                    exec = "shell '${pkgs.ripdrag}/bin/ripdrag \"$@\" -x 2>/dev/null &' --confirm";
+                    exec = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
                 }
             ];
         };

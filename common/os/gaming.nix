@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.common.os.gaming;
@@ -7,7 +7,13 @@ in
     options.common.os.gaming.enable = lib.mkEnableOption "Enable system level gaming related programs/tweaks";
 
     config = lib.mkIf cfg.enable {
-        # This does some helpful Steam related tweaks
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+            "steam"
+            "steam-original"
+            "steam-run"
+        ];
+
+        # This does some helpful Steam related tweaks (as well as installing Steam)
         programs.steam.enable = true;
 
         # Enable GameMode to optimize system performance on demand

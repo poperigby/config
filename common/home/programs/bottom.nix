@@ -8,7 +8,7 @@
     };
 
     # Create a desktop entry for Bottom if the GUI is enabled
-    xdg.desktopEntries.yazi = lib.mkIf config.common.home.gui.enable {
+    xdg.desktopEntries.bottom = lib.mkIf config.common.home.gui.enable {
         name = "Bottom";
         genericName = "System Monitor";
         exec = "btm";
