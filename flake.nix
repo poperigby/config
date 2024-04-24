@@ -4,8 +4,9 @@
     # Inputs for building the NixOS system, such as software repositories.
     inputs = {
         # Official inputs
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-        nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+        # nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+        # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         # Extra inputs
         caligula = {
             url = "github:ifd3f/caligula";
