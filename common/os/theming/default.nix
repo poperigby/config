@@ -33,5 +33,9 @@
                 name = "Noto Color Emoji";
             };
         };
+
+        targets = {
+            fish.enable = false;
+        };
     };
 }
