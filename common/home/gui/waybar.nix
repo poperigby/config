@@ -15,7 +15,7 @@ in
                 layer = "top";
                 position = "top";
                 height = 30;
-                modules = [
+                modules-left = [
                     "river/tags"
                 ];
             };
