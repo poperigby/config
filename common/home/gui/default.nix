@@ -31,7 +31,7 @@ in
                         "Super+Shift E" = "exit";
                         ### Applications
                         # Launch Wofi
-                        "Super Space" = "spawn ${pkgs.wofi}/bin/wofi --show drun --allow-images";
+                        "Super Space" = "spawn '${pkgs.wofi}/bin/wofi --show drun --allow-images'";
                         # Launch WezTerm
                         "Super Return" = "spawn ${pkgs.wezterm}/bin/wezterm";
                     };
