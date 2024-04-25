@@ -39,12 +39,15 @@ in
             };
         };
 
+        # Desktop environment related applications
         common.home.gui.dunst.enable = true;
         common.home.gui.flameshot.enable = true;
         common.home.gui.gammastep.enable = true;
         common.home.gui.waybar.enable = true;
         common.home.gui.wofi.enable = true;
 
+        # Useful applications
         common.home.wezterm.enable = true;
+        common.home.firefox.enable = true;
     };
 }
