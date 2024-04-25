@@ -29,6 +29,13 @@
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
+    # Enable NetworkManager
+    networking.networkmanager.enable = true;
+
+    # Enable Bluetooth
+    hardware.bluetooth.enable = true;
+
+    # TODO: Allow key-only auth
     # Having SSHD enabled is pretty handy sometimes
-    services.openssh.enable = true;
+    # services.openssh.enable = true;
 }
