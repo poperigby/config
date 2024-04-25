@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.common.home.gui;
@@ -17,6 +17,17 @@ in
     config = lib.mkIf cfg.enable {
         wayland.windowManager.river = {
             enable = true;
+            settings = {
+                default-layout = "rivertile";
+                map = {
+                    normal = {
+                        # Launch Wofi
+                        "Super Space" = "spawn ${pkgs.wofi}/bin/wofi";
+                        # Exit River
+                        "Super+Shift E" = "exit";
+                    };
+                };
+            };
         };
 
         common.home.gui.dunst.enable = true;
