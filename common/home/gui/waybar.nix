@@ -11,6 +11,14 @@ in
             enable = true;
             # Enable systemd integration
             systemd.enable = true;
+            settings.mainBar = {
+                layer = "top";
+                position = "top";
+                height = 30;
+                modules = [
+                    "river/tags"
+                ];
+            };
         };
     };
 }
