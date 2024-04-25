@@ -44,5 +44,7 @@ in
         common.home.gui.gammastep.enable = true;
         common.home.gui.waybar.enable = true;
         common.home.gui.wofi.enable = true;
+
+        common.home.wezterm.enable = true;
     };
 }
