@@ -21,10 +21,19 @@ in
                 default-layout = "rivertile";
                 map = {
                     normal = {
-                        # Launch Wofi
-                        "Super Space" = "spawn ${pkgs.wofi}/bin/wofi";
+                        ### Basics
+                        # Close focused view
+                        "Super Q" = "close";
+                        # Focus next/previous view in layout stack
+                        "Super J" = "focus-view next";
+                        "Super K" = "focus-view previous";
                         # Exit River
                         "Super+Shift E" = "exit";
+                        ### Applications
+                        # Launch Wofi
+                        "Super Space" = "spawn ${pkgs.wofi}/bin/wofi";
+                        # Launch WezTerm
+                        "Super Return" = "spawn ${pkgs.wezterm}/bin/wezterm";
                     };
                 };
             };
