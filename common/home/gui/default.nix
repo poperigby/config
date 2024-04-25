@@ -17,6 +17,15 @@ in
     config = lib.mkIf cfg.enable {
         wayland.windowManager.river = {
             enable = true;
+            settings = {
+                default-layout = "rivertile";
+                map = {
+                    normal = {
+                        # Exit River
+                        "Super+Shift E" = "exit";
+                    };
+                };
+            };
         };
 
         common.home.gui.dunst.enable = true;
