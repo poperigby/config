@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.common.home.gui;
@@ -21,6 +21,8 @@ in
                 default-layout = "rivertile";
                 map = {
                     normal = {
+                        # Launch Wofi
+                        "Super Space" = "spawn ${pkgs.wofi}/bin/wofi";
                         # Exit River
                         "Super+Shift E" = "exit";
                     };
