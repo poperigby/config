@@ -34,10 +34,6 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        stylix = {
-            url = "github:danth/stylix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
