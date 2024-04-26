@@ -34,8 +34,8 @@
             };
         };
 
-        targets = {
-            fish.enable = false;
+        opacity = {
+            terminal = 0.6;
         };
     };
 
