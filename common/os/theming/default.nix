@@ -1,10 +1,10 @@
 { inputs, pkgs, ... }:
 
 {
-    imports = [
-        inputs.stylix.nixosModules.stylix
-    ];
-
+    # imports = [
+    #     inputs.stylix.nixosModules.stylix
+    # ];
+    #
     # stylix = {
     #     image = ./wallpaper.jpg;
     #
