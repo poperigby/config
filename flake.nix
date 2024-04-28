@@ -3,11 +3,10 @@
 
     # Inputs for building the NixOS system, such as software repositories.
     inputs = {
-        # Official inputs
+        ## Official inputs
         # nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-        # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-        # Extra inputs
+        ## Extra inputs
         caligula = {
             url = "github:ifd3f/caligula";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -24,12 +23,15 @@
             url = "github:viperML/nh";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nix-colors.url = "github:misterio77/nix-colors";
         nix-index-database = {
             url = "github:nix-community/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+        snowfall-lib = {
+            url = "github:snowfallorg/lib";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         sops-nix = {
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
