@@ -24,7 +24,7 @@ in
             flameshot.enable = true;
             gammastep.enable = true;
             waybar.enable = true;
-            wofi.enable = true;
+            rofi.enable = true;
         };
 
         # Useful applications
