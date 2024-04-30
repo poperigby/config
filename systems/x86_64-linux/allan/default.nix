@@ -2,7 +2,6 @@
 
 {
     imports = [
-        ../../common/os
         ./drives.nix
         ./home.nix
     ];
