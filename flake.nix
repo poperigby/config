@@ -40,48 +40,42 @@
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
     # based on the `inputs` attribute set, and any `modules` specified.
-    outputs = inputs@{ self, disko, home-manager, nixpkgs, nixos-hardware, ... }: {
-        nixosConfigurations = {
+    outputs = inputs: inputs.snowfall-lib.mkFlake {
+        inherit inputs;
+        src = ./.;
+
+        # A namespace to use for my flake's packages, library, and overlays.
+        namespace = "poperigby";
+
+        systems.hosts = {
             # Home server
-            haddock = nixpkgs.lib.nixosSystem {
-                modules = [
+            haddock = {
+                modules = with inputs; [
                     disko.nixosModules.disko
                     home-manager.nixosModules.default
-                    ./systems/haddock
                 ];
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs; };
             };
             # Desktop
-            snowy = nixpkgs.lib.nixosSystem {
-                modules = [
+            snowy = {
+                modules = with inputs; [
                     disko.nixosModules.disko
                     home-manager.nixosModules.default
-                    ./systems/snowy
                 ];
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs; };
             };
             # Laptop
-            allan = nixpkgs.lib.nixosSystem {
-                modules = [
-                    nixos-hardware.nixosModules.framework-11th-gen-intel
+            allan = {
+                modules = with inputs; [
                     disko.nixosModules.disko
                     home-manager.nixosModules.default
-                    ./systems/allan
+                    nixos-hardware.nixosModules.framework-11th-gen-intel
                 ];
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs; };
             };
             # Installation/recovery ISO
-            iso = nixpkgs.lib.nixosSystem {
-                modules = [
+            iso = {
+                modules = with inputs; [
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
                     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-                    ./systems/iso
                 ];
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs; };
             };
         };
     };
