@@ -11,7 +11,6 @@ in
         ./flameshot.nix
         ./gammastep.nix
         ./waybar.nix
-        ./wofi.nix
     ];
 
     config = lib.mkIf cfg.enable {
@@ -31,7 +30,7 @@ in
                         "Super+Shift E" = "exit";
                         ### Applications
                         # Launch Wofi
-                        "Super Space" = "spawn '${pkgs.wofi}/bin/wofi --show drun --allow-images'";
+                        "Super Space" = "spawn '${pkgs.rofi}/bin/rofi -combi-modi window,drun -show combi -show-icons'";
                         # Launch WezTerm
                         "Super Return" = "spawn ${pkgs.wezterm}/bin/wezterm";
                     };
@@ -63,7 +62,7 @@ in
         common.home.gui.flameshot.enable = true;
         common.home.gui.gammastep.enable = true;
         common.home.gui.waybar.enable = true;
-        common.home.gui.wofi.enable = true;
+        common.home.gui.rofi.enable = true;
 
         # Useful applications
         common.home.wezterm.enable = true;
