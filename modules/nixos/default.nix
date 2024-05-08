@@ -15,10 +15,6 @@
         ./sudo.nix
         ./users.nix
     ];
-
-    # Enable New CLI and Flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
     # Select internationalization properties.
     i18n.defaultLocale = "en_US.UTF-8";
 
