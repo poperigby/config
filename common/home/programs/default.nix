@@ -20,6 +20,7 @@
         fd
         just
         lazygit
+        ouch
         ripgrep
         sops
         vimv-rs

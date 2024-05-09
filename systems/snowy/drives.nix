@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
@@ -20,19 +22,24 @@
                     # Take up the rest of the space on the disk
                     size = "100%";
                     content = {
-                        type = "btrfs";
-                        subvolumes = {
-                            "@" = {
-                                mountpoint = "/";
-                                mountOptions = [ "noatime" ];
-                            };
-                            "@home" = {
-                                mountpoint = "/home";
-                                mountOptions = [ "compress=zstd" "noatime" ];
-                            };
-                            "@nix" = {
-                                mountpoint = "/nix";
-                                mountOptions = [ "compress=ztsd" "noatime" ];
+                        type = "luks";
+                        passwordFile = config.sops.secrets."snowy/luks_password".path;
+                        settings.allowDiscards = true;
+                        content = {
+                            type = "btrfs";
+                            subvolumes = {
+                                "@" = {
+                                    mountpoint = "/";
+                                    mountOptions = [ "noatime" ];
+                                };
+                                "@home" = {
+                                    mountpoint = "/home";
+                                    mountOptions = [ "compress=zstd" "noatime" ];
+                                };
+                                "@nix" = {
+                                    mountpoint = "/nix";
+                                    mountOptions = [ "compress=ztsd" "noatime" ];
+                                };
                             };
                         };
                     };
@@ -41,4 +48,8 @@
         };
     };
     # TODO: Setup other disks
+
+    sops.secrets = {
+        "snowy/luks_password" = {};
+    };
 }
