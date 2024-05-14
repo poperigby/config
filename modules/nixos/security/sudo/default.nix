@@ -1,9 +1,16 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  cfg = config.poperigby.security.sudo;
+in
 {
-    security.sudo = {
-        # We want sudo to be a little sassy
-        extraConfig = "Defaults insults";
-        package = pkgs.sudo.override { withInsults = true; };
+    options.poperigby.security.sudo.enable = lib.mkEnableOption "Enable sudo tweaks";
+
+    config = lib.mkIf cfg.enable {
+        security.sudo = {
+            # We want sudo to be a little sassy
+            extraConfig = "Defaults insults";
+            package = pkgs.sudo.override { withInsults = true; };
+        };
     };
 }
