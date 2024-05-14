@@ -37,4 +37,7 @@
     # TODO: Allow key-only auth
     # Having SSHD enabled is pretty handy sometimes
     # services.openssh.enable = true;
+
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    system.stateVersion = "23.11";
 }

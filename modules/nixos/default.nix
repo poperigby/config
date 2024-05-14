@@ -7,7 +7,4 @@
 
     # Specifies where my flake is located for nh
     environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
-
-    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    system.stateVersion = "23.11";
 }
