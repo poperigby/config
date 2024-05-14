@@ -26,8 +26,10 @@ in
                 locale.enable = true;
                 zram.enable = true;
             };
-            # Enable my user
-            users.cassidy.enable = true;
+            users = {
+                enable = true;
+                cassidy.enable = true;
+            };
         };
     };
 }

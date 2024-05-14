@@ -1,17 +1,14 @@
-{ config, ... }:
+{ config, lib, ... }:
 
+let
+  cfg = config.poperigby.users;
+in
 {
-    sops.secrets."common/passwords/cassidy".neededForUsers = true;
+    options.poperigby.users.enable = lib.mkEnableOption "Enable user settings";
 
-    # Don't allow changing users with normal commands, allowing Nix to
-    # be the single source of truth for users.
-    users.mutableUsers = false;
-
-    # Set up me :)
-    users.users.cassidy = {
-        isNormalUser = true;
-        hashedPasswordFile = config.sops.secrets."common/passwords/cassidy".path;
-        description = "Cassidy Wilson";
-        extraGroups = [ "wheel" ];
+    config = lib.mkIf cfg.enable {
+        # Don't allow changing users with normal commands, allowing Nix to
+        # be the single source of truth for users.
+        users.mutableUsers = false;
     };
 }
