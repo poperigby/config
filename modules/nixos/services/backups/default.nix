@@ -1,12 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.common.os.backups;
+  cfg = config.poperigby.services.backups;
   hostName = config.networking.hostName;
 in
 {
-    # Setup common.os.backups options
-    options.common.os.backups = {
+    options.poperigby.services.backups = {
         enable = lib.mkEnableOption "Enables Restic backups";
         paths = lib.mkOption {
             type = lib.types.listOf lib.types.str;

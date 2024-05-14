@@ -5,12 +5,12 @@
 with lib;
 
 let
-  cfg = config.services.qbittorrent;
+  cfg = config.poperigby.services.qbittorrent;
   UID = 888;
   GID = 888;
 in
 {
-  options.services.qbittorrent = {
+  options.poperigby.services.qbittorrent = {
     enable = mkEnableOption (lib.mdDoc "qBittorrent headless");
 
     dataDir = mkOption {
