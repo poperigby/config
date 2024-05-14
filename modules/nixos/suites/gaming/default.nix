@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.common.os.gaming;
+  cfg = config.poperigby.suites.gaming;
 in
 {
-    options.common.os.gaming.enable = lib.mkEnableOption "Enable system level gaming related programs/tweaks";
+    options.poperigby.suites.gaming.enable = lib.mkEnableOption "Enable gaming programs/tweaks";
 
     config = lib.mkIf cfg.enable {
         nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
