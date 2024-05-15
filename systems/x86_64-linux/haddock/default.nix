@@ -11,14 +11,20 @@
     # Define hostname
     networking.hostName = "haddock";
 
-    # Setup Restic backups
-    common.os.backups = {
-        enable = true;
-        paths = [
-            "/home/*/.local/share"
-            "/var/lib/*"
-            "/var/backup/*"
-        ];
+    poperigby = {
+        services = {
+            backups = {
+                enable = true;
+                paths = [
+                    "/home/*/.local/share"
+                    "/var/lib/*"
+                    "/var/backup/*"
+                ];
+            };
+        };
+        suites = {
+            common.enable = true;
+        };
     };
 
     # Set time zone.

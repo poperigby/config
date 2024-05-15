@@ -16,7 +16,6 @@ in
         };
     };
 
-    # Only enable backups if `common.os.backups.enable` is true
     config = lib.mkIf cfg.enable {
         services.restic.backups = {
             borgbase = {

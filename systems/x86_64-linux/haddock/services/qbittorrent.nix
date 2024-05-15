@@ -1,7 +1,7 @@
 { ... }:
 
 {
-    services.qbittorrent = {
+    poperigby.services.qbittorrent = {
         enable = true;
     };
 }
