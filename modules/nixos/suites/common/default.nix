@@ -11,7 +11,6 @@ in
         environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
 
         poperigby = {
-            # Nix tweaks
             nix.enable = true;
             services = {
                 envfs.enable = true;
