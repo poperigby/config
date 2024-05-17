@@ -16,5 +16,11 @@ in
             description = "Cassidy Wilson";
             extraGroups = [ "wheel" ];
         };
+
+        # Tell Home Manager information about the user
+        home-manager.users.cassidy.home = {
+            username = "cassidy";
+            homeDirectory = "/home/cassidy";
+        };
     };
 }
