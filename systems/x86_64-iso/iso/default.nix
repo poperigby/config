@@ -19,10 +19,9 @@
     # Useful packages for installation and recovery
     environment.systemPackages = with pkgs; [
         git
-        gum
         networkmanager
         inputs.disko.packages.${pkgs.system}.disko
-        (writeShellScriptBin "installer" (builtins.readFile ./installer.sh))
+        poperigby.installer
     ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
