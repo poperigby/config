@@ -1,4 +1,4 @@
-    # TODO: Maybe have user setup SSH keys for cloning repository?
+# TODO: Maybe have user setup SSH keys for cloning repository?
 
 {
     writeShellScriptBin,
