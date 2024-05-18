@@ -21,7 +21,7 @@ in
                 sudo.enable = true;
             };
             system = {
-                boot.enable = true;
+                bootloader.enable = true;
                 locale.enable = true;
                 zram.enable = true;
             };
