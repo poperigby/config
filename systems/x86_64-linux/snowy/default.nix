@@ -27,7 +27,7 @@
             common.enable = true;
             gaming = {
                 enable = true;
-                corectrl.enable = true;
+                amd.enable = true;
             };
         };
     };
@@ -45,6 +45,6 @@
     # Having SSHD enabled is pretty handy sometimes
     # services.openssh.enable = true;
 
-    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "23.11";
 }
