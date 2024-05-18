@@ -9,6 +9,11 @@ in
     config = lib.mkIf cfg.enable {
         programs.bottom = {
             enable = true;
+            settings = {
+                flags = {
+                    color = "gruvbox";
+                };
+            };
         };
 
         # Create a desktop entry for Bottom if the desktop GUI is enabled
