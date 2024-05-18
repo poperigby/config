@@ -8,7 +8,7 @@ in
 
     config = lib.mkIf cfg.enable {
         # MangoHUD, for monitoring hardware and software during gameplay
-        # common.home.gaming.mangohud.enable = true;
+        poperigby.programs.mangohud.enable = true;
 
         # Packages
         home.packages = with pkgs; [
