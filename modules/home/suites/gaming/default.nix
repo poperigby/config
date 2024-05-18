@@ -7,8 +7,10 @@ in
     options.poperigby.suites.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
     config = lib.mkIf cfg.enable {
-        # MangoHUD, for monitoring hardware and software during gameplay
-        poperigby.programs.mangohud.enable = true;
+        poperigby.programs = {
+            # MangoHUD, for monitoring hardware and software during gameplay
+            mangohud.enable = true;
+        };
 
         # Packages
         home.packages = with pkgs; [

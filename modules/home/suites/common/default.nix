@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-    poperigby = {
+    poperigby.programs = {
         bat.enable = true;
         bottom.enable = true;
         fish.enable = true;
