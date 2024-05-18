@@ -1,16 +1,14 @@
 { ... }:
 
 {
-    home-manager.users.cassidy = {
-        poperigby = {
-            suites = {
-                common.enable = true;
-                desktop.enable = true;
-                gaming.enable = true;
-            };
+    poperigby = {
+        suites = {
+            common.enable = true;
+            desktop.enable = true;
+            gaming.enable = true;
         };
-
-        # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-        home.stateVersion = "23.11";
     };
+
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    home.stateVersion = "23.11";
 }
