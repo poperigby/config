@@ -9,8 +9,6 @@ in
     config = lib.mkIf cfg.enable {
         programs.waybar = {
             enable = true;
-            # Enable systemd integration
-            systemd.enable = true;
             settings.mainBar = {
                 # Global
                 layer = "top";
@@ -33,6 +31,8 @@ in
                 # Modules
             };
             style = ./style.css;
+            # Enable systemd integration
+            systemd.enable = true;
         };
     };
 }

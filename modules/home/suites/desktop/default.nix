@@ -7,11 +7,8 @@ in
     options.poperigby.suites.desktop.enable = lib.mkEnableOption "Enable desktop GUI";
 
     config = lib.mkIf cfg.enable {
-        wayland.windowManager.sway = {
-            enable = true;
-        };
-
         poperigby = {
+            desktop.sway.enable = true;
             programs = {
                 firefox.enable = true;
                 rofi.enable = true;
