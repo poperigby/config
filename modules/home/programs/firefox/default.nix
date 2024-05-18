@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.firefox;
+    cfg = config.poperigby.programs.firefox;
 in
 {
-    options.common.home.firefox.enable = lib.mkEnableOption "Enable Firefox";
+    options.poperigby.programs.firefox.enable = lib.mkEnableOption "Enable Firefox";
 
     config = lib.mkIf cfg.enable {
         programs.firefox = {

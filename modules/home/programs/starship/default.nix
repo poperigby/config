@@ -1,0 +1,66 @@
+{ config, lib, ... }:
+
+let
+    cfg = config.poperigby.programs.starship;
+in
+{
+    options.poperigby.programs.starship.enable = lib.mkEnableOption "Enable Starship prompt";
+
+    config = lib.mkIf cfg.enable {
+        programs.starship = {
+            enable = true;
+            settings = {
+                ## Top level configuration
+                # Don't print a new line at the start of the prompt
+                add_newline = false;
+                # Left prompt
+                format = lib.concatStrings [
+                    "$directory"
+                    "$shlvl"
+                    "$git_branch"
+                    "$git_commit"
+                    "$git_state"
+                    "$git_status"
+                    "$jobs"
+                    "$status"
+                    "$character"
+                ];
+                # Right prompt
+                right_format = lib.concatStrings [
+                    "$hostname"
+                ];
+
+                ## Module configuration
+                character = {
+                    success_symbol = "[❯](green)";
+                    error_symbol = "[❯](red)";
+                };
+                directory = {
+                    format = "[$path]($style) [$read_only]($read_only_style)";
+                    read_only = " ";
+                    fish_style_pwd_dir_length = 3;
+                    truncation_length = 3;
+                };
+                git_branch = {
+                    format = "[$branch(:$remote_branch)]($style) ";
+                    style = "green";
+                };
+                git_status = {
+                    format = "([$modified$ahead_behind]($style) )";
+                    # Component formatting
+                    ahead = " ⇡\${count}";
+                    behind = " ⇣\${count}";
+                    diverged = " ⇡\${ahead_count}⇣\${behind_count}";
+                    modified = "!\${count}";
+                    stashed = "*";
+                    style = "bold yellow";
+                };
+                hostname = {
+                    format = "[$ssh_symbol$hostname]($style)";
+                    ssh_symbol = " ";
+                    style = "yellow";
+                };
+            };
+        };
+    };
+}

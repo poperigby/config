@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.gui.waybar;
+    cfg = config.poperigby.programs.waybar;
 in
 {
-    options.common.home.gui.waybar.enable = lib.mkEnableOption "Enable Waybar";
+    options.poperigby.programs.waybar.enable = lib.mkEnableOption "Enable Waybar";
 
     config = lib.mkIf cfg.enable {
         programs.waybar = {
@@ -15,9 +15,6 @@ in
                 layer = "top";
                 position = "top";
                 height = 30;
-                modules-left = [
-                    "river/tags"
-                ];
             };
         };
     };

@@ -1,12 +1,19 @@
-{ ... }:
+{ config, lib, ... }:
 
+let
+    cfg = config.poperigby.programs.bat;
+in
 {
-    programs.bat = {
-        enable = true;
-        config = {
-            theme = "gruvbox-dark";
-            # Don't show none of them fancy pants line numbers or such
-            plain = true;
+    options.poperigby.programs.bat.enable = lib.mkEnableOption "Enable bat";
+
+    config = lib.mkIf cfg.enable {
+        programs.bat = {
+            enable = true;
+            config = {
+                theme = "gruvbox-dark";
+                # Don't show none of them fancy pants line numbers or such 🤠
+                plain = true;
+            };
         };
     };
 }

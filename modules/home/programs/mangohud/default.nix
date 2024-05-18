@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.gaming.mangohud;
+    cfg = config.poperigby.programs.mangohud;
 in
 {
-    options.common.home.gaming.mangohud.enable = lib.mkEnableOption "Enable MangoHUD";
+    options.poperigby.programs.mangohud.enable = lib.mkEnableOption "Enable MangoHUD";
 
     config = lib.mkIf cfg.enable {
         programs.mangohud = {

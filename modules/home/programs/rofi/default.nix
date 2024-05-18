@@ -1,12 +1,10 @@
-# Application launcher
-
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.common.home.gui.rofi;
+    cfg = config.poperigby.programs.rofi;
 in
 {
-    options.common.home.gui.rofi.enable = lib.mkEnableOption "Enable Rofi";
+    options.poperigby.programs.rofi.enable = lib.mkEnableOption "Enable Rofi";
 
     config = lib.mkIf cfg.enable {
         programs.rofi = {
