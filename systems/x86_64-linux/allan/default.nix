@@ -12,6 +12,7 @@
     poperigby = {
         hardware = {
             audio.enable = true;
+            bluetooth.enable = true;
         };
         services = {
             backups = {
@@ -39,9 +40,6 @@
 
     # Automatically change timezone based on location
     services.automatic-timezoned.enable = true;
-
-    # Enable Bluetooth
-    hardware.bluetooth.enable = true;
 
     # Power saving
     services.thermald.enable = true;

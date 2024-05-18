@@ -13,6 +13,7 @@
     poperigby = {
         hardware = {
             audio.enable = true;
+            bluetooth.enable = true;
         };
         services = {
             backups = {
@@ -37,9 +38,6 @@
 
     # Enable NetworkManager
     networking.networkmanager.enable = true;
-
-    # Enable Bluetooth
-    hardware.bluetooth.enable = true;
 
     # TODO: Allow key-only auth
     # Having SSHD enabled is pretty handy sometimes
