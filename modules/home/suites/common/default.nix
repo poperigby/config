@@ -1,41 +1,48 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+    cfg = config.poperigby.suites.common;
+in
 {
-    poperigby.programs = {
-        bat.enable = true;
-        bottom.enable = true;
-        fish.enable = true;
-        git.enable = true;
-        neovim.enable = true;
-        tealdeer.enable = true;
-        yazi.enable = true;
+    options.poperigby.suites.common.enable = lib.mkEnableOption "Enable common settings";
+
+    config = lib.mkIf cfg.enable {
+        poperigby.programs = {
+            bat.enable = true;
+            bottom.enable = true;
+            fish.enable = true;
+            git.enable = true;
+            neovim.enable = true;
+            tealdeer.enable = true;
+            yazi.enable = true;
+        };
+
+        programs = {
+            eza.enable = true;
+            fzf.enable = true;
+            # Let Home Manager install and manage itself
+            home-manager.enable = true;
+            # Integrates nix-index with command-not-found helper
+            nix-index.enable = true;
+        };
+
+        # Programs that don't require any configuration
+        home.packages = with pkgs; [
+            asciinema
+            fd
+            just
+            lazygit
+            ouch
+            ripgrep
+            sops
+            vimv-rs
+            inputs.nh.packages."${pkgs.system}".nh
+        ];
+
+        # Make programs use XDG directories whenever supported
+        home.preferXdgDirectories = true;
+
+        # Nicely reload system units when changing configurations
+        systemd.user.startServices = "sd-switch";
     };
-
-    programs = {
-        eza.enable = true;
-        fzf.enable = true;
-        # Let Home Manager install and manage itself
-        home-manager.enable = true;
-        # Integrates nix-index with command-not-found helper
-        nix-index.enable = true;
-    };
-
-    # Programs that don't require any configuration
-    home.packages = with pkgs; [
-        asciinema
-        fd
-        just
-        lazygit
-        ouch
-        ripgrep
-        sops
-        vimv-rs
-        inputs.nh.packages."${pkgs.system}".nh
-    ];
-
-    # Make programs use XDG directories whenever supported
-    home.preferXdgDirectories = true;
-
-    # Nicely reload system units when changing configurations
-    systemd.user.startServices = "sd-switch";
 }
