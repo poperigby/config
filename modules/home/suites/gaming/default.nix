@@ -1,18 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.common.home.gaming;
+    cfg = config.poperigby.suites.gaming;
 in
 {
-    options.common.home.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
-
-    imports = [
-        ./mangohud.nix
-    ];
+    options.poperigby.suites.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
 
     config = lib.mkIf cfg.enable {
         # MangoHUD, for monitoring hardware and software during gameplay
-        common.home.gaming.mangohud.enable = true;
+        # common.home.gaming.mangohud.enable = true;
 
         # Packages
         home.packages = with pkgs; [
