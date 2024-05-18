@@ -1,7 +1,15 @@
 { pkgs, ... }:
 
 {
-    poperigby = {};
+    poperigby = {
+        bat.enable = true;
+        bottom.enable = true;
+        fish.enable = true;
+        git.enable = true;
+        neovim.enable = true;
+        tealdeer.enable = true;
+        yazi.enable = true;
+    };
 
     programs = {
         eza.enable = true;
