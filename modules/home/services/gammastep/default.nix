@@ -2,10 +2,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.gui.gammastep;
+    cfg = config.poperigby.services.gammastep;
 in
 {
-    options.common.home.gui.gammastep.enable = lib.mkEnableOption "Enable GammaStep";
+    options.poperigby.services.gammastep.enable = lib.mkEnableOption "Enable GammaStep";
 
     config = lib.mkIf cfg.enable {
         services.gammastep = {

@@ -1,11 +1,10 @@
-# Screenshot tool
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.gui.flameshot;
+    cfg = config.poperigby.services.flameshot;
 in
 {
-    options.common.home.gui.flameshot.enable = lib.mkEnableOption "Enable Flameshot screenshot tool";
+    options.poperigby.services.flameshot.enable = lib.mkEnableOption "Enable Flameshot screenshot tool";
 
     config = lib.mkIf cfg.enable {
         services.flameshot = {
