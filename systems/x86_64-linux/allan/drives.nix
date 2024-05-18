@@ -22,6 +22,7 @@
                     # Take up the rest of the space on the disk
                     size = "100%";
                     content = {
+                        name = "root";
                         type = "luks";
                         passwordFile = config.sops.secrets."allan/luks_password".path;
                         settings.allowDiscards = true;
