@@ -16,7 +16,8 @@ let
         builtins.map ({name, repo, version}: "${repo}") attrs;
     attrsToSources = attrs:
         builtins.map ({name, repo, version}: "${repo}@${version}") attrs;
-in buildGoModule rec {
+in
+buildGoModule rec {
     pname = "caddy";
     version = "2.7.6";
 

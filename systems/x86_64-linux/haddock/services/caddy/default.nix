@@ -4,7 +4,7 @@
     services.caddy = {
         enable = true;
         configFile = config.sops.templates.Caddyfile.path;
-        package = (pkgs.callPackage pkgs.poperigby.caddy {
+        package = (pkgs.callPackage ./package.nix {
             externalPlugins = [
                 {
                     name = "caddy-dns/cloudflare";
