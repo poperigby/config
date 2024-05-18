@@ -1,36 +1,28 @@
 { config, lib, ... }:
 
 let
-    cfg = config.common.home.gui;
+    cfg = config.poperigby.suites.desktop;
 in
 {
-    options.common.home.gui.enable = lib.mkEnableOption "Enable GUI";
-
-    imports = [
-        ./dunst.nix
-        ./flameshot.nix
-        ./gammastep.nix
-        ./waybar.nix
-    ];
+    options.poperigby.suites.desktop.enable = lib.mkEnableOption "Enable desktop GUI";
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
         };
 
-        # Desktop environment related applications
-        common.home.gui = {
-            dunst.enable = true;
-            flameshot.enable = true;
-            gammastep.enable = true;
-            waybar.enable = true;
-            rofi.enable = true;
-        };
-
-        # Useful applications
-        common.home = {
-            wezterm.enable = true;
-            firefox.enable = true;
+        poperigby = {
+            programs = {
+                firefox.enable = true;
+                rofi.enable = true;
+                waybar.enable = true;
+                wezterm.enable = true;
+            };
+            services = {
+                dunst.enable = true;
+                flameshot.enable = true;
+                gammastep.enable = true;
+            };
         };
     };
 }
