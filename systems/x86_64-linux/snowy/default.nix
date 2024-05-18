@@ -4,7 +4,6 @@
     imports = [
         ./drives.nix
         ./hardware.nix
-        ./home.nix
     ];
 
     # Define hostname

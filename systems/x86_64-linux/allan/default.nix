@@ -3,7 +3,6 @@
 {
     imports = [
         ./drives.nix
-        ./home.nix
     ];
 
     # Define hostname
