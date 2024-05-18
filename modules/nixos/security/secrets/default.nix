@@ -13,7 +13,7 @@ in
     config = lib.mkIf cfg.enable {
         # Secret management
         sops = {
-            defaultSopsFile = ../../secrets.yaml;
+            defaultSopsFile = ../../../../secrets.yaml;
             defaultSopsFormat = "yaml";
             # This is the default AGE key that will be used for bootstrapping the system
             age.keyFile = "/var/lib/sops-nix/age-key.txt";
