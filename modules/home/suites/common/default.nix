@@ -6,6 +6,10 @@ in
 {
     options.poperigby.suites.common.enable = lib.mkEnableOption "Enable common settings";
 
+    imports = [
+        inputs.nix-colors.homeManagerModules.default
+    ];
+
     config = lib.mkIf cfg.enable {
         poperigby.programs = {
             bat.enable = true;
@@ -38,6 +42,8 @@ in
             vimv-rs
             inputs.nh.packages."${pkgs.system}".nh
         ];
+
+        colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
         # Make programs use XDG directories whenever supported
         home.preferXdgDirectories = true;

@@ -76,7 +76,6 @@
             # Modules that get imported to every NixOS system
             modules.nixos = with inputs; [
                 disko.nixosModules.disko
-                home-manager.nixosModules.default
             ];
         };
         homes = {
