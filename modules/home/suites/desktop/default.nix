@@ -17,6 +17,7 @@ in
             };
             programs = {
                 firefox.enable = true;
+                imv.enable = true;
                 rofi.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
