@@ -16,17 +16,14 @@ in
                         xkb_options = "caps:super";
                     };
                 };
-                # We'll just use systemd to start Waybar
-                bars = [];
-                menu = "${pkgs.rofi-wayland}/bin/rofi";
                 modifier = "Mod4";
+                menu = "${pkgs.rofi-wayland}/bin/rofi -show run";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
                 keybindings = let
                     menu = config.wayland.windowManager.sway.config.menu;
                     mod = config.wayland.windowManager.sway.config.modifier;
                     term = config.wayland.windowManager.sway.config.terminal;
-                in
-                lib.mkOptionDefault {
+                in lib.mkOptionDefault {
                     ## Applications
                     # Application launcher
                     "${mod}+Space" = "exec ${menu}";
@@ -36,6 +33,8 @@ in
                     "${mod}+n" = "exec ${pkgs.firefox}/bin/firefox";
                 };
                 defaultWorkspace = "workspace number 1";
+                # We'll just use systemd to start Waybar
+                bars = [];
             };
             systemd.enable = true;
         };
