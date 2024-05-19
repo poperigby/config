@@ -4,11 +4,17 @@ let
     cfg = config.poperigby.suites.desktop;
 in
 {
-    options.poperigby.suites.desktop.enable = lib.mkEnableOption "Enable desktop GUI";
+    options.poperigby.suites.desktop = {
+        enable = lib.mkEnableOption "Enable desktop GUI";
+        adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+    };
 
     config = lib.mkIf cfg.enable {
         poperigby = {
-            desktop.sway.enable = true;
+            desktop.sway = {
+                enable = true;
+                adaptiveSync = cfg.adaptiveSync;
+            };
             programs = {
                 firefox.enable = true;
                 rofi.enable = true;
