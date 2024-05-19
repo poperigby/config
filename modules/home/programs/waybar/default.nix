@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.programs.waybar;
@@ -10,7 +10,7 @@ in
         programs.waybar = {
             enable = true;
             settings.mainBar = {
-                # Global
+                ## Global
                 layer = "top";
                 position = "top";
                 height = 30;
@@ -26,9 +26,31 @@ in
                     # "custom/weather"
                     "clock#date"
                     "clock#time"
+                    "custom/notification"
                     "tray"
                 ];
-                # Modules
+                ## Modules
+                # Sway Notification Center
+                "custom/notification" = {
+                    tooltip = false;
+                    format = "{} {icon} ";
+                    format-icons = {
+                        notification = "<span foreground='red'><sup></sup></span>";
+                        none = "";
+                        dnd-notification = "<span foreground='red'><sup></sup></span>";
+                        dnd-none = "";
+                        inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                        inhibited-none = "";
+                        dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                        dnd-inhibited-none = "";
+                    };
+                    return-type = "json";
+                    exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+                    on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+                    on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+                    escape = true;
+                };
+
             };
             # style = ./style.css;
             # Enable systemd integration
