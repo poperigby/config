@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.programs.bat;
+    cfg = config.poperigby.desktop.sway;
 in
 {
     options.poperigby.desktop.sway = {
@@ -19,11 +19,11 @@ in
                         xkb_options = "caps:super";
                     };
                 };
-                # output = {
-                #     "*" = {
-                #         adaptive_sync = lib.mkif cfg.adaptiveSync "on";
-                #     };
-                # };
+                output = {
+                    "*" = {
+                        adaptive_sync = lib.mkIf cfg.adaptiveSync "on";
+                    };
+                };
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
