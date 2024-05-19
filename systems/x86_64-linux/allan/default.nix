@@ -5,9 +5,6 @@
         ./drives.nix
     ];
 
-    # Define hostname
-    networking.hostName = "allan";
-
     poperigby = {
         hardware = {
             audio.enable = true;

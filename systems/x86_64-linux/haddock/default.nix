@@ -7,9 +7,6 @@
         ./services
     ];
 
-    # Define hostname
-    networking.hostName = "haddock";
-
     poperigby = {
         services = {
             backups = {

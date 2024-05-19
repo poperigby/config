@@ -6,9 +6,6 @@
         ./hardware.nix
     ];
 
-    # Define hostname
-    networking.hostName = "snowy";
-
     poperigby = {
         hardware = {
             audio.enable = true;
