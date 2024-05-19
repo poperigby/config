@@ -27,6 +27,7 @@
             url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nix-colors.url = "github:misterio77/nix-colors";
         nix-index-database = {
             url = "github:nix-community/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -51,36 +52,38 @@
         # A namespace to use for my flake's packages, library, and overlays.
         snowfall.namespace = "poperigby";
 
-        systems.hosts = {
-            # Home server
-            haddock = {
-                modules = with inputs; [
-                    disko.nixosModules.disko
-                    home-manager.nixosModules.default
-                ];
+        systems = {
+            # Host specific options
+            hosts = {
+                # Home server
+                haddock = {};
+                # Desktop
+                snowy = {};
+                # Laptop
+                allan = {
+                    modules = with inputs; [
+                        nixos-hardware.nixosModules.framework-11th-gen-intel
+                    ];
+                };
+                # Installation/recovery ISO
+                minimal = {
+                    modules = with inputs; [
+                        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+                        "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+                    ];
+                };
             };
-            # Desktop
-            snowy = {
-                modules = with inputs; [
-                    disko.nixosModules.disko
-                    home-manager.nixosModules.default
-                ];
-            };
-            # Laptop
-            allan = {
-                modules = with inputs; [
-                    disko.nixosModules.disko
-                    home-manager.nixosModules.default
-                    nixos-hardware.nixosModules.framework-11th-gen-intel
-                ];
-            };
-            # Installation/recovery ISO
-            minimal = {
-                modules = with inputs; [
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-                    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-                ];
-            };
+            # Modules that get imported to every NixOS system
+            modules.nixos = with inputs; [
+                disko.nixosModules.disko
+                home-manager.nixosModules.default
+            ];
+        };
+        homes = {
+            # Modules that get imported to every home
+            modules = with inputs; [
+                nix-colors.homeManagerModules.default
+            ];
         };
     };
 }
