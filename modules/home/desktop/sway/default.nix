@@ -4,7 +4,10 @@ let
     cfg = config.poperigby.programs.bat;
 in
 {
-    options.poperigby.desktop.sway.enable = lib.mkEnableOption "Enable Sway window manager";
+    options.poperigby.desktop.sway = {
+        enable = lib.mkEnableOption "Enable Sway window manager";
+        adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+    };
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
@@ -16,17 +19,26 @@ in
                         xkb_options = "caps:super";
                     };
                 };
+                # output = {
+                #     "*" = {
+                #         adaptive_sync = lib.mkif cfg.adaptiveSync "on";
+                #     };
+                # };
                 modifier = "Mod4";
-                menu = "${pkgs.rofi-wayland}/bin/rofi -show run";
+                menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
                 keybindings = let
                     menu = config.wayland.windowManager.sway.config.menu;
                     mod = config.wayland.windowManager.sway.config.modifier;
                     term = config.wayland.windowManager.sway.config.terminal;
                 in lib.mkOptionDefault {
+                    ## Basics
+                    # Kill focused window
+                    "${mod}+q" = "kill";
+
                     ## Applications
                     # Application launcher
-                    "${mod}+Space" = "exec ${menu}";
+                    "${mod}+Space" = "exec ${menu} -show run";
                     # Terminal
                     "${mod}+Return" = "exec ${term}";
                     # Firefox
