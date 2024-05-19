@@ -5,7 +5,7 @@
     networking.hostName = "iso";
 
     # Set password for root user
-    # users.users.nixos.password = "nixos"; # TODO: Should this be an actual good password?
+    users.users.nixos.password = "nixos"; # TODO: Should this be an actual good password?
 
     # Setup neovim
     programs.neovim = {

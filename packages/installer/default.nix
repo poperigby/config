@@ -17,7 +17,7 @@ writeShellScriptBin "installer" ''
     fi
 
     if [ ! -f age-key.txt ]; then
-        echo "Cannot find age-key.txt in the current directory."
+        echo "Cannot find 'age-key.txt' in the current directory."
         echo "Please copy it over and try again."
         exit 1
     fi
@@ -36,11 +36,10 @@ writeShellScriptBin "installer" ''
     echo "based on the chosen system's Disko configuration."
     if ${gum}/bin/gum confirm --default=false "Would you like to partition and format your disk?"; then
         # Confirm the user actually wants to partition the disk
-        echo                        "           !!!                    WARNING                      !!!           "
         ${gum}/bin/gum confirm --default=false "Are you sure you want to continue? Disks configured with Disko will be wiped!"
 
          # Partition and mount disks based on the system's Disko configuration
-         sudo disko --mode disko "$HOME/config/systems/$TARGET_HOST/drives.nix"
+         sudo disko --mode disko --flake "$HOME/config#$TARGET_HOST"
     fi
 
     echo "Copying age-key.txt to /mnt"
