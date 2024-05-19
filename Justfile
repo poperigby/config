@@ -13,4 +13,4 @@ clean:
     nh clean all
 
 build-iso:
-    nix build .#isoConfigurations.iso
+    nix build .#isoConfigurations.minimal

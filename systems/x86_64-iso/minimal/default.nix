@@ -2,7 +2,7 @@
 
 {
     # Set the hostname
-    networking.hostName = "iso";
+    networking.hostName = "minimal-iso";
 
     # Set password for root user
     users.users.nixos.password = "nixos"; # TODO: Should this be an actual good password?
