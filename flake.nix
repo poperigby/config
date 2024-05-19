@@ -49,7 +49,7 @@
         src = ./.;
 
         # A namespace to use for my flake's packages, library, and overlays.
-        namespace = "poperigby";
+        snowfall.namespace = "poperigby";
 
         systems.hosts = {
             # Home server

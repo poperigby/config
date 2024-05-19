@@ -5,6 +5,7 @@
     gum,
     ...
 }:
+
 writeShellScriptBin "installer" ''
     # Fail if piped commands fail
     set -euo pipefail
