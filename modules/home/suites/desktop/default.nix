@@ -16,9 +16,9 @@ in
                 wezterm.enable = true;
             };
             services = {
-                dunst.enable = true;
                 flameshot.enable = true;
                 gammastep.enable = true;
+                swaync.enable = true;
             };
         };
     };
