@@ -4,8 +4,6 @@
     services.jellyfin.enable = true;
 
     environment.systemPackages = with pkgs; [
-        # The web interface
-        jellyfin-web
         # Needed for hardware acceleration
         jellyfin-ffmpeg
     ];
