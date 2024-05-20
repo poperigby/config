@@ -1,12 +1,14 @@
 { ... }:
 
 {
-    # Automatically grab TV shows
-    services.sonarr.enable = true;
+    services = {
+        # Automatically grab TV shows
+        sonarr.enable = true;
 
-    # Automatically grab movies
-    services.radarr.enable = true;
+        # Automatically grab movies
+        radarr.enable = true;
 
-    # Index manager
-    services.prowlarr.enable = true;
+        # Index manager
+        prowlarr.enable = true;
+    };
 }
