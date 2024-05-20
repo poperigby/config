@@ -3,7 +3,7 @@
 {
     services.miniflux = {
         enable = true;
-        credentialsFile = config.sops.templates.mealie-secrets.path;
+        # credentialsFile = config.sops.templates.mealie-secrets.path;
         settings = {
             ALLOW_SIGNUP = "false";
             MAX_WORKERS = "1";
@@ -23,30 +23,30 @@
     systemd.services.mealie = {
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
-        serviceConfig.DynamicUser = lib.mkForce false;
+        # serviceConfig.DynamicUser = lib.mkForce false;
         # LLDAP is required for user management
         unitConfig.BindsTo = [ "lldap.service" ];
     };
 
     # Setup a user and group for Mealie
-    users = {
-        users.mealie = {
-            group = "mealie";
-            isSystemUser = true;
-        };
-        groups.mealie = {};
-    };
+    # users = {
+    #     users.mealie = {
+    #         group = "mealie";
+    #         isSystemUser = true;
+    #     };
+    #     groups.mealie = {};
+    # };
 
 
-    sops = {
-        templates.mealie-secrets = {
-            owner = "mealie";
-            content = ''
-                LDAP_QUERY_PASSWORD="${config.sops.placeholder."haddock/mealie/ldap_query_password"}"
-            '';
-        };
-        secrets = {
-            "haddock/mealie/ldap_query_password" = {};
-        };
-    };
+    # sops = {
+    #     templates.mealie-secrets = {
+    #         owner = "mealie";
+    #         content = ''
+    #             LDAP_QUERY_PASSWORD="${config.sops.placeholder."haddock/mealie/ldap_query_password"}"
+    #         '';
+    #     };
+    #     secrets = {
+    #         "haddock/mealie/ldap_query_password" = {};
+    #     };
+    # };
 }
