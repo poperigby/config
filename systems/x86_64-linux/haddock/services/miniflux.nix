@@ -4,7 +4,9 @@
     services.miniflux = {
         enable = true;
         adminCredentialsFile = config.sops.templates.miniflux-secrets.path;
-        config = {};
+        config = {
+            PORT = "8081";
+        };
     };
 
     systemd.services.lldap = {
