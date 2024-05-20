@@ -9,7 +9,7 @@
         };
     };
 
-    systemd.services.lldap = {
+    systemd.services.miniflux = {
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
         serviceConfig.DynamicUser = lib.mkForce false;
@@ -18,7 +18,7 @@
     # Setup a user and group for Miniflux
     users = {
         users.miniflux = {
-            group = "lldap";
+            group = "miniflux";
             isSystemUser = true;
         };
         groups.miniflux = {};
