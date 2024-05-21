@@ -11,12 +11,6 @@ in
 
     config = lib.mkIf cfg.enable (lib.mkMerge [
         {
-            nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-                "steam"
-                "steam-original"
-                "steam-run"
-            ];
-
             # This does some helpful Steam related tweaks (as well as installing Steam)
             programs.steam.enable = true;
 
