@@ -1,23 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkMerge
-    ;
-
   cfg = config.poperigby.suites.gaming;
 in
 {
     options.poperigby.suites.gaming = {
-        enable = mkEnableOption "Enable gaming programs/tweaks";
-        amd.enable = mkEnableOption "Enable AMD specific tweaks";
+        enable = lib.mkEnableOption "Enable gaming programs/tweaks";
+        amd.enable = lib.mkEnableOption "Enable AMD specific tweaks";
     };
 
-    config = mkIf cfg.enable (mkMerge [
+    config = lib.mkIf cfg.enable (lib.mkMerge [
         {
-            nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+            nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
                 "steam"
                 "steam-original"
                 "steam-run"
@@ -37,7 +31,7 @@ in
             };
         }
         # AMD specific options
-        (mkIf cfg.amd.enable {
+        (lib.mkIf cfg.amd.enable {
             programs.corectrl = {
                 enable = true;
             };
