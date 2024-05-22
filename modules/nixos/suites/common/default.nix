@@ -15,6 +15,7 @@ in
             services = {
                 envfs.enable = true;
                 ld.enable = true;
+                smartd.enable = true;
             };
             security = {
                 secrets.enable = true;
