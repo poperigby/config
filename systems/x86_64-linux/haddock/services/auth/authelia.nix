@@ -69,7 +69,7 @@
         };
         smtp-password-authelia = {
             owner = "authelia-haddock";
-            key = "haddock/common/smtp_password";
+            key = "common/sendgrid/api_key";
         };
     };
 
