@@ -4,9 +4,9 @@ let
   cfg = config.poperigby.services.postfix;
   postfix = config.services.postfix;
   credentialsFile = config.sops.templates.postfix-sasl-credentials.path;
-  apiKeyPlaceholder = config.sops.placeholder.sendgrid-api-key-postfix;
+  apiKey = config.sops.placeholder.sendgrid-api-key-postfix;
   aliasFile = config.sops.templates.postfix-root-alias.path;
-  emailPlaceholder = config.sops.placeholder.cassidy-email-postfix;
+  email = config.sops.placeholder.cassidy-email-postfix;
 in
 {
     options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
@@ -29,28 +29,32 @@ in
             aliasFiles.root = aliasFile;
         };
 
-        sops.templates.postfix-sasl-credentials = {
-            owner = postfix.user;
-            content = ''
-                [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKeyPlaceholder}
-            '';
-        };
+        sops = {
+            templates = {
+                postfix-sasl-credentials = {
+                    owner = postfix.user;
+                    content = ''
+                        [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKey}
+                    '';
+                };
+                postfix-root-alias = {
+                    owner = postfix.user;
+                    content = ''
+                        root: ${email}, /root/mailbox
+                    '';
+                };
+            };
+            secrets = {
+                sendgrid-api-key-postfix = {
+                    owner = postfix.user;
+                    key = "common/sendgrid/api_key";
+                };
 
-        sops.templates.postfix-root-alias = {
-            owner = postfix.user;
-            content = ''
-                root: ${emailPlaceholder}, /root/mailbox
-            '';
-        };
-
-        sops.secrets.sendgrid-api-key-postfix = {
-            owner = postfix.user;
-            key = "common/sendgrid/api_key";
-        };
-
-        sops.secrets.cassidy-email-postfix = {
-            owner = postfix.user;
-            key = "common/users/cassidy/email";
+                cassidy-email-postfix = {
+                    owner = postfix.user;
+                    key = "common/users/cassidy/email";
+                };
+            };
         };
     };
 }
