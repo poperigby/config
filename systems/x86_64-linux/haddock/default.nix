@@ -17,6 +17,10 @@
                     "/var/backup/*"
                 ];
             };
+            smartd.mail = {
+                enable = true;
+                senderDomain = "haddock.cc";
+            };
         };
         suites = {
             common.enable = true;
