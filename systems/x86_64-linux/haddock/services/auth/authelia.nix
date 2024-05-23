@@ -45,7 +45,7 @@
         };
         environmentVariables = {
             AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets.lldap-admin-password-authelia.path;
-            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets.smtp-password-authelia.path;
+            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets.sendgrid-api-key-authelia.path;
         };
     };
 
@@ -67,7 +67,7 @@
             owner = "authelia-haddock";
             key = "haddock/lldap/admin_password";
         };
-        smtp-password-authelia = {
+        sendgrid-api-key-authelia = {
             owner = "authelia-haddock";
             key = "common/sendgrid/api_key";
         };
