@@ -3,10 +3,11 @@
 let
   cfg = config.poperigby.services.postfix;
   apiKey = config.sops.secrets.sengrid-api-key-postfix;
+  apiKeyPlaceholder = config.sops.placeholder.sengrid-api-key-postfix;
   postfix = config.services.postfix;
 in
 {
-    options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix to send e-mail through SendGrid";
+    options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix to send email through SendGrid";
 
     config = lib.mkIf cfg.enable {
         services.postfix = {
@@ -19,7 +20,7 @@ in
                 smtp_sasl_security_options = "noanonymous";
                 smtp_sasl_tls_security_options = "noanonymous";
                 smtp_tls_security_level = "encrypt";
-                header_size_limit = 4096000;
+                header_size_limit = "4096000";
             };
             mapFiles.sendgrid_credentials = apiKey.path;
         };
@@ -27,7 +28,7 @@ in
         sops.templates.postfix-sasl-secrets = {
             owner = postfix.user;
             content = ''
-                [${postfix.relayHost}]:${postfix.relayPort} apikey:${apiKey}
+                [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKeyPlaceholder}
             '';
         };
 
