@@ -27,13 +27,12 @@
     sops.templates.miniflux-secrets = {
         owner = "miniflux";
         content = ''
-            ADMIN_USERNAME="${config.sops.placeholder."haddock/miniflux/admin_username"}"
+            ADMIN_USERNAME="admin"
             ADMIN_PASSWORD="${config.sops.placeholder."haddock/miniflux/admin_password"}"
         '';
     };
 
     sops.secrets = {
-        "haddock/miniflux/admin_username" = {};
         "haddock/miniflux/admin_password" = {};
     };
 }
