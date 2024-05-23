@@ -4,7 +4,7 @@ let
   cfg = config.poperigby.services.postfix;
   postfix = config.services.postfix;
   credentialsFile = config.sops.templates.postfix-sasl-credentials.path;
-  apiKeyPlaceholder = config.sops.placeholder.sengrid-api-key-postfix;
+  apiKeyPlaceholder = config.sops.placeholder.sendgrid-api-key-postfix;
 in
 {
     options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
@@ -33,7 +33,7 @@ in
             '';
         };
 
-        sops.secrets.sengrid-api-key-postfix = {
+        sops.secrets.sendgrid-api-key-postfix = {
             owner = postfix.user;
             key = "common/sendgrid/api_key";
         };
