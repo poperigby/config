@@ -5,6 +5,8 @@ let
   postfix = config.services.postfix;
   credentialsFile = config.sops.templates.postfix-sasl-credentials.path;
   apiKeyPlaceholder = config.sops.placeholder.sendgrid-api-key-postfix;
+  aliasFile = config.sops.templates.postfix-root-alias.path;
+  emailPlaceholder = config.sops.placeholder.cassidy-email-postfix;
 in
 {
     options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
@@ -24,6 +26,7 @@ in
                 smtp_sasl_security_options = "noanonymous";
                 smtp_sasl_tls_security_options = "noanonymous";
             };
+            aliasFiles.root = aliasFile;
         };
 
         sops.templates.postfix-sasl-credentials = {
@@ -33,9 +36,21 @@ in
             '';
         };
 
+        sops.templates.postfix-root-alias = {
+            owner = postfix.user;
+            content = ''
+                root: ${emailPlaceholder}, /root/mailbox
+            '';
+        };
+
         sops.secrets.sendgrid-api-key-postfix = {
             owner = postfix.user;
             key = "common/sendgrid/api_key";
+        };
+
+        sops.secrets.cassidy-email-postfix = {
+            owner = postfix.user;
+            key = "common/users/cassidy/email";
         };
     };
 }
