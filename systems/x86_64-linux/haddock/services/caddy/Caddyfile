@@ -1,4 +1,4 @@
 {
     acme_dns cloudflare ${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}
-    email ${config.sops.placeholder."haddock/caddy/personal_email"}
+    email ${config.sops.placeholder.cassidy-email-caddy}
 }

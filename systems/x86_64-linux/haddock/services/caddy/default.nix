@@ -23,12 +23,15 @@
     };
 
     sops.templates.Caddyfile = {
-        owner = "caddy";
+        owner = config.services.caddy.user;
         content = builtins.readFile ./Caddyfile;
     };
 
     sops.secrets = {
         "haddock/caddy/cloudflare_api_token" = {};
-        "haddock/caddy/personal_email" = {};
+         cassidy-email-caddy = {
+             owner = config.services.caddy.user;
+             key = "common/users/cassidy/email";
+         };
     };
 }
