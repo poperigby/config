@@ -7,12 +7,12 @@ in
     options.poperigby.users.cassidy.enable = lib.mkEnableOption "Enable Cassidy user";
 
     config = lib.mkIf cfg.enable {
-        sops.secrets."common/users/cassidy".neededForUsers = true;
+        sops.secrets."common/users/cassidy/password".neededForUsers = true;
 
         # Set up me :)
         users.users.cassidy = {
             isNormalUser = true;
-            hashedPasswordFile = config.sops.secrets."common/users/cassidy".path;
+            hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
             description = "Cassidy Wilson";
             extraGroups = [ "wheel" ];
         };
