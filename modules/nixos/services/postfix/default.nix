@@ -34,7 +34,7 @@ in
                 postfix-sasl-credentials = {
                     owner = postfix.user;
                     content = ''
-                        [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKey}
+                        [${postfix.relayHost}]:${toString postfix.relayPort} apikey:${apiKey}
                     '';
                 };
                 postfix-root-alias = {
