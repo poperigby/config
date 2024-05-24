@@ -6,6 +6,7 @@
         ensureDatabases = [
             "authelia-haddock"
             "lldap"
+            "nextcloud"
         ];
         ensureUsers = [
             {
@@ -16,6 +17,10 @@
                 name = "lldap";
                 ensureDBOwnership = true;
             }
+            {
+                name = "nextcloud";
+                ensureDBOwnership = true;
+            }
         ];
     };
 
@@ -23,7 +28,7 @@
     services.postgresqlBackup = {
         enable = true;
         backupAll = true;
-        # Restic already compresses backups, so this is redundant
+        # Restic already compresses backups, so no need to do it here too.
         compression = "none";
         startAt = "*-*-* 00:00:00";
     };

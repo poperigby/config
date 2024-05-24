@@ -34,7 +34,6 @@ in
             };
         };
 
-        # Setup sops-nix secrets
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {
             "${hostName}/restic/url" = {};
