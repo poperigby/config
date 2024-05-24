@@ -21,7 +21,8 @@ in
             borgbase = {
                 repositoryFile = config.sops.secrets."${hostName}/restic/url".path;
                 passwordFile = config.sops.secrets."${hostName}/restic/password".path;
-                timerConfig.OnCalendar = cfg.frequency;
+                # Create the repository if it doesn't exist
+                initialize = true;
                 pruneOpts = [
                     "--keep-daily 7"
                     "--keep-weekly 4"
@@ -29,6 +30,7 @@ in
                     "--keep-yearly 1"
                 ];
                 paths = cfg.paths;
+                timerConfig.OnCalendar = cfg.frequency;
             };
         };
 

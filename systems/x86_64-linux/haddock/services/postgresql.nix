@@ -23,6 +23,7 @@
     services.postgresqlBackup = {
         enable = true;
         backupAll = true;
+        # Restic already compresses backups, so this is redundant
         compression = "none";
         startAt = "*-*-* 00:00:00";
     };
