@@ -97,7 +97,7 @@ in
 
             environment = {
                 QBT_PROFILE = cfg.dataDir;
-                QBT_WEBUI_PORT = toString cfg.port;
+                QBT_WEBUI_PORT = builtins.toString cfg.port;
             };
         };
 

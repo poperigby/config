@@ -34,7 +34,7 @@ in
                 postfix-sasl-credentials = {
                     owner = postfix.user;
                     content = ''
-                        [${postfix.relayHost}]:${toString postfix.relayPort} apikey:${apiKey}
+                        [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKey}
                     '';
                 };
                 postfix-root-alias = {
@@ -49,7 +49,6 @@ in
                     owner = postfix.user;
                     key = "common/sendgrid/api_key";
                 };
-
                 cassidy-email-postfix = {
                     owner = postfix.user;
                     key = "common/users/cassidy/email";
