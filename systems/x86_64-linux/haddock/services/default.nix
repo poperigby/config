@@ -11,6 +11,7 @@
         ./miniflux.nix
         ./postgresql.nix
         ./qbittorrent.nix
+        ./uptime-kuma.nix
     ];
 
     # Automatically prune all unused pods, containers, images,
