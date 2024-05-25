@@ -14,8 +14,7 @@ in
         # This attribute set is written to `config.php`
         settings = {
             default_phone_region = "US";
-            # TODO: Add Caddy
-            trusted_proxies = [];
+            trusted_proxies = [ "127.0.0.1" ];
             log_type = "systemd";
         };
         # This attribute set is used by the imperative installer
@@ -63,6 +62,11 @@ in
                     X-Robots-Tag "noindex, nofollow"
                     -X-Powered-By
                 }
+
+                request_body {
+                    max_size ${cfg.maxUploadSize}
+                }
+
 
                 php_fastcgi unix/${fpm.socket} {
                   root ${config.services.nginx.virtualHosts.${cfg.hostName}.root}
