@@ -43,13 +43,7 @@ in
             '';
         };
 
-        openFirewall = lib.mkOption {
-            type = lib.types.bool;
-            default = false;
-            description = lib.mdDoc ''
-                Open services.qBittorrent.port to the outside network.
-            '';
-        };
+        openFirewall = lib.mkEnableOption (lib.mdDoc "Open services.qBittorrent.port to the outside network.");
 
         package = lib.mkOption {
             type = lib.types.package;
