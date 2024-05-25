@@ -1,8 +1,11 @@
 { config, lib, ... }:
 
+let
+    cfg = config.services.mealie;
+in
 {
     services = {
-        miniflux = {
+        mealie = {
             enable = true;
             # credentialsFile = config.sops.templates.mealie-secrets.path;
             settings = {
@@ -21,7 +24,7 @@
             };
         };
         caddy.virtualHosts."food.haddock.cc".extraConfig = ''
-            reverse_proxy localhost:9000
+            reverse_proxy localhost:${cfg.port}
         '';
     };
 

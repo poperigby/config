@@ -1,5 +1,8 @@
 { config, lib, ... }:
 
+let
+    cfg = config.services.miniflux;
+in
 {
     services = {
         miniflux = {
@@ -10,7 +13,7 @@
             };
         };
         caddy.virtualHosts."news.haddock.cc".extraConfig = ''
-            reverse_proxy localhost:8081
+            reverse_proxy localhost:${cfg.config.PORT}
         '';
     };
 
