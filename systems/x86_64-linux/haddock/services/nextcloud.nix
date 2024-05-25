@@ -34,6 +34,9 @@
         maxUploadSize = "10G";
     };
 
+    # We want to use Caddy
+    services.nginx.enable = false;
+
     sops.secrets."haddock/nextcloud/admin_password" = {
         owner = "nextcloud";
     };

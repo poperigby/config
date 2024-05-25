@@ -3,7 +3,6 @@
 {
     services.caddy = {
         enable = true;
-        configFile = config.sops.templates.Caddyfile.path;
         package = (pkgs.callPackage ./package.nix {
             externalPlugins = [
                 {
@@ -20,18 +19,29 @@
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
             vendorHash = "sha256-wipTwYjIQ4YQB0DsTGQh5vbPeueem9vjwpy41frmR18=";
         });
+        globalConfig = ''
+            acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+            email {env.EMAIL}
+        '';
     };
 
-    sops.templates.Caddyfile = {
-        owner = config.services.caddy.user;
-        content = builtins.readFile ./Caddyfile;
-    };
+    # Read secrets into environment variables, that we can then reference with {env.SECRET_NAME}
+    systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;
 
-    sops.secrets = {
-        "haddock/caddy/cloudflare_api_token" = {};
-         cassidy-email-caddy = {
-             owner = config.services.caddy.user;
-             key = "common/users/cassidy/email";
-         };
+    sops = {
+        templates.caddy-secrets = {
+            owner = config.services.caddy.user;
+            content = ''
+                CLOUDFLARE_API_TOKEN="${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}"
+                EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
+            '';
+        };
+        secrets = {
+            "haddock/caddy/cloudflare_api_token" = {};
+             cassidy-email-caddy = {
+                 owner = config.services.caddy.user;
+                 key = "common/users/cassidy/email";
+             };
+        };
     };
 }
