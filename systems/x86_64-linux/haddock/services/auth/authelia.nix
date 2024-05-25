@@ -38,14 +38,14 @@
                 ];
             };
         };
-        secrets = {
-            jwtSecretFile = config.sops.secrets."haddock/authelia/jwt_secret".path;
-            storageEncryptionKeyFile = config.sops.secrets."haddock/authelia/storage_encryption_key".path;
-            sessionSecretFile = config.sops.secrets."haddock/authelia/session_secret".path;
+        secrets = with config.sops; {
+            jwtSecretFile = secrets."haddock/authelia/jwt_secret".path;
+            storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
+            sessionSecretFile = secrets."haddock/authelia/session_secret".path;
         };
-        environmentVariables = {
-            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets.lldap-admin-password-authelia.path;
-            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = config.sops.secrets.sendgrid-api-key-authelia.path;
+        environmentVariables = with config.sops; {
+            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets.lldap-admin-password-authelia.path;
+            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
         };
     };
 
