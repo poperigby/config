@@ -61,7 +61,7 @@ in
         };
 
         systemd.services.qbittorrent = {
-            # based on the plex.nix service module and
+            # Based on the plex.nix service module and
             # https://github.com/qbittorrent/qBittorrent/blob/master/dist/unix/systemd/qbittorrent-nox%40.service.in
             description = "qBittorrent-nox service";
             documentation = [ "man:qbittorrent-nox(1)" ];
@@ -97,19 +97,20 @@ in
 
             environment = {
                 QBT_PROFILE = cfg.dataDir;
-                QBT_WEBUI_PORT = builtins.toString cfg.port;
+                QBT_WEBUI_PORT = toString cfg.port;
             };
         };
 
-        users.users = lib.mkIf (cfg.user == "qbittorrent") {
-            qbittorrent = {
-                group = cfg.group;
-                uid = UID;
+        users = {
+            users = lib.mkIf (cfg.user == "qbittorrent") {
+                qbittorrent = {
+                    group = cfg.group;
+                    uid = UID;
+                };
             };
-        };
-
-        users.groups = lib.mkIf (cfg.group == "qbittorrent") {
-            qbittorrent = { gid = GID; };
+            groups = lib.mkIf (cfg.group == "qbittorrent") {
+                qbittorrent = { gid = GID; };
+            };
         };
     };
 }
