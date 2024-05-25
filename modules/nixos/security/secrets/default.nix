@@ -1,12 +1,10 @@
 { config, inputs, lib, ... }:
 
 let
-  cfg = config.poperigby.security.secrets;
+    cfg = config.poperigby.security.secrets;
 in
 {
-    imports = [
-        inputs.sops-nix.nixosModules.sops
-    ];
+    imports = [ inputs.sops-nix.nixosModules.sops ];
 
     options.poperigby.security.secrets.enable = lib.mkEnableOption "Enable secret management";
 
