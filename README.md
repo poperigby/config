@@ -1,5 +1,7 @@
 # NixOS Configuration
 
+This repository uses [Snowfall Lib](https://github.com/snowfallorg/lib).
+
 ## Setup
 
 ### Clone the repository
