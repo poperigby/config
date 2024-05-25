@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+    caddy = config.services.caddy;
+in
 {
     services.caddy = {
         enable = true;
@@ -30,7 +32,7 @@
 
     sops = {
         templates.caddy-secrets = {
-            owner = config.services.caddy.user;
+            owner = caddy.user;
             content = ''
                 CLOUDFLARE_API_TOKEN="${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}"
                 EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
@@ -39,7 +41,7 @@
         secrets = {
             "haddock/caddy/cloudflare_api_token" = {};
              cassidy-email-caddy = {
-                 owner = config.services.caddy.user;
+                 owner = caddy.user;
                  key = "common/users/cassidy/email";
              };
         };
