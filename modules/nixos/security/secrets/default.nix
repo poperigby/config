@@ -11,7 +11,7 @@ in
     config = lib.mkIf cfg.enable {
         # Secret management
         sops = {
-            defaultSopsFile = lib.snowfall.fs.get-file "secrets.yaml";
+            defaultSopsFile = lib.snowfall.fs.get-file "secrets/secrets.yaml";
             defaultSopsFormat = "yaml";
             age = {
                 # This is the default AGE key that will be used for bootstrapping the system
