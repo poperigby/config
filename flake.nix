@@ -51,6 +51,8 @@
     # based on the `inputs` attribute set, and any `modules` specified.
     outputs = inputs: inputs.snowfall-lib.mkFlake {
         inherit inputs;
+
+        # Where my source files are located
         src = ./.;
 
         # A namespace to use for my flake's packages, library, and overlays.
