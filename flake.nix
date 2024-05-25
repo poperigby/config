@@ -11,6 +11,10 @@
             url = "github:ifd3f/caligula";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        crowdsec = {
+            url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         disko = {
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +63,11 @@
             # Host specific options
             hosts = {
                 # Home server
-                haddock = {};
+                haddock = {
+                    modules = with inputs; [
+                        crowdsec.nixosModules.crowdsec
+                    ];
+                };
                 # Desktop
                 snowy = {};
                 # Laptop

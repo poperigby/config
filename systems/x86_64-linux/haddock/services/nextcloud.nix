@@ -30,7 +30,7 @@ in
                 dbhost = "/run/postgresql";
             };
             extraApps = {
-                inherit (config.services.nextcloud.package.packages.apps) contacts calendar tasks;
+                inherit (cfg.package.packages.apps) contacts calendar tasks;
             };
             phpExtraExtensions = all: [
                 # Required for systemd logging
