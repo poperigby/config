@@ -2,7 +2,9 @@
 
 {
     services = {
-        jellyfin.enable = true;
+        jellyfin = {
+            enable = true;
+        };
         caddy.virtualHosts."media.haddock.cc".extraConfig = ''
             reverse_proxy localhost:8096
         '';
