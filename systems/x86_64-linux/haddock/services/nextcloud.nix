@@ -40,7 +40,8 @@ in
 
     # Caddy setup
     services = {
-        caddy.virtualHosts."cloud.haddock.cc" = {
+        caddy.virtualHosts.${cfg.hostName} = {
+            # This is a monster 💀
             extraConfig = ''
                 encode zstd gzip
 
@@ -67,11 +68,10 @@ in
                     max_size ${cfg.maxUploadSize}
                 }
 
-
                 php_fastcgi unix/${fpm.socket} {
-                  root ${config.services.nginx.virtualHosts.${cfg.hostName}.root}
-                  env front_controller_active true
-                  env modHeadersAvailable true
+                    root ${config.services.nginx.virtualHosts.${cfg.hostName}.root}
+                    env front_controller_active true
+                    env modHeadersAvailable true
                 }
 
                 @forbidden {
