@@ -2,15 +2,13 @@
 
 {
     imports = [
-        ./arr.nix
         ./auth
         ./caddy
         ./ddclient.nix
         ./frigate.nix
-        ./jellyfin.nix
+        ./media
         ./miniflux.nix
         ./postgresql.nix
-        ./qbittorrent.nix
         ./uptime-kuma.nix
     ];
 
