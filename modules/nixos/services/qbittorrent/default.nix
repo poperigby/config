@@ -1,116 +1,186 @@
-# Shamelessly stolen from https://github.com/pceiley/nix-config/blob/main/hosts/common/modules/qbittorrent.nix
+# Taken from https://github.com/NixOS/nixpkgs/pull/287923
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-    cfg = config.poperigby.services.qbittorrent;
-    UID = 888;
-    GID = 888;
+  cfg = config.poperigby.services.qbittorrent;
+  inherit (builtins) concatStringsSep isAttrs;
+  inherit (lib)
+    literalExpression
+    getExe
+    mkEnableOption
+    mkOption
+    mkPackageOption
+    mkIf
+    maintainers
+    mapAttrsToList
+    escape
+    ;
+  inherit (lib.types) str unspecified int;
+  inherit (lib.generators) toINI mkKeyValueDefault mkValueStringDefault;
+  gendeepINI = toINI {
+    mkKeyValue =
+      let
+        sep = "=";
+      in
+      k: v:
+      if isAttrs v then
+        concatStringsSep "\n" (
+          mapAttrsToList (k2: v2: "${escape [ sep ] "${k}\\${k2}"}${sep}${mkValueStringDefault { } v2}") v
+        )
+      else
+        mkKeyValueDefault { } sep k v;
+  };
 in
 {
-    options.poperigby.services.qbittorrent = {
-        enable = lib.mkEnableOption (lib.mdDoc "qBittorrent headless");
+  options.poperigby.services.qbittorrent = {
+    enable = mkEnableOption "Enable qBittorrent";
 
-        dataDir = lib.mkOption {
-            type = lib.types.path;
-            default = "/var/lib/qbittorrent";
-            description = lib.mdDoc ''
-                The directory where qBittorrent stores its data files.
-            '';
-        };
+    package = mkPackageOption pkgs "qbittorrent-nox" { };
 
-        user = lib.mkOption {
-            type = lib.types.str;
-            default = "qbittorrent";
-            description = lib.mdDoc ''
-                User account under which qBittorrent runs.
-            '';
-        };
-
-        group = lib.mkOption {
-            type = lib.types.str;
-            default = "qbittorrent";
-            description = lib.mdDoc ''
-                Group under which qBittorrent runs.
-            '';
-        };
-
-        port = lib.mkOption {
-            type = lib.types.port;
-            default = 8080;
-            description = lib.mdDoc ''
-                qBittorrent web UI port.
-            '';
-        };
-
-        openFirewall = lib.mkEnableOption (lib.mdDoc "Open services.qBittorrent.port to the outside network.");
-
-        package = lib.mkOption {
-            type = lib.types.package;
-            default = pkgs.qbittorrent-nox;
-            defaultText = lib.literalExpression "pkgs.qbittorrent-nox";
-            description = lib.mdDoc ''
-                The qBittorrent package to use.
-            '';
-        };
-    };  
-
-    config = lib.mkIf cfg.enable {
-        networking.firewall = lib.mkIf cfg.openFirewall {
-            allowedTCPPorts = [ cfg.port ];
-        };
-
-        systemd.services.qbittorrent = {
-            # Based on the plex.nix service module and
-            # https://github.com/qbittorrent/qBittorrent/blob/master/dist/unix/systemd/qbittorrent-nox%40.service.in
-            description = "qBittorrent-nox service";
-            documentation = [ "man:qbittorrent-nox(1)" ];
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-
-            serviceConfig = {
-                Type = "simple";
-                User = cfg.user;
-                Group = cfg.group;
-
-                # Run the pre-start script with full permissions (the "!" prefix) so it
-                # can create the data directory if necessary.
-                ExecStartPre = let
-                    preStartScript = pkgs.writeScript "qbittorrent-run-prestart" ''
-                        #!${pkgs.bash}/bin/bash
-
-                        # Create data directory if it doesn't exist
-                        if ! test -d "$QBT_PROFILE"; then
-                            echo "Creating initial qBittorrent data directory in: $QBT_PROFILE"
-                            install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$QBT_PROFILE"
-                        fi
-                   '';
-                in "!${preStartScript}";
-
-                ExecStart = "${cfg.package}/bin/qbittorrent-nox";
-                # To prevent "Quit & shutdown daemon" from working; we want systemd to
-                # manage it!
-                #Restart = "on-success";
-                #UMask = "0002";
-                #LimitNOFILE = cfg.openFilesLimit;
-            };
-
-            environment = {
-                QBT_PROFILE = cfg.dataDir;
-                QBT_WEBUI_PORT = builtins.toString cfg.port;
-            };
-        };
-
-        users = {
-            users = lib.mkIf (cfg.user == "qbittorrent") {
-                qbittorrent = {
-                    group = cfg.group;
-                    uid = UID;
-                };
-            };
-            groups = lib.mkIf (cfg.group == "qbittorrent") {
-                qbittorrent = { gid = GID; };
-            };
-        };
+    user = mkOption {
+      type = str;
+      default = "qbittorrent";
+      description = "User account under which qbittorrent runs.";
     };
+
+    group = mkOption {
+      type = str;
+      default = "qbittorrent";
+      description = "Group under which qbittorrent runs.";
+    };
+
+    profileDir = mkOption {
+      type = str;
+      default = "/var/lib/qBittorrent/";
+      description = "the path passed to qbittorrent via --profile.";
+    };
+
+    openFirewall = mkOption {
+      default = false;
+      description = "Opens the default webport and if defined the serverConfig's set ports.";
+    };
+
+    webuiPort = mkOption {
+      type = int;
+      description = "the port passed to qbittorrent via `--webui-port`";
+    };
+
+    torrentingPort = mkOption {
+      type = int;
+      description = "the port passed to qbittorrent via `--torrenting-port`";
+    };
+
+    serverConfig = mkOption {
+      type = unspecified;
+      description = ''
+        Free-form settings mapped to the `qBittorrent.conf` file in the profile.
+        Refer to <https://github.com/qbittorrent/qBittorrent/wiki/Explanation-of-Options-in-qBittorrent>
+        you will probably want to run qBittorrent locally once to use the webui to generate the password before setting anything here.
+      '';
+      example = literalExpression ''
+        {
+          LegalNotice.Accepted = true;
+          Preferences = {
+            WebUI = {
+              Username = "user";
+              Password_PBKDR2 = "generated ByteArray.";
+            };
+            General.Locale = "en";
+          };
+        }
+      '';
+    };
+  };
+  config = lib.mkIf cfg.enable {
+    systemd = {
+      tmpfiles.settings = {
+        profileDir = {
+          "${cfg.profileDir}/qBittorrent/"."d" = {
+            mode = "700";
+            inherit (cfg) user group;
+          };
+          "${cfg.profileDir}/qBittorrent/config/"."d" = {
+            mode = "700";
+            inherit (cfg) user group;
+          };
+          "${cfg.profileDir}/qBittorrent/config/qBittorrent.conf"."L+" = {
+            mode = "1500";
+            inherit (cfg) user group;
+            argument = "${pkgs.writeText "qBittorrent.conf" (gendeepINI cfg.serverConfig)}";
+          };
+        };
+      };
+      services.qbittorrent = {
+        description = "qbittorrent BitTorrent client";
+        wants = [ "network-online.target" ];
+        after = [
+          "local-fs.target"
+          "network-online.target"
+          "nss-lookup.target"
+        ];
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          Type = "simple";
+          User = cfg.user;
+          Group = cfg.group;
+          ExecStart = "${getExe cfg.package} --profile=${cfg.profileDir} --webui-port=${toString cfg.webuiPort} --torrenting-port=${toString cfg.torrentingPort}";
+          TimeoutStopSec = 1800;
+
+          # https://github.com/qbittorrent/qBittorrent/pull/6806#discussion_r121478661
+          PrivateTmp = false;
+
+          PrivateNetwork = false;
+          RemoveIPC = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateUsers = true;
+          ProtectHome = "yes";
+          ProtectProc = "invisible";
+          ProcSubset = "pid";
+          ProtectSystem = "full";
+          ProtectClock = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectControlGroups = true;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          SystemCallArchitectures = "native";
+          CapabilityBoundingSet = "";
+          SystemCallFilter = [ "@system-service" ];
+        };
+      };
+    };
+
+    users = {
+      users = mkIf (cfg.user == "qbittorrent") {
+        qbittorrent = {
+          inherit (cfg) group;
+          isSystemUser = true;
+        };
+      };
+      groups = mkIf (cfg.group == "qbittorrent") { qbittorrent = { }; };
+    };
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
+      cfg.webuiPort
+      cfg.torrentingPort
+    ];
+  };
+  meta.maintainers = with maintainers; [ nu-nu-ko ];
 }
