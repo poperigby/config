@@ -1,6 +1,6 @@
 # Media
 
-This is me my "media grabbing" suite.
+This is my "media grabbing" suite.
 
 1. The *arr apps crawl trackers for media and send requests for the media to qBittorrent
 2. qBittorrent retrieves them
