@@ -3,6 +3,11 @@
 let
     cfg = config.poperigby.services.ludusavi;
     settingsFormat = pkgs.formats.yaml {};
+
+    configFile = if cfg.configFile == null then
+        settingsFormat.generate "config.yaml" cfg.settings
+    else
+        cfg.configFile;
 in
 {
     options.poperigby.services.ludusavi = {
@@ -50,19 +55,16 @@ in
         ];
 
         systemd.user.services.ludusavi = {
-            enable = true;
-            wantedBy = [ "default.target" ];
-            description = "Run a game save backup with Ludusavi";
-            serviceConfig = {
+            Unit = {
+                Description = "Run a game save backup with Ludusavi";
+                WantedBy = [ "default.target" ];
+            };
+            Service = {
                 Type = "simple";
                 ExecStart = "${pkgs.ludusavi}/bin/ludusavi backup";
             };
         };
 
-        xdg.configFile."ludusavi/config.yaml".source = 
-            if cfg.settings 
-                then settingsFormat.generate "config.yaml" cfg.settings
-            else
-                cfg.configFile;
+        xdg.configFile."ludusavi/config.yaml".source = configFile;
     };
 }
