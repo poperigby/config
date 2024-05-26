@@ -1,4 +1,5 @@
 # Taken from https://github.com/NixOS/nixpkgs/pull/287923
+# TODO: Remove once PR 287923 is merged
 
 { config, pkgs, lib, ... }:
 
