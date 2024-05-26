@@ -1,6 +1,8 @@
+# TODO: Don't I need to open the firewall ports?
+
 { config, pkgs, ... }:
 let
-    caddy = config.services.caddy;
+    cfg = config.services.caddy;
 in
 {
     services.caddy = {
@@ -32,7 +34,7 @@ in
 
     sops = {
         templates.caddy-secrets = {
-            owner = caddy.user;
+            owner = cfg.user;
             content = ''
                 CLOUDFLARE_API_TOKEN="${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}"
                 EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
@@ -41,7 +43,7 @@ in
         secrets = {
             "haddock/caddy/cloudflare_api_token" = {};
              cassidy-email-caddy = {
-                 owner = caddy.user;
+                 owner = cfg.user;
                  key = "common/users/cassidy/email";
              };
         };
