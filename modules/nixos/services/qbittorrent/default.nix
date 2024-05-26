@@ -7,7 +7,6 @@ let
     inherit (builtins) concatStringsSep isAttrs;
     inherit (lib)
         literalExpression
-        getExe
         mkEnableOption
         mkOption
         mkPackageOption
@@ -125,7 +124,7 @@ in
                     Type = "simple";
                     User = cfg.user;
                     Group = cfg.group;
-                    ExecStart = "${getExe cfg.package} --profile=${cfg.profileDir} --webui-port=${toString cfg.webuiPort} --torrenting-port=${toString cfg.torrentingPort}";
+                    ExecStart = "${cfg.package}/bin/qbittorrent-nox --profile=${cfg.profileDir} --webui-port=${toString cfg.webuiPort} --torrenting-port=${toString cfg.torrentingPort}";
                     TimeoutStopSec = 1800;
 
                     # https://github.com/qbittorrent/qBittorrent/pull/6806#discussion_r121478661
