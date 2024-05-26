@@ -49,7 +49,7 @@ in
     config = lib.mkIf cfg.enable {
         assertions = [
             {
-                assertion = (cfg.settings != null) != (cfg.configFile != null);
+                assertion = (cfg.settings != {}) != (cfg.configFile != null);
                 message = "The `settings` and `configFile` options are mutually exclusive.";
             }
         ];
