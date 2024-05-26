@@ -23,7 +23,8 @@
                     AlternativeGlobalUPSpeedLimit = 0;
                     BTProtocol = "TCP";
                     BandwidthSchedulerEnabled = true;
-                    DefaultSavePath = "/data/torrents";
+                    # Setup based on https://trash-guides.info/Hardlinks/How-to-setup-for/Native/#torrent-clients
+                    DefaultSavePath = "/mnt/hdd0/data/torrents";
                     DisableAutoTMMByDefault = false;
                     # DisableAutoTMMTriggers = {
                     #     CategorySavePathChanged = false;
@@ -35,7 +36,7 @@
                     Port = 37828;
                     Preallocation = true;
                     QueueingSystemEnabled = false;
-                    TempPath = "/downloads/temp";
+                    TempPath = "/tmp/qBittorrent";
                     UseAlternativeGlobalSpeedLimit = true;
                 };
             };
