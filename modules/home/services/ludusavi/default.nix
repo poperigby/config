@@ -3,12 +3,19 @@
 let
     cfg = config.poperigby.services.ludusavi;
     settingsFormat = pkgs.formats.yaml {};
-
-    configFile = settingsFormat.generate "config.yaml" cfg.settings;
 in
 {
     options.poperigby.services.ludusavi = {
-        enable = lib.mkEnableOption "Enable Ludusavi game backup tool";
+        enable = lib.mkEnableOption "Whether to enable the Ludusavi game backup tool";
+        configFile = lib.mkOption {
+            type = with lib.types; nullOr path;
+            default = null;
+            description = lib.mdDoc ''
+                Path to a Ludusavi `config.yaml`. Mutually exclusive with `settings` option.
+                See https://github.com/mtkennerly/ludusavi#configuration-file for available options.
+
+            '';
+        };
         settings = lib.mkOption {
             type = settingsFormat.type;
             default = {
@@ -27,7 +34,7 @@ in
                     }
                 ];
             };
-            description = ''
+            description = lib.mdDoc ''
                 Ludusavi configuration as an attribute set. See https://github.com/mtkennerly/ludusavi#configuration-file
                 for available options.
             '';
@@ -35,6 +42,13 @@ in
     };
 
     config = lib.mkIf cfg.enable {
+        assertions = [
+            {
+                assertion = (cfg.settings != null) != (cfg.configFile != null);
+                message = "The `settings` and `configFile` options are mutually exclusive.";
+            }
+        ];
+
         systemd.user.services.ludusavi = {
             enable = true;
             wantedBy = [ "default.target" ];
@@ -45,6 +59,10 @@ in
             };
         };
 
-        xdg.configFile."ludusavi/config.yaml".source = configFile;
+        xdg.configFile."ludusavi/config.yaml".source = 
+            if cfg.settings 
+                then settingsFormat.generate "config.yaml" cfg.settings
+            else
+                cfg.configFile;
     };
 }
