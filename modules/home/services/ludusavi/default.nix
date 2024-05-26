@@ -11,7 +11,7 @@ in
             type = with lib.types; nullOr path;
             default = null;
             description = lib.mdDoc ''
-                Path to a Ludusavi `config.yaml`. Mutually exclusive with `settings` option.
+                Path to a Ludusavi `config.yaml`. Mutually exclusive with the `settings` option.
                 See https://github.com/mtkennerly/ludusavi#configuration-file for available options.
 
             '';
