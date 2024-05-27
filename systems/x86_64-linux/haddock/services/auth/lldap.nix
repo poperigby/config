@@ -1,5 +1,8 @@
 { config, lib, ... }:
 
+let
+    cfg = config.services.lldap;
+in
 {
     # TODO: Have a special user for Authelia access
     services = {
@@ -17,7 +20,7 @@
         };
         caddy.virtualHosts."users.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy localhost:17170
+            reverse_proxy localhost:${builtins.toString cfg.settings.http_port}
         '';
     };
 

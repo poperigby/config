@@ -1,5 +1,8 @@
 { config, ... }:
 
+let
+    cfg = config.services.authelia.instances.haddock;
+in
 {
     services = {
         authelia.instances.haddock = {
@@ -50,7 +53,7 @@
             };
         };
         caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
-            reverse_proxy localhost:9091
+            reverse_proxy localhost:${builtins.toString cfg.settings.server.port}
         '';
     };
 
