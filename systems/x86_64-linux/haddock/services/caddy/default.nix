@@ -24,7 +24,15 @@ in
             vendorHash = "sha256-wipTwYjIQ4YQB0DsTGQh5vbPeueem9vjwpy41frmR18=";
         });
         globalConfig = ''
-            acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+            (auth) {
+                forward_auth auth-pod:9091 {
+                    uri /api/verify?rd=https://auth.haddock.cc
+                    copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+                }
+            }
+
+            # TODO: Remove when on bare metal
+            # acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
             email {env.EMAIL}
         '';
     };

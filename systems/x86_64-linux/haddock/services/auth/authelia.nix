@@ -1,52 +1,57 @@
 { config, ... }:
 
 {
-    services.authelia.instances.haddock = {
-        enable = true;
-        settings = {
-            theme = "auto";
-            authentication_backend.ldap = {
-                url = "ldap://localhost:3890";
-                base_dn = "dc=haddock,dc=cc";
-                users_filter = "(&({username_attribute}={input})(objectClass=person))";
-                groups_filter = "(member={dn})";
-                user = "uid=admin,ou=people,dc=haddock,dc=cc";
+    services = {
+        authelia.instances.haddock = {
+            enable = true;
+            settings = {
+                theme = "auto";
+                authentication_backend.ldap = {
+                    url = "ldap://localhost:3890";
+                    base_dn = "dc=haddock,dc=cc";
+                    users_filter = "(&({username_attribute}={input})(objectClass=person))";
+                    groups_filter = "(member={dn})";
+                    user = "uid=admin,ou=people,dc=haddock,dc=cc";
+                };
+                storage.postgres = {
+                   host = "/run/postgresql";
+                   port = 5432;
+                   database = "authelia-haddock";
+                   username = "authelia-haddock";
+                   # I'm using peer authentication, so this doesn't actually matter, but Authelia
+                   # complains if I don't have it.
+                   password = "authelia-haddock";
+                };
+                session.domain = "https://haddock.cc";
+                notifier.smtp = {
+                    username = "apikey";
+                    host = "smtp.sendgrid.net";
+                    port = 587;
+                    sender = "admin@haddock.cc";
+                };
+                access_control = {
+                    default_policy = "deny";
+                    rules = [
+                        {
+                            domain = "*.haddock.cc";
+                            policy = "one_factor";
+                        }
+                    ];
+                };
             };
-            storage.postgres = {
-               host = "/run/postgresql";
-               port = 5432;
-               database = "authelia-haddock";
-               username = "authelia-haddock";
-               # I'm using peer authentication, so this doesn't actually matter, but Authelia
-               # complains if I don't have it.
-               password = "authelia-haddock";
+            secrets = with config.sops; {
+                jwtSecretFile = secrets."haddock/authelia/jwt_secret".path;
+                storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
+                sessionSecretFile = secrets."haddock/authelia/session_secret".path;
             };
-            session.domain = "https://haddock.cc";
-            notifier.smtp = {
-                username = "apikey";
-                host = "smtp.sendgrid.net";
-                port = 587;
-                sender = "admin@haddock.cc";
-            };
-            access_control = {
-                default_policy = "deny";
-                rules = [
-                    {
-                        domain = "*.haddock.cc";
-                        policy = "one_factor";
-                    }
-                ];
+            environmentVariables = with config.sops; {
+                AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets.lldap-admin-password-authelia.path;
+                AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
             };
         };
-        secrets = with config.sops; {
-            jwtSecretFile = secrets."haddock/authelia/jwt_secret".path;
-            storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
-            sessionSecretFile = secrets."haddock/authelia/session_secret".path;
-        };
-        environmentVariables = with config.sops; {
-            AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets.lldap-admin-password-authelia.path;
-            AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
-        };
+        caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
+            reverse_proxy localhost:9091
+        '';
     };
 
     # Authelia requires LLDAP and PostgreSQL to be running
