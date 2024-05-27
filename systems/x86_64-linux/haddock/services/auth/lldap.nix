@@ -2,17 +2,23 @@
 
 {
     # TODO: Have a special user for Authelia access
-    services.lldap = {
-        enable = true;
-        settings = {
-            ldap_base_dn = "dc=haddock,dc=cc";
-            database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql";
+    services = {
+        lldap = {
+            enable = true;
+            settings = {
+                ldap_base_dn = "dc=haddock,dc=cc";
+                database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql";
+            };
+            environment = {
+                LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
+                LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
+                LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets.lldap-admin-password-lldap.path;
+            };
         };
-        environment = {
-            LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
-            LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
-            LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets.lldap-admin-password-lldap.path;
-        };
+        caddy.virtualHosts."users.haddock.cc".extraConfig = ''
+            import auth
+            reverse_proxy localhost:17170
+        '';
     };
 
     systemd.services.lldap = {
