@@ -17,7 +17,7 @@ in
         };
 
         # Create a desktop entry for Bottom if the desktop GUI is enabled
-        xdg.desktopEntries.bottom = lib.mkIf config.poperigby.suites.desktop.enable {
+        xdg.desktopEntries.bottom = lib.mkIf config.poperigby.suites.gui.enable {
             name = "Bottom";
             genericName = "System Monitor";
             exec = "btm";

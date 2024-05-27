@@ -2,7 +2,7 @@
 
 let
   cfg = config.poperigby.programs.yazi;
-  desktop = config.poperigby.suites.desktop.enable;
+  gui = config.poperigby.suites.gui.enable;
 in
 {
     options.poperigby.programs.yazi.enable = lib.mkEnableOption "Enable Yazi file explorer";
@@ -13,8 +13,8 @@ in
             enableFishIntegration = true;
             keymap = {
                 manager.prepend_keymap = [
-                ] ++ lib.optionals desktop [
-                    # Enable mapping for ripdrag if desktop GUI is enabled
+                ] ++ lib.optionals gui [
+                    # Enable mapping for ripdrag if GUI is enabled
                     {
                         on = [ "<C-n>" ];
                         exec = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
@@ -23,8 +23,8 @@ in
             };
         };
 
-        # Create a desktop entry for Yazi if the desktop GUI is enabled
-        xdg.desktopEntries.yazi = lib.mkIf desktop {
+        # Create a desktop entry for Yazi if the GUI is enabled
+        xdg.desktopEntries.yazi = lib.mkIf gui {
             name = "Yazi";
             genericName = "File Browser";
             exec = "yazi";

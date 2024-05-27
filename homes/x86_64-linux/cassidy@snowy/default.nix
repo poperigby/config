@@ -5,7 +5,7 @@
         suites = {
             common.enable = true;
             gaming.enable = true;
-            desktop = {
+            gui = {
                 enable = true;
                 adaptiveSync = true;
             };

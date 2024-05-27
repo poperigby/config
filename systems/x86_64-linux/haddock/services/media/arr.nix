@@ -1,3 +1,5 @@
+# TODO: *arr apps need access to everything under data/
+
 { ... }:
 
 {

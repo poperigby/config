@@ -1,3 +1,5 @@
+# TODO: qBittorrent only needs access to data/torrents
+
 { ... }:
 
 {

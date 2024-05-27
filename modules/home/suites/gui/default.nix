@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.suites.desktop;
+    cfg = config.poperigby.suites.gui;
 in
 {
-    options.poperigby.suites.desktop = {
-        enable = lib.mkEnableOption "Enable desktop GUI";
+    options.poperigby.suites.gui = {
+        enable = lib.mkEnableOption "Enable GUI";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
     };
 

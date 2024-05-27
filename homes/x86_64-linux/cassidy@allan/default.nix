@@ -4,7 +4,7 @@
     poperigby = {
         suites = {
             common.enable = true;
-            desktop.enable = true;
+            gui.enable = true;
         };
     };
 
