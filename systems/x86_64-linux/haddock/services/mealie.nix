@@ -24,6 +24,8 @@ in
             };
         };
         caddy.virtualHosts."food.haddock.cc".extraConfig = ''
+            # Mealie apps break with Authelia sitting in front of them
+            # import auth
             reverse_proxy localhost:${cfg.port}
         '';
     };

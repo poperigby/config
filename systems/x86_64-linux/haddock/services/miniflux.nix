@@ -13,6 +13,7 @@ in
             };
         };
         caddy.virtualHosts."news.haddock.cc".extraConfig = ''
+            import auth
             reverse_proxy localhost:${cfg.config.PORT}
         '';
     };

@@ -40,6 +40,8 @@ in
         };
         # Caddy setup
         caddy.virtualHosts.${cfg.hostName}.extraConfig = ''
+            import auth
+
             encode zstd gzip
 
             root * ${config.services.nginx.virtualHosts.${cfg.hostName}.root}
