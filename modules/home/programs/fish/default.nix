@@ -33,6 +33,8 @@ in
             };
             # Magnificent app that corrects your previous console command
             thefuck.enable = true;
+            # For smart directory changing
+            zoxide.enable = true;
             # Setting fish as our default shell causes some issues. Instead, automatically launch fish
             # when we start an interactive bash shell, but only if we're not opening one from fish.
             bash = {
@@ -44,8 +46,6 @@ in
                     fi
                 '';
             };
-            # For smart directory changing
-            zoxide.enable = true;
         };
 
         # Use Starship for our prompt 🚀 
