@@ -28,6 +28,7 @@
                 enable = true;
                 amd.enable = true;
             };
+            gui.enable = true;
         };
     };
 

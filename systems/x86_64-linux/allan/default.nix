@@ -23,6 +23,7 @@
         };
         suites = {
             common.enable = true;
+            gui.enable = true;
         };
     };
 
