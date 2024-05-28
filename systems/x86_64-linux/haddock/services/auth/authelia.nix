@@ -16,6 +16,7 @@ in
                     groups_filter = "(member={dn})";
                     user = "uid=admin,ou=people,dc=haddock,dc=cc";
                 };
+                identity_providers.oidc = {};
                 storage.postgres = {
                    host = "/run/postgresql";
                    port = 5432;
