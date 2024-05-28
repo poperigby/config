@@ -26,6 +26,7 @@ in
                 flameshot.enable = true;
                 gammastep.enable = true;
                 swaync.enable = true;
+                udiskie.enable = true;
             };
         };
     };
