@@ -12,6 +12,7 @@ in
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
+            package = pkgs.swayfx;
             config = {
                 input = {
                     "type:keyboard" = {
@@ -27,27 +28,27 @@ in
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
-                keybindings = let
-                    menu = config.wayland.windowManager.sway.config.menu;
-                    mod = config.wayland.windowManager.sway.config.modifier;
-                    term = config.wayland.windowManager.sway.config.terminal;
-                in lib.mkOptionDefault {
+                keybindings = with config.wayland.windowManager.sway.config; lib.mkOptionDefault {
                     ## Basics
                     # Kill focused window
-                    "${mod}+q" = "kill";
+                    "${modifier}+q" = "kill";
 
                     ## Applications
                     # Application launcher
-                    "${mod}+Space" = "exec ${menu} -show run";
+                    "${modifier}+Space" = "exec ${menu} -show run";
                     # Terminal
-                    "${mod}+Return" = "exec ${term}";
-                    # Firefox
-                    "${mod}+n" = "exec ${pkgs.firefox}/bin/firefox";
+                    "${modifier}+Return" = "exec ${terminal}";
+                    # Browser
+                    "${modifier}+n" = "exec ${pkgs.firefox}/bin/firefox";
                 };
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
             };
+            # SwayFX settings will have to go here
+            extraConfig = ''
+                corner_radius = 1;
+            '';
             systemd.enable = true;
         };
     };
