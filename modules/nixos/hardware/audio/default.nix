@@ -13,6 +13,12 @@ in
             audio.enable = true;
             # Enable Wireplumber, a modular session / policy manager
             wireplumber.enable = true;
+            # Enable ALSA and PulseAudio emulation
+            alsa = {
+                enable = true;
+                support32Bit = true;
+            };
+            pulse.enable = true;
         };
     };
 }
