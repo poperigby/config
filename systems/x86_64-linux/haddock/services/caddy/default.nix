@@ -25,13 +25,12 @@ in
         });
         globalConfig = ''
             (auth) {
-                forward_auth auth-pod:9091 {
-                    uri /api/verify?rd=https://auth.haddock.cc
-                    copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+                forward_auth localhost:9091 {
+                    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
                 }
             }
 
-            # TODO: Remove when on bare metal
+            # TODO: Uncomment when on bare metal
             # acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
             email {env.EMAIL}
         '';
