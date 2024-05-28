@@ -16,6 +16,7 @@ in
                     # We don't want Firefox overwriting our search configuration on launch
                     force = true;
                 };
+                userChrome = builtins.readFile ./userChrome.css;
                 settings = {
                     # This is a monster :/
                     "browser.uiCustomization.state" = {
