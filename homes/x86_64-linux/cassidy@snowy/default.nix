@@ -8,6 +8,7 @@
             gui = {
                 enable = true;
                 adaptiveSync = true;
+                wallpaper = ./wallpaper.jpg;
             };
         };
     };

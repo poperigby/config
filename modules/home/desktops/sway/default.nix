@@ -7,6 +7,11 @@ in
     options.poperigby.desktop.sway = {
         enable = lib.mkEnableOption "Enable Sway window manager";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+        wallpaper = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = "The path to a wallpaper you want to use.";
+        };
     };
 
     config = lib.mkIf cfg.enable {
@@ -23,6 +28,7 @@ in
                 output = {
                     "*" = {
                         adaptive_sync = lib.mkIf cfg.adaptiveSync "on";
+                        bg = lib.mkIf (cfg.wallpaper != null) "${cfg.wallpaper} fill";
                     };
                 };
                 modifier = "Mod4";
