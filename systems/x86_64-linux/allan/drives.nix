@@ -49,7 +49,5 @@
         };
     };
 
-    sops.secrets = {
-        "allan/luks_password" = {};
-    };
+    sops.secrets."allan/luks_password" = {};
 }

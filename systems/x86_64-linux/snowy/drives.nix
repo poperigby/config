@@ -51,7 +51,5 @@
     };
     # TODO: Setup other disks
 
-    sops.secrets = {
-        "snowy/luks_password" = {};
-    };
+    sops.secrets."snowy/luks_password" = {};
 }
