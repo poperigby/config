@@ -16,7 +16,7 @@ in
 
     config = lib.mkIf cfg.enable {
         poperigby = {
-            desktop.sway = {
+            desktops.sway = {
                 enable = true;
                 adaptiveSync = cfg.adaptiveSync;
                 wallpaper = cfg.wallpaper;

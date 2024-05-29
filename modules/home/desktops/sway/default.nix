@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.desktop.sway;
+    cfg = config.poperigby.desktops.sway;
 in
 {
-    options.poperigby.desktop.sway = {
+    options.poperigby.desktops.sway = {
         enable = lib.mkEnableOption "Enable Sway window manager";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
         wallpaper = lib.mkOption {
