@@ -1,16 +1,19 @@
 alias sw := switch
 
-switch:
-    nh os switch .
+build-iso:
+    nix build .#isoConfigurations.minimal
 
-debug:
-    nh os switch . --verbose
-
-update:
-    nix flake update
+check:
+    nix flake check
 
 clean:
     nh clean all
 
-build-iso:
-    nix build .#isoConfigurations.minimal
+debug:
+    nh os switch . --verbose
+
+switch:
+    nh os switch .
+
+update:
+    nix flake update
