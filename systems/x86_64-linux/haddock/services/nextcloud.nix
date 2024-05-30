@@ -32,8 +32,14 @@ in
                 inherit (cfg.package.packages.apps)
                 contacts
                 calendar
-                tasks
                 ;
+                tasks = pkgs.fetchNextcloudApp {
+                    appName = "Tasks";
+                    url = "https://github.com/nextcloud/tasks/releases/download/v0.16.0/tasks.tar.gz";
+                    sha256 = "";
+                    license = "afl3";
+                    appVersion = "0.16.0";
+                };
                 oidc_login = pkgs.fetchNextcloudApp {
                     appName = "OpenID Connect Login";
                     url = "https://github.com/pulsejet/nextcloud-oidc-login/releases/download/v3.1.1/oidc_login.tar.gz";
