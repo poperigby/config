@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 let
     cfg = config.services.nextcloud;
@@ -37,7 +37,7 @@ in
                 oidc_login = pkgs.fetchNextcloudApp {
                     appName = "OpenID Connect Login";
                     url = "https://github.com/pulsejet/nextcloud-oidc-login/releases/download/v3.1.1/oidc_login.tar.gz";
-                    sha256 = lib.fakeHash;
+                    sha256 = "sha256-EVHDDFtz92lZviuTqr+St7agfBWok83HpfuL6DFCoTE=";
                     license = "afl3";
                     appVersion = "3.1.1";
                 };
