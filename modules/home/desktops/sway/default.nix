@@ -1,17 +1,23 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.desktop.sway;
+    cfg = config.poperigby.desktops.sway;
 in
 {
-    options.poperigby.desktop.sway = {
+    options.poperigby.desktops.sway = {
         enable = lib.mkEnableOption "Enable Sway window manager";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+        wallpaper = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = "The path to a wallpaper you want to use.";
+        };
     };
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
+            package = pkgs.swayfx;
             config = {
                 input = {
                     "type:keyboard" = {
@@ -22,32 +28,33 @@ in
                 output = {
                     "*" = {
                         adaptive_sync = lib.mkIf cfg.adaptiveSync "on";
+                        bg = lib.mkIf (cfg.wallpaper != null) "${cfg.wallpaper} fill";
                     };
                 };
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
-                keybindings = let
-                    menu = config.wayland.windowManager.sway.config.menu;
-                    mod = config.wayland.windowManager.sway.config.modifier;
-                    term = config.wayland.windowManager.sway.config.terminal;
-                in lib.mkOptionDefault {
+                keybindings = with config.wayland.windowManager.sway.config; lib.mkOptionDefault {
                     ## Basics
                     # Kill focused window
-                    "${mod}+q" = "kill";
+                    "${modifier}+q" = "kill";
 
                     ## Applications
                     # Application launcher
-                    "${mod}+Space" = "exec ${menu} -show run";
+                    "${modifier}+Space" = "exec ${menu} -show run";
                     # Terminal
-                    "${mod}+Return" = "exec ${term}";
-                    # Firefox
-                    "${mod}+n" = "exec ${pkgs.firefox}/bin/firefox";
+                    "${modifier}+Return" = "exec ${terminal}";
+                    # Browser
+                    "${modifier}+n" = "exec ${pkgs.firefox}/bin/firefox";
                 };
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
             };
+            # SwayFX settings will have to go here
+            extraConfig = ''
+                corner_radius = 1;
+            '';
             systemd.enable = true;
         };
     };

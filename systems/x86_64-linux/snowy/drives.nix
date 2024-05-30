@@ -3,7 +3,8 @@
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
-        device = "/dev/nvme0n1";
+        # device = "/dev/nvme0n1";
+        device = "/dev/vda";
         type = "disk";
         content = {
             type = "gpt";
@@ -50,7 +51,5 @@
     };
     # TODO: Setup other disks
 
-    sops.secrets = {
-        "snowy/luks_password" = {};
-    };
+    sops.secrets."snowy/luks_password" = {};
 }
