@@ -10,8 +10,6 @@ in
         programs.fzf = {
             enable = true;
             colors = {
-                "bg" = "#282828";
-                "bg+" = "#3c3836";
                 "fg" = "#ebdbb2";
                 "fg+" = "#ebdbb2";
                 "header" = "#665c54";
