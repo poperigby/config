@@ -4,7 +4,10 @@
     poperigby = {
         suites = {
             common.enable = true;
-            gui.enable = true;
+            gui = {
+                enable = true;
+                wallpaper = ./wallpaper.jpg;
+            };
         };
     };
 
