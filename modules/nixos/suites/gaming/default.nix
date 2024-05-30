@@ -23,6 +23,12 @@ in
                 # Add cap_sys_nice capability to the GameScope binary so that it may renice itself
                 capSysNice = true;
             };
+
+            boot.kernel.sysctl = {
+                # This value is used by SteamOS
+                # See https://wiki.archlinux.org/title/Gaming#Increase_vm.max_map_count
+                "vm.max_map_count" = 2147483642;
+            };
         }
         # AMD specific options
         (lib.mkIf cfg.amd.enable {
