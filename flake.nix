@@ -79,7 +79,7 @@
                     ];
                 };
                 # Installation/recovery ISO
-                minimal = {
+                skut = {
                     modules = with inputs; [
                         "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
                     ];

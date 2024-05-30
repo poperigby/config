@@ -1,7 +1,5 @@
 { pkgs, inputs, ... }:
 
-# TODO: Give this a clever Tintin name. A character that rescues maybe?
-
 {
     # Set password for root user
     users.users.nixos.password = "nixos"; # TODO: Should this be an actual good password?

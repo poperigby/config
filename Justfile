@@ -23,4 +23,4 @@ clean:
 
 # Build my recovery/install ISO
 build-iso:
-    nix build .#isoConfigurations.minimal
+    nix build .#isoConfigurations.skut
