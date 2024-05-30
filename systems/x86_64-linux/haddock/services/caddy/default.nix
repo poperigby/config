@@ -24,15 +24,16 @@ in
             vendorHash = "sha256-uZVoYKEXIJQMeelrDan0QgpcwY7IN7d+kS74NcXyYBU=";
         });
         globalConfig = ''
+            # TODO: Uncomment when on bare metal
+            # acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+            email {env.EMAIL}
+        '';
+        extraConfig = ''
             (auth) {
                 forward_auth localhost:9091 {
                     copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
                 }
             }
-
-            # TODO: Uncomment when on bare metal
-            # acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
-            email {env.EMAIL}
         '';
     };
 
