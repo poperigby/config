@@ -36,7 +36,7 @@ in
                 tasks = pkgs.fetchNextcloudApp {
                     appName = "Tasks";
                     url = "https://github.com/nextcloud/tasks/releases/download/v0.16.0/tasks.tar.gz";
-                    sha256 = "";
+                    sha256 = "sha256-L68ughpLad4cr5utOPwefu2yoOgRvnJibqfKmarGXLw=";
                     license = "afl3";
                     appVersion = "0.16.0";
                 };
