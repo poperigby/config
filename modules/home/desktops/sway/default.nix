@@ -8,7 +8,7 @@ in
         enable = lib.mkEnableOption "Enable Sway window manager";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
         wallpaper = lib.mkOption {
-            type = lib.types.nullOr lib.types.path;
+            type = with lib.types; nullOr path;
             default = null;
             description = "The path to a wallpaper you want to use.";
         };
