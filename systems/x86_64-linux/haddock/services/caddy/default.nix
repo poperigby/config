@@ -30,7 +30,9 @@ in
         '';
         extraConfig = ''
             (auth) {
+                # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
                 forward_auth localhost:9091 {
+                    uri /api/authz/forward-auth
                     copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
                 }
             }
