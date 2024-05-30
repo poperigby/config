@@ -40,7 +40,8 @@ in
             ripgrep
             sops
             vimv-rs
-            inputs.nh.packages."${pkgs.system}".nh
+            inputs.nh.packages."${pkgs.system}".default
+            inputs.caligula.packages."${pkgs.system}".default
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
