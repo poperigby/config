@@ -8,6 +8,7 @@
         ./frigate.nix
         ./media
         ./miniflux.nix
+        ./nextcloud.nix
         ./postgresql.nix
         ./uptime-kuma.nix
     ];
