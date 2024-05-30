@@ -23,6 +23,7 @@ in
             };
             system = {
                 bootloader.enable = true;
+                fonts.enable = true;
                 locale.enable = true;
                 zram.enable = true;
             };
