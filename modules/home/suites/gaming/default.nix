@@ -26,6 +26,8 @@ in
             protonup-qt
             # Save game backups
             ludusavi
+            # For limiting FPS
+            libstrangle
         ];
     };
 }
