@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     cfg = config.services.nextcloud;
@@ -16,7 +16,6 @@ in
             settings = {
                 default_phone_region = "US";
                 trusted_proxies = [ "127.0.0.1" ];
-                log_type = "systemd";
             };
             # This attribute set is used by the imperative installer
             config = {
@@ -34,12 +33,15 @@ in
                 contacts
                 calendar
                 tasks
-                nextcloud-oidc-login;
+                ;
+                oidc_login = pkgs.fetchNextcloudApp {
+                    appName = "OpenID Connect Login";
+                    url = "https://github.com/pulsejet/nextcloud-oidc-login/releases/download/v3.1.1/oidc_login.tar.gz";
+                    sha256 = lib.fakeHash;
+                    license = "afl3";
+                    appVersion = "3.1.1";
+                };
             };
-            phpExtraExtensions = all: [
-                # Required for systemd logging
-                all.systemd
-            ];
             maxUploadSize = "10G";
         };
         # Caddy setup
