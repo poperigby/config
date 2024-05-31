@@ -55,7 +55,7 @@ in
             };
             # SwayFX settings will have to go here
             extraConfig = ''
-                corner_radius = 1;
+                corner_radius 1;
             '';
             systemd.enable = true;
         };
