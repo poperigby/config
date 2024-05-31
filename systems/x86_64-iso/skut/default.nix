@@ -17,6 +17,7 @@
     environment.systemPackages = with pkgs; [
         btrfs-progs
         curl
+        git
         networkmanager
         parted
         poperigby.installer
