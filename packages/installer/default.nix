@@ -4,6 +4,7 @@
     disko,
     git,
     gum,
+    sops,
     writeShellScriptBin,
     ...
 }:
@@ -11,6 +12,8 @@
 writeShellScriptBin "installer" ''
 # Fail if piped commands fail
 set -uo pipefail
+
+CONFIG_DIR="$HOME/config"
 
 # Search the current directory and any parent directories for a file
 search_up() {
@@ -44,13 +47,19 @@ if ! AGE_KEY_FILE=$(search_up "age-key.txt"); then
 fi
 
 # Clone my NixOS configuration repository if it's not already there
-if [ ! -d "$HOME/config" ]; then
-    ${git}/bin/git clone https://codeberg.org/PopeRigby/nixos.git "$HOME/config"
+if [ ! -d "$CONFIG_DIR" ]; then
+    ${git}/bin/git clone https://codeberg.org/PopeRigby/nixos.git "$CONFIG_DIR"
 fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(ls -1 "$HOME/config/systems/x86_64-linux" | ${gum}/bin/gum choose)
+TARGET_HOST=$(ls -1 "$CONFIG_DIR/systems/x86_64-linux" | ${gum}/bin/gum choose)
+
+# Put the host's LUKS password in /tmp/luks_password if it uses LUKS
+if grep -q "luks" "$CONFIG_DIR/systems/x86_64-linux/$TARGET_HOST/drives.nix"; then
+    echo "Copying LUKS password to /tmp/luks_password"
+    ${sops}/bin/sops --decrypt --extract "['$TARGET_HOST']['luks_password']" "$CONFIG_DIR/secrets/secrets.yaml" > /tmp/luks_password
+fi
 
 # Partition the disk if the user wants to
 echo "The following operation will automatically partition and format your disk"
@@ -60,7 +69,7 @@ if ${gum}/bin/gum confirm --default=false "Would you like to partition and forma
     ${gum}/bin/gum confirm --default=false "Are you sure you want to continue? Disks configured with Disko will be wiped!"
 
      # Partition and mount disks based on the system's Disko configuration
-     sudo ${disko}/bin/disko --mode disko --flake "$HOME/config#$TARGET_HOST"
+     sudo ${disko}/bin/disko --mode disko --flake "$CONFIG_DIR#$TARGET_HOST"
 fi
 
 echo "Copying age-key.txt to /mnt"
@@ -68,7 +77,7 @@ sudo mkdir -p /mnt/var/lib/sops-nix
 sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/
 
 echo "Installing NixOS system"
-if sudo nixos-install --flake "$HOME/config#$TARGET_HOST"; then
+if sudo nixos-install --flake "$CONFIG_DIR#$TARGET_HOST"; then
     echo "Done! Remove your installation media and reboot :)"
     exit 0
 else
