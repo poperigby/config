@@ -40,7 +40,10 @@ in
                     ## Basics
                     # Kill focused window
                     "${modifier}+q" = "kill";
+                    # Swap focus between the tiling area and the floating area
                     "${modifier}+d" = "focus mode_toggle";
+                    # Toggle the current focus between tiling and floating mode
+                    "${modifier}+Shift+d" = "floating toggle";
 
                     ## Applications
                     # Application launcher
