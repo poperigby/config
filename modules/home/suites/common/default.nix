@@ -32,6 +32,7 @@ in
         # Programs that don't require any configuration
         home.packages = with pkgs; [
             asciinema
+            caligula
             fd
             just
             lazygit
@@ -40,7 +41,6 @@ in
             sops
             vimv-rs
             inputs.nh.packages."${pkgs.system}".default
-            inputs.caligula.packages."${pkgs.system}".default
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;

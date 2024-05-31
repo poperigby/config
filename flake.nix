@@ -7,10 +7,6 @@
         # nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         ## Extra inputs
-        caligula = {
-            url = "github:ifd3f/caligula";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         crowdsec = {
             url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
             inputs.nixpkgs.follows = "nixpkgs";
