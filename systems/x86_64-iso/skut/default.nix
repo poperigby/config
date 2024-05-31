@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
     # Set password for root user
@@ -15,9 +15,10 @@
 
     # Useful packages for installation and recovery
     environment.systemPackages = with pkgs; [
-        git
+        btrfs-progs
+        curl
         networkmanager
-        inputs.disko.packages.${pkgs.system}.disko
+        parted
         poperigby.installer
     ];
 
