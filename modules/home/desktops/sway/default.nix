@@ -18,6 +18,8 @@ in
         wayland.windowManager.sway = {
             enable = true;
             package = pkgs.swayfx;
+            # Required for SwayFX to work
+            checkConfig = false;
             config = {
                 input = {
                     "type:keyboard" = {
