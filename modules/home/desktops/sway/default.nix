@@ -65,14 +65,14 @@ in
                 colors = {
                     background = "#${colors.base00}";
                     focused = rec {
-                        background = "#${colors.base00}";
+                        background = "#${colors.base01}";
                         border = "#${colors.base01}";
                         childBorder = border;
                         indicator = "#${colors.base0D}";
                         text = "#${colors.base07}";
                     };
                     focusedInactive = rec {
-                        background = "#${colors.base01}";
+                        background = "#${colors.base00}";
                         border = "#${colors.base02}";
                         childBorder = border;
                         indicator = "#${colors.base0D}";
@@ -86,7 +86,7 @@ in
                         text = "#${colors.base07}";
                     };
                     unfocused = rec {
-                        background = "#${colors.base01}";
+                        background = "#${colors.base00}";
                         border = "#${colors.base02}";
                         childBorder = border;
                         indicator = "#${colors.base0D}";
