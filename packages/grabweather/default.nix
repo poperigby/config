@@ -1,13 +1,18 @@
 {
     fetchgit,
-    rustPlatform,
     lib,
+    openssl,
+    pkg-config,
+    rustPlatform,
     ...
 }:
 
 rustPlatform.buildRustPackage {
     pname = "grabweather";
     version = "0.1.0";
+
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [ openssl ];
 
     src = fetchgit {
         url = "https://codeberg.org/PopeRigby/grabweather";
