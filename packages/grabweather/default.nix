@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage {
 
     src = fetchgit {
         url = "https://codeberg.org/PopeRigby/grabweather";
-        hash = "sha256-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF=";
+        hash = "sha256-q1iik6VnHwWw+jo/04t6HPN2xy5+oIMk4aJY4+35nQA=";
     };
 
     cargoSha256 = "sha256-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=";
