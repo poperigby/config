@@ -11,10 +11,10 @@ rustPlatform.buildRustPackage {
 
     src = fetchgit {
         url = "https://codeberg.org/PopeRigby/grabweather";
-        hash = lib.fakeHash;
+        hash = "sha256-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF=";
     };
 
-    cargoSha256 = lib.fakeHash;
+    cargoSha256 = "sha256-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=";
 
     meta = with lib; {
         description = "A simple tool that returns the current weather.";
