@@ -58,6 +58,7 @@ TARGET_HOST=$(ls -1 "$CONFIG_DIR/systems/x86_64-linux" | ${gum}/bin/gum choose)
 # Put the host's LUKS password in /tmp/luks_password if it uses LUKS
 if grep -q "luks" "$CONFIG_DIR/systems/x86_64-linux/$TARGET_HOST/drives.nix"; then
     echo "Copying LUKS password to /tmp/luks_password"
+    export SOPS_AGE_KEY_FILE=$AGE_KEY_FILE
     ${sops}/bin/sops --decrypt --extract "['$TARGET_HOST']['luks_password']" "$CONFIG_DIR/secrets/secrets.yaml" > /tmp/luks_password
 fi
 
