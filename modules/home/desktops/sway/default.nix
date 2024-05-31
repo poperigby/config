@@ -44,7 +44,7 @@ in
 
                     ## Applications
                     # Application launcher
-                    "${modifier}+Space" = "exec ${menu} -show run";
+                    "${modifier}+space" = "exec ${menu} -show run";
                     # Terminal
                     "${modifier}+Return" = "exec ${terminal}";
                     # Browser
