@@ -36,11 +36,11 @@ in
             fd
             just
             lazygit
+            nh
             ouch
             ripgrep
             sops
             vimv-rs
-            inputs.nh.packages."${pkgs.system}".default
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;

@@ -147,26 +147,6 @@
         "type": "github"
       }
     },
-    "nh": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1714905986,
-        "narHash": "sha256-Vj7iFkLrd7MDeeMVVol5uHTcaLwDq4a3vNx+6Sy1FLU=",
-        "owner": "viperML",
-        "repo": "nh",
-        "rev": "127a23c82aa41091e97466092d2547c08c2a9a9d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viperML",
-        "repo": "nh",
-        "type": "github"
-      }
-    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -310,7 +290,6 @@
         "crowdsec": "crowdsec",
         "disko": "disko",
         "home-manager": "home-manager",
-        "nh": "nh",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
         "nixos-generators": "nixos-generators",

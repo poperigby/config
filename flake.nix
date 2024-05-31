@@ -19,10 +19,6 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nh = {
-            url = "github:viperML/nh";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
         nixos-generators = {
             url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
