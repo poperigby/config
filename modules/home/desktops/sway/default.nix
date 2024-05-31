@@ -40,6 +40,7 @@ in
                     ## Basics
                     # Kill focused window
                     "${modifier}+q" = "kill";
+                    "${modifier}+d" = "focus mode_toggle";
 
                     ## Applications
                     # Application launcher
