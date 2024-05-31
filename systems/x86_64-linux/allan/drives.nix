@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
     # Setup the primary disk
@@ -24,7 +24,8 @@
                     content = {
                         name = "root";
                         type = "luks";
-                        passwordFile = config.sops.secrets."allan/luks_password".path;
+                        # This will only be used during initial partitioning
+                        passwordFile = /tmp/luks_password;
                         settings.allowDiscards = true;
                         content = {
                             type = "btrfs";
@@ -48,6 +49,4 @@
             };
         };
     };
-
-    sops.secrets."allan/luks_password" = {};
 }
