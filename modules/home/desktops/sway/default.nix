@@ -56,6 +56,9 @@ in
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
+                gaps = {
+                    inner = 5;
+                };
             };
             # SwayFX settings will have to go here
             extraConfig = ''
