@@ -1,17 +1,13 @@
 # TODO: Maybe have user setup SSH keys for cloning repository?
 
 {
+    disko,
     git,
     gum,
-    inputs,
-    pkgs,
     writeShellScriptBin,
     ...
 }:
 
-let
-    disko = inputs.disko.packages.${pkgs.system}.default;
-in
 writeShellScriptBin "installer" ''
 # Fail if piped commands fail
 set -uo pipefail
