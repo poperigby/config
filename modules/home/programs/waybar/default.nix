@@ -23,7 +23,7 @@ in
                     "memory"
                     "temperature"
                     "battery"
-                    # "custom/weather"
+                    "custom/weather"
                     "clock#date"
                     "clock#time"
                     "tray"
@@ -50,7 +50,12 @@ in
                     on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
                     escape = true;
                 };
-
+                "custom/weather" = {
+                    exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
+                    format = " {} ";
+                    interval = 900;
+                    tooltip = false;
+                };
             };
             # style = ./style.css;
             # Enable systemd integration
