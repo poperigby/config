@@ -38,14 +38,16 @@ let
 
         environment.etc."lact/config.yaml".source = configFile;
 
-        systemd.services.lact = {
+        # Copied from https://github.com/ilya-zlobintsev/LACT/blob/master/res/lactd.service
+        systemd.services.lactd = {
             wantedBy = [ "multi-user.target" ];
             unitConfig = {
-                Description = "AMD GPU Control Daemon";
+                Description = "AMDGPU Control Daemon";
                 After = [ "multi-user.target" ];
             };
             serviceConfig = {
                 ExecStart = "${pkgs.lact}/bin/lact daemon";
+                Nice = -10;
             };
         };
     };
