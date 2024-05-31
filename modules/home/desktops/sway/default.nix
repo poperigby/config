@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.desktops.sway;
+    colors = config.colorScheme.palette;
 in
 {
     options.poperigby.desktops.sway = {
@@ -13,6 +14,10 @@ in
             description = "The path to a wallpaper you want to use.";
         };
     };
+
+    imports = [
+        inputs.nix-colors.homeManagerModules.default
+    ];
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
@@ -56,8 +61,44 @@ in
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
-                gaps = {
-                    inner = 5;
+                gaps.inner = 2;
+                colors = {
+                    background = "#${colors.base00}";
+                    focused = rec {
+                        background = "#${colors.base00}";
+                        border = "#${colors.base01}";
+                        childBorder = border;
+                        indicator = "#${colors.base0D}";
+                        text = "#${colors.base07}";
+                    };
+                    focusedInactive = rec {
+                        background = "#${colors.base01}";
+                        border = "#${colors.base02}";
+                        childBorder = border;
+                        indicator = "#${colors.base0D}";
+                        text = "#${colors.base06}";
+                    };
+                    placeholder = {
+                        background = "#${colors.base06}";
+                        border = "#000000";
+                        childBorder = "#${colors.base02}";
+                        indicator = "#000000";
+                        text = "#${colors.base07}";
+                    };
+                    unfocused = rec {
+                        background = "#${colors.base01}";
+                        border = "#${colors.base02}";
+                        childBorder = border;
+                        indicator = "#${colors.base0D}";
+                        text = "#${colors.base06}";
+                    };
+                    urgent = rec {
+                        background = "#${colors.base0E}";
+                        border = "#${colors.base06}";
+                        childBorder = border;
+                        indicator = "#${colors.base0D}";
+                        text = "#${colors.base07}";
+                    };
                 };
             };
             # SwayFX settings will have to go here
