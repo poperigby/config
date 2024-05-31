@@ -11,19 +11,19 @@ let
     in
 {
     options.poperigby.services.lact = {
-        enable = lib.mkEnableOption "Enable Lact for controlling AMD GPUs";
+        enable = lib.mkEnableOption "Enable LACT for controlling AMD GPUs";
         configFile = lib.mkOption {
             type = with lib.types; nullOr path;
             default = null;
             description = lib.mdDoc ''
-                Path to a Lact `config.yaml`. Mutually exclusive with the `settings` option.
+                Path to a LACT `config.yaml`. Mutually exclusive with the `settings` option.
             '';
         };
         settings = lib.mkOption {
             type = settingsFormat.type;
             default = {};
             description = lib.mdDoc ''
-                Ludusavi configuration as an attribute set.
+                LACT configuration as an attribute set.
             '';
         };
     };
