@@ -26,7 +26,7 @@
                         name = "root";
                         type = "luks";
                         # This will only be used during initial partitioning
-                        passwordFile = /tmp/luks_password;
+                        passwordFile = "/tmp/luks_password";
                         settings.allowDiscards = true;
                         content = {
                             type = "btrfs";
