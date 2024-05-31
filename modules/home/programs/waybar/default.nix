@@ -26,14 +26,14 @@ in
                     # "custom/weather"
                     "clock#date"
                     "clock#time"
-                    "custom/notification"
                     "tray"
+                    "custom/notification"
                 ];
                 ## Modules
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
-                    format = "{} {icon} ";
+                    format = "{} {icon}";
                     format-icons = {
                         notification = "<span foreground='red'><sup></sup></span>";
                         none = "";
