@@ -5,7 +5,10 @@ let
   gui = config.poperigby.suites.gui.enable;
 in
 {
-    options.poperigby.programs.yazi.enable = lib.mkEnableOption "Enable Yazi file explorer";
+    options.poperigby.programs.yazi = {
+        enable = lib.mkEnableOption "Enable Yazi file explorer";
+        default = lib.mkEnableOption "Make Yazi the default file explorer";
+    };
 
     config = lib.mkIf cfg.enable {
         programs.yazi = {
@@ -17,7 +20,7 @@ in
                     # Enable mapping for ripdrag if GUI is enabled
                     {
                         on = [ "<C-n>" ];
-                        exec = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
+                        run = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
                     }
                 ];
             };
@@ -27,10 +30,14 @@ in
         xdg.desktopEntries.yazi = lib.mkIf gui {
             name = "Yazi";
             genericName = "File Browser";
-            exec = "yazi";
+            exec = "yazi %f";
             terminal = true;
             categories = [ "System" "FileTools" "FileManager" ];
             mimeType = [ "inode/directory" ];
+        };
+
+        xdg.mimeApps.defaultApplications = lib.mkIf cfg.default {
+            "inode/directory" = "yazi.desktop";
         };
     };
 }
