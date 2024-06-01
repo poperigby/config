@@ -31,6 +31,8 @@ in
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
+            # Systemd integration (doesn't actually make Sway a systemd service.)
+            systemd.enable = true;
             package = pkgs.swayfx;
             # Required for SwayFX to work
             checkConfig = false;
@@ -75,6 +77,13 @@ in
                 };
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
+                # Windows to make floating
+                floating.criteria = [
+                    {
+                        # Steam friends
+                        title = "Friends List";
+                    }
+                ];
                 bars = [];
                 gaps.inner = 5;
                 colors = {
@@ -122,7 +131,6 @@ in
             extraConfig = ''
                 corner_radius 10
             '';
-            systemd.enable = true;
         };
 
         # Start sway if we open a login shell on TTY1
