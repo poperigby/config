@@ -10,6 +10,7 @@
         hardware = {
             audio.enable = true;
             bluetooth.enable = true;
+            corsair.enable = true;
             printing.enable = true;
             scanning.enable = true;
         };
