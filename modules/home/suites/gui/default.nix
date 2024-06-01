@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.suites.gui;
@@ -47,5 +47,11 @@ in
                 udiskie.enable = true;
             };
         };
+
+        # Packages that don't need any configuration
+        home.packages = with pkgs; [
+            element-desktop
+            vesktop
+        ];
     };
 }
