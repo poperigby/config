@@ -57,7 +57,7 @@ in
                     tooltip = false;
                 };
             };
-            # style = ./style.css;
+            style = ./style.css;
             # Enable systemd integration
             systemd.enable = true;
         };

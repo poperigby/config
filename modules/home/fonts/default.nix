@@ -21,6 +21,8 @@ in
         home.packages = with pkgs; [
             # Main font
             noto-fonts
+            # Emoji font
+            noto-fonts-color-emoji
             # Monospace font
             (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         ];
