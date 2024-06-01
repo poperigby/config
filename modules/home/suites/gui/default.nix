@@ -60,5 +60,10 @@ in
             pwvucontrol
         ];
 
+        xdg.portal = {
+            enable = true;
+            # Fallback portal
+            extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        };
     };
 }
