@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.services.swaync;
@@ -10,5 +10,8 @@ in
         services.swaync = {
             enable = true;
         };
+
+        # Required for icons to display correctly
+        home.packages = [ pkgs.gnome.adwaita-icon-theme ];
     };
 }
