@@ -41,6 +41,7 @@ in
                 };
                 rofi.enable = true;
                 swaylock.enable = true;
+                thunderbird.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
             };
