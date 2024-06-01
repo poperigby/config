@@ -20,7 +20,9 @@ in
                 settings = {
                     # To make our userChrome.css work
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-                    # This is a monster :/
+                    # Use system emoji font
+                    "font.name-list.emoji" = "emoji";
+                    # This is a monster 👹
                     "browser.uiCustomization.state" = {
                         placements = {
                             widget-overflow-fixed-list = [];
