@@ -24,8 +24,7 @@ in
                     "temperature"
                     "battery"
                     "custom/weather"
-                    "clock#date"
-                    "clock#time"
+                    "clock"
                     "tray"
                     "custom/notification"
                 ];
@@ -33,7 +32,7 @@ in
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
-                    format = "{} {icon}";
+                    format = "{} {icon} ";
                     format-icons = {
                         notification = "<span foreground='red'><sup></sup></span>";
                         none = "";
@@ -51,6 +50,7 @@ in
                     escape = true;
                 };
                 "custom/weather" = {
+                    # TODO: Make hover show detailed weather information
                     exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
                     format = " {} ";
                     interval = 900;
