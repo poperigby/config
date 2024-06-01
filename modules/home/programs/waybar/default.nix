@@ -43,6 +43,10 @@ in
                     format-disabled = " 󰂲 ";
                     format-off = format-disabled;
                     format-connected = " 󰂱 ";
+                    tooltip-format-connected = "{device_alias}";
+                    tooltip-format-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
+                    tooltip-format-enumerate-connected = "{device_alias}";
+                    tooltip-format-enumerate-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
                     on-click = "${pkgs.blueman}/bin/blueman-manager";
                 };
                 network = {
