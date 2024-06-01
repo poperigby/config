@@ -4,6 +4,7 @@ let
     cfg = config.poperigby.desktops.sway;
     colors = config.colorScheme.palette;
     fonts = config.fonts.fontconfig.defaultFonts;
+    sway = config.wayland.windowManager.sway;
 in
 {
     options.poperigby.desktops.sway = {
@@ -31,7 +32,8 @@ in
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
-            # Systemd integration (doesn't actually make Sway a systemd service.)
+            # Integrates Sway with systemd, which will allow applications to depend on it
+            # by depending on "graphical.target".
             systemd.enable = true;
             package = pkgs.swayfx;
             # Required for SwayFX to work
@@ -58,7 +60,7 @@ in
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
-                keybindings = with config.wayland.windowManager.sway.config; lib.mkOptionDefault {
+                keybindings = with sway.config; lib.mkOptionDefault {
                     ## Basics
                     # Kill focused window
                     "${modifier}+q" = "kill";
@@ -66,6 +68,8 @@ in
                     "${modifier}+d" = "focus mode_toggle";
                     # Toggle the current focus between tiling and floating mode
                     "${modifier}+Shift+d" = "floating toggle";
+
+                    # TODO: Make Meta+Alt+{h,j,k,l} move windows between workspaces
 
                     ## Applications
                     # Application launcher
