@@ -80,14 +80,18 @@ in
                     "${modifier}+n" = "exec ${pkgs.firefox}/bin/firefox";
                 };
                 defaultWorkspace = "workspace number 1";
+                # Floating window rules
+                floating = {
+                    titlebar = true;
+                    # Windows to make floating
+                    criteria = [
+                        {
+                            # Steam friends
+                            title = "Friends List";
+                        }
+                    ];
+                };
                 # We'll just use systemd to start Waybar
-                # Windows to make floating
-                floating.criteria = [
-                    {
-                        # Steam friends
-                        title = "Friends List";
-                    }
-                ];
                 bars = [];
                 gaps.inner = 5;
                 colors = {
