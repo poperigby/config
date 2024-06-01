@@ -32,7 +32,7 @@ in
         }
         # AMD specific options
         (lib.mkIf cfg.amd.enable {
-            programs.corectrl = {
+            poperigby.services.lact = {
                 enable = true;
             };
          })

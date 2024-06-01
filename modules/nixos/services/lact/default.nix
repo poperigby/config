@@ -21,7 +21,15 @@ let
         };
         settings = lib.mkOption {
             type = settingsFormat.type;
-            default = {};
+            default = {
+                daemon = {
+                    log_level = "info";
+                    admin_groups = [ "wheel" "sudo" ];
+                    disable_clocks_cleanup = false;
+                };
+                apply_settings_timer = 5;
+                gpus = [];
+            };
             description = lib.mdDoc ''
                 LACT configuration as an attribute set.
             '';
