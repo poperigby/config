@@ -76,6 +76,8 @@ in
                     "${modifier}+space" = "exec ${menu} -show drun -show-icons -icon-theme 'MoreWaita'";
                     # Terminal
                     "${modifier}+Return" = "exec ${terminal}";
+                    # File manager
+                    "${modifier}+e" = "exec ${terminal} start ${pkgs.yazi}/bin/yazi";
                     # Browser
                     "${modifier}+n" = "exec ${pkgs.firefox}/bin/firefox";
                 };
@@ -88,6 +90,12 @@ in
                         {
                             # Steam friends
                             title = "Friends List";
+                        }
+                        {
+                            title = "Steam Settings";
+                        }
+                        {
+                            title = "Create or select new Steam library folder";
                         }
                     ];
                 };
