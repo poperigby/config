@@ -45,3 +45,6 @@
 }
 
 /* Tweak Options as of 12/10/2022; Generated Mon May 27 2024 18:31:33 GMT-0700 (Pacific Daylight Time) */
+
+/* Disable title bar buttons */
+.titlebar-buttonbox-container { display: none }

@@ -18,6 +18,8 @@ in
                 };
                 userChrome = builtins.readFile ./userChrome.css;
                 settings = {
+                    # To make our userChrome.css work
+                    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                     # This is a monster :/
                     "browser.uiCustomization.state" = {
                         placements = {
