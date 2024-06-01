@@ -12,5 +12,11 @@ in
         services = {
             udisks2.enable = true;
         };
+
+        # Required for Sway to launch
+        security.polkit.enable = true;
+
+        # Required for Swaylock to work
+        security.pam.services.swaylock = {};
     };
 }
