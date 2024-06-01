@@ -61,7 +61,7 @@ in
 
                     ## Applications
                     # Application launcher
-                    "${modifier}+space" = "exec ${menu} -show drun -show-icons";
+                    "${modifier}+space" = "exec ${menu} -show drun -show-icons -icon-theme 'MoreWaita'";
                     # Terminal
                     "${modifier}+Return" = "exec ${terminal}";
                     # Browser
@@ -118,5 +118,8 @@ in
             '';
             systemd.enable = true;
         };
+
+        # Needed for Rofi icons
+        home.packages = [ pkgs.morewaita-icon-theme ];
     };
 }
