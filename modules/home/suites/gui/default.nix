@@ -35,7 +35,10 @@ in
             };
             programs = {
                 firefox.enable = true;
-                imv.enable = true;
+                imv = {
+                    enable = true;
+                    default = true;
+                };
                 rofi.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
@@ -54,5 +57,6 @@ in
             vesktop
             pwvucontrol
         ];
+
     };
 }
