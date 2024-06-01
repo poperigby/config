@@ -3,8 +3,8 @@
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
-        # device = "/dev/nvme0n1";
-        device = "/dev/vda";
+        device = "/dev/nvme0n1";
+        # device = "/dev/vda";
         type = "disk";
         content = {
             type = "gpt";
