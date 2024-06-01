@@ -8,14 +8,14 @@
     boot = {
         initrd = {
             availableKernelModules = [
+                "ahci"
                 "nvme"
-                "usb_storage"
-                "usb_hid"
                 "sd_mod"
                 "sr_mod"
-                "ahci"
-                "xhci_pci"
                 "sr_mod"
+                "usb_storage"
+                "usbhid"
+                "xhci_pci"
             ];
             kernelModules = [];
         };
