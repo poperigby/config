@@ -8,6 +8,8 @@
             gui = {
                 enable = true;
                 adaptiveSync = true;
+                resolution = "2560x1440";
+                refreshRate = 165;
                 wallpaper = ./wallpaper.jpg;
             };
         };

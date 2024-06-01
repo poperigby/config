@@ -7,6 +7,16 @@ in
     options.poperigby.suites.gui = {
         enable = lib.mkEnableOption "Enable GUI";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+        resolution = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "The resolution you want to use, in the form of <width>x<height>";
+        };
+        refreshRate = lib.mkOption {
+            type = lib.types.int;
+            default = 60;
+            description = "The refresh rate you want to use";
+        };
         wallpaper = lib.mkOption {
             type = lib.types.nullOr lib.types.path;
             default = null;
@@ -18,6 +28,8 @@ in
         poperigby = {
             desktops.sway = {
                 enable = true;
+                resolution = cfg.resolution;
+                refreshRate = cfg.refreshRate;
                 adaptiveSync = cfg.adaptiveSync;
                 wallpaper = cfg.wallpaper;
             };

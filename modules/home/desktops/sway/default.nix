@@ -8,6 +8,16 @@ in
     options.poperigby.desktops.sway = {
         enable = lib.mkEnableOption "Enable Sway window manager";
         adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
+        resolution = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "The resolution you want to use, in the form of <width>x<height>";
+        };
+        refreshRate = lib.mkOption {
+            type = lib.types.int;
+            default = 60;
+            description = "The refresh rate you want to use";
+        };
         wallpaper = lib.mkOption {
             type = with lib.types; nullOr path;
             default = null;
@@ -35,6 +45,7 @@ in
                 output = {
                     "*" = {
                         adaptive_sync = lib.mkIf cfg.adaptiveSync "on";
+                        mode = "${cfg.resolution}@${builtins.toString cfg.refreshRate}Hz";
                         bg = lib.mkIf (cfg.wallpaper != null) "${cfg.wallpaper} fill";
                     };
                 };
@@ -61,7 +72,7 @@ in
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
-                gaps.inner = 2;
+                gaps.inner = 5;
                 colors = {
                     background = "#${colors.base00}";
                     focused = rec {

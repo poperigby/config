@@ -6,6 +6,8 @@
             common.enable = true;
             gui = {
                 enable = true;
+                resolution = "2256x1504";
+                refreshRate = 60;
                 wallpaper = ./wallpaper.jpg;
             };
         };
