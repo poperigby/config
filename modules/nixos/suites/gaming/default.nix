@@ -32,8 +32,8 @@ in
         }
         # AMD specific options
         (lib.mkIf cfg.amd.enable {
-            poperigby.services.lact = {
-                enable = true;
+            # poperigby.services.lact = {
+                # enable = true;
                 # settings = {
                 #     gpus = [
                 #         "1002:731F-1DA2:E411-0000:0d:00.0" = {
@@ -42,7 +42,7 @@ in
                 #         }
                 #     ];
                 # };
-            };
+            # };
          })
     ]);
 }
