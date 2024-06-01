@@ -23,6 +23,7 @@ in
                     "memory"
                     "temperature"
                     "battery"
+                    "bluetooth"
                     "network"
                     "custom/weather"
                     "clock"
@@ -32,9 +33,16 @@ in
                 ## Modules
                 wireplumber = {
                     format = "{volume}% {icon}";
-                    format-muted = "󰝟";
+                    format-muted = "󰝟 ";
                     on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
-                    format-icons = [ "" "" "" ];
+                    format-icons = [ " " " " " " ];
+                };
+                bluetooth = rec {
+                    format = " 󰂯 ";
+                    format-disabled = " 󰂲 ";
+                    format-off = format-disabled;
+                    format-connected = " 󰂱 ";
+                    on-click = "${pkgs.blueman}/bin/blueman-manager";
                 };
                 network = {
                       format = "{ifname}";
@@ -48,7 +56,7 @@ in
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
-                    format = " {} {icon} ";
+                    format = " {icon} ";
                     format-icons = {
                         notification = "<span foreground='red'><sup></sup></span>";
                         none = "";
