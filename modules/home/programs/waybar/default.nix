@@ -23,6 +23,7 @@ in
                     "memory"
                     "temperature"
                     "battery"
+                    "network"
                     "custom/weather"
                     "clock"
                     "tray"
@@ -31,14 +32,23 @@ in
                 ## Modules
                 wireplumber = {
                     format = "{volume}% {icon}";
-                    format-muted = "󰝟 ";
+                    format-muted = "󰝟";
                     on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
-                    format-icons = [ " " " " " " ];
+                    format-icons = [ "" "" "" ];
+                };
+                network = {
+                      format = "{ifname}";
+                      format-wifi = "{essid} ({signalStrength}%) ";
+                      format-ethernet = "󰈀";
+                      format-disconnected = ""; # An empty format will hide the module.
+                      tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+                      tooltip-format-ethernet = "{ifname}  󰈀";
+                      max-length = 50;
                 };
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
-                    format = "{} {icon} ";
+                    format = " {} {icon} ";
                     format-icons = {
                         notification = "<span foreground='red'><sup></sup></span>";
                         none = "";
@@ -54,6 +64,9 @@ in
                     on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
                     on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
                     escape = true;
+                };
+                tray = {
+                    spacing = 10;
                 };
                 # Grabweather
                 "custom/weather" = {
