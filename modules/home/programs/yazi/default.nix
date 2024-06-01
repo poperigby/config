@@ -31,6 +31,7 @@ in
             name = "Yazi";
             genericName = "File Browser";
             exec = "yazi %f";
+            icon = ./icon.png;
             terminal = true;
             categories = [ "System" "FileTools" "FileManager" ];
             mimeType = [ "inode/directory" ];
