@@ -11,15 +11,18 @@ in
     ];
 
     config = lib.mkIf cfg.enable {
-        poperigby.programs = {
-            bat.enable = true;
-            bottom.enable = true;
-            fish.enable = true;
-            fzf.enable = true;
-            git.enable = true;
-            neovim.enable = true;
-            tealdeer.enable = true;
-            yazi.enable = true;
+        poperigby = {
+            programs = {
+                bat.enable = true;
+                bottom.enable = true;
+                fish.enable = true;
+                fzf.enable = true;
+                git.enable = true;
+                neovim.enable = true;
+                tealdeer.enable = true;
+                yazi.enable = true;
+            };
+            fonts.enable = true;
         };
         programs = {
             eza.enable = true;
