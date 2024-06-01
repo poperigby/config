@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, inputs, lib, ... }:
 
 let
     cfg = config.poperigby.programs.imv;
+    colors = config.colorScheme.palette;
 in
 {
     options.poperigby.programs.imv = {
@@ -9,9 +10,16 @@ in
         default = lib.mkEnableOption "Make imv the default image viewer";
     };
 
+    imports = [ inputs.nix-colors.homeManagerModules.default ];
+
     config = lib.mkIf cfg.enable {
         programs.imv = {
             enable = true;
+            settings = {
+                options = {
+                    background = colors.base00;
+                };
+            };
         };
 
         xdg.desktopEntries.imv = {
