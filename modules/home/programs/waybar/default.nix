@@ -48,10 +48,11 @@ in
                 network = {
                       format = "{ifname}";
                       format-wifi = "{essid} ({signalStrength}%) ";
-                      format-ethernet = "󰈀";
-                      format-disconnected = ""; # An empty format will hide the module.
                       tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+                      format-ethernet = "󰈀";
                       tooltip-format-ethernet = "{ifname}  󰈀";
+                      # An empty format will hide the module.
+                      format-disconnected = "";
                       max-length = 50;
                 };
                 # Sway Notification Center

@@ -48,9 +48,9 @@ in
                 git_status = {
                     format = "([$modified$ahead_behind]($style) )";
                     # Component formatting
-                    ahead = " ⇡\${count}";
-                    behind = " ⇣\${count}";
-                    diverged = " ⇡\${ahead_count}⇣\${behind_count}";
+                    ahead = "⇡\${count}";
+                    behind = "⇣\${count}";
+                    diverged = "⇡\${ahead_count}⇣\${behind_count}";
                     modified = "!\${count}";
                     stashed = "*";
                     style = "bold yellow";
