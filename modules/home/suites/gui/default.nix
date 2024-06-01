@@ -40,6 +40,7 @@ in
                     default = true;
                 };
                 rofi.enable = true;
+                swaylock.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
             };
