@@ -25,9 +25,7 @@ in
         };
     };
 
-    imports = [
-        inputs.nix-colors.homeManagerModules.default
-    ];
+    imports = [ inputs.nix-colors.homeManagerModules.default ];
 
     config = lib.mkIf cfg.enable {
         wayland.windowManager.sway = {
@@ -79,20 +77,22 @@ in
                         background = "#${colors.base01}";
                         border = "#${colors.base01}";
                         childBorder = border;
-                        indicator = "#${colors.base0D}";
+                        indicator = "#${colors.base01}";
                         text = "#${colors.base07}";
                     };
                     focusedInactive = rec {
                         background = "#${colors.base00}";
                         border = "#${colors.base02}";
                         childBorder = border;
-                        indicator = "#${colors.base0D}";
+                        indicator = "#${colors.base02}";
                         text = "#${colors.base06}";
                     };
                     placeholder = {
                         background = "#${colors.base06}";
+                        # Ignored
                         border = "#000000";
                         childBorder = "#${colors.base02}";
+                        # Ignored
                         indicator = "#000000";
                         text = "#${colors.base07}";
                     };
@@ -100,14 +100,14 @@ in
                         background = "#${colors.base00}";
                         border = "#${colors.base02}";
                         childBorder = border;
-                        indicator = "#${colors.base0D}";
+                        indicator = "#${colors.base02}";
                         text = "#${colors.base06}";
                     };
                     urgent = rec {
                         background = "#${colors.base0E}";
                         border = "#${colors.base06}";
                         childBorder = border;
-                        indicator = "#${colors.base0D}";
+                        indicator = "#${colors.base06}";
                         text = "#${colors.base07}";
                     };
                 };
