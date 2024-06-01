@@ -60,26 +60,40 @@ in
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
-                keybindings = with sway.config; lib.mkOptionDefault {
+                keybindings = let
+                    browser = "${pkgs.firefox}/bin/firefox";
+                    # We need to use this version to use our plugins
+                    menu = "${config.programs.rofi.finalPackage}/bin/rofi";
+                    mod = sway.config.modifier;
+                    term = sway.config.terminal;
+                in lib.mkOptionDefault {
                     ## Basics
                     # Kill focused window
-                    "${modifier}+q" = "kill";
+                    "${mod}+q" = "kill";
                     # Swap focus between the tiling area and the floating area
-                    "${modifier}+d" = "focus mode_toggle";
+                    "${mod}+d" = "focus mode_toggle";
                     # Toggle the current focus between tiling and floating mode
-                    "${modifier}+Shift+d" = "floating toggle";
+                    "${mod}+Shift+d" = "floating toggle";
 
                     # TODO: Make Meta+Alt+{h,j,k,l} move windows between workspaces
 
                     ## Applications
                     # Application launcher
-                    "${modifier}+space" = "exec ${menu} -show drun -show-icons -icon-theme 'MoreWaita'";
+                    "${mod}+space" = "exec ${menu} -show drun -show-icons -icon-theme 'MoreWaita'";
                     # Terminal
-                    "${modifier}+Return" = "exec ${terminal}";
+                    "${mod}+Return" = "exec ${term}";
                     # File manager
-                    "${modifier}+e" = "exec ${terminal} start ${pkgs.yazi}/bin/yazi";
+                    "${mod}+e" = "exec ${term} start ${pkgs.yazi}/bin/yazi";
                     # Browser
-                    "${modifier}+n" = "exec ${pkgs.firefox}/bin/firefox";
+                    "${mod}+n" = "exec ${browser}";
+
+                    ## Pickers
+                    # Emoji
+                    "${mod}+period" = "exec ${menu} -modi emoji -show emoji";
+                    # Clipboard history
+                    "${mod}+slash" = ''
+                        exec ${menu} -modi clipboard:${pkgs.poperigby.cliphist-rofi-img}/bin/cliphist-rofi-img -show clipboard -show-icons
+                    '';
                 };
                 defaultWorkspace = "workspace number 1";
                 # Floating window rules
