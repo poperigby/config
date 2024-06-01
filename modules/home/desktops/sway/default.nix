@@ -125,6 +125,13 @@ in
             systemd.enable = true;
         };
 
+        # Start sway if we open a login shell on TTY1
+        programs.bash.profileExtra = ''
+            if [ "$(tty)" = "/dev/tty1" ]; then
+                exec sway
+            fi
+        '';
+
         # Needed for Rofi icons
         home.packages = [ pkgs.morewaita-icon-theme ];
     };
