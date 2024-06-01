@@ -63,7 +63,7 @@ in
 
                     ## Applications
                     # Application launcher
-                    "${modifier}+space" = "exec ${menu} -show run";
+                    "${modifier}+space" = "exec ${menu} -show drun -show-icons";
                     # Terminal
                     "${modifier}+Return" = "exec ${terminal}";
                     # Browser
