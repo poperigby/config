@@ -19,6 +19,7 @@ in
                     "sway/mode"
                 ];
                 modules-right = [
+                    "privacy"
                     "wireplumber"
                     "memory"
                     "temperature"
@@ -26,8 +27,8 @@ in
                     "bluetooth"
                     "network"
                     "custom/weather"
-                    "clock"
                     "tray"
+                    "clock"
                     "custom/notification"
                 ];
                 ## Modules
