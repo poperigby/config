@@ -3,6 +3,7 @@
 let
     cfg = config.poperigby.desktops.sway;
     colors = config.colorScheme.palette;
+    fonts = config.fonts.fontconfig.defaultFonts;
 in
 {
     options.poperigby.desktops.sway = {
@@ -46,6 +47,11 @@ in
                         mode = "${cfg.resolution}@${builtins.toString cfg.refreshRate}Hz";
                         bg = lib.mkIf (cfg.wallpaper != null) "${cfg.wallpaper} fill";
                     };
+                };
+                fonts = {
+                   names = fonts.sansSerif;
+                   style = "normal";
+                   size = 11.0;
                 };
                 modifier = "Mod4";
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
