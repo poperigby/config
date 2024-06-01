@@ -29,6 +29,12 @@ in
                     "custom/notification"
                 ];
                 ## Modules
+                wireplumber = {
+                    format = "{volume}% {icon}";
+                    format-muted = "󰝟 ";
+                    on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+                    format-icons = [ " " " " " " ];
+                };
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
@@ -49,6 +55,7 @@ in
                     on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
                     escape = true;
                 };
+                # Grabweather
                 "custom/weather" = {
                     # TODO: Make hover show detailed weather information
                     exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
