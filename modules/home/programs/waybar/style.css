@@ -2,11 +2,11 @@
  * vim: ft=less
  */
 
-@define-color bg rgba(42, 42, 42, 0.7);
-@define-color bg-hover rgba(65, 65, 65, 0.7);
-@define-color text-color white;
-@define-color text-color-disabled rgba(255, 255, 255, 0.4);
-@define-color accent-color rgb(0, 128, 255);
+@define-color bg rgba(40, 40, 40, 0.7);
+@define-color bg-hover rgba(60, 56, 54, 0.7);
+@define-color text-color rgb(235, 219, 178);
+@define-color text-color-disabled rgb(251, 241, 199);
+@define-color accent-color rgb(131, 165, 152);
 
 * {
   border: none;
@@ -93,8 +93,8 @@ window > box > box > widget button:insensitive {
 }
 
 #workspaces button.urgent {
-  color: #bd2c40;
-  box-shadow: inset 0 -2px #bd2c40;
+  color: #cc241d;
+  box-shadow: inset 0 -2px #9d0006;
 }
 
 #gamemode {
@@ -106,10 +106,6 @@ window > box > box > widget button:insensitive {
 
 #backlight {
   background-color: #90b1b1;
-}
-
-#custom-airplane {
-  font-size: 24px;
 }
 
 #bluetooth {
@@ -131,7 +127,7 @@ window > box > box > widget button:insensitive {
   color: @text-color-disabled;
 }
 
-#pulseaudio.muted {
+#wireplumber.muted {
   color: @text-color-disabled;
 }
 

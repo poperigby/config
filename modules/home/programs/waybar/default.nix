@@ -20,14 +20,12 @@ in
                 ];
                 modules-right = [
                     "privacy"
+                    "tray"
                     "wireplumber"
-                    "memory"
-                    "temperature"
                     "battery"
                     "bluetooth"
                     "network"
                     "custom/weather"
-                    "tray"
                     "clock"
                     "custom/notification"
                 ];
@@ -39,10 +37,10 @@ in
                     format-icons = [ " " " " " " ];
                 };
                 bluetooth = rec {
-                    format = " 󰂯 ";
-                    format-disabled = " 󰂲 ";
+                    format = "󰂯";
+                    format-disabled = "󰂲";
                     format-off = format-disabled;
-                    format-connected = " 󰂱 ";
+                    format-connected = "󰂱";
                     tooltip-format-connected = "{device_alias}";
                     tooltip-format-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
                     tooltip-format-enumerate-connected = "{device_alias}";
