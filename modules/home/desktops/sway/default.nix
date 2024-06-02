@@ -149,7 +149,7 @@ in
                         text = "#${colors.base06}";
                     };
                     urgent = rec {
-                        background = "#${colors.base0E}";
+                        background = "#${colors.base08}";
                         border = "#${colors.base06}";
                         childBorder = border;
                         indicator = "#${colors.base06}";
