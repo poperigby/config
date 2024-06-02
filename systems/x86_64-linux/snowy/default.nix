@@ -15,12 +15,12 @@
             scanning.enable = true;
         };
         services = {
-            backups = {
-                enable = true;
-                paths = [
-                    "/home/*/.local/share"
-                ];
-            };
+            # backups = {
+            #     enable = true;
+            #     paths = [
+            #         "/home/*/.local/share"
+            #     ];
+            # };
             geolocation.enable = true;
         };
         suites = {
