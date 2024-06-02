@@ -19,8 +19,11 @@ in
                     "sway/mode"
                 ];
                 modules-right = [
+                    # Variable width, status modules
+                    "gamemode"
                     "privacy"
                     "tray"
+                    # Fixed width modules
                     "wireplumber"
                     "battery"
                     "bluetooth"
@@ -29,7 +32,16 @@ in
                     "clock"
                     "custom/notification"
                 ];
-                ## Modules
+                ## Modules - Right
+                gamemode = {
+                    format = "{glyph}";
+                    format-alt = "{glyph} {count}";
+                    glyph = "󰊴";
+                    use-icon = false;
+                    hide-not-running = true;
+                    tooltip = true;
+                    tooltip-format = "Games running: {count}";
+                };
                 wireplumber = {
                     format = "{volume}% {icon}";
                     format-muted = "󰝟 ";
