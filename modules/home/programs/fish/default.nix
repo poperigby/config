@@ -12,6 +12,7 @@ in
                 enable = true;
                 plugins = with pkgs.fishPlugins; [
                     { name = "done"; src = done; }
+                    { name = "autopair"; src = autopair; }
                 ];
                 shellAliases = {
                     cat = "bat";
