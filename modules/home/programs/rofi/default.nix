@@ -11,12 +11,15 @@ in
             enable = true;
             package = pkgs.rofi-wayland;
             extraConfig = {
-                display-ssh = "";
-                display-run = "";
-                display-drun = "";
-                display-window = "";
-                display-combi = "";
                 show-icons = true;
+                # Icons
+                display-clipboard = " ";
+                display-combi = " ";
+                display-drun = " ";
+                display-emoji = " ";
+                display-run = " ";
+                display-ssh = " ";
+                display-window = " ";
             };
             plugins = with pkgs; [
                 rofi-calc
