@@ -10,10 +10,19 @@ in
         programs.rofi = {
             enable = true;
             package = pkgs.rofi-wayland;
+            extraConfig = {
+                display-ssh = "";
+                display-run = "";
+                display-drun = "";
+                display-window = "";
+                display-combi = "";
+                show-icons = true;
+            };
             plugins = with pkgs; [
                 rofi-calc
                 rofi-emoji
             ];
+            theme = ./theme.rasi;
         };
 
         home.packages = with pkgs; [
