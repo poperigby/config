@@ -17,13 +17,13 @@ in
                         name = "Gruvbox Dark";
                         is_dark = true;
                         colors = {
-                            accent-color = "#bd93f9";
+                            accent-color = "#d3869b";
                             primary-color = "#fe8019";
                             warning-color = "#fb4934";
                             sidebar-color = "#282828";
                             roomlist-background-color = "#1d2021";
                             roomlist-text-color = "#a89984";
-                            roomlist-text-secondary-color = "#00ff00";
+                            roomlist-text-secondary-color = "#98971a";
                             roomlist-highlights-color = "#00000030";
                             roomlist-separator-color = "#4d4d4d90";
                             timeline-background-color = "#282828";
