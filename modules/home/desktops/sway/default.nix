@@ -170,7 +170,10 @@ in
             fi
         '';
 
-        xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+        xdg.portal = {
+            config.common.default = "wlr";
+            extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+        };
 
         # Needed for Rofi icons
         home.packages = [ pkgs.morewaita-icon-theme ];
