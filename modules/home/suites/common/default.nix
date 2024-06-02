@@ -47,6 +47,7 @@ in
             ripgrep
             sops
             vimv-rs
+            poperigby.json2nix
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
