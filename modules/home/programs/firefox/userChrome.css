@@ -48,3 +48,8 @@
 
 /* Disable title bar buttons */
 .titlebar-buttonbox-container { display: none }
+
+/* Disable "List all tabs" button */
+#alltabs-button {
+    display: none !important;
+}
