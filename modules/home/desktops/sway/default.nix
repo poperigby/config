@@ -84,8 +84,8 @@ in
                     titlebar = true;
                     # Windows to make floating
                     criteria = [
+                        # Steam
                         {
-                            # Steam friends
                             title = "Friends List";
                         }
                         {
@@ -93,6 +93,14 @@ in
                         }
                         {
                             title = "Create or select new Steam library folder";
+                        }
+                        # Blueman
+                        {
+                            app_id = ".blueman-manager-wrapped";
+                        }
+                        # pwvucontrol
+                        {
+                            app_id = "com.saivert.pwvucontrol";
                         }
                     ];
                 };
