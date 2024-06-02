@@ -7,6 +7,7 @@
 @define-color text-color rgb(235, 219, 178);
 @define-color text-color-disabled rgb(251, 241, 199);
 @define-color accent-color rgb(131, 165, 152);
+@define-color red #cc241d;
 
 * {
   border: none;
@@ -93,7 +94,7 @@ window > box > box > widget button:insensitive {
 }
 
 #workspaces button.urgent {
-  color: #cc241d;
+  color: @red;
   box-shadow: inset 0 -2px #9d0006;
 }
 
@@ -137,5 +138,5 @@ window > box > box > widget button:insensitive {
 
 #privacy-item {
     padding: 0 6px;
-    color: @text-color;
+    color: @red;
 }
