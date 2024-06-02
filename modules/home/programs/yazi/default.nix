@@ -15,13 +15,22 @@ in
             enable = true;
             enableFishIntegration = true;
             theme = builtins.fromTOML (builtins.readFile ./theme.toml);
+            plugins = {
+                "smart-enter.yazi" = ./plugins/smart-enter;
+            };
             keymap = {
                 manager.prepend_keymap = [
+                    {
+                        on   = [ "l" ];
+                        run  = "plugin --sync smart-enter";
+                        desc = "Enter the child directory, or open the file";
+                    }
                 ] ++ lib.optionals gui [
                     # Enable mapping for ripdrag if GUI is enabled
                     {
                         on = [ "<C-n>" ];
                         run = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
+                        description = "Open ripdrag for dragging and dropping";
                     }
                 ];
             };
