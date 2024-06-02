@@ -14,6 +14,7 @@ in
         programs.yazi = {
             enable = true;
             enableFishIntegration = true;
+            theme = builtins.fromTOML (builtins.readFile ./theme.toml);
             keymap = {
                 manager.prepend_keymap = [
                 ] ++ lib.optionals gui [

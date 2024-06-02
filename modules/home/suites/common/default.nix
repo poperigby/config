@@ -20,7 +20,10 @@ in
                 git.enable = true;
                 neovim.enable = true;
                 tealdeer.enable = true;
-                yazi.enable = true;
+                yazi = {
+                    enable = true;
+                    default = true;
+                };
             };
             fonts.enable = true;
         };
