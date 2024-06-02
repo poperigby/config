@@ -34,6 +34,7 @@ in
                 wallpaper = cfg.wallpaper;
             };
             programs = {
+                element-desktop.enable = true;
                 firefox.enable = true;
                 imv = {
                     enable = true;
@@ -56,7 +57,6 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
-            element-desktop
             vesktop
             pwvucontrol
         ];
