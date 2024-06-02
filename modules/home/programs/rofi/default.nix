@@ -21,6 +21,7 @@ in
                 display-ssh = " ";
                 display-window = " ";
             };
+            # terminal = "${pkgs.wezterm}/bin/wezterm start";
             plugins = with pkgs; [
                 rofi-calc
                 rofi-emoji
