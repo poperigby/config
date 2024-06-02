@@ -105,5 +105,8 @@ in
             # Enable systemd integration
             systemd.enable = true;
         };
+
+        # Required for bar to display correctly
+        home.packages = [ pkgs.noto-fonts ];
     };
 }
