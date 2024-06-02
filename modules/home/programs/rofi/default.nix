@@ -20,6 +20,8 @@ in
                 display-run = " ";
                 display-ssh = " ";
                 display-window = " ";
+                # Icon theme for drun
+                icon-theme = "MoreWaita";
             };
             # terminal = "${pkgs.wezterm}/bin/wezterm start";
             plugins = with pkgs; [
@@ -34,6 +36,8 @@ in
             # Needed for rofi-emoji
             wtype
             wl-clipboard
+            # Needed for drun icons
+            morewaita-icon-theme
         ];
     };
 }

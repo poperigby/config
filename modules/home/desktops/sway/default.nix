@@ -62,7 +62,7 @@ in
 
                     ## Applications
                     # Application launcher
-                    "${mod}+space" = "exec ${menu} -show drun -show-icons -icon-theme 'MoreWaita'";
+                    "${mod}+space" = "exec ${menu} -show drun -show-icons";
                     # Terminal
                     "${mod}+Return" = "exec ${term}";
                     # File manager
@@ -157,8 +157,5 @@ in
             config.common.default = "wlr";
             extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
         };
-
-        # Needed for Rofi icons
-        home.packages = [ pkgs.morewaita-icon-theme ];
     };
 }
