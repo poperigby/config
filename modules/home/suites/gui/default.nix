@@ -26,13 +26,7 @@ in
 
     config = lib.mkIf cfg.enable {
         poperigby = {
-            desktops.sway = {
-                enable = true;
-                resolution = cfg.resolution;
-                refreshRate = cfg.refreshRate;
-                adaptiveSync = cfg.adaptiveSync;
-                wallpaper = cfg.wallpaper;
-            };
+            desktops.sway.enable = true;
             programs = {
                 element-desktop.enable = true;
                 firefox.enable = true;

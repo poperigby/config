@@ -4,28 +4,11 @@ let
     cfg = config.poperigby.desktops.sway;
     colors = config.colorScheme.palette;
     fonts = config.fonts.fontconfig.defaultFonts;
+    gui = config.poperigby.suites.gui;
     sway = config.wayland.windowManager.sway;
 in
 {
-    options.poperigby.desktops.sway = {
-        enable = lib.mkEnableOption "Enable Sway window manager";
-        adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
-        resolution = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "The resolution you want to use, in the form of <width>x<height>";
-        };
-        refreshRate = lib.mkOption {
-            type = lib.types.int;
-            default = 60;
-            description = "The refresh rate you want to use";
-        };
-        wallpaper = lib.mkOption {
-            type = with lib.types; nullOr path;
-            default = null;
-            description = "The path to a wallpaper you want to use.";
-        };
-    };
+    options.poperigby.desktops.sway.enable = lib.mkEnableOption "Enable Sway window manager";
 
     imports = [ inputs.nix-colors.homeManagerModules.default ];
 
@@ -47,9 +30,9 @@ in
                 };
                 output = {
                     "*" = {
-                        adaptive_sync = lib.mkIf cfg.adaptiveSync "on";
-                        mode = "${cfg.resolution}@${builtins.toString cfg.refreshRate}Hz";
-                        bg = lib.mkIf (cfg.wallpaper != null) "${cfg.wallpaper} fill";
+                        adaptive_sync = lib.mkIf gui.adaptiveSync "on";
+                        mode = "${gui.resolution}@${builtins.toString gui.refreshRate}Hz";
+                        bg = lib.mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
                     };
                 };
                 fonts = {
