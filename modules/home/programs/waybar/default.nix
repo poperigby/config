@@ -13,7 +13,7 @@ in
                 ## Global
                 layer = "top";
                 position = "top";
-                height = 30;
+                height = 42;
                 modules-left = [
                     "sway/workspaces"
                     "sway/mode"
@@ -46,6 +46,7 @@ in
                     format = "{volume}% {icon}";
                     format-muted = "󰝟 ";
                     on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
+                    on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
                     format-icons = [ " " " " " " ];
                 };
                 bluetooth = rec {
