@@ -117,11 +117,6 @@ window > box > box > widget button:insensitive {
   color: @text-color-disabled;
 }
 
-#network {
-  font-family: "Material Icons Round", "Font Awesome 6 Free";
-  font-size: 22px;
-}
-
 #network.disconnected,
 #network.linked {
   color: @text-color-disabled;

@@ -16,12 +16,12 @@ in
             vimAlias = true;
             # Extra packages available to Neovim
             extraPackages = with pkgs; [
-                # For Rust packages
-                cargo
                 # TreeSitter needs this to install parsers
                 gcc
-                # Some plugins need this to install
+                # Some plugins/tools need these to install
                 gnumake
+                cargo
+                nodePackages.npm
             ];
         };
 
