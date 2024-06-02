@@ -48,14 +48,6 @@ in
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
 
-        home.pointerCursor = {
-            name = "Adwaita";
-            package = pkgs.gnome.adwaita-icon-theme;
-            size = 24;
-            x11.enable = true;
-            gtk.enable = true;
-        };
-
         # Make programs use XDG directories whenever supported
         home.preferXdgDirectories = true;
 

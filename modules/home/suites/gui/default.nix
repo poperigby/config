@@ -66,5 +66,22 @@ in
             # Fallback portal
             extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
         };
+
+        # Theming
+        home.pointerCursor = {
+            name = "Adwaita";
+            package = pkgs.gnome.adwaita-icon-theme;
+            size = 24;
+            x11.enable = true;
+            gtk.enable = true;
+        };
+
+        # gtk = {
+        #     enable = true;
+        #     theme = {
+        #         name = "Gruvbox-Dark-BL";
+        #         package = pkgs.gruvbox-gtk-theme;
+        #     };
+        # };
     };
 }
