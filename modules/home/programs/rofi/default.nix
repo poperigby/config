@@ -25,6 +25,7 @@ in
                 rofi-calc
                 rofi-emoji
             ];
+            font = "Noto Sans";
             theme = ./theme.rasi;
         };
 
