@@ -58,6 +58,7 @@ in
         xdg.portal = {
             enable = true;
             # Fallback portal
+            config.common.default = "gtk";
             extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
         };
 
