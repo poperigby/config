@@ -40,7 +40,7 @@ in
             # Full screen
             "Print" = "exec ${screenshooter} full";
             # A region of the screen
-            "Shift+Print" = "exec ${screenshooter} gui";
+            "Control+Print" = "exec ${screenshooter} gui";
 
             ## Pickers
             # Emoji
