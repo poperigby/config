@@ -15,9 +15,10 @@ in
             settings = {
                 General = {
                     savePath = "${config.xdg.userDirs.pictures}/Screenshots";
+                    # Don't ask for location confirmation
+                    savePathFixed = true;
                     disabledTrayIcon = true;
                     showStartupLaunchMessage = false;
-                    # Colors
                     uiColor = "#${colors.base0A}";
                 };
             };
