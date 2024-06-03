@@ -30,21 +30,27 @@ let
             default = null;
             description = lib.mdDoc ''
                 Path to a LACT `config.yaml`. Mutually exclusive with the `settings` option.
+
+                It is recommended to run the LACT GUI, generate your configuration there,
+                and then use it here.
             '';
         };
         settings = lib.mkOption {
             type = settingsFormat.type;
-            default = {
+            default = lib.mapAttrs (n: lib.mkOptionDefault) {
                 daemon = {
                     log_level = "info";
                     admin_groups = [ "wheel" "sudo" ];
                     disable_clocks_cleanup = false;
                 };
                 apply_settings_timer = 5;
-                gpus = [];
+                gpus = {};
             };
             description = lib.mdDoc ''
                 LACT configuration as an attribute set.
+
+                It is recommended to run the LACT GUI, generate your configuration there,
+                and then copy it into `settings`.
             '';
         };
     };
