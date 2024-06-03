@@ -71,6 +71,18 @@ window > box > box > widget button:disabled {
   font-weight: bold;
 }
 
+tooltip {
+    background: @bg;
+    border-radius: 12px;
+}
+
+tooltip label {
+    color: @text-color;
+    font-size: 14px;
+}
+
+/* Specific Modules */
+
 #workspaces button {
   padding: 0 10px;
   background-color: transparent;
