@@ -36,19 +36,20 @@ in
             };
         };
 
-        # Create a desktop entry for Yazi if the GUI is enabled
-        xdg.desktopEntries.yazi = lib.mkIf gui {
-            name = "Yazi";
-            genericName = "File Browser";
-            exec = "yazi %f";
-            icon = ./icon.png;
-            terminal = true;
-            categories = [ "System" "FileTools" "FileManager" ];
-            mimeType = [ "inode/directory" ];
-        };
-
-        xdg.mimeApps.defaultApplications = lib.mkIf cfg.default {
-            "inode/directory" = "yazi.desktop";
+        # Do some helpful desktop related tweaks if GUI suite is enabled
+        xdg = lib.mkIf gui {
+            desktopEntries.yazi = {
+                name = "Yazi";
+                genericName = "File Browser";
+                exec = "${pkgs.yazi}/bin/yazi %f";
+                icon = ./icon.png;
+                terminal = true;
+                categories = [ "System" "FileTools" "FileManager" ];
+                mimeType = [ "inode/directory" ];
+            };
+            mimeApps.defaultApplications = lib.mkIf cfg.default {
+                "inode/directory" = "yazi.desktop";
+            };
         };
     };
 }
