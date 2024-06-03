@@ -69,6 +69,10 @@ in
                         {
                             app_id = "com.saivert.pwvucontrol";
                         }
+                        # Firefox
+                        {
+                            title = "Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox";
+                        }
                     ];
                 };
                 # We'll just use systemd to start Waybar
