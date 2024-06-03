@@ -12,6 +12,7 @@ in
             menu = "${config.programs.rofi.finalPackage}/bin/rofi";
             browser = "${pkgs.firefox}/bin/firefox";
             term = sway.config.terminal;
+            screenshooter = "${pkgs.flameshot}/bin/flameshot";
         in lib.mkOptionDefault {
             ## Basics
             # Kill focused window
@@ -34,6 +35,12 @@ in
             "${mod}+b" = "exec ${browser}";
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+
+            ## Screenshots
+            # Full screen
+            "Print" = "exec ${screenshooter} full";
+            # A region of the screen
+            "Shift+Print" = "exec ${screenshooter} gui";
 
             ## Pickers
             # Emoji
