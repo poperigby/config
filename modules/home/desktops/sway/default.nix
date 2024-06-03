@@ -12,6 +12,7 @@ in
     imports = [
         inputs.nix-colors.homeManagerModules.default
         ./keybinds.nix
+        ./windowRules.nix
     ];
 
     config = lib.mkIf cfg.enable {
@@ -46,35 +47,6 @@ in
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
                 defaultWorkspace = "workspace number 1";
-                # Floating window rules
-                floating = {
-                    titlebar = true;
-                    # Windows to make floating
-                    criteria = [
-                        # Steam
-                        {
-                            title = "Friends List";
-                        }
-                        {
-                            title = "Steam Settings";
-                        }
-                        {
-                            title = "Create or select new Steam library folder";
-                        }
-                        # Blueman
-                        {
-                            app_id = ".blueman-manager-wrapped";
-                        }
-                        # pwvucontrol
-                        {
-                            app_id = "com.saivert.pwvucontrol";
-                        }
-                        # Firefox
-                        {
-                            title = "Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox";
-                        }
-                    ];
-                };
                 # We'll just use systemd to start Waybar
                 bars = [];
                 gaps.inner = 5;
