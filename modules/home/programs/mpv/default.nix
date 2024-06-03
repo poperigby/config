@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.programs.mpv;
@@ -9,6 +9,17 @@ in
     config = lib.mkIf cfg.enable {
         programs.mpv = {
             enable = true;
+            config = {
+                # Require for `thumbnail` plugin
+                osc = "no";
+#
+            };
+            scripts = with pkgs.mpvScripts; [
+                # Display thumbnails in the seek bar
+                thumbnail
+                # Keybinding cheat sheet
+                mpv-cheatsheet
+            ];
         };
 
         xdg.mimeApps.defaultApplications = let
