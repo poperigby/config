@@ -44,10 +44,10 @@ in
                 menu = "${pkgs.rofi-wayland}/bin/rofi";
                 terminal = "${pkgs.wezterm}/bin/wezterm";
                 keybindings = let
-                    browser = "${pkgs.firefox}/bin/firefox";
+                    mod = sway.config.modifier;
                     # We need to use this version to use our plugins
                     menu = "${config.programs.rofi.finalPackage}/bin/rofi";
-                    mod = sway.config.modifier;
+                    browser = "${pkgs.firefox}/bin/firefox";
                     term = sway.config.terminal;
                 in lib.mkOptionDefault {
                     ## Basics
@@ -68,7 +68,9 @@ in
                     # File manager
                     "${mod}+e" = "exec ${term} start ${pkgs.yazi}/bin/yazi";
                     # Browser
-                    "${mod}+n" = "exec ${browser}";
+                    "${mod}+b" = "exec ${browser}";
+                    # Toggle control center
+                    "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
                     ## Pickers
                     # Emoji

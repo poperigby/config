@@ -45,9 +45,10 @@ in
                 wireplumber = {
                     format = "{volume}% {icon}";
                     format-muted = "󰝟 ";
+                    format-icons = [ " " " " " " ];
+                    scroll-step = 5.0;
                     on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
                     on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-                    format-icons = [ " " " " " " ];
                 };
                 bluetooth = rec {
                     format = "󰂯";

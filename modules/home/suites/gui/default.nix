@@ -39,6 +39,7 @@ in
                 thunderbird.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
+                zathura.enable = true;
             };
             services = {
                 clipboard.enable = true;
