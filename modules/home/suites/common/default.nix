@@ -56,6 +56,9 @@ in
         # Make programs use XDG directories whenever supported
         home.preferXdgDirectories = true;
 
+        # Allow setting default applications
+        xdg.mimeApps.enable = true;
+
         # Nicely reload system units when changing configurations
         systemd.user.startServices = "sd-switch";
     };

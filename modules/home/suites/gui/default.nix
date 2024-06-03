@@ -37,6 +37,7 @@ in
                 rofi.enable = true;
                 swaylock.enable = true;
                 thunderbird.enable = true;
+                mpv.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
                 zathura.enable = true;
