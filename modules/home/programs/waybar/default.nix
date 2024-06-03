@@ -2,6 +2,7 @@
 
 let
     cfg = config.poperigby.programs.waybar;
+    colors = config.colorScheme.palette;
 in
 {
     options.poperigby.programs.waybar.enable = lib.mkEnableOption "Enable Waybar";
@@ -42,6 +43,9 @@ in
                     tooltip = true;
                     tooltip-format = "Games running: {count}";
                 };
+                tray = {
+                    spacing = 10;
+                };
                 wireplumber = {
                     format = "{volume}% {icon}";
                     format-muted = "󰝟 ";
@@ -71,6 +75,38 @@ in
                       format-disconnected = "";
                       max-length = 50;
                 };
+                # Grabweather
+                "custom/weather" = {
+                    # TODO: Make hover show detailed weather information
+                    exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
+                    format = " {} ";
+                    interval = 900;
+                    tooltip = false;
+                };
+                clock = {
+                    format = "{:%H:%M}";
+                    tooltip-format = "<tt><small>{calendar}</small></tt>";
+                    calendar = {
+                        mode = "month";
+                        mode-mon-col = 3;
+                        weeks-pos = "right";
+                        on-scroll = 1;
+                        format = {
+                            months = "<span color='#${colors.base0C}'><b>{}</b></span>";
+                            days = "<span color='#${colors.base06}'><b>{}</b></span>";
+                            weeks = "<span color='#${colors.base0D}'><b>W{}</b></span>";
+                            weekdays = "<span color='#${colors.base0E}'><b>{}</b></span>";
+                            today = "<span color='#${colors.base09}'><b>{}</b></span>";
+                        };
+                    };
+                    actions = {
+                        on-click-right = "mode";
+                        on-click-forward = "tz_up";
+                        on-click-backward = "tz_down";
+                        on-scroll-up = "shift_up";
+                        on-scroll-down = "shift_down";
+                    };
+                };
                 # Sway Notification Center
                 "custom/notification" = {
                     tooltip = false;
@@ -90,17 +126,6 @@ in
                     on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
                     on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
                     escape = true;
-                };
-                tray = {
-                    spacing = 10;
-                };
-                # Grabweather
-                "custom/weather" = {
-                    # TODO: Make hover show detailed weather information
-                    exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
-                    format = " {} ";
-                    interval = 900;
-                    tooltip = false;
                 };
             };
             style = ./style.css;
