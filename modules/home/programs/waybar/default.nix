@@ -19,6 +19,9 @@ in
                     "sway/workspaces"
                     "sway/mode"
                 ];
+                modules-center = [
+                    "clock"
+                ];
                 modules-right = [
                     # Variable width, status modules
                     "gamemode"
@@ -30,9 +33,33 @@ in
                     "bluetooth"
                     "network"
                     "custom/weather"
-                    "clock"
                     "custom/notification"
                 ];
+                ## Modules - Center
+                clock = {
+                    format = "{:%H:%M}";
+                    tooltip-format = "<tt><small>{calendar}</small></tt>";
+                    calendar = {
+                        mode = "month";
+                        mode-mon-col = 3;
+                        weeks-pos = "right";
+                        on-scroll = 1;
+                        format = {
+                            months = "<span color='#${colors.base0C}'><b>{}</b></span>";
+                            days = "<span color='#${colors.base06}'><b>{}</b></span>";
+                            weeks = "<span color='#${colors.base0D}'><b>W{}</b></span>";
+                            weekdays = "<span color='#${colors.base0E}'><b>{}</b></span>";
+                            today = "<span color='#${colors.base09}'><b>{}</b></span>";
+                        };
+                    };
+                    actions = {
+                        on-click-right = "mode";
+                        on-click-forward = "tz_up";
+                        on-click-backward = "tz_down";
+                        on-scroll-up = "shift_up";
+                        on-scroll-down = "shift_down";
+                    };
+                };
                 ## Modules - Right
                 gamemode = {
                     format = "{glyph}";
@@ -82,30 +109,6 @@ in
                     format = " {} ";
                     interval = 900;
                     tooltip = false;
-                };
-                clock = {
-                    format = "{:%H:%M}";
-                    tooltip-format = "<tt><small>{calendar}</small></tt>";
-                    calendar = {
-                        mode = "month";
-                        mode-mon-col = 3;
-                        weeks-pos = "right";
-                        on-scroll = 1;
-                        format = {
-                            months = "<span color='#${colors.base0C}'><b>{}</b></span>";
-                            days = "<span color='#${colors.base06}'><b>{}</b></span>";
-                            weeks = "<span color='#${colors.base0D}'><b>W{}</b></span>";
-                            weekdays = "<span color='#${colors.base0E}'><b>{}</b></span>";
-                            today = "<span color='#${colors.base09}'><b>{}</b></span>";
-                        };
-                    };
-                    actions = {
-                        on-click-right = "mode";
-                        on-click-forward = "tz_up";
-                        on-click-backward = "tz_down";
-                        on-scroll-up = "shift_up";
-                        on-scroll-down = "shift_down";
-                    };
                 };
                 # Sway Notification Center
                 "custom/notification" = {
