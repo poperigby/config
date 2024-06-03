@@ -56,16 +56,6 @@ window > box > box > widget > button:hover {
   background: @bg-hover;
 }
 
-.modules-left {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.modules-right {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 window > box > box > widget button:disabled {
   color: @text-color;
   font-weight: bold;
@@ -79,6 +69,16 @@ tooltip {
 tooltip label {
     color: @text-color;
     font-size: 14px;
+}
+
+.modules-left {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.modules-right {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* Specific Modules */
