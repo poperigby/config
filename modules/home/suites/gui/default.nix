@@ -30,17 +30,17 @@ in
             programs = {
                 element-desktop.enable = true;
                 firefox.enable = true;
+                mpv.enable = true;
+                rofi.enable = true;
+                swaylock.enable = true;
+                thunderbird.enable = true;
+                waybar.enable = true;
+                wezterm.enable = true;
+                zathura.enable = true;
                 imv = {
                     enable = true;
                     default = true;
                 };
-                rofi.enable = true;
-                swaylock.enable = true;
-                thunderbird.enable = true;
-                mpv.enable = true;
-                waybar.enable = true;
-                wezterm.enable = true;
-                zathura.enable = true;
             };
             services = {
                 clipboard.enable = true;
@@ -69,7 +69,6 @@ in
             name = "Adwaita";
             package = pkgs.gnome.adwaita-icon-theme;
             size = 24;
-            x11.enable = true;
             gtk.enable = true;
         };
 
@@ -79,6 +78,12 @@ in
                 name = "Gruvbox-Dark-BL";
                 package = pkgs.gruvbox-gtk-theme;
             };
+        };
+
+        qt = {
+            enable = true;
+            # Use GTK theme
+            platformTheme.name = "gtk";
         };
 
         dconf.settings."org.gnome.desktop.wm.preferences".button-layout = ":";
