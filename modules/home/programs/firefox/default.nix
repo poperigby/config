@@ -18,10 +18,14 @@ in
                 };
                 userChrome = builtins.readFile ./userChrome.css;
                 settings = {
-                    # To make our userChrome.css work
+                    # Allow loading userChrome.css for styling
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
                     # Use system emoji font
                     "font.name-list.emoji" = "emoji";
+                    # Don't warn about changing about:config settings
+                    "browser.aboutConfig.showWarning" = false;
+                    # Use XDG Desktop Portals for various things
+                    "widget.use-xdg-desktop-portal.file-picker" = 1;
                     # This is a monster 👹
                     "browser.uiCustomization.state" = {
                         placements = {
