@@ -18,5 +18,8 @@ in
 
         # Required for Swaylock to work
         security.pam.services.swaylock = {};
+
+        # Required for tweaking GTK settings
+        programs.dconf.enable = true;
     };
 }

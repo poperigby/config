@@ -73,12 +73,14 @@ in
             gtk.enable = true;
         };
 
-        # gtk = {
-        #     enable = true;
-        #     theme = {
-        #         name = "Gruvbox-Dark-BL";
-        #         package = pkgs.gruvbox-gtk-theme;
-        #     };
-        # };
+        gtk = {
+            enable = true;
+            theme = {
+                name = "Gruvbox-Dark-BL";
+                package = pkgs.gruvbox-gtk-theme;
+            };
+        };
+
+        dconf.settings."org.gnome.desktop.wm.preferences".button-layout = ":";
     };
 }
