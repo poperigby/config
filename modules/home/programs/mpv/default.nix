@@ -24,6 +24,8 @@ in
                 thumbfast
                 # Keybinding cheat sheet
                 mpv-cheatsheet
+                # Allows controlling MPV through the MPRIS API
+                mpris
             ];
             # See for available options: https://github.com/tomasklaen/uosc/blob/HEAD/src/uosc.conf
             scriptOpts.uosc = {

@@ -13,6 +13,7 @@ in
                 widgets = [
                     "title"
                     "volume"
+                    "mpris"
                     "backlight"
                     "buttons-grid"
                     "inhibitors"
