@@ -14,6 +14,8 @@ in
                 osd-bar = "no";
                 # Makes UI less choppy
                 video-sync = "display-resample";
+                # Enable GPU hardware decoding
+                hwdec = "auto";
             };
             scripts = with pkgs.mpvScripts; [
                 # Fancy UI
@@ -23,6 +25,11 @@ in
                 # Keybinding cheat sheet
                 mpv-cheatsheet
             ];
+            # See for available options: https://github.com/tomasklaen/uosc/blob/HEAD/src/uosc.conf
+            scriptOpts.uosc = {
+                # Get rid of titlebar buttons
+                top_bar_controls = "no";
+            };
         };
 
         xdg.mimeApps.defaultApplications = let
