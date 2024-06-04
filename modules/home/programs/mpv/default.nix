@@ -10,13 +10,16 @@ in
         programs.mpv = {
             enable = true;
             config = {
-                # Require for `thumbnail` plugin
-                osc = "no";
-#
+                # UOSC already provides seeking & volume indicators
+                osd-bar = "no";
+                # Makes UI less choppy
+                video-sync = "display-resample";
             };
             scripts = with pkgs.mpvScripts; [
-                # Display thumbnails in the seek bar
-                thumbnail
+                # Fancy UI
+                uosc
+                # Shows thumbnails in timeline (integrates with UOSC)
+                thumbfast
                 # Keybinding cheat sheet
                 mpv-cheatsheet
             ];
