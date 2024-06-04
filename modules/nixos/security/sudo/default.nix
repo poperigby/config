@@ -9,7 +9,7 @@ in
     config = lib.mkIf cfg.enable {
         security.sudo = {
             # We want sudo to be a little sassy
-            extraConfig = "Defaults insults";
+            extraConfig = "Defaults insults,pwfeedback";
             package = pkgs.sudo.override { withInsults = true; };
         };
     };
