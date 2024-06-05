@@ -47,8 +47,12 @@ in
                 categories = [ "System" "FileTools" "FileManager" ];
                 mimeType = [ "inode/directory" ];
             };
-            mimeApps.defaultApplications = lib.mkIf cfg.default {
-                "inode/directory" = "yazi.desktop";
+            mimeApps.defaultApplications = let
+                yazi = "yazi.desktop";
+            in lib.mkIf cfg.default {
+                "x-scheme-handler/trash" = yazi;
+                "inode/directory" = yazi;
+                "application/x-directory" = yazi;
             };
         };
     };
