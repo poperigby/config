@@ -16,6 +16,7 @@ in
                 ];
                 shellAliases = {
                     cat = "bat";
+                    find = "fd";
                     grep = "rg";
                     jrn = "sudo journalctl";
                     lg = "lazygit";
