@@ -4,7 +4,17 @@ let
     cfg = config.poperigby.suites.gaming;
 in
 {
-    options.poperigby.suites.gaming.enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
+    options.poperigby.suites.gaming = {
+        enable = lib.mkEnableOption "Enable various programs/tweaks for gaming";
+        libraryRoots = lib.mkOption {
+            type = with lib.types; listOf (attrsOf str);
+            description = "A list of game library root directories, to be backed up by Ludusavi";
+            example = {
+                path = "~/.local/share/Steam";
+                store = "steam";
+            };
+        };
+    };
 
     config = lib.mkIf cfg.enable {
         poperigby = {
@@ -14,7 +24,15 @@ in
             };
             services = {
                 # For backing up games
-                ludusavi.enable = true;
+                ludusavi = {
+                    enable = true;
+                    settings = {
+                        manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
+                        roots = cfg.libraryRoots;
+                        backup.path = "~/.local/state/backups/ludusavi";
+                        restore.path = "~/.local/state/backups/ludusavi";
+                    };
+                };
             };
         };
 
@@ -24,8 +42,6 @@ in
             heroic
             # For managing compatibility tools
             protonup-qt
-            # Save game backups
-            ludusavi
             # For limiting FPS
             libstrangle
         ];

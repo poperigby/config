@@ -4,7 +4,28 @@
     poperigby = {
         suites = {
             common.enable = true;
-            gaming.enable = true;
+            gaming = {
+                enable = true;
+                # Game library roots to be backed up
+                libraryRoots = [
+                    {
+                        path = "/home/cassidy/.local/share/Steam";
+                        store = "steam";
+                    }
+                    {
+                        path = "/home/cassidy/.config/heroic";
+                        store = "heroic";
+                    }
+                    {
+                        path = "/mnt/ssd0/SteamLibrary";
+                        store = "steam";
+                    }
+                    {
+                        path = "/mnt/hdd0/SteamLibrary";
+                        store = "steam";
+                    }
+                ];
+            };
             gui = {
                 enable = true;
                 adaptiveSync = true;

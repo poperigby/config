@@ -26,7 +26,7 @@ in
             default = {
                 manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
                 roots = [];
-                backups.path = "~/.local/state/backups/ludusavi";
+                backup.path = "~/.local/state/backups/ludusavi";
                 restore.path = "~/.local/state/backups/ludusavi";
             };
             example = {
@@ -38,7 +38,7 @@ in
                         store = "steam";
                     }
                 ];
-                backups.path = "~/.local/state/backups/ludusavi";
+                backup.path = "~/.local/state/backups/ludusavi";
                 restore.path = "~/.local/state/backups/ludusavi";
             };
             description = lib.mdDoc ''
@@ -56,19 +56,23 @@ in
             }
         ];
 
-        systemd.user.services.ludusavi = {
-            Unit = {
-                Description = "Run a game save backup with Ludusavi";
+        systemd.user = {
+            services.ludusavi = {
+                Unit.Description = "Run a game save backup with Ludusavi";
+                Service = {
+                    Type = "oneshot";
+                    ExecStart = "${pkgs.ludusavi}/bin/ludusavi backup --force";
+                };
             };
-            Service = {
-                Type = "simple";
-                ExecStart = "${pkgs.ludusavi}/bin/ludusavi backup";
-            };
-            Install = {
-                WantedBy = [ "default.target" ];
+            timers.ludusavi = {
+                Unit.Description = "Run a game save backup with Ludusavi, daily";
+                Timer.OnCalendar = "daily";
+                Install.WantedBy = [ "timers.target" ];
             };
         };
 
         xdg.configFile."ludusavi/config.yaml".source = configFile;
+
+        home.packages = [ pkgs.ludusavi ];
     };
 }
