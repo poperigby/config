@@ -58,7 +58,7 @@ in
                     style = "bold yellow";
                 };
                 nix_shell = {
-                    format = "[$symbol$state( \($name\))]($style)";
+                    format = "[$symbol]($style)";
                     symbol = "󱄅 ";
                     heuristic = true;
                 };
