@@ -24,6 +24,9 @@ in
                     sys = "sudo systemctl";
                     syu = "systemctl --user";
                 };
+                interactiveShellInit = ''
+                    ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
+                '';
             };
             # Magnificent app that corrects your previous console command
             thefuck.enable = true;
