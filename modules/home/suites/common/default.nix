@@ -6,9 +6,7 @@ in
 {
     options.poperigby.suites.common.enable = lib.mkEnableOption "Enable common settings";
 
-    imports = [
-        inputs.nix-colors.homeManagerModules.default
-    ];
+    imports = [ inputs.nix-colors.homeManagerModules.default ];
 
     config = lib.mkIf cfg.enable {
         poperigby = {
@@ -25,10 +23,12 @@ in
                     default = true;
                 };
             };
+            # Font management
             fonts.enable = true;
         };
         programs = {
             eza.enable = true;
+            direnv.enable = true;
             # Let Home Manager install and manage itself
             home-manager.enable = true;
             # Integrates nix-index with command-not-found helper
