@@ -24,6 +24,7 @@ in
                     sys = "sudo systemctl";
                     syu = "systemctl --user";
                 };
+                # Use fish for `nix shell` and `nix develop`
                 interactiveShellInit = ''
                     ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
                 '';

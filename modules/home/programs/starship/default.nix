@@ -23,6 +23,7 @@ in
                     "$git_status"
                     "$jobs"
                     "$status"
+                    "$nix_shell"
                     "$character"
                 ];
                 # Right prompt
@@ -46,14 +47,20 @@ in
                     style = "green";
                 };
                 git_status = {
-                    format = "([$all_status$ahead_behind]($style) )";
+                    format = "([$all_status $ahead_behind]($style) )";
                     # Component formatting
                     ahead = "⇡\${count}";
                     behind = "⇣\${count}";
                     diverged = "⇡\${ahead_count}⇣\${behind_count}";
                     modified = "!\${count}";
+                    deleted = " ";
                     stashed = "*";
                     style = "bold yellow";
+                };
+                nix_shell = {
+                    format = "[$symbol$state( \($name\))]($style)";
+                    symbol = "󱄅 ";
+                    heuristic = true;
                 };
                 hostname = {
                     format = "[$hostname $ssh_symbol]($style)";
