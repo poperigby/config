@@ -26,8 +26,8 @@ in
             default = {
                 manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
                 roots = [];
-                backups.path = "~/.local/share/ludusavi-backups";
-                restore.path = "~/.local/share/ludusavi-backups";
+                backups.path = "~/.local/state/backups/ludusavi";
+                restore.path = "~/.local/state/backups/ludusavi";
             };
             example = {
                 language = "en-US";
@@ -38,6 +38,8 @@ in
                         store = "steam";
                     }
                 ];
+                backups.path = "~/.local/state/backups/ludusavi";
+                restore.path = "~/.local/state/backups/ludusavi";
             };
             description = lib.mdDoc ''
                 Ludusavi configuration as an attribute set. See https://github.com/mtkennerly/ludusavi#configuration-file
@@ -57,11 +59,13 @@ in
         systemd.user.services.ludusavi = {
             Unit = {
                 Description = "Run a game save backup with Ludusavi";
-                WantedBy = [ "default.target" ];
             };
             Service = {
                 Type = "simple";
                 ExecStart = "${pkgs.ludusavi}/bin/ludusavi backup";
+            };
+            Install = {
+                WantedBy = [ "default.target" ];
             };
         };
 
