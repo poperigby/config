@@ -105,12 +105,12 @@ in
         '';
 
         xdg.portal = {
+            extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
             config.common = {
                 # The WLR portal can only handle these two
                 "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
                 "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
             };
-            extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
         };
     };
 }
