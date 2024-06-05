@@ -14,6 +14,7 @@ in
                 control-center-height = 250;
                 widgets = [
                     "title"
+                    "dnd"
                     "volume"
                     "mpris"
                     "backlight"
