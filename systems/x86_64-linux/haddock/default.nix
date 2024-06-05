@@ -12,7 +12,7 @@
             backups = {
                 enable = true;
                 paths = [
-                    "/home/*/.local/share"
+                    # TODO: Do I need to backup all of /var/lib?
                     "/var/lib/*"
                     "/var/backup/*"
                 ];
