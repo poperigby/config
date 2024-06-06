@@ -78,10 +78,11 @@ let
                     Nice = -10;
                 };
             };
+
+            environment.systemPackages = [ pkgs.lact ];
         }
         (lib.mkIf cfg.gpuOverclock.enable {
-            # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_shared.h#n169
-            # The overdrive bit
+            # https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
             boot.kernelParams = [ "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}" ];
         })
     ]);
