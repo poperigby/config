@@ -86,6 +86,14 @@ in
             platformTheme.name = "gtk";
         };
 
-        dconf.settings."org.gnome.desktop.wm.preferences".button-layout = ":";
+        dconf.settings = {
+            # Get rid of GTK titlebar buttons
+            "org/gnome/desktop/wm/preferences".button-layout = ":";
+            "org/blueman/general".plugin-list = [
+                # Disable annoying Blueman plugins
+                "!ConnectionNotifier"
+                "!StatusNotifierItem"
+            ];
+        };
     };
 }
