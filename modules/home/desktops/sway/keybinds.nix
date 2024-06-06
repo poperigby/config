@@ -43,6 +43,8 @@ in
             "${mod}+e" = "exec ${term} start ${pkgs.yazi}/bin/yazi";
             # Browser
             "${mod}+b" = "exec ${browser}";
+            # Resource monitor
+            "Control_L+Shift_L+Escape" = "exec ${term} start ${pkgs.bottom}/bin/btm";
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
