@@ -34,6 +34,7 @@ in
                 rofi.enable = true;
                 swaylock.enable = true;
                 thunderbird.enable = true;
+                vesktop.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
                 zathura.enable = true;
@@ -53,7 +54,6 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
-            vesktop
             pwvucontrol
         ];
 

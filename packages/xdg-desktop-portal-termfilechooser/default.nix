@@ -1,6 +1,7 @@
 {
     fetchFromGitHub,
     inih,
+    lib,
     meson,
     ninja,
     pkg-config,
@@ -36,4 +37,11 @@ stdenv.mkDerivation rec {
     mesonFlags = [
         "-Dsd-bus-provider=libsystemd"
     ];
+
+    meta = {
+        description = "xdg-desktop-portal backend for choosing files with your favorite file chooser";
+        homepage = "https://github.com/boydaihungst/xdg-desktop-portal-termfilechooser";
+        license = lib.licenses.mit;
+        platforms = lib.platforms.linux;
+    };
 }
