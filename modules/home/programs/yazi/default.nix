@@ -54,6 +54,16 @@ in
                 "inode/directory" = yazi;
                 "application/x-directory" = yazi;
             };
+
+            # Setup Yazi as an XDG Desktop Portal File Chooser
+            portal = {
+                extraPortals = [ pkgs.poperigby.xdg-desktop-portal-termfilechooser ];
+                config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+            };
+            configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+                [filechooser]
+                cmd=${pkgs.poperigby.yazi-termfilechooser-wrapper}/bin/yazi-termfilechooser-wrapper
+            '';
         };
     };
 }
