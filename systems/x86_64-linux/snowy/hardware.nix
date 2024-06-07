@@ -19,7 +19,11 @@
             ];
             kernelModules = [];
         };
-        kernelModules = [ "kvm-amd" ];
+        kernelModules = [
+            "k10temp"
+            "kvm-amd"
+            "nct6775"
+        ];
         extraModulePackages = [];
     };
 
