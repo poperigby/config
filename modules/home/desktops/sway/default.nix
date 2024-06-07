@@ -42,6 +42,12 @@ in
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];
+                # Programs to launch when Sway starts
+                startup = [
+                    {
+                        command = "${pkgs.ckb-next}/bin/ckb-next --background";
+                    }
+                ];
             };
         };
 
