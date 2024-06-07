@@ -80,6 +80,8 @@ in
                 name = "adw-gtk3-dark";
                 package = pkgs.adw-gtk3;
             };
+            gtk4.extraCss = builtins.readFile ./gtk.css;
+            gtk3.extraCss = builtins.readFile ./gtk.css;
         };
 
         dconf.settings = {
