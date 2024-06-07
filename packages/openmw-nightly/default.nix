@@ -1,22 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, SDL2
-, boost
-, bullet
-, ffmpeg
-, libXt
-, luajit
-, lz4
-, mygui
-, openal
-, openscenegraph
-, recastnavigation
-, unshield
-, yaml-cpp
+{
+    SDL2,
+    boost,
+    bullet,
+    cmake,
+    fetchFromGitLab,
+    ffmpeg,
+    lib,
+    luajit,
+    lz4,
+    mygui,
+    openal,
+    openscenegraph,
+    pkg-config,
+    pkgs,
+    recastnavigation,
+    stdenv,
+    unshield,
+    xorg,
+    yaml-cpp,
+    ...
 }:
 
 let
@@ -56,14 +58,14 @@ stdenv.mkDerivation {
     sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
   ''; 
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake pkg-config pkgs.wrapQtAppsHook ];
 
   buildInputs = [
     SDL2
     boost
     bullet'
     ffmpeg
-    libXt
+    xorg.libXt
     luajit
     lz4
     mygui
