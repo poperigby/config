@@ -45,7 +45,6 @@ in
             };
             services = {
                 clipboard.enable = true;
-                flameshot.enable = true;
                 gammastep.enable = true;
                 swaync.enable = true;
                 udiskie.enable = true;
@@ -54,7 +53,10 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
+            grim
             pwvucontrol
+            satty
+            slurp
         ];
 
         xdg.portal = {
