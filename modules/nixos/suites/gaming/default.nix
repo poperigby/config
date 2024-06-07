@@ -28,6 +28,8 @@ in
                 # This value is used by SteamOS
                 # See https://wiki.archlinux.org/title/Gaming#Increase_vm.max_map_count
                 "vm.max_map_count" = 2147483642;
+                # https://gitlab.freedesktop.org/drm/amd/-/issues/2516#note_2119750
+                "gpu_sched.sched_policy" = 0;
             };
         }
         # AMD specific options
