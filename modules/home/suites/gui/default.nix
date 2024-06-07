@@ -82,12 +82,6 @@ in
             };
         };
 
-        qt = {
-            enable = true;
-            # Use GTK theme
-            platformTheme.name = "gtk";
-        };
-
         dconf.settings = {
             # Get rid of GTK titlebar buttons
             "org/gnome/desktop/wm/preferences".button-layout = ":";
