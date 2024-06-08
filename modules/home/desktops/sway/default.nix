@@ -49,6 +49,11 @@ in
                     }
                 ];
             };
+            extraOptions = lib.mkIf gui.adaptiveSync [
+                # It may be possible to remove this on Sway 1.10
+                # https://github.com/swaywm/sway/issues/7714#issuecomment-1694356639
+                "-Dnoscanout"
+            ];
         };
 
         # Start sway if we open a login shell on TTY1
