@@ -37,33 +37,37 @@ in
         };
 
         # Do some helpful desktop related tweaks if GUI suite is enabled
-        xdg = lib.mkIf gui {
-            desktopEntries.yazi = {
-                name = "Yazi";
-                genericName = "File Browser";
-                exec = "${pkgs.yazi}/bin/yazi %f";
-                icon = ./icon.png;
-                terminal = true;
-                categories = [ "System" "FileTools" "FileManager" ];
-                mimeType = [ "inode/directory" ];
-            };
-            mimeApps.defaultApplications = let
-                yazi = "yazi.desktop";
-            in lib.mkIf cfg.default {
-                "x-scheme-handler/trash" = yazi;
-                "inode/directory" = yazi;
-                "application/x-directory" = yazi;
-            };
+        xdg = lib.mkIf gui (lib.mkMerge [
+            {
+                desktopEntries.yazi = {
+                    name = "Yazi";
+                    genericName = "File Browser";
+                    exec = "${pkgs.yazi}/bin/yazi %f";
+                    icon = ./icon.png;
+                    terminal = true;
+                    categories = [ "System" "FileTools" "FileManager" ];
+                    mimeType = [ "inode/directory" ];
+                };
+                mimeApps.defaultApplications = let
+                    yazi = "yazi.desktop";
+                in lib.mkIf cfg.default {
+                    "x-scheme-handler/trash" = yazi;
+                    "inode/directory" = yazi;
+                    "application/x-directory" = yazi;
+                };
 
-            # Setup Yazi as an XDG Desktop Portal File Chooser
-            portal = {
-                extraPortals = [ pkgs.poperigby.xdg-desktop-portal-termfilechooser ];
-                config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-            };
-            configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-                [filechooser]
-                cmd=${pkgs.poperigby.yazi-termfilechooser-wrapper}/bin/yazi-termfilechooser-wrapper
-            '';
-        };
+            }
+            (lib.mkIf cfg.default {
+                # Setup Yazi as an XDG Desktop Portal File Chooser
+                portal = {
+                    extraPortals = [ pkgs.poperigby.xdg-desktop-portal-termfilechooser ];
+                    config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+                };
+                configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+                    [filechooser]
+                    cmd=${pkgs.poperigby.yazi-termfilechooser-wrapper}/bin/yazi-termfilechooser-wrapper
+                '';
+            })
+        ]);
     };
 }
