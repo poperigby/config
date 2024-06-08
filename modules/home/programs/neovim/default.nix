@@ -19,9 +19,10 @@ in
                 # TreeSitter needs this to install parsers
                 gcc
                 # Some plugins/tools need these to install
-                gnumake
                 cargo
+                gnumake
                 nodePackages.npm
+                unzip
             ];
         };
 

@@ -57,6 +57,7 @@ in
             pwvucontrol
             satty
             slurp
+            onlyoffice-bin
         ];
 
         xdg.portal = {
