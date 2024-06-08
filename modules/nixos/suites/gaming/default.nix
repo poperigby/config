@@ -36,6 +36,7 @@ in
         (lib.mkIf cfg.amd.enable {
             poperigby.services.lact = {
                 enable = true;
+                gpuOverclock.enable = true;
                 settings = {
                     daemon = {
                         log_level = "info";
@@ -46,9 +47,11 @@ in
                     gpus = {
                         "1002:731F-1DA2:E411-0000:0d:00.0" = {
                             fan_control_enabled = false;
-                            pmfw_options = { };
-                            performance_level = "manual";
+                            pmfw_options = {};
+                            # Undervolt my GPU
+                            max_voltage = 1050;
                             # Should help with FreeSync not working
+                            performance_level = "manual";
                             power_profile_mode_index = 1;
                             power_states = {
                                 memory_clock = [ 0 1 2 3 ];
