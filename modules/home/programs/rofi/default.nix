@@ -12,7 +12,7 @@ in
             package = pkgs.rofi-wayland;
             extraConfig = {
                 show-icons = true;
-                icon-theme = "MoreWaita";
+                icon-theme = "Papirus-Dark";
                 # Icons
                 display-clipboard = " ";
                 display-combi = " ";
@@ -46,7 +46,7 @@ in
             wtype
             wl-clipboard
             # Needed for drun icons
-            morewaita-icon-theme
+            papirus-icon-theme
         ];
     };
 }
