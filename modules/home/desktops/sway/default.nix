@@ -47,6 +47,9 @@ in
                     {
                         command = "${pkgs.ckb-next}/bin/ckb-next --background";
                     }
+                    {
+                        command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
+                    }
                 ];
             };
             extraOptions = lib.mkIf gui.adaptiveSync [
