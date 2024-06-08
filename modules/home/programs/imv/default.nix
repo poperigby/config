@@ -23,11 +23,10 @@ in
         };
 
         xdg.desktopEntries.imv = {
-            name = "imv";
-            genericName = "Image Viewer";
+            name = "Image Viewer";
             comment = "Simple and minimalist image viewer";
             exec = "imv %f";
-            # icon = "imv";
+            icon = "multimedia-photo-viewer";
             terminal = false;
             type = "Application";
             categories = [ "Graphics" "Viewer" ];
