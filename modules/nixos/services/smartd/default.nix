@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.poperigby.services.smartd;
@@ -27,5 +27,7 @@ in
         };
 
         poperigby.services.postfix.enable = cfg.mail.enable;
+
+        environment.systemPackages = [ pkgs.smartmontools ];
     };
 }
