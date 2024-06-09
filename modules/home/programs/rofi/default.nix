@@ -32,7 +32,7 @@ in
                 kb-mode-complete = "Control+i";
                 kb-remove-char-back = "BackSpace";
             };
-            # terminal = "${pkgs.wezterm}/bin/wezterm --config enable_tab_bar=false start";
+            terminal = "${pkgs.wezterm}/bin/wezterm --config enable_tab_bar=false start --always-new-process $@";
             plugins = with pkgs; [
                 rofi-calc
                 rofi-emoji
