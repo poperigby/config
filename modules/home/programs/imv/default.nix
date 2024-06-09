@@ -33,7 +33,6 @@ in
             mimeType = [
                 "image/jpeg"
                 "image/png"
-                "image/gif"
                 "image/bmp"
                 "image/x-xpixmap"
                 "image/tiff"
@@ -51,7 +50,6 @@ in
         in lib.mkIf cfg.default {
             "image/jpeg" = imv;
             "image/png" = imv;
-            "image/gif" = imv;
             "image/bmp" = imv;
             "image/x-xpixmap" = imv;
             "image/tiff" = imv;
