@@ -14,8 +14,10 @@ in
             settings = {
                 # Display the current GPU information
                 gpu_stats = true;
+                gpu_temp = true;
                 # Display the current CPU information
                 cpu_stats = true;
+                cpu_temp = true;
                 # Display system VRAM / RAM / swap space usage
                 vram = true;
                 ram = true;

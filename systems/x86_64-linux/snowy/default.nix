@@ -37,7 +37,7 @@
                             fan_control_enabled = false;
                             pmfw_options = {};
                             # Undervolt my GPU
-                            max_voltage = 1050;
+                            max_voltage = 1100;
                             # Should help with FreeSync not working
                             performance_level = "manual";
                             power_profile_mode_index = 1;
