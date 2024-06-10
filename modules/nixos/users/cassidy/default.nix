@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.users.cassidy;
+    cfg = config.poperigby.users.cassidy;
 in
 {
     options.poperigby.users.cassidy.enable = lib.mkEnableOption "Enable Cassidy user";
@@ -14,7 +14,12 @@ in
             isNormalUser = true;
             hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
             description = "Cassidy Wilson";
-            extraGroups = [ "wheel" ];
+            extraGroups = [
+                # For sudo access
+                "wheel"
+                # For libvirt access
+                "libvirtd"
+            ];
         };
 
         # Tell Home Manager information about the user

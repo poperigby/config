@@ -49,6 +49,7 @@
                     };
                 };
             };
+            virtualization.enable = true;
         };
         suites = {
             common.enable = true;
