@@ -45,7 +45,7 @@ let
 
     mygui' = inputs.mygui.legacyPackages.x86_64-linux.mygui.overrideDerivation (old: {
         cmakeFlags = (old.cmakeFlags or []) ++ [
-            "-DMYGUI_DONT_USE_OBSOLETE=1"
+            "-DMYGUI_DONT_USE_OBSOLETE=ON"
         ];
     });
 
@@ -57,13 +57,13 @@ stdenv.mkDerivation {
     src = fetchFromGitLab {
         owner = "OpenMW";
         repo = "openmw";
-        rev = "1ed27e1855ea6b4ff566ce105b4af641a27a872f";
-        hash = "sha256-ihJheurCXLqxdWJeCOuBNC64RPy9CHQAN7Es0QXXojs=";
+        rev = "cbf0471d8a54e4f8fd1093e698c839f11997693a";
+        hash = "sha256-EVn61FFLHNPfzMgrr1Cykoco2Kmdd1OI2pysY+2iClA=";
     };
 
-    # postPatch = ''
-    #     sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
-    # '';
+    postPatch = ''
+        sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
+    '';
 
     nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
