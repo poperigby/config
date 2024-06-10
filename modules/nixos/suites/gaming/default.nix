@@ -26,6 +26,8 @@ in
             "vm.max_map_count" = 2147483642;
             # https://gitlab.freedesktop.org/drm/amd/-/issues/2516#note_2119750
             "gpu_sched.sched_policy" = 0;
+            # https://github.com/swaywm/sway/issues/7370#issuecomment-1694485033
+            "amdgpu.freesync_video" = 1;
         };
     };
 }
