@@ -5,10 +5,10 @@
     cmake,
     fetchFromGitLab,
     ffmpeg,
+    inputs,
     lib,
     luajit,
     lz4,
-    inputs,
     openal,
     openscenegraph,
     pkg-config,
@@ -61,9 +61,9 @@ stdenv.mkDerivation {
         hash = "sha256-ihJheurCXLqxdWJeCOuBNC64RPy9CHQAN7Es0QXXojs=";
     };
 
-    postPatch = ''
-        sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
-    '';
+    # postPatch = ''
+    #     sed '1i#include <memory>' -i components/myguiplatform/myguidatamanager.cpp # gcc12
+    # '';
 
     nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
@@ -74,6 +74,7 @@ stdenv.mkDerivation {
         ffmpeg
         luajit
         lz4
+        mygui'
         openal
         osg'
         qt6.full
@@ -82,7 +83,6 @@ stdenv.mkDerivation {
         unshield
         xorg.libXt
         yaml-cpp
-        mygui'
     ];
 
     cmakeFlags = [

@@ -44,7 +44,10 @@ in
             protonup-qt
             # For limiting FPS
             libstrangle
+            # We want those fancy new OpenMW features
             poperigby.openmw-nightly
+            # Doom launcher
+            doomrunner
         ];
     };
 }
