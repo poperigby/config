@@ -44,6 +44,7 @@ in
             protonup-qt
             # For limiting FPS
             libstrangle
+            poperigby.openmw-nightly
         ];
     };
 }
