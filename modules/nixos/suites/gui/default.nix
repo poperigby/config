@@ -9,8 +9,10 @@ in
     };
 
     config = lib.mkIf cfg.enable {
-        services = {
-            udisks2.enable = true;
+        poperigby = {
+            services = {
+                udisks2.enable = true;
+            };
         };
 
         # Required for Sway to launch

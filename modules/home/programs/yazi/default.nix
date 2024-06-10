@@ -21,6 +21,11 @@ in
             keymap = {
                 manager.prepend_keymap = [
                     {
+                        on = [ "g" "m" ];
+                        run = "cd /run/media/$USER";
+                        desc = "Go to the removable drives directory";
+                    }
+                    {
                         on   = [ "l" ];
                         run  = "plugin --sync smart-enter";
                         desc = "Enter the child directory, or open the file";
