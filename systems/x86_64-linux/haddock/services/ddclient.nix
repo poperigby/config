@@ -1,23 +1,15 @@
 { config, lib, ... }:
 
 {
-    # Synchronizes Haddock's public IP with Cloudflare
+    # Synchronizes Haddock's public IP with Porkbun
     services.ddclient = {
-        # TODO: Enable when running on bare metal
-        enable = false;
-        protocol = "cloudflare";
-        zone = "haddock.cc";
-        username = "poperigby@mailbox.org";
-        passwordFile = config.sops."haddock/ddclient/password".path;
-        domains = [ "haddock.cc" ];
+        enable = true;
+        configFile = config.sops.templates.ddclient-config.path;
     };
 
-    # TODO: Enable when running on bare metal
-    # systemd.services.ddclient = {
-    #     # DynamicUser screws up sops-nix ownership because
-    #     # the user doesn't exist outside of runtime.
-    #     serviceConfig.DynamicUser = lib.mkForce false;
-    # };
+    # DynamicUser screws up sops-nix ownership because
+    # the user doesn't exist outside of runtime.
+    systemd.services.ddclient.serviceConfig.DynamicUser = lib.mkForce false;
 
     # Setup a user and group for DDClient
     users = {
@@ -28,5 +20,19 @@
         groups.ddclient = {};
     };
 
-    sops.secrets."haddock/ddclient/password".owner = "ddclient";
+    sops = {
+        templates.ddclient-config = {
+            content = ''
+                protocol=porkbun
+                apikey=${config.sops.placeholder."haddock/ddclient/porkbun_api_key"}
+                secretapikey=${config.sops.placeholder."haddock/ddclient/porkbun_secret_key"}
+                haddock.cc
+            '';
+            owner = "ddclient";
+        };
+        secrets = {
+            "haddock/ddclient/porkbun_api_key".owner = "ddclient";
+            "haddock/ddclient/porkbun_secret_key".owner = "ddclient";
+        };
+    };
 }
