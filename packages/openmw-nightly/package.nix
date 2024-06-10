@@ -6,7 +6,6 @@
     fetchFromGitLab,
     ffmpeg,
     inputs,
-    lib,
     luajit,
     lz4,
     openal,
@@ -89,12 +88,4 @@ stdenv.mkDerivation {
         "-DOpenGL_GL_PREFERENCE=${GL}"
         "-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=1"
     ];
-
-    meta = with lib; {
-        description = "An unofficial open source engine reimplementation of the game Morrowind";
-        homepage = "https://openmw.org";
-        license = licenses.gpl3Plus;
-        maintainers = with maintainers; [ abbradar marius851000 ];
-        platforms = platforms.linux;
-    };
 }
