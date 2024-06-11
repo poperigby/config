@@ -22,5 +22,7 @@
     users.users.jellyfin.extraGroups = [
         "render"
         "video"
+        # Gives access to /mnt/media/data/media
+        "media"
     ];
 }
