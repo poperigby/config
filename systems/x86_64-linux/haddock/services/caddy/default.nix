@@ -21,7 +21,7 @@ in
                 }
             ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "";
+            vendorHash = "sha256-v46ozeFsuajw0hBvs+m5ORjg0T58vd+fdEeJVMmsmVY=";
         });
         globalConfig = ''
             email {env.EMAIL}
