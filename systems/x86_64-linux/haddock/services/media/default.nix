@@ -7,6 +7,13 @@
         ./qbittorrent.nix
     ];
 
-    # Members of this group are able to access /mnt/hdd0/data/media
-    users.groups.media = {};
+    users = {
+        # This user owns /mnt/media/data/media
+        users.media = {
+            group = "media";
+            isSystemUser = true;
+        };
+        # Members of this group are able to access /mnt/media/data/media
+        groups.media = {};
+    };
 }
