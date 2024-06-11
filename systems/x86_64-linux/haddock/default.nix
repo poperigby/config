@@ -12,9 +12,14 @@
             backups = {
                 enable = true;
                 paths = [
-                    # TODO: Do I need to backup all of /var/lib?
-                    "/var/lib/*"
                     "/var/backup/*"
+                    "/var/lib/jellyfin/*"
+                    "/var/lib/lldap/*"
+                    "/var/lib/nextcloud/*"
+                    "/var/lib/private/prowlarr/*"
+                    "/var/lib/private/uptime-kuma/*"
+                    "/var/lib/radarr/*"
+                    "/var/lib/sonarr/*"
                 ];
             };
             smartd.mail = {
