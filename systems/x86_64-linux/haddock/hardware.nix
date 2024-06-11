@@ -14,6 +14,12 @@
         extraModulePackages = [];
     };
 
+    # This is actually multiple drives combined into one filesystem
+    fileSystems."/mnt/media" = {
+        device = "/dev/disk/by-uuid/45208395-9c37-4bc4-ae87-c4ab5f39794b";
+        fsType = "btrfs";
+    };
+
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
     # (the default) this is the recommended approach. When using systemd-networkd it's
     # still possible to use this option, but it's recommended to use it in conjunction
