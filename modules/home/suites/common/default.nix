@@ -39,15 +39,16 @@ in
         home.packages = with pkgs; [
             asciinema
             caligula
+            dust
             fd
             just
             lazygit
             nh
             ouch
+            poperigby.json2nix
             ripgrep
             sops
             vimv-rs
-            poperigby.json2nix
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;

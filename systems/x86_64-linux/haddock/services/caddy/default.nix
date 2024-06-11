@@ -10,9 +10,9 @@ in
         package = (pkgs.callPackage ./package.nix {
             externalPlugins = [
                 {
-                    name = "wbrawner/caddy-porkbun";
-                    repo = "github.com/wbrawner/caddy-porkbun";
-                    version = "4ebe74377a91083a9cade72ab6bfb16b919bfd3e";
+                    name = "caddy-dns/porkbun";
+                    repo = "github.com/caddy-dns/porkbun";
+                    version = "v0.1.5";
                 }
                 {
                     name = "hslatman/caddy-crowdsec-bouncer";
