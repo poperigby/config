@@ -1,17 +1,17 @@
-{ lib, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
     imports = [
-        (modulesPath + "/profiles/qemu-guest.nix")
+        (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
     boot = {
         initrd = {
-            availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-            kernelModules = [ ];
+            availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+            kernelModules = [];
         };
         kernelModules = [ "kvm-amd" ];
-        extraModulePackages = [ ];
+        extraModulePackages = [];
     };
 
     # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -22,4 +22,5 @@
     # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
