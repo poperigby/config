@@ -53,7 +53,7 @@ in
             };
         };
         caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
-            reverse_proxy localhost:${builtins.toString cfg.settings.server.port}
+            reverse_proxy :${builtins.toString cfg.settings.server.port}
         '';
     };
 

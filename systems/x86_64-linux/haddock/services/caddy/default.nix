@@ -1,5 +1,3 @@
-# TODO: Don't I need to open the firewall ports?
-
 { config, pkgs, ... }:
 let
     cfg = config.services.caddy;
@@ -21,9 +19,10 @@ in
                 }
             ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "sha256-v46ozeFsuajw0hBvs+m5ORjg0T58vd+fdEeJVMmsmVY=";
+            vendorHash = "sha256-xeO2YHIVAcsdowCUMoifr49Ncynz2QA3WPTCpIuILnk=";
         });
         globalConfig = ''
+            debug
             email {env.EMAIL}
             acme_dns porkbun {
                 api_key {env.PORKBUN_API_KEY}
@@ -39,7 +38,13 @@ in
                 }
             }
         '';
+        # Virtual host for testing
+        virtualHosts."haddock.cc".extraConfig = ''
+            respond "Hello, world!"
+        '';
     };
+
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
 
     # Read secrets into environment variables, that we can then reference with {env.SECRET_NAME}
     systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;
@@ -48,18 +53,18 @@ in
         templates.caddy-secrets = {
             owner = cfg.user;
             content = ''
-                PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
-                PORKBUN_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_secret_key"}"
                 EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
+                PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
+                PORKBUN_API_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_secret_key"}"
             '';
         };
         secrets = {
-            "haddock/caddy/porkbun_api_key".owner = cfg.user;
-            "haddock/caddy/porkbun_secret_key".owner = cfg.user;
              cassidy-email-caddy = {
                  owner = cfg.user;
                  key = "common/users/cassidy/email";
              };
+            "haddock/caddy/porkbun_api_key".owner = cfg.user;
+            "haddock/caddy/porkbun_api_secret_key".owner = cfg.user;
         };
     };
 }

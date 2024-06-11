@@ -1,7 +1,7 @@
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
-        device = "/dev/vda";
+        device = "/dev/sdc";
         type = "disk";
         content = {
             type = "gpt";
@@ -32,7 +32,7 @@
                             };
                             "@nix" = {
                                 mountpoint = "/nix";
-                                mountOptions = [ "compress=ztsd" "noatime" ];
+                                mountOptions = [ "compress=zstd" "noatime" ];
                             };
                         };
                     };
