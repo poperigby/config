@@ -1,6 +1,6 @@
 # Switch to the current configuration
 switch:
-    nh os switch
+    nh os switch .
 
 # Switch to the current configuration with verbose output
 debug:
@@ -20,7 +20,7 @@ update:
 # Pull from the repository remote and rebuild
 sync:
     git pull
-    nh os switch
+    nh os switch .
 
 # Garbage collect the Nix store
 clean:
