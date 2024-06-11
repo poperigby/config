@@ -1,7 +1,7 @@
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
-        device = "/dev/vda";
+        device = "/dev/sdc";
         type = "disk";
         content = {
             type = "gpt";
