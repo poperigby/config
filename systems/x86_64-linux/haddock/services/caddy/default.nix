@@ -19,9 +19,10 @@ in
                 }
             ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "sha256-v46ozeFsuajw0hBvs+m5ORjg0T58vd+fdEeJVMmsmVY=";
+            vendorHash = "sha256-xeO2YHIVAcsdowCUMoifr49Ncynz2QA3WPTCpIuILnk=";
         });
         globalConfig = ''
+            debug
             email {env.EMAIL}
             acme_dns porkbun {
                 api_key {env.PORKBUN_API_KEY}
