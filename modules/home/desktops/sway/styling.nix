@@ -20,7 +20,7 @@ in
                 colors = {
                     background = "#${colors.base00}";
                     focused = rec {
-                        background = "#${colors.base01}";
+                        background = "#${colors.base02}";
                         border = "#${colors.base01}";
                         childBorder = border;
                         indicator = "#${colors.base01}";
