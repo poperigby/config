@@ -45,7 +45,6 @@ in
             };
             services = {
                 clipboard.enable = true;
-                flameshot.enable = true;
                 gammastep.enable = true;
                 swaync.enable = true;
                 udiskie.enable = true;
@@ -54,7 +53,11 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
+            grim
             pwvucontrol
+            satty
+            slurp
+            onlyoffice-bin
         ];
 
         xdg.portal = {
@@ -75,15 +78,11 @@ in
         gtk = {
             enable = true;
             theme = {
-                name = "Gruvbox-Dark-BL";
-                package = pkgs.gruvbox-gtk-theme;
+                name = "adw-gtk3-dark";
+                package = pkgs.adw-gtk3;
             };
-        };
-
-        qt = {
-            enable = true;
-            # Use GTK theme
-            platformTheme.name = "gtk";
+            gtk4.extraCss = builtins.readFile ./gtk.css;
+            gtk3.extraCss = builtins.readFile ./gtk.css;
         };
 
         dconf.settings = {

@@ -37,6 +37,8 @@ in
         xdg.mimeApps.defaultApplications = let
             mpv = "mpv.desktop";
         in {
+            "image/gif" = mpv;
+            "video/mp4" = mpv;
             "video/quicktime" = mpv;
         };
     };

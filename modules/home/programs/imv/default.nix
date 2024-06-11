@@ -23,18 +23,16 @@ in
         };
 
         xdg.desktopEntries.imv = {
-            name = "imv";
-            genericName = "Image Viewer";
+            name = "Image Viewer";
             comment = "Simple and minimalist image viewer";
             exec = "imv %f";
-            # icon = "imv";
+            icon = "multimedia-photo-viewer";
             terminal = false;
             type = "Application";
             categories = [ "Graphics" "Viewer" ];
             mimeType = [
                 "image/jpeg"
                 "image/png"
-                "image/gif"
                 "image/bmp"
                 "image/x-xpixmap"
                 "image/tiff"
@@ -52,7 +50,6 @@ in
         in lib.mkIf cfg.default {
             "image/jpeg" = imv;
             "image/png" = imv;
-            "image/gif" = imv;
             "image/bmp" = imv;
             "image/x-xpixmap" = imv;
             "image/tiff" = imv;

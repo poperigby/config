@@ -2,6 +2,7 @@
 
 let
     cfg = config.poperigby.programs.mangohud;
+    gui = config.poperigby.suites.gui;
 in
 {
     options.poperigby.programs.mangohud.enable = lib.mkEnableOption "Enable MangoHUD";
@@ -14,8 +15,10 @@ in
             settings = {
                 # Display the current GPU information
                 gpu_stats = true;
+                gpu_temp = true;
                 # Display the current CPU information
                 cpu_stats = true;
+                cpu_temp = true;
                 # Display system VRAM / RAM / swap space usage
                 vram = true;
                 ram = true;
@@ -34,6 +37,8 @@ in
                 no_display = true;
                 # Keybinds
                 toggle_hud = "End";
+                # This enables Mesa's V-Sync and should work better than in-game V-Sync solutions
+                vsync = lib.mkIf gui.adaptiveSync 3;
             };
         };
     };

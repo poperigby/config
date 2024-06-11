@@ -20,6 +20,7 @@ in
         xdg.desktopEntries.bottom = lib.mkIf config.poperigby.suites.gui.enable {
             name = "Bottom";
             genericName = "System Monitor";
+            icon = "utilities-system-monitor";
             exec = "btm";
             terminal = true;
             categories = [ "System" ];

@@ -12,7 +12,11 @@ in
             menu = "${config.programs.rofi.finalPackage}/bin/rofi";
             browser = "${pkgs.firefox}/bin/firefox";
             term = sway.config.terminal;
-            screenshooter = "${pkgs.flameshot}/bin/flameshot";
+            # Screenshooting
+            grim = "${pkgs.grim}/bin/grim";
+            slurp = "${pkgs.slurp}/bin/slurp";
+            screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'%s.png')";
+            screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
         in lib.mkOptionDefault {
             ## Basics
             # Kill focused window
@@ -44,15 +48,15 @@ in
             # Browser
             "${mod}+b" = "exec ${browser}";
             # Resource monitor
-            "Control_L+Shift_L+Escape" = "exec ${term} start ${pkgs.bottom}/bin/btm";
+            "${mod}+m" = "exec ${term} start ${pkgs.bottom}/bin/btm";
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
             ## Screenshots
             # Full screen
-            "Print" = "exec ${screenshooter} full";
+            "Print" = "exec ${grim} ${screenshotLocation} && ${screenshotSound}";
             # A region of the screen
-            "Control+Print" = "exec ${screenshooter} gui";
+            "Control+Print" = "exec ${grim} -g $(${slurp}) ${screenshotLocation} && ${screenshotSound}";
 
             ## Pickers
             # Emoji

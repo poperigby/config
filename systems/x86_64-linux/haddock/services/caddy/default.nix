@@ -10,9 +10,9 @@ in
         package = (pkgs.callPackage ./package.nix {
             externalPlugins = [
                 {
-                    name = "caddy-dns/cloudflare";
-                    repo = "github.com/caddy-dns/cloudflare";
-                    version = "737bf003fe8af81814013a01e981dc8faea44c07";
+                    name = "caddy-dns/porkbun";
+                    repo = "github.com/caddy-dns/porkbun";
+                    version = "v0.1.5";
                 }
                 {
                     name = "hslatman/caddy-crowdsec-bouncer";
@@ -21,12 +21,14 @@ in
                 }
             ];
             # Add this, as explained in https://github.com/NixOS/nixpkgs/pull/259275#issuecomment-1763478985
-            vendorHash = "sha256-uZVoYKEXIJQMeelrDan0QgpcwY7IN7d+kS74NcXyYBU=";
+            vendorHash = "sha256-v46ozeFsuajw0hBvs+m5ORjg0T58vd+fdEeJVMmsmVY=";
         });
         globalConfig = ''
-            # TODO: Uncomment when on bare metal
-            # acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
             email {env.EMAIL}
+            acme_dns porkbun {
+                api_key {env.PORKBUN_API_KEY}
+                api_secret_key {env.PORKBUN_API_SECRET_KEY}
+            }
         '';
         extraConfig = ''
             (auth) {
@@ -46,12 +48,14 @@ in
         templates.caddy-secrets = {
             owner = cfg.user;
             content = ''
-                CLOUDFLARE_API_TOKEN="${config.sops.placeholder."haddock/caddy/cloudflare_api_token"}"
+                PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
+                PORKBUN_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_secret_key"}"
                 EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
             '';
         };
         secrets = {
-            "haddock/caddy/cloudflare_api_token" = {};
+            "haddock/caddy/porkbun_api_key".owner = cfg.user;
+            "haddock/caddy/porkbun_secret_key".owner = cfg.user;
              cassidy-email-caddy = {
                  owner = cfg.user;
                  key = "common/users/cassidy/email";

@@ -1,0 +1,24 @@
+/*
+
+  Gruvbox theme for libadwaita
+  and adw-gtk3 - https://github.com/lassekongo83/adw-gtk3
+
+  Colors from - https://github.com/morhetz/gruvbox
+
+*/
+
+/* Global color definitions */
+@define-color window_bg_color #1d2021;
+@define-color window_fg_color #ebdbb2;
+@define-color view_bg_color #282828;
+@define-color view_fg_color @window_fg_color;
+@define-color accent_bg_color #3c3836;
+@define-color accent_color @accent_bg_color;
+@define-color headerbar_bg_color @window_bg_color;
+@define-color headerbar_fg_color @window_fg_color;
+@define-color popover_bg_color #32302f;
+@define-color popover_fg_color @view_fg_color;
+@define-color dialog_bg_color @popover_bg_color;
+@define-color dialog_fg_color @popover_fg_color;
+@define-color card_bg_color rgba(255, 255, 255, 0.08);
+@define-color card_fg_color @window_fg_color;

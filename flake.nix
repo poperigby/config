@@ -5,7 +5,6 @@
     inputs = {
         ## Official inputs
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-        # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
         ## Extra inputs
         crowdsec = {
             url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
@@ -37,6 +36,8 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        # Temporary inputs for unmerged PRs
+        mygui.url = "github:Tofixrs/nixpkgs/mygui";
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems

@@ -13,7 +13,7 @@ in
         xdg.desktopEntries.vesktop = {
             name = "Discord";
             genericName = "Internet Messenger";
-            icon = "${pkgs.morewaita-icon-theme}/share/icons/MoreWaita/apps/scalable/discord.svg";
+            icon = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark/64x64/apps/discord.svg";
             exec = "vesktop %U";
             categories = [
                 "Network"

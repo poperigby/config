@@ -12,7 +12,7 @@ in
             package = pkgs.rofi-wayland;
             extraConfig = {
                 show-icons = true;
-                icon-theme = "MoreWaita";
+                icon-theme = "Papirus-Dark";
                 # Icons
                 display-clipboard = " ";
                 display-combi = " ";
@@ -32,7 +32,7 @@ in
                 kb-mode-complete = "Control+i";
                 kb-remove-char-back = "BackSpace";
             };
-            # terminal = "${pkgs.wezterm}/bin/wezterm --config enable_tab_bar=false start";
+            terminal = "${pkgs.wezterm}/bin/wezterm --config enable_tab_bar=false start --always-new-process $@";
             plugins = with pkgs; [
                 rofi-calc
                 rofi-emoji
@@ -46,7 +46,7 @@ in
             wtype
             wl-clipboard
             # Needed for drun icons
-            morewaita-icon-theme
+            papirus-icon-theme
         ];
     };
 }
