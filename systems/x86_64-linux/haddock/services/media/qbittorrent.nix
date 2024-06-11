@@ -84,5 +84,5 @@
     };
 
     # Give Jellyfin access to /mnt/media/data/torrents
-    users.users.jellyfin.extraGroups = [ "torrents" ];
+    users.users.qbittorrent.extraGroups = [ "torrents" ];
 }
