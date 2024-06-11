@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, inputs, system, ... }:
 
 let
     cfg = config.services.authelia.instances.haddock;
@@ -7,29 +7,36 @@ in
     services = {
         authelia.instances.haddock = {
             enable = true;
+            package = inputs.authelia.legacyPackages.${system}.authelia;
             settings = {
                 theme = "auto";
                 authentication_backend.ldap = {
-                    url = "ldap://localhost:3890";
+                    address = "ldap://localhost:3890";
                     base_dn = "dc=haddock,dc=cc";
                     users_filter = "(&({username_attribute}={input})(objectClass=person))";
                     groups_filter = "(member={dn})";
+                    # TODO: Use a custom read-only user for looking up users
                     user = "uid=admin,ou=people,dc=haddock,dc=cc";
                 };
                 storage.postgres = {
-                   host = "/run/postgresql";
-                   port = 5432;
+                   address = "unix:///run/postgresql";
                    database = "authelia-haddock";
                    username = "authelia-haddock";
                    # I'm using peer authentication, so this doesn't actually matter, but Authelia
                    # complains if I don't have it.
                    password = "authelia-haddock";
                 };
-                session.domain = "https://haddock.cc";
+                session = {
+                    cookies = [
+                        {
+                            domain = "haddock.cc";
+                            authelia_url = "https://auth.haddock.cc";
+                        }
+                    ];
+                };
                 notifier.smtp = {
+                    address = "smtp://smtp.sendgrid.net:587";
                     username = "apikey";
-                    host = "smtp.sendgrid.net";
-                    port = 587;
                     sender = "admin@haddock.cc";
                 };
                 access_control = {
@@ -41,6 +48,9 @@ in
                         }
                     ];
                 };
+                # Necessary for Caddy integration
+                # https://www.authelia.com/integration/proxies/caddy/#implementation
+                server.endpoints.authz.forward-auth.implementation = "ForwardAuth";
             };
             secrets = with config.sops; {
                 jwtSecretFile = secrets."haddock/authelia/jwt_secret".path;
@@ -53,7 +63,7 @@ in
             };
         };
         caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
-            reverse_proxy :${builtins.toString cfg.settings.server.port}
+            reverse_proxy :9091
         '';
     };
 

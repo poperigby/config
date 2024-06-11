@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "authelia": {
+      "locked": {
+        "lastModified": 1717702543,
+        "narHash": "sha256-R9FfmEyiMT9q047zRoBt+FraZEwNgt6bu3n6RrOhT1w=",
+        "owner": "nicomem",
+        "repo": "nixpkgs",
+        "rev": "3b0d31f2b0c444aac154b3f53ea958bad6f9aeae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nicomem",
+        "ref": "authelia-4.38",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -303,6 +319,7 @@
     },
     "root": {
       "inputs": {
+        "authelia": "authelia",
         "crowdsec": "crowdsec",
         "disko": "disko",
         "home-manager": "home-manager",
