@@ -49,13 +49,13 @@ in
             owner = cfg.user;
             content = ''
                 PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
-                PORKBUN_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_secret_key"}"
+                PORKBUN_API_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_secret_key"}"
                 EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
             '';
         };
         secrets = {
             "haddock/caddy/porkbun_api_key".owner = cfg.user;
-            "haddock/caddy/porkbun_secret_key".owner = cfg.user;
+            "haddock/caddy/porkbun_api_secret_key".owner = cfg.user;
              cassidy-email-caddy = {
                  owner = cfg.user;
                  key = "common/users/cassidy/email";

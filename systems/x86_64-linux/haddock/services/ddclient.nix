@@ -28,14 +28,14 @@
                 protocol=porkbun
                 usev4=webv4, webv4=ipify-ipv4
                 apikey=${config.sops.placeholder."haddock/ddclient/porkbun_api_key"}
-                secretapikey=${config.sops.placeholder."haddock/ddclient/porkbun_secret_key"}
+                secretapikey=${config.sops.placeholder."haddock/ddclient/porkbun_api_secret_key"}
                 on-root-domain=yes haddock.cc
             '';
             owner = "ddclient";
         };
         secrets = {
             "haddock/ddclient/porkbun_api_key".owner = "ddclient";
-            "haddock/ddclient/porkbun_secret_key".owner = "ddclient";
+            "haddock/ddclient/porkbun_api_secret_key".owner = "ddclient";
         };
     };
 }
