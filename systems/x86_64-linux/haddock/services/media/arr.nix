@@ -1,4 +1,4 @@
-# TODO: *arr apps need access to everything under data/
+# TODO: *arr apps only need access to everything under data/
 
 { ... }:
 
@@ -10,7 +10,7 @@
         # Automatically grab movies
         radarr.enable = true;
 
-        # Index manager
+        # Manage indexers and sync them with *arr apps
         prowlarr.enable = true;
 
         caddy.virtualHosts = {
@@ -27,5 +27,12 @@
                 reverse_proxy :9696
             '';
         };
+    };
+    # Give the *arr apps access to data/media and data/torrents
+    users.users = let
+        groups = [ "media" "torrents" ];
+    in {
+        sonarr.extraGroups = groups;
+        radarr.extraGroups = groups;
     };
 }

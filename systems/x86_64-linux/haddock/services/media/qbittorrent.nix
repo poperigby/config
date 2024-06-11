@@ -82,4 +82,7 @@
             };
         };
     };
+
+    # Give Jellyfin access to /mnt/media/data/torrents
+    users.users.jellyfin.extraGroups = [ "torrents" ];
 }
