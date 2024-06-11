@@ -10,7 +10,7 @@ in
         };
         caddy.virtualHosts."status.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy localhost:${cfg.settings.PORT}
+            reverse_proxy :${cfg.settings.PORT}
         '';
     };
 }

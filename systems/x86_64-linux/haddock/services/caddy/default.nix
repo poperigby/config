@@ -1,5 +1,3 @@
-# TODO: Don't I need to open the firewall ports?
-
 { config, pkgs, ... }:
 let
     cfg = config.services.caddy;
@@ -39,7 +37,13 @@ in
                 }
             }
         '';
+        # Virtual host for testing
+        virtualHosts."haddock.cc".extraConfig = ''
+            respond "Hello, world!"
+        '';
     };
+
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
 
     # Read secrets into environment variables, that we can then reference with {env.SECRET_NAME}
     systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;

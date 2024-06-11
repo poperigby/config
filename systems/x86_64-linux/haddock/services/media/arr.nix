@@ -16,15 +16,15 @@
         caddy.virtualHosts = {
             "tv.haddock.cc".extraConfig = ''
                 import auth
-                reverse_proxy localhost:8989
+                reverse_proxy :8989
             '';
             "movies.haddock.cc".extraConfig = ''
                 import auth
-                reverse_proxy localhost:7878
+                reverse_proxy :7878
             '';
             "indexers.haddock.cc".extraConfig = ''
                 import auth
-                reverse_proxy localhost:9696
+                reverse_proxy :9696
             '';
         };
     };
