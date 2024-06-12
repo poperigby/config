@@ -26,6 +26,8 @@ in
             import auth
             reverse_proxy :${builtins.toString cfg.port}
         '';
+        # The OIDC client configuration
+        authelia.instances.haddock.settingsFiles = [ ./oidc.yml ];
     };
 
     systemd.services.mealie = {
@@ -55,6 +57,10 @@ in
             mealie-oidc-client-id_mealie = {
                 key = "haddock/mealie/oidc_client_id";
                 owner = "mealie";
+            };
+            mealie-oidc-client-id_authelia = {
+                key = "haddock/mealie/oidc_client_id";
+                owner = "authelia-haddock";
             };
         };
     };

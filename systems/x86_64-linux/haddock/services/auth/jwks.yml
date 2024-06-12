@@ -1,0 +1,4 @@
+identity_providers:
+  oidc:
+    jwks:
+      - key: {{ secret "/run/secrets/haddock/authelia/jwks" | mindent 10 "|" | msquote }}
