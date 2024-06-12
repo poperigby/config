@@ -13,6 +13,9 @@
         '';
     };
 
+    # This is needed to enabled Vulkan 🤔
+    hardware.opengl.enable = true;
+
     environment.systemPackages = with pkgs; [
         # Needed for hardware acceleration
         jellyfin-ffmpeg
