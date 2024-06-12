@@ -6,6 +6,7 @@
         ./caddy
         ./ddclient.nix
         ./frigate.nix
+        ./mealie.nix
         ./media
         ./miniflux.nix
         ./nextcloud.nix
