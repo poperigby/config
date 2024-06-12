@@ -1,9 +1,9 @@
 { config, inputs, system, ... }:
 
-let
-    cfg = config.services.authelia.instances.haddock;
-in
 {
+    imports = [ "${inputs.authelia}/nixos/modules/services/security/authelia.nix" ];
+    disabledModules = [ "${inputs.nixpkgs}/nixos/modules/services/security/authelia.nix" ];
+
     services = {
         authelia.instances.haddock = {
             enable = true;
