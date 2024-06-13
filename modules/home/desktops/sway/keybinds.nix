@@ -15,7 +15,7 @@ in
             # Screenshooting
             grim = "${pkgs.grim}/bin/grim";
             slurp = "${pkgs.slurp}/bin/slurp";
-            screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'%s.png')";
+            screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'Screenshot_%Y-%m-%d_%H-%M.png')";
             # screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
         in lib.mkOptionDefault {
             ## Basics
