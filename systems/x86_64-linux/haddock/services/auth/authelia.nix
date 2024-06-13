@@ -15,8 +15,7 @@
                     base_dn = "dc=haddock,dc=cc";
                     users_filter = "(&({username_attribute}={input})(objectClass=person))";
                     groups_filter = "(member={dn})";
-                    # TODO: Use a custom read-only user for looking up users
-                    user = "uid=admin,ou=people,dc=haddock,dc=cc";
+                    user = "uid=authelia,ou=people,dc=haddock,dc=cc";
                 };
                 access_control = {
                     default_policy = "deny";
@@ -73,7 +72,7 @@
                 storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
             };
             environmentVariables = with config.sops; {
-                AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets.lldap-admin-password-authelia.path;
+                AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets."haddock/authelia/lldap_authelia_password".path;
                 AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
             };
         };
@@ -98,10 +97,8 @@
         "haddock/authelia/jwt_secret".owner = "authelia-haddock";
         "haddock/authelia/session_secret".owner = "authelia-haddock";
         "haddock/authelia/storage_encryption_key".owner = "authelia-haddock";
-        lldap-admin-password-authelia = {
-            owner = "authelia-haddock";
-            key = "haddock/lldap/admin_password";
-        };
+        # The password for the `authelia` user
+        "haddock/authelia/lldap_authelia_password".owner = "authelia-haddock";
         sendgrid-api-key-authelia = {
             owner = "authelia-haddock";
             key = "common/sendgrid/api_key";
