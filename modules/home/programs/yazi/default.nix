@@ -53,26 +53,7 @@ in
                     categories = [ "System" "FileTools" "FileManager" ];
                     mimeType = [ "inode/directory" ];
                 };
-                mimeApps.defaultApplications = let
-                    yazi = "yazi.desktop";
-                in lib.mkIf cfg.default {
-                    "x-scheme-handler/trash" = yazi;
-                    "inode/directory" = yazi;
-                    "application/x-directory" = yazi;
-                };
-
             }
-            (lib.mkIf cfg.default {
-                # Setup Yazi as an XDG Desktop Portal File Chooser
-                portal = {
-                    extraPortals = [ pkgs.poperigby.xdg-desktop-portal-termfilechooser ];
-                    config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-                };
-                configFile."xdg-desktop-portal-termfilechooser/config".text = ''
-                    [filechooser]
-                    cmd=${pkgs.poperigby.yazi-termfilechooser-wrapper}/bin/yazi-termfilechooser-wrapper
-                '';
-            })
         ]);
     };
 }

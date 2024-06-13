@@ -53,11 +53,12 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
+            gnome.nautilus
             grim
+            onlyoffice-bin
             pwvucontrol
             satty
             slurp
-            onlyoffice-bin
         ];
 
         xdg.portal = {
