@@ -52,7 +52,12 @@
                     # jwks is set in jwks.yml
                     authorization_policies.default = {
                         default_policy = "one_factor";
-                        rules = [];
+                        rules = [
+                            {
+                                policy = "deny";
+                                subject = "group:lldap_strict_readonly";
+                            }
+                        ];
                     };
                 };
                 # Necessary for Caddy integration
