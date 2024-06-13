@@ -11,8 +11,9 @@ in
             enable = true;
             package = pkgs.rofi-wayland;
             extraConfig = {
-                show-icons = true;
-                icon-theme = "Papirus-Dark";
+                # Commands
+                ssh-command = "{terminal} ssh {host}";
+                run-shell-command = "{terminal} start {cmd}";
                 # Icons
                 display-clipboard = " ";
                 display-combi = " ";
@@ -22,6 +23,9 @@ in
                 display-ssh = "󰖟 ";
                 display-window = " ";
                 display-calc = " ";
+                # Desktop entry icons
+                show-icons = true;
+                icon-theme = "Papirus-Dark";
                 # Keybindings
                 kb-row-up = "Up,Control+k";
                 kb-row-down = "Down,Control+j";
@@ -32,7 +36,7 @@ in
                 kb-mode-complete = "Control+i";
                 kb-remove-char-back = "BackSpace";
             };
-            terminal = "${pkgs.wezterm}/bin/wezterm --config enable_tab_bar=false start --always-new-process $@";
+            terminal = "${pkgs.wezterm}/bin/wezterm";
             plugins = with pkgs; [
                 rofi-calc
                 rofi-emoji

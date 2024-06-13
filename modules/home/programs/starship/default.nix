@@ -24,6 +24,7 @@ in
                     "$jobs"
                     "$status"
                     "$nix_shell"
+                    "$shell"
                     "$character"
                 ];
                 # Right prompt
@@ -61,6 +62,14 @@ in
                     format = "[$symbol]($style)";
                     symbol = "󱄅 ";
                     heuristic = true;
+                };
+                shell = {
+                    bash_indicator = "#";
+                    fish_indicator = "";
+                    nu_indicator = "";
+                    format = "[$indicator]($style)";
+                    style = "bold purple";
+                    disabled = false;
                 };
                 hostname = {
                     format = "[$hostname $ssh_symbol]($style)";
