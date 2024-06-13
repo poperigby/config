@@ -16,7 +16,7 @@ in
             grim = "${pkgs.grim}/bin/grim";
             slurp = "${pkgs.slurp}/bin/slurp";
             screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'%s.png')";
-            screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
+            # screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
         in lib.mkOptionDefault {
             ## Basics
             # Kill focused window
@@ -54,9 +54,9 @@ in
 
             ## Screenshots
             # Full screen
-            "Print" = "exec ${grim} ${screenshotLocation} && ${screenshotSound}";
+            "Print" = "exec ${grim} ${screenshotLocation}";
             # A region of the screen
-            "Control+Print" = "exec ${grim} -g $(${slurp}) ${screenshotLocation} && ${screenshotSound}";
+            "Control+Print" = "exec ${grim} -g \"$(${slurp})\" ${screenshotLocation}";
 
             ## Pickers
             # Emoji
