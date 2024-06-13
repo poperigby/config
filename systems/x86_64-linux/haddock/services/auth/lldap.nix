@@ -15,7 +15,8 @@ in
             environment = {
                 LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
                 LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
-                LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets.lldap-admin-password-lldap.path;
+                # The admin password
+                LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets.lldap-admin-password_lldap.path;
             };
         };
         caddy.virtualHosts."users.haddock.cc".extraConfig = ''
@@ -43,7 +44,7 @@ in
     sops.secrets = {
         "haddock/lldap/jwt_secret".owner = "lldap";
         "haddock/lldap/key_seed".owner = "lldap";
-        lldap-admin-password-lldap = {
+        lldap-admin-password_lldap = {
             owner = "lldap";
             key = "haddock/lldap/admin_password";
         };
