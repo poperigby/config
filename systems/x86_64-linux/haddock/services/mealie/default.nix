@@ -14,10 +14,10 @@ in
                 WEB_CONCURRENCY = "1";
                 BASE_URL = "https://food.haddock.cc";
                 # OIDC settings
-                OIDC_AUTH_ENABLED = true;
-                OIDC_SIGNUP_ENABLED = true;
-                OIDC_CONFIGURATION_URL = "https://auth.haddock.com/.well-known/openid-configuration";
-                OIDC_AUTO_REDIRECT = false;
+                OIDC_AUTH_ENABLED = "true";
+                OIDC_SIGNUP_ENABLED = "true";
+                OIDC_CONFIGURATION_URL = "https://auth.haddock.cc/.well-known/openid-configuration";
+                OIDC_AUTO_REDIRECT = "false";
                 OIDC_ADMIN_GROUP = "mealie-admins";
                 OIDC_USER_GROUP = "mealie-users";
             };
