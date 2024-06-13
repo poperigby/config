@@ -54,3 +54,8 @@
 #alltabs-button {
     display: none !important;
 }
+
+.urlbarView-url {
+    /* Make the URL in the URL bar more visible */
+    color: #bdae93 !important;
+}
