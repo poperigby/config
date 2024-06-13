@@ -26,6 +26,9 @@ in
                     "browser.aboutConfig.showWarning" = false;
                     # Use XDG Desktop Portals for various things
                     "widget.use-xdg-desktop-portal.file-picker" = 1;
+                    # Enable Browser Toolbox
+                    "devtools.chrome.enabled" = true;
+                    "devtools.debugger.remote-enabled" = true;
                     # This is a monster 👹
                     "browser.uiCustomization.state" = {
                         placements = {
