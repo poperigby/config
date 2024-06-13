@@ -83,7 +83,7 @@
     };
 
     systemd.services.authelia-haddock = {
-        # Required for setting identity_providers.oidc.jwks
+        # Required for templating
         serviceConfig.Environment = "X_AUTHELIA_CONFIG_FILTERS=template";
         # Authelia requires LLDAP and PostgreSQL to be running
         unitConfig.BindsTo = [
