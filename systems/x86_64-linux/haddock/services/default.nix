@@ -11,6 +11,7 @@
         ./miniflux.nix
         ./nextcloud.nix
         ./postgresql.nix
+        ./prusalink.nix
         ./uptime-kuma.nix
     ];
 
