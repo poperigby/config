@@ -76,9 +76,21 @@
                 AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
             };
         };
-        caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
-            reverse_proxy :9091
-        '';
+        caddy = {
+            virtualHosts."auth.haddock.cc".extraConfig = ''
+                reverse_proxy :9091
+            '';
+            # A Caddy snippet that can be imported to enable Authelia in front of a service
+            extraConfig = ''
+                (auth) {
+                    # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
+                    forward_auth :9091 {
+                        uri /api/authz/forward-auth
+                        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+                    }
+                }
+            '';
+        };
     };
 
     systemd.services.authelia-haddock = {

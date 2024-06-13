@@ -29,15 +29,6 @@ in
                 api_secret_key {env.PORKBUN_API_SECRET_KEY}
             }
         '';
-        extraConfig = ''
-            (auth) {
-                # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
-                forward_auth :9091 {
-                    uri /api/authz/forward-auth
-                    copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-                }
-            }
-        '';
         # Virtual host for testing
         virtualHosts."haddock.cc".extraConfig = ''
             respond "Hello, world!"
