@@ -15,8 +15,7 @@
                     base_dn = "dc=haddock,dc=cc";
                     users_filter = "(&({username_attribute}={input})(objectClass=person))";
                     groups_filter = "(member={dn})";
-                    # TODO: Use a custom read-only user for looking up users
-                    user = "uid=admin,ou=people,dc=haddock,dc=cc";
+                    user = "uid=authelia,ou=people,dc=haddock,dc=cc";
                 };
                 access_control = {
                     default_policy = "deny";
@@ -61,7 +60,7 @@
                     };
                 };
                 # Necessary for Caddy integration
-                # https://www.authelia.com/integration/proxies/caddy/#implementation
+                # See https://www.authelia.com/integration/proxies/caddy/#implementation
                 server.endpoints.authz.forward-auth.implementation = "ForwardAuth";
             };
             # The template doesn't work correctly when parsed from Nix, so our JWKS is defined here
@@ -73,13 +72,25 @@
                 storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
             };
             environmentVariables = with config.sops; {
-                AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets.lldap-admin-password-authelia.path;
+                AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = secrets."haddock/authelia/lldap_authelia_password".path;
                 AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
             };
         };
-        caddy.virtualHosts."auth.haddock.cc".extraConfig = ''
-            reverse_proxy :9091
-        '';
+        caddy = {
+            virtualHosts."auth.haddock.cc".extraConfig = ''
+                reverse_proxy :9091
+            '';
+            # A Caddy snippet that can be imported to enable Authelia in front of a service
+            # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
+            extraConfig = ''
+                (auth) {
+                    forward_auth :9091 {
+                        uri /api/authz/forward-auth
+                        copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+                    }
+                }
+            '';
+        };
     };
 
     systemd.services.authelia-haddock = {
@@ -98,10 +109,8 @@
         "haddock/authelia/jwt_secret".owner = "authelia-haddock";
         "haddock/authelia/session_secret".owner = "authelia-haddock";
         "haddock/authelia/storage_encryption_key".owner = "authelia-haddock";
-        lldap-admin-password-authelia = {
-            owner = "authelia-haddock";
-            key = "haddock/lldap/admin_password";
-        };
+        # The password for the `authelia` LLDAP user
+        "haddock/authelia/lldap_authelia_password".owner = "authelia-haddock";
         sendgrid-api-key-authelia = {
             owner = "authelia-haddock";
             key = "common/sendgrid/api_key";
