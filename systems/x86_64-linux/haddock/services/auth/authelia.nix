@@ -60,7 +60,7 @@
                     };
                 };
                 # Necessary for Caddy integration
-                # https://www.authelia.com/integration/proxies/caddy/#implementation
+                # See https://www.authelia.com/integration/proxies/caddy/#implementation
                 server.endpoints.authz.forward-auth.implementation = "ForwardAuth";
             };
             # The template doesn't work correctly when parsed from Nix, so our JWKS is defined here
@@ -81,9 +81,9 @@
                 reverse_proxy :9091
             '';
             # A Caddy snippet that can be imported to enable Authelia in front of a service
+            # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
             extraConfig = ''
                 (auth) {
-                    # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
                     forward_auth :9091 {
                         uri /api/authz/forward-auth
                         copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
@@ -109,7 +109,7 @@
         "haddock/authelia/jwt_secret".owner = "authelia-haddock";
         "haddock/authelia/session_secret".owner = "authelia-haddock";
         "haddock/authelia/storage_encryption_key".owner = "authelia-haddock";
-        # The password for the `authelia` user
+        # The password for the `authelia` LLDAP user
         "haddock/authelia/lldap_authelia_password".owner = "authelia-haddock";
         sendgrid-api-key-authelia = {
             owner = "authelia-haddock";
