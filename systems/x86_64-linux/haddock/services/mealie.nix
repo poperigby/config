@@ -26,8 +26,6 @@ in
             import auth
             reverse_proxy :${builtins.toString cfg.port}
         '';
-        # The OIDC client configuration
-        authelia.instances.haddock.settingsFiles = [ ./oidc.yml ];
     };
 
     systemd.services.mealie = {
