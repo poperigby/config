@@ -118,8 +118,11 @@ in
         groups.gatus = {};
     };
 
-    # DynamicUser screws up sops-nix ownership
-    systemd.services.gatus.serviceConfig.DynamicUser = lib.mkForce false;
+    systemd.services.gatus = {
+        unitConfig.BindsTo = [ "authelia-haddock.service" ];
+        # DynamicUser screws up sops-nix ownership
+        serviceConfig.DynamicUser = lib.mkForce false;
+    };
 
     sops = {
         templates.gatus-secrets = {

@@ -25,3 +25,16 @@ identity_providers:
           - 'groups'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'none'
+      - client_name: 'Miniflux'
+        client_id: {{ secret "/run/secrets/miniflux-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+        client_secret: {{ secret "/run/secrets/miniflux-oidc-client-secret_authelia" | mindent 10 "|" | msquote }}
+        public: false
+        authorization_policy: 'one_factor'
+        redirect_uris:
+          - 'https://news.haddock.cc/oauth2/oidc/callback'
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+          - 'preferred_username'
+          - 'name'
