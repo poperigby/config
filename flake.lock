@@ -143,6 +143,22 @@
         "type": "github"
       }
     },
+    "gatus": {
+      "locked": {
+        "lastModified": 1716925596,
+        "narHash": "sha256-+iuYhP5k6PMjfhJjiEfBdaV95qejvGQPutthNpVhss8=",
+        "owner": "pizzapim",
+        "repo": "nixpkgs",
+        "rev": "9548d6e31291da38dc2c7b24a47730c25038a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pizzapim",
+        "ref": "gatus",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -322,6 +338,7 @@
         "authelia": "authelia",
         "crowdsec": "crowdsec",
         "disko": "disko",
+        "gatus": "gatus",
         "home-manager": "home-manager",
         "mygui": "mygui",
         "nix-colors": "nix-colors",

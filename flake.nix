@@ -39,6 +39,7 @@
         # Temporary inputs for unmerged PRs
         mygui.url = "github:Tofixrs/nixpkgs/mygui";
         authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
+        gatus.url = "github:pizzapim/nixpkgs/gatus";
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems

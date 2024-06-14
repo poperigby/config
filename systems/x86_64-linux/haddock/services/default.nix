@@ -6,13 +6,13 @@
         ./caddy
         ./ddclient.nix
         ./frigate.nix
+        ./gatus.nix
         ./mealie
         ./media
         ./miniflux.nix
         ./nextcloud.nix
         ./postgresql.nix
         ./prusalink.nix
-        ./uptime-kuma.nix
     ];
 
     # Automatically prune all unused pods, containers, images,
