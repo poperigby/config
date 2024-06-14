@@ -1,9 +1,11 @@
 # TODO: qBittorrent only needs access to data/torrents
 
-{ ... }:
+{ inputs, ... }:
 
 {
-    poperigby.services.qbittorrent = {
+    imports = [ "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix" ];
+
+    services.qbittorrent = {
         enable = true;
         webuiPort = 8082;
         torrentingPort = 4096;

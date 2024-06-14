@@ -333,6 +333,22 @@
         "type": "github"
       }
     },
+    "qbittorrent": {
+      "locked": {
+        "lastModified": 1716944003,
+        "narHash": "sha256-+29j8Hoe11icjFhtqukrYlwvbL87vIT7Dy9iBAZSsfc=",
+        "owner": "fsnkty",
+        "repo": "nixpkgs",
+        "rev": "54909815ec599710b4a1684393c85e54e0ca6455",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fsnkty",
+        "ref": "init-nixos-qbittorrent",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "authelia": "authelia",
@@ -346,6 +362,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib",
         "sops-nix": "sops-nix"
       }
