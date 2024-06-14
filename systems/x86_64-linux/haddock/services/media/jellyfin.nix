@@ -8,7 +8,7 @@
             enable = true;
         };
         caddy.virtualHosts."media.haddock.cc".extraConfig = ''
-            #import auth
+            import auth
             reverse_proxy :8096
         '';
     };

@@ -93,13 +93,13 @@ in
                         ];
                     }
                 ];
-                security.oidc = {
-                    issuer-url = "https://auth.haddock.cc/.well-known/openid-configuration";
-                    redirect-url = "https://status.haddock.cc/authorization-code/callback";
-                    client-id = "$OIDC_CLIENT_ID";
-                    client-secret = "$OIDC_CLIENT_SECRET";
-                    scopes = [ "openid" ];
-                };
+                # security.oidc = {
+                #     issuer-url = "https://auth.haddock.cc/.well-known/openid-configuration";
+                #     redirect-url = "https://status.haddock.cc/authorization-code/callback";
+                #     client-id = "$OIDC_CLIENT_ID";
+                #     client-secret = "$OIDC_CLIENT_SECRET";
+                #     scopes = [ "openid" ];
+                # };
             };
             environmentFile = config.sops.templates.gatus-secrets.path;
         };
