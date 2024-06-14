@@ -29,6 +29,8 @@ identity_providers:
         client_id: {{ secret "/run/secrets/miniflux-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
         client_secret: {{ secret "/run/secrets/miniflux-oidc-client-secret_authelia" | mindent 10 "|" | msquote }}
         public: false
+        require_pkce: true
+        pkce_challenge_method: 'S256'
         authorization_policy: 'one_factor'
         redirect_uris:
           - 'https://news.haddock.cc/oauth2/oidc/callback'
