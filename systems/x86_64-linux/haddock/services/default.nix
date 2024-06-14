@@ -6,7 +6,7 @@
         ./caddy
         ./ddclient.nix
         ./frigate.nix
-        ./gatus.nix
+        ./gatus
         ./mealie
         ./media
         ./miniflux.nix
