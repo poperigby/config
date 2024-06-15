@@ -36,7 +36,7 @@ in
                         mode = "${gui.resolution}@${builtins.toString gui.refreshRate}Hz";
                         bg = lib.mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
                         # https://github.com/swaywm/sway/issues/7714#issuecomment-1694356639
-                        max_render_time = lib.mkIf gui.adaptiveSync "1";
+                        # max_render_time = lib.mkIf gui.adaptiveSync "1";
                     };
                 };
                 modifier = "Mod4";
