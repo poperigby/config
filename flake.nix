@@ -54,8 +54,10 @@
         # A namespace to use for my flake's packages, library, and overlays.
         snowfall.namespace = "poperigby";
 
-        # Allow unfree packages
-        channels-config.allowUnfree = true;
+        channels-config = {
+            # Allow unfree packages
+            allowUnfree = true;
+        };
 
         systems = {
             # Host specific options
@@ -64,6 +66,7 @@
                 haddock = {
                     modules = with inputs; [
                         crowdsec.nixosModules.crowdsec
+                        crowdsec.nixosModules.crowdsec-firewall-bouncer
                     ];
                 };
                 # Desktop

@@ -4,6 +4,7 @@
     imports = [
         ./auth
         ./caddy
+        ./crowdsec.nix
         ./ddclient.nix
         ./frigate.nix
         ./gatus.nix
