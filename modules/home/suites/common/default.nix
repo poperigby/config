@@ -45,6 +45,7 @@ in
             lazygit
             nh
             ouch
+            parted
             poperigby.json2nix
             ripgrep
             sops
