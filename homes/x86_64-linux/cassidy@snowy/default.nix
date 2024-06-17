@@ -28,7 +28,7 @@
             };
             gui = {
                 enable = true;
-                adaptiveSync = true;
+                adaptiveSync = false;
                 resolution = "2560x1440";
                 refreshRate = 165;
                 wallpaper = ./wallpaper.jpg;
