@@ -10,7 +10,10 @@ in
 
     config = lib.mkIf cfg.enable {
         poperigby = {
+            # Font management
+            fonts.enable = true;
             programs = {
+                atuin.enable = true;
                 bat.enable = true;
                 bottom.enable = true;
                 fish.enable = true;
@@ -23,8 +26,7 @@ in
                     default = true;
                 };
             };
-            # Font management
-            fonts.enable = true;
+            security.secrets.enable = true;
         };
         programs = {
             eza.enable = true;
