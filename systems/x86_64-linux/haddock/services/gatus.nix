@@ -119,7 +119,10 @@ in
     };
 
     systemd.services.gatus = {
-        unitConfig.BindsTo = [ "authelia-haddock.service" ];
+        unitConfig = {
+            After = [ "authelia-haddock.service" ];
+            Requires = [ "authelia-haddock.service" ];
+        };
         # DynamicUser screws up sops-nix ownership
         serviceConfig.DynamicUser = lib.mkForce false;
     };

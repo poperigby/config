@@ -29,9 +29,12 @@ in
     };
 
     systemd.services.mealie = {
+        unitConfig = {
+            After = [ "authelia-haddock.service" ];
+            Requires = [ "authelia-haddock.service" ];
+        };
         # DynamicUser messes with sops-nix
         serviceConfig.DynamicUser = lib.mkForce false;
-        unitConfig.BindsTo = [ "authelia-haddock.service" ];
     };
 
     # Setup a user and group for Mealie
