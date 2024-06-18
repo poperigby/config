@@ -15,6 +15,7 @@
                     "/var/backup/*"
                     "/var/lib/jellyfin/*"
                     "/var/lib/lldap/*"
+                    "/var/lib/mealie/*"
                     "/var/lib/nextcloud/*"
                     "/var/lib/private/prowlarr/*"
                     "/var/lib/private/uptime-kuma/*"
