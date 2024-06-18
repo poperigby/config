@@ -29,6 +29,8 @@ in
                     # Enable Browser Toolbox
                     "devtools.chrome.enabled" = true;
                     "devtools.debugger.remote-enabled" = true;
+                    # Set theme to Gruvbox Dark
+                    "extensions.activeThemeID" = "{eb8c4a94-e603-49ef-8e81-73d3c4cc04ff}";
                     # This is a monster 👹
                     "browser.uiCustomization.state" = {
                         placements = {
