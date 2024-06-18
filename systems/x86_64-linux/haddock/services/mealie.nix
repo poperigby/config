@@ -13,7 +13,11 @@ in
                 MAX_WORKERS = "1";
                 WEB_CONCURRENCY = "1";
                 BASE_URL = "https://food.haddock.cc";
-                # OIDC settings
+                # Database
+                DB_ENGINE = "postgres";
+                # https://github.com/mealie-recipes/mealie/issues/3573
+                POSTGRES_URL_OVERRIDE = "postgresql://mealie:@localhost/mealie?host=/run/postgresql";
+                # OpenID Connect
                 OIDC_AUTH_ENABLED = "true";
                 OIDC_SIGNUP_ENABLED = "true";
                 OIDC_CONFIGURATION_URL = "https://auth.haddock.cc/.well-known/openid-configuration";

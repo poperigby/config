@@ -7,6 +7,7 @@
             ensureDatabases = [
                 "authelia-haddock"
                 "lldap"
+                "mealie"
                 "nextcloud"
             ];
             ensureUsers = [
@@ -16,6 +17,10 @@
                 }
                 {
                     name = "lldap";
+                    ensureDBOwnership = true;
+                }
+                {
+                    name = "mealie";
                     ensureDBOwnership = true;
                 }
                 {
