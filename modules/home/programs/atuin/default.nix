@@ -14,6 +14,8 @@ in
                 key_path = config.sops.secrets."common/users/${user}/atuin_key".path;
                 # Enable sync v2 by default
                 sync.records = true;
+                # Immediately execute a command without having to press Enter twice
+                enter_accept = true;
             };
         };
 
