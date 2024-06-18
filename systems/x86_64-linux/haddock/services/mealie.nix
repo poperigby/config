@@ -18,8 +18,7 @@ in
                 OIDC_SIGNUP_ENABLED = "true";
                 OIDC_CONFIGURATION_URL = "https://auth.haddock.cc/.well-known/openid-configuration";
                 OIDC_AUTO_REDIRECT = "true";
-                # OIDC_ADMIN_GROUP = "mealie-admins";
-                # OIDC_USER_GROUP = "mealie-users";
+                OIDC_ADMIN_GROUP = "lldap_admin";
             };
         };
         caddy.virtualHosts."food.haddock.cc".extraConfig = ''
