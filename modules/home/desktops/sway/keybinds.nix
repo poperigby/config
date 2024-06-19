@@ -19,8 +19,12 @@ in
             # screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
         in lib.mkOptionDefault {
             ## Basics
-            # Kill focused window
+            # Quit the focused window
             "${mod}+q" = "kill";
+            # Force kill the focused window
+            "${mod}+Shift+q" = ''
+                exec kill -KILL $(${pkgs.sway}/bin/swaymsg -t get_tree | ${pkgs.jq}/bin/jq '.. | select(.type?) | select(.focused==true) | .pid')
+            '';
             # Swap focus between the tiling area and the floating area
             "${mod}+d" = "focus mode_toggle";
             # Toggle the current focus between tiling and floating mode
