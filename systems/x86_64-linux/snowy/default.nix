@@ -39,12 +39,15 @@
                             # Undervolt my GPU
                             max_voltage = 1100;
                             # Should help with FreeSync not working
-                            performance_level = "manual";
-                            power_profile_mode_index = 1;
-                            power_states = {
-                                memory_clock = [ 0 1 2 3 ];
-                                core_clock = [ 0 1 ];
-                            };
+                            performance_level = "high";
+                            # Enable after release comes out with this commit:
+                            # https://github.com/ilya-zlobintsev/LACT/commit/0dce4b395efff670fcc14b1cad515aad2392a28c
+                            # performance_level = "manual";
+                            # power_profile_mode_index = 1;
+                            # power_states = {
+                            #     memory_clock = [ 0 1 2 3 ];
+                            #     core_clock = [ 0 1 ];
+                            # };
                         };
                     };
                 };
