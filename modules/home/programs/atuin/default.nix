@@ -17,7 +17,7 @@ in
                 # Immediately execute a command without having to press Enter twice
                 enter_accept = true;
                 # Only search history from current directory for Up key
-                filter_mode_shell_up_key_binding = "directory";
+                filter_mode_shell_up_key_binding = "host";
             };
         };
 
