@@ -23,10 +23,6 @@
                     "/var/lib/sonarr/*"
                 ];
             };
-            smartd.mail = {
-                enable = true;
-                senderDomain = "haddock.cc";
-            };
         };
         suites = {
             common.enable = true;
