@@ -55,7 +55,7 @@
         };
         secrets = {
             "haddock/crowdsec/enrollment_key".owner = "crowdsec";
-            "haddock/crowdsec/local_api_key".owner = "crowdsec";
+            "haddock/crowdsec/api_keys/firewall_bouncer".owner = "crowdsec";
         };
     };
 }
