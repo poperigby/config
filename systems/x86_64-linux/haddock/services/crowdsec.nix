@@ -32,11 +32,10 @@
                 # Registers the firewall bouncer with the security engine, using the local API key
                 registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" ''
                     #!${pkgs.runtimeShell}
-                    set -eu
-                    set -o pipefail
+                    set -euo pipefail
 
                     if ! cscli bouncers list | grep -q "firewall"; then
-                        cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/local_api_key".path})"
+                        cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
                     fi
                 '';
             in [
@@ -51,7 +50,7 @@
     sops = {
         templates = {
             crowdsec-firewall-bouncer-secrets.content = ''
-                LOCAL_API_KEY=${config.sops.placeholder."haddock/crowdsec/local_api_key"}
+                LOCAL_API_KEY=${config.sops.placeholder."haddock/crowdsec/api_keys/firewall_bouncer"}
             '';
         };
         secrets = {
