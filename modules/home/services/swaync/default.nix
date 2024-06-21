@@ -10,8 +10,9 @@ in
         services.swaync = {
             enable = true;
             settings = {
-                control-center-width = 700;
-                control-center-height = 250;
+                control-center-width = 600;
+                control-center-height = 900;
+                fit-to-screen = false;
                 widgets = [
                     "title"
                     "dnd"
