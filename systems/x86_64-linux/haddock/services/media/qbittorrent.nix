@@ -100,23 +100,28 @@ in
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
     # Setup ProtonVPN WireGuard interface for qBittorrent to connect to
-    # networking = let
-    #     interface = config.networking.wireguard.interfaces.proton0; 
-    # in {
-    #     wireguard.interfaces.proton0 = {
-    #         ips = [ "10.2.0.2/32" ];
-    #         listenPort = 51820;
-    #         privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
-    #         peers = [
-    #             {
-    #                 allowedIPs = [ "0.0.0.0/0" ];
-    #                 endpoint = "156.146.51.78:51820";
-    #                 publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
-    #             }
-    #         ];
-    #     };
-    #     firewall.allowedUDPPorts = [ interface.listenPort ];
-    # };
+    networking = let
+        interface = config.networking.wireguard.interfaces.proton0;
+    in {
+        wireguard.interfaces.proton0 = {
+            ips = [ "10.2.0.2/32" ];
+            listenPort = 51820;
+            interfaceNamespace = "proton0";
+            privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
+            peers = [
+                {
+                    allowedIPs = [ "0.0.0.0/0" ];
+                    endpoint = "156.146.51.78:51820";
+                    publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
+                }
+            ];
+        };
+        firewall.allowedUDPPorts = [ interface.listenPort ];
+    };
+    systemd.services.wireguard-proton0.serviceConfig = {
+        ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add proton0" ];
+        ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del proton0" ];
+    };
 
     sops.secrets = {
         "haddock/protonvpn/private_key".owner = "qbittorrent";
