@@ -4,6 +4,7 @@
 
 let
     cfg = config.services.qbittorrent;
+    namespace = "wg-proton0";
 in
 {
     imports = [ "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix" ];
@@ -106,7 +107,7 @@ in
         wireguard.interfaces.proton0 = {
             ips = [ "10.2.0.2/32" ];
             listenPort = 51820;
-            interfaceNamespace = "proton0";
+            interfaceNamespace = namespace;
             privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
             peers = [
                 {
@@ -118,9 +119,28 @@ in
         };
         firewall.allowedUDPPorts = [ interface.listenPort ];
     };
-    systemd.services.wireguard-proton0.serviceConfig = {
-        ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add proton0" ];
-        ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del proton0" ];
+    systemd.services = {
+        # Make qBittorrent run in the ProtonVPN network namespace
+        qbittorrent.serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
+        # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
+        qbittorrent-webui-port-forwarder = {
+            enable = true;
+            description = "Forward the qBittorrent Web UI ports from inside the ProtonVP network namespace";
+            wants = [ "qbittorrent.service" ];
+            wantedBy = [ "multi-user.target" ];
+            after = [ "qbittorrent.service" ];
+            serviceConfig = let
+                webuiPort = builtins.toString cfg.webuiPort ;
+            in {
+                Type = "simple";
+                ExecStart = "${pkgs.poperigby.netns-publish}/bin/netns-publish ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
+            };
+        };
+        # Add the WireGuard interface to the ProtonVPN network namespace
+        wireguard-proton0.serviceConfig = {
+            ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add ${namespace}" ];
+            ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
+        };
     };
 
     sops.secrets = {
