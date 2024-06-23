@@ -117,7 +117,11 @@ in
                 }
             ];
         };
-        firewall.allowedUDPPorts = [ interface.listenPort ];
+        firewall = {
+            allowedUDPPorts = [ interface.listenPort ];
+            # Required to reach the port that's forwarded from inside the ProtonVPN network namespace
+            allowedTCPPorts = [ cfg.webuiPort ];
+        };
     };
     systemd.services = {
         # Make qBittorrent run in the ProtonVPN network namespace
