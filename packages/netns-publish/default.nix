@@ -1,11 +1,15 @@
 # https://github.com/dadevel/wg-netns/blob/main/extras/netns-publish.sh
 
 {
-    socat,
+    pkgs,
     writeShellScriptBin,
     ...
 }:
 
+let
+    socat = "${pkgs.socat}/bin/socat";
+    ip = "${pkgs.iproute2}/bin/ip";
+in
 writeShellScriptBin "netns-publish" ''
     set -eu
 
@@ -14,5 +18,5 @@ writeShellScriptBin "netns-publish" ''
         exit 1
     fi
 
-    exec ${socat}/bin/socat tcp-listen:"$1",reuseaddr,fork "exec:ip netns exec $2 socat stdio 'tcp-connect:$3',nofork"
+    exec ${socat} tcp-listen:"$1",reuseaddr,fork "exec:${ip} netns exec $2 ${socat} stdio 'tcp-connect:$3',nofork"
 ''

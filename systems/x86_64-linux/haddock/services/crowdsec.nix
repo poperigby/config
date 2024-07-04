@@ -18,7 +18,7 @@
             };
         };
         crowdsec-firewall-bouncer = {
-            enable = true;
+            # enable = true;
             settings = {
                 api_url = "http://localhost:8090";
                 api_key = "\${LOCAL_API_KEY}";
@@ -26,26 +26,26 @@
         };
     };
 
-    systemd.services = {
-        crowdsec.serviceConfig = {
-            ExecStartPre = let
-                # Registers the firewall bouncer with the security engine, using the local API key
-                registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" ''
-                    #!${pkgs.runtimeShell}
-                    set -euo pipefail
-
-                    if ! cscli bouncers list | grep -q "firewall"; then
-                        cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
-                    fi
-                '';
-            in [
-                "${registerFirewallBouncer}/bin/register-bouncer"
-            ];
-        };
-        crowdsec-firewall-bouncer.serviceConfig = {
-            EnvironmentFile = config.sops.templates.crowdsec-firewall-bouncer-secrets.path;
-        };
-    };
+    # systemd.services = {
+    #     crowdsec.serviceConfig = {
+    #         ExecStartPre = let
+    #             # Registers the firewall bouncer with the security engine, using the local API key
+    #             registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" ''
+    #                 #!${pkgs.runtimeShell}
+    #                 set -euo pipefail
+    #
+    #                 if ! cscli bouncers list | grep -q "firewall"; then
+    #                     cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
+    #                 fi
+    #             '';
+    #         in [
+    #             "${registerFirewallBouncer}/bin/register-bouncer"
+    #         ];
+    #     };
+    #     crowdsec-firewall-bouncer.serviceConfig = {
+    #         EnvironmentFile = config.sops.templates.crowdsec-firewall-bouncer-secrets.path;
+    #     };
+    # };
 
     sops = {
         templates = {

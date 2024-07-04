@@ -4,6 +4,7 @@
 
 let
     cfg = config.services.qbittorrent;
+    namespace = "wg-proton0";
 in
 {
     imports = [ "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix" ];
@@ -100,23 +101,51 @@ in
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
     # Setup ProtonVPN WireGuard interface for qBittorrent to connect to
-    # networking = let
-    #     interface = config.networking.wireguard.interfaces.proton0; 
-    # in {
-    #     wireguard.interfaces.proton0 = {
-    #         ips = [ "10.2.0.2/32" ];
-    #         listenPort = 51820;
-    #         privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
-    #         peers = [
-    #             {
-    #                 allowedIPs = [ "0.0.0.0/0" ];
-    #                 endpoint = "156.146.51.78:51820";
-    #                 publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
-    #             }
-    #         ];
-    #     };
-    #     firewall.allowedUDPPorts = [ interface.listenPort ];
-    # };
+    networking = let
+        interface = config.networking.wireguard.interfaces.proton0;
+    in {
+        wireguard.interfaces.proton0 = {
+            ips = [ "10.2.0.2/32" ];
+            listenPort = 51820;
+            interfaceNamespace = namespace;
+            privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
+            peers = [
+                {
+                    allowedIPs = [ "0.0.0.0/0" ];
+                    endpoint = "156.146.51.78:51820";
+                    publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
+                }
+            ];
+        };
+        firewall = {
+            allowedUDPPorts = [ interface.listenPort ];
+            # Required to reach the port that's forwarded from inside the ProtonVPN network namespace
+            allowedTCPPorts = [ cfg.webuiPort ];
+        };
+    };
+    systemd.services = {
+        # Make qBittorrent run in the ProtonVPN network namespace
+        qbittorrent.serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
+        # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
+        qbittorrent-webui-port-forwarder = {
+            enable = true;
+            description = "Forward the qBittorrent Web UI ports from inside the ProtonVP network namespace";
+            wants = [ "qbittorrent.service" ];
+            wantedBy = [ "multi-user.target" ];
+            after = [ "qbittorrent.service" ];
+            serviceConfig = let
+                webuiPort = builtins.toString cfg.webuiPort ;
+            in {
+                Type = "simple";
+                ExecStart = "${pkgs.poperigby.netns-publish}/bin/netns-publish ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
+            };
+        };
+        # Add the WireGuard interface to the ProtonVPN network namespace
+        wireguard-proton0.serviceConfig = {
+            ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add ${namespace}" ];
+            ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
+        };
+    };
 
     sops.secrets = {
         "haddock/protonvpn/private_key".owner = "qbittorrent";
