@@ -44,6 +44,7 @@ in
             "nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink "${nvimDir}/lazy-lock.json";
         };
 
+        # Setup plugins with Lazy during activation
         home.activation.neovim = lib.home-manager.hm.dag.entryAfter [ "linkGeneration" ] # bash
         ''
             LOCK_FILE=$(readlink -f ~/.config/nvim/lazy-lock.json)
@@ -61,7 +62,7 @@ in
             if [ "$(cat $STATE_FILE)" != "$HASH" ]; then
                 echo "Syncing neovim plugins"
                 run ${config.programs.neovim.finalPackage}/bin/nvim --headless "+Lazy! restore" +qa
-                run echo $HASH >$STATE_FILE
+                run echo $HASH > $STATE_FILE
             else
                 verboseEcho "Neovim plugins already synced, skipping"
             fi
