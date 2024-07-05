@@ -46,9 +46,6 @@ in
                         QueueingSystemEnabled = false;
                         TempPath = "/tmp/qBittorrent";
                         UseAlternativeGlobalSpeedLimit = true;
-                        # Bind to the ProtonVPN WireGuard interface
-                        Interface = "proton0";
-                        InterfaceName = "proton0";
                     };
                 };
                 Core = {
@@ -73,14 +70,12 @@ in
                     General = {
                         Locale = "en";
                     };
-                    MailNotification = {
-                        req_auth = true;
-                    };
                     Scheduler = {
                         end_time = "@Variant(\0\0\0\xf\x1I\x97\0)";
                         start_time = "@Variant(\0\0\0\xf\x4\xefm\x80)";
                     };
                     WebUI = {
+                        # I have Authelia in front of qBittorrent, so WebUI login is unnecessary
                         AuthSubnetWhitelist = "0.0.0.0/0";
                         AuthSubnetWhitelistEnabled = true;
                         HostHeaderValidation = false;
@@ -97,7 +92,7 @@ in
         '';
     };
 
-    # Give Jellyfin access to /mnt/media/data/torrents
+    # Give qBittorrent access to /mnt/media/data/torrents
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
     # Setup ProtonVPN WireGuard interface for qBittorrent to connect to
@@ -107,6 +102,7 @@ in
         wireguard.interfaces.proton0 = {
             ips = [ "10.2.0.2/32" ];
             listenPort = 51820;
+            # Add the WireGuard interface to the ProtonVPN network namespace
             interfaceNamespace = namespace;
             privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
             peers = [
@@ -129,18 +125,19 @@ in
         # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
         qbittorrent-webui-port-forwarder = {
             enable = true;
-            description = "Forward the qBittorrent Web UI ports from inside the ProtonVP network namespace";
+            description = "Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace";
             wants = [ "qbittorrent.service" ];
             wantedBy = [ "multi-user.target" ];
             after = [ "qbittorrent.service" ];
             serviceConfig = let
+                netnsPublish = "${pkgs.poperigby.netns-publish}/bin/netns-publish";
                 webuiPort = builtins.toString cfg.webuiPort ;
             in {
                 Type = "simple";
-                ExecStart = "${pkgs.poperigby.netns-publish}/bin/netns-publish ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
+                ExecStart = "${netnsPublish} ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
             };
         };
-        # Add the WireGuard interface to the ProtonVPN network namespace
+        # Create the ProtonVPN network namespace when the WireGuard interface comes up
         wireguard-proton0.serviceConfig = {
             ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add ${namespace}" ];
             ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
