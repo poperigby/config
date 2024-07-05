@@ -48,9 +48,6 @@ in
         home.activation.neovim = lib.home-manager.hm.dag.entryAfter [ "linkGeneration" ] # bash
         ''
             LOCK_FILE=$(readlink -f ~/.config/nvim/lazy-lock.json)
-            verboseEcho "Neovim plugin manager lock file: $LOCK_FILE"
-            [ ! -f "$LOCK_FILE" ] && echo "No Neovim plugin manager lock file found, skipping" && exit 0
-
             STATE_DIR=~/.local/state/nix/
             STATE_FILE=$STATE_DIR/lazy-lock-checksum
 
