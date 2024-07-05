@@ -4,7 +4,7 @@ let
     cfg = config.poperigby.users.cassidy;
 in
 {
-    options.poperigby.users.cassidy.enable = lib.mkEnableOption "Enable Cassidy user";
+    options.poperigby.users.cassidy.enable = lib.mkEnableOption "Cassidy user";
 
     config = lib.mkIf cfg.enable {
         sops.secrets."common/users/cassidy/password".neededForUsers = true;

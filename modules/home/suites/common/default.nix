@@ -1,10 +1,12 @@
+# Settings that most homes will want enabled
+
 { config, inputs, lib, pkgs, ... }:
 
 let
     cfg = config.poperigby.suites.common;
 in
 {
-    options.poperigby.suites.common.enable = lib.mkEnableOption "Enable common settings";
+    options.poperigby.suites.common.enable = lib.mkEnableOption "settings that most homes will want enabled";
 
     imports = [ inputs.nix-colors.homeManagerModules.default ];
 
@@ -55,14 +57,5 @@ in
         ];
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
-
-        # Make programs use XDG directories whenever supported
-        home.preferXdgDirectories = true;
-
-        # Allow setting default applications
-        xdg.mimeApps.enable = true;
-
-        # Nicely reload system units when changing configurations
-        systemd.user.startServices = "sd-switch";
     };
 }
