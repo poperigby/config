@@ -125,8 +125,8 @@ in
         qbittorrent = {
             # Make qBittorrent run in the ProtonVPN network namespace
             serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
-            # The namespace must exist when qBittorrent starts
-            after = [ "wireguard-proton0.service" ];
+            # We don't want qBittorrent running without the namespace and ProtonVPN connection
+            bindsTo = [ "wireguard-proton0.service" ];
         };
         # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
         qbittorrent-webui-port-forwarder = {
