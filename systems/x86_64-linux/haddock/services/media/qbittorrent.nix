@@ -1,7 +1,5 @@
 # Setup based on https://trash-guides.info/Hardlinks/How-to-setup-for/Native/#torrent-clients
 
-# TODO: lo interface has to be up before WebUI is accessible
-
 { config, inputs, pkgs, ... }:
 
 let
