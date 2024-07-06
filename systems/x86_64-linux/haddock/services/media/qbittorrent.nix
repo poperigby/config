@@ -1,5 +1,7 @@
 # Setup based on https://trash-guides.info/Hardlinks/How-to-setup-for/Native/#torrent-clients
 
+# TODO: lo interface has to be up before WebUI is accessible
+
 { config, inputs, pkgs, ... }:
 
 let
@@ -32,7 +34,7 @@ in
                         AlternativeGlobalUPSpeedLimit = 0;
                         BTProtocol = "TCP";
                         BandwidthSchedulerEnabled = true;
-                        DefaultSavePath = "/mnt/hdd0/data/torrents";
+                        DefaultSavePath = "/mnt/media/data/torrents";
                         DisableAutoTMMByDefault = false;
                         # DisableAutoTMMTriggers = {
                         #     CategorySavePathChanged = false;
@@ -142,8 +144,14 @@ in
             };
         };
         # Create the ProtonVPN network namespace when the WireGuard interface comes up
-        wireguard-proton0.serviceConfig = {
-            ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add ${namespace}" ];
+        wireguard-proton0.serviceConfig = let
+            ip = "${pkgs.iproute}/bin/ip";
+        in {
+            ExecStartPre = [
+                "${ip} netns add ${namespace}"
+                # We need the loopback interface to be up to access the WebUI externally
+                "${ip} netns exec ${namespace} ip link set lo up"
+            ];
             ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
         };
     };
