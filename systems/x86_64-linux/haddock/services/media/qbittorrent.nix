@@ -15,73 +15,52 @@ in
             webuiPort = 8083;
             torrentingPort = 4096;
             serverConfig = {
-                Application = {
-                    FileLogger = {
-                        Age = 1;
-                        AgeType = 1;
-                        Backup = true;
-                        DeleteOld = true;
-                        Enabled = true;
-                        MaxSizeBytes = 66560;
-                        Path = "/var/log/qBittorrent";
-                    };
+                Application.FileLogger = {
+                    Age = 1;
+                    AgeType = 1;
+                    Backup = true;
+                    DeleteOld = true;
+                    Enabled = true;
+                    MaxSizeBytes = 66560;
+                    Path = "/var/log/qBittorrent";
                 };
-                BitTorrent = {
-                    Session = {
-                        AlternativeGlobalDLSpeedLimit = 0;
-                        AlternativeGlobalUPSpeedLimit = 0;
-                        BTProtocol = "TCP";
-                        BandwidthSchedulerEnabled = true;
-                        DefaultSavePath = "/mnt/media/data/torrents";
-                        DisableAutoTMMByDefault = false;
-                        # DisableAutoTMMTriggers = {
-                        #     CategorySavePathChanged = false;
-                        #     DefaultSavePathChanged = false;
-                        # };
-                        ExcludedFileNames = "";
-                        GlobalDLSpeedLimit = 1736704;
-                        GlobalUPSpeedLimit = 1736704;
-                        Port = 37828;
-                        Preallocation = true;
-                        QueueingSystemEnabled = false;
-                        TempPath = "/tmp/qBittorrent";
-                        UseAlternativeGlobalSpeedLimit = true;
-                    };
-                };
-                Core = {
-                    AutoDeleteAddedTorrentFile = "IfAdded";
-                };
-                LegalNotice.Accepted = true;
-                Meta = {
-                    MigrationVersion = 6;
-                };
-                Network = {
-                    PortForwardingEnabled = false;
-                    # Proxy = {
-                    #     HostnameLookupEnabled = false;
-                    #     Profiles = {
-                    #         BitTorrent = true;
-                    #         Misc = true;
-                    #         RSS = true;
-                    #     };
+                BitTorrent.Session = {
+                    AlternativeGlobalDLSpeedLimit = 0;
+                    AlternativeGlobalUPSpeedLimit = 0;
+                    BTProtocol = "TCP";
+                    BandwidthSchedulerEnabled = true;
+                    DefaultSavePath = "/mnt/media/data/torrents";
+                    DisableAutoTMMByDefault = false;
+                    # DisableAutoTMMTriggers = {
+                    #     CategorySavePathChanged = false;
+                    #     DefaultSavePathChanged = false;
                     # };
+                    ExcludedFileNames = "";
+                    GlobalDLSpeedLimit = 1736704;
+                    GlobalUPSpeedLimit = 1736704;
+                    Port = 37828;
+                    Preallocation = true;
+                    QueueingSystemEnabled = false;
+                    TempPath = "/tmp/qBittorrent";
+                    UseAlternativeGlobalSpeedLimit = true;
+                    # Bind to the ProtonVPN WireGuard interface to avoid leaks
+                    Interface = "proton0";
+                    InterfaceName = "proton0";
                 };
+                Core.AutoDeleteAddedTorrentFile = "IfAdded";
+                LegalNotice.Accepted = true;
+                Meta.MigrationVersion = 6;
+                Network.PortForwardingEnabled = false;
                 Preferences = {
-                    General = {
-                        Locale = "en";
-                    };
+                    General.Locale = "en";
                     Scheduler = {
                         end_time = "@Variant(\0\0\0\xf\x1I\x97\0)";
                         start_time = "@Variant(\0\0\0\xf\x4\xefm\x80)";
                     };
                     WebUI = {
                         # I have Authelia in front of qBittorrent, so WebUI login is unnecessary
-                        AuthSubnetWhitelist = "0.0.0.0/0";
                         AuthSubnetWhitelistEnabled = true;
-                        HostHeaderValidation = false;
-                        LocalHostAuth = false;
-                        Password_PBKDF2 = "@ByteArray(sQpetcrwJ1S8WzCggUXJFg==:6vvXog5UQiOPcIrBAsZ4X7Amo9LXHkaYg1YjRyEWVoXxgU5o4LrY5CSit0Bc0+pBkQ6y4D0U930re5if/r2flw==)";
-                        UseUPnP = false;
+                        AuthSubnetWhitelist = "0.0.0.0/0";
                     };
                 };
             };
