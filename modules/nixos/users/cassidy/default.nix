@@ -19,6 +19,8 @@ in
                 "wheel"
                 # For libvirt access
                 "libvirtd"
+                # For ADB access
+                "adbusers"
             ];
         };
 
