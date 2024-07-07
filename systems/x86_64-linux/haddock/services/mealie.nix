@@ -10,8 +10,8 @@ in
             credentialsFile = config.sops.templates.mealie-secrets.path;
             settings = {
                 ALLOW_SIGNUP = "false";
-                MAX_WORKERS = "1";
-                WEB_CONCURRENCY = "1";
+                MAX_WORKERS = 1;
+                WEB_CONCURRENCY = 1;
                 BASE_URL = "https://food.haddock.cc";
                 # Database
                 DB_ENGINE = "postgres";
@@ -49,13 +49,12 @@ in
         groups.mealie = {};
     };
 
-
     sops = {
         templates.mealie-secrets = {
-            owner = "mealie";
             content = ''
                 OIDC_CLIENT_ID=${config.sops.placeholder.mealie-oidc-client-id_mealie}
             '';
+            owner = "mealie";
         };
         secrets = {
             mealie-oidc-client-id_mealie = {

@@ -13,8 +13,8 @@
         '';
     };
 
-    # This is needed to enabled Vulkan 🤔
-    hardware.opengl.enable = true;
+    # Enable hardware acceleration
+    hardware.graphics.enable = true;
 
     environment.systemPackages = with pkgs; [
         # Needed for hardware acceleration
