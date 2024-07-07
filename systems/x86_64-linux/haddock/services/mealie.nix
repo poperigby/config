@@ -23,6 +23,7 @@ in
                 OIDC_CONFIGURATION_URL = "https://auth.haddock.cc/.well-known/openid-configuration";
                 OIDC_AUTO_REDIRECT = "true";
                 OIDC_ADMIN_GROUP = "lldap_admin";
+                OIDC_USER_GROUP = "lldap_users";
             };
         };
         caddy.virtualHosts."food.haddock.cc".extraConfig = ''
