@@ -102,13 +102,13 @@
     };
 
     systemd.services.authelia-haddock = {
-        # Required for templating
-        serviceConfig.Environment = "X_AUTHELIA_CONFIG_FILTERS=template";
         # Authelia requires LLDAP and PostgreSQL to be running
-        unitConfig.BindsTo = [
+        bindsTo = [
             "lldap.service"
             "postgresql.service"
         ];
+        # Required for templating
+        serviceConfig.Environment = "X_AUTHELIA_CONFIG_FILTERS=template";
     };
 
     sops.secrets = {
