@@ -13,80 +13,56 @@ in
         qbittorrent = {
             enable = true;
             webuiPort = 8083;
+            # This will get automatically set by a script, based on the ProtonVPN forwarded port
             torrentingPort = 4096;
             serverConfig = {
-                Application = {
-                    FileLogger = {
-                        Age = 1;
-                        AgeType = 1;
-                        Backup = true;
-                        DeleteOld = true;
-                        Enabled = true;
-                        MaxSizeBytes = 66560;
-                        Path = "/var/log/qBittorrent";
-                    };
+                Application.FileLogger = {
+                    Age = 1;
+                    AgeType = 1;
+                    Backup = true;
+                    DeleteOld = true;
+                    Enabled = true;
+                    MaxSizeBytes = 66560;
+                    Path = "/var/log/qBittorrent";
                 };
-                BitTorrent = {
-                    Session = {
-                        AlternativeGlobalDLSpeedLimit = 0;
-                        AlternativeGlobalUPSpeedLimit = 0;
-                        BTProtocol = "TCP";
-                        BandwidthSchedulerEnabled = true;
-                        DefaultSavePath = "/mnt/hdd0/data/torrents";
-                        DisableAutoTMMByDefault = false;
-                        # DisableAutoTMMTriggers = {
-                        #     CategorySavePathChanged = false;
-                        #     DefaultSavePathChanged = false;
-                        # };
-                        ExcludedFileNames = "";
-                        GlobalDLSpeedLimit = 1736704;
-                        GlobalUPSpeedLimit = 1736704;
-                        Port = 37828;
-                        Preallocation = true;
-                        QueueingSystemEnabled = false;
-                        TempPath = "/tmp/qBittorrent";
-                        UseAlternativeGlobalSpeedLimit = true;
-                        # Bind to the ProtonVPN WireGuard interface
-                        Interface = "proton0";
-                        InterfaceName = "proton0";
-                    };
-                };
-                Core = {
-                    AutoDeleteAddedTorrentFile = "IfAdded";
-                };
-                LegalNotice.Accepted = true;
-                Meta = {
-                    MigrationVersion = 6;
-                };
-                Network = {
-                    PortForwardingEnabled = false;
-                    # Proxy = {
-                    #     HostnameLookupEnabled = false;
-                    #     Profiles = {
-                    #         BitTorrent = true;
-                    #         Misc = true;
-                    #         RSS = true;
-                    #     };
+                BitTorrent.Session = {
+                    AlternativeGlobalDLSpeedLimit = 0;
+                    AlternativeGlobalUPSpeedLimit = 0;
+                    BTProtocol = "TCP";
+                    BandwidthSchedulerEnabled = true;
+                    DefaultSavePath = "/mnt/media/data/torrents";
+                    DisableAutoTMMByDefault = false;
+                    # DisableAutoTMMTriggers = {
+                    #     CategorySavePathChanged = false;
+                    #     DefaultSavePathChanged = false;
                     # };
+                    ExcludedFileNames = "";
+                    GlobalDLSpeedLimit = 1736704;
+                    GlobalUPSpeedLimit = 1736704;
+                    Preallocation = true;
+                    QueueingSystemEnabled = false;
+                    TempPath = "/tmp/qBittorrent";
+                    UseAlternativeGlobalSpeedLimit = true;
+                    # Bind to the ProtonVPN WireGuard interface to avoid leaks
+                    Interface = "proton0";
+                    InterfaceName = "proton0";
                 };
+                Core.AutoDeleteAddedTorrentFile = "IfAdded";
+                LegalNotice.Accepted = true;
+                Meta.MigrationVersion = 6;
+                Network.PortForwardingEnabled = false;
                 Preferences = {
-                    General = {
-                        Locale = "en";
-                    };
-                    MailNotification = {
-                        req_auth = true;
-                    };
+                    General.Locale = "en";
                     Scheduler = {
                         end_time = "@Variant(\0\0\0\xf\x1I\x97\0)";
                         start_time = "@Variant(\0\0\0\xf\x4\xefm\x80)";
                     };
                     WebUI = {
+                        # I have Authelia in front of qBittorrent, so WebUI login is unnecessary
                         AuthSubnetWhitelist = "0.0.0.0/0";
                         AuthSubnetWhitelistEnabled = true;
                         HostHeaderValidation = false;
-                        LocalHostAuth = false;
-                        Password_PBKDF2 = "@ByteArray(sQpetcrwJ1S8WzCggUXJFg==:6vvXog5UQiOPcIrBAsZ4X7Amo9LXHkaYg1YjRyEWVoXxgU5o4LrY5CSit0Bc0+pBkQ6y4D0U930re5if/r2flw==)";
-                        UseUPnP = false;
+                        CSRFProtection = false;
                     };
                 };
             };
@@ -97,25 +73,35 @@ in
         '';
     };
 
-    # Give Jellyfin access to /mnt/media/data/torrents
+    # Give qBittorrent access to /mnt/media/data/torrents
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
-    # Setup ProtonVPN WireGuard interface for qBittorrent to connect to
     networking = let
         interface = config.networking.wireguard.interfaces.proton0;
     in {
+        # ProtonVPN WireGuard interface for qBittorrent to connect to
         wireguard.interfaces.proton0 = {
             ips = [ "10.2.0.2/32" ];
             listenPort = 51820;
+            # Add the WireGuard interface to the ProtonVPN network namespace
             interfaceNamespace = namespace;
             privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
             peers = [
                 {
+                    # US-WA#103
                     allowedIPs = [ "0.0.0.0/0" ];
-                    endpoint = "156.146.51.78:51820";
-                    publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
+                    endpoint = "149.102.254.78:51820";
+                    publicKey = "mdgZ6wT7AXGznoYqxERZexx9aPEd/FhQ+P6fdXCBuVQ=";
                 }
             ];
+            preSetup = [
+                # Create the ProtonVPN network namespace before the WireGuard interface comes up
+                "ip netns add ${namespace}"
+                # We need the loopback interface to be up to access the WebUI externally
+                "ip netns exec ${namespace} ip link set lo up"
+            ];
+            # Get rid of the network namespace after the interface shuts down
+            postShutdown = [ "ip netns del ${namespace}" ];
         };
         firewall = {
             allowedUDPPorts = [ interface.listenPort ];
@@ -124,26 +110,27 @@ in
         };
     };
     systemd.services = {
-        # Make qBittorrent run in the ProtonVPN network namespace
-        qbittorrent.serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
+        qbittorrent = {
+            # Make qBittorrent run in the ProtonVPN network namespace
+            serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
+            # We don't want qBittorrent running without the namespace and ProtonVPN connection
+            after = [ "wireguard-proton0.service" ];
+            bindsTo = [ "wireguard-proton0.service" ];
+        };
         # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
         qbittorrent-webui-port-forwarder = {
             enable = true;
-            description = "Forward the qBittorrent Web UI ports from inside the ProtonVP network namespace";
+            description = "Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace";
             wants = [ "qbittorrent.service" ];
             wantedBy = [ "multi-user.target" ];
             after = [ "qbittorrent.service" ];
             serviceConfig = let
+                netnsPublish = "${pkgs.poperigby.netns-publish}/bin/netns-publish";
                 webuiPort = builtins.toString cfg.webuiPort ;
             in {
                 Type = "simple";
-                ExecStart = "${pkgs.poperigby.netns-publish}/bin/netns-publish ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
+                ExecStart = "${netnsPublish} ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
             };
-        };
-        # Add the WireGuard interface to the ProtonVPN network namespace
-        wireguard-proton0.serviceConfig = {
-            ExecStartPre = [ "${pkgs.iproute}/bin/ip netns add ${namespace}" ];
-            ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
         };
     };
 

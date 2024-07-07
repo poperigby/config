@@ -4,35 +4,47 @@
 
 {
     services = {
-        # Automatically grab TV shows
-        sonarr.enable = true;
+        # Manage indexers and sync them with *arr apps
+        prowlarr.enable = true;
 
         # Automatically grab movies
         radarr.enable = true;
 
-        # Manage indexers and sync them with *arr apps
-        prowlarr.enable = true;
+        # Automatically grab TV shows
+        sonarr.enable = true;
 
         caddy.virtualHosts = {
-            "tv.haddock.cc".extraConfig = ''
+            "indexers.haddock.cc".extraConfig = ''
                 import auth
-                reverse_proxy :8989
+                reverse_proxy :9696
             '';
             "movies.haddock.cc".extraConfig = ''
                 import auth
                 reverse_proxy :7878
             '';
-            "indexers.haddock.cc".extraConfig = ''
+            "tv.haddock.cc".extraConfig = ''
                 import auth
-                reverse_proxy :9696
+                reverse_proxy :8989
             '';
         };
     };
+
+    systemd.services = {
+        radarr.environment = {
+             RADARR__AUTH__REQUIRED = "True";
+             RADARR__AUTH__METHOD = "External";
+        };
+        sonarr.environment = {
+             SONARR__AUTH__REQUIRED = "True";
+             SONARR__AUTH__METHOD = "External";
+        };
+    };
+
     # Give the *arr apps access to data/media and data/torrents
     users.users = let
         groups = [ "media" "torrents" ];
     in {
-        sonarr.extraGroups = groups;
         radarr.extraGroups = groups;
+        sonarr.extraGroups = groups;
     };
 }

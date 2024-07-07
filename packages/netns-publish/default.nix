@@ -13,10 +13,13 @@ in
 writeShellScriptBin "netns-publish" ''
     set -eu
 
+    EXTERNAL_PORT=$1
+    NAMESPACE_NAME=$2
+
     if [ $# -ne 3 ]; then
         echo 'usage: netns-publish PUBLIC_PORT NETNS_NAME NETNS_ADDRESS:NETNS_PORT'
         exit 1
     fi
 
-    exec ${socat} tcp-listen:"$1",reuseaddr,fork "exec:${ip} netns exec $2 ${socat} stdio 'tcp-connect:$3',nofork"
+    exec ${socat} tcp-listen:"$EXTERNAL_PORT",reuseaddr,fork "exec:${ip} netns exec $NAMESPACE_NAME ${socat} stdio 'tcp-connect:$3',nofork"
 ''
