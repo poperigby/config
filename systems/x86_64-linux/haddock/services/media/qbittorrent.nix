@@ -13,6 +13,7 @@ in
         qbittorrent = {
             enable = true;
             webuiPort = 8083;
+            # This will get automatically set by a script, based on the ProtonVPN forwarded port
             torrentingPort = 4096;
             serverConfig = {
                 Application.FileLogger = {
@@ -38,7 +39,6 @@ in
                     ExcludedFileNames = "";
                     GlobalDLSpeedLimit = 1736704;
                     GlobalUPSpeedLimit = 1736704;
-                    Port = 37828;
                     Preallocation = true;
                     QueueingSystemEnabled = false;
                     TempPath = "/tmp/qBittorrent";
@@ -59,8 +59,10 @@ in
                     };
                     WebUI = {
                         # I have Authelia in front of qBittorrent, so WebUI login is unnecessary
-                        AuthSubnetWhitelistEnabled = true;
                         AuthSubnetWhitelist = "0.0.0.0/0";
+                        AuthSubnetWhitelistEnabled = true;
+                        HostHeaderValidation = false;
+                        CSRFProtection = false;
                     };
                 };
             };
@@ -74,10 +76,10 @@ in
     # Give qBittorrent access to /mnt/media/data/torrents
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
-    # Setup ProtonVPN WireGuard interface for qBittorrent to connect to
     networking = let
         interface = config.networking.wireguard.interfaces.proton0;
     in {
+        # ProtonVPN WireGuard interface for qBittorrent to connect to
         wireguard.interfaces.proton0 = {
             ips = [ "10.2.0.2/32" ];
             listenPort = 51820;
@@ -92,6 +94,14 @@ in
                     publicKey = "mdgZ6wT7AXGznoYqxERZexx9aPEd/FhQ+P6fdXCBuVQ=";
                 }
             ];
+            preSetup = [
+                # Create the ProtonVPN network namespace before the WireGuard interface comes up
+                "ip netns add ${namespace}"
+                # We need the loopback interface to be up to access the WebUI externally
+                "ip netns exec ${namespace} ip link set lo up"
+            ];
+            # Get rid of the network namespace after the interface shuts down
+            postShutdown = [ "ip netns del ${namespace}" ];
         };
         firewall = {
             allowedUDPPorts = [ interface.listenPort ];
@@ -104,6 +114,7 @@ in
             # Make qBittorrent run in the ProtonVPN network namespace
             serviceConfig.NetworkNamespacePath = "/run/netns/${namespace}";
             # We don't want qBittorrent running without the namespace and ProtonVPN connection
+            after = [ "wireguard-proton0.service" ];
             bindsTo = [ "wireguard-proton0.service" ];
         };
         # Forward the qBittorrent Web UI ports from inside the ProtonVPN network namespace
@@ -120,17 +131,6 @@ in
                 Type = "simple";
                 ExecStart = "${netnsPublish} ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
             };
-        };
-        # Create the ProtonVPN network namespace when the WireGuard interface comes up
-        wireguard-proton0.serviceConfig = let
-            ip = "${pkgs.iproute}/bin/ip";
-        in {
-            ExecStartPre = [
-                "${ip} netns add ${namespace}"
-                # We need the loopback interface to be up to access the WebUI externally
-                "${ip} netns exec ${namespace} ip link set lo up"
-            ];
-            ExecStopPost = [ "${pkgs.iproute}/bin/ip netns del ${namespace}" ];
         };
     };
 
