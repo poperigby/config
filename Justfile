@@ -17,6 +17,11 @@ update:
     nix flake check
     git add flake.*
 
+# Update the flake.lock, and rebuild the system
+upgrade:
+    nix flake update
+    nh os switch .
+
 # Pull from the repository remote and rebuild
 sync:
     git pull
