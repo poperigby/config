@@ -86,9 +86,10 @@ in
             privateKeyFile = config.sops.secrets."haddock/protonvpn/private_key".path;
             peers = [
                 {
+                    # US-WA#103
                     allowedIPs = [ "0.0.0.0/0" ];
-                    endpoint = "156.146.51.78:51820";
-                    publicKey = "mn8WlkJqY66j17ZbwN2DB0Nj74zG/DicuRQZtxtQsTM=";
+                    endpoint = "149.102.254.78:51820";
+                    publicKey = "mdgZ6wT7AXGznoYqxERZexx9aPEd/FhQ+P6fdXCBuVQ=";
                 }
             ];
         };
