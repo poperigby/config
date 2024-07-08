@@ -53,7 +53,7 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
-            gnome.nautilus
+            nautilus
             grim
             onlyoffice-bin
             pwvucontrol
@@ -71,7 +71,7 @@ in
         # Theming
         home.pointerCursor = {
             name = "Adwaita";
-            package = pkgs.gnome.adwaita-icon-theme;
+            package = pkgs.adwaita-icon-theme;
             size = 24;
             gtk.enable = true;
         };
