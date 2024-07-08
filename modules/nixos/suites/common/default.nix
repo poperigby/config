@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.poperigby.suites.common;
@@ -8,7 +8,11 @@ in
 
     config = lib.mkIf cfg.enable {
         # Specifies where my flake is located for nh
+        # TODO: Shouldn't the be configDir?
         environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
+
+        # Use the latest version of the Linux kernel
+        boot.kernelPackages = pkgs.linuxPackages_latest;
 
         poperigby = {
             nix.enable = true;
