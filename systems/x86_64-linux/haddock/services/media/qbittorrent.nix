@@ -13,7 +13,6 @@ in
         qbittorrent = {
             enable = true;
             webuiPort = 8083;
-            # This will get automatically set by a script, based on the ProtonVPN forwarded port
             torrentingPort = 4096;
             serverConfig = {
                 Application.FileLogger = {
@@ -130,6 +129,30 @@ in
             in {
                 Type = "simple";
                 ExecStart = "${netnsPublish} ${webuiPort} ${namespace} 127.0.0.1:${webuiPort}";
+            };
+        };
+        # Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN
+        qbittorrent-protonvpn-port-update = {
+            enable = true;
+            description = "Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN";
+            wants = [ "qbittorrent.service" ];
+            wantedBy = [ "multi-user.target" ];
+            after = [ "qbittorrent.service" ];
+            environment = {
+                QBITTORRENT_WEBUI_HOST = "127.0.0.1";
+                QBITTORRENT_WEBUI_PORT = builtins.toString cfg.webuiPort;
+                QBITTORRENT_WEBUI_USERNAME = "admin";
+                QBITTORRENT_WEBUI_PASSWORD = "adminadmin";
+                INITIAL_DELAY_SEC = "10";
+                CHECK_INTERVAL_SEC = "60";
+                ERROR_INTERVAL_SEC = "5";
+                ERROR_INTERVAL_COUNT = "5";
+            };
+            serviceConfig = {
+                Type = "simple";
+                ExecStart = "${pkgs.poperigby.qbittorrent-protonvpn-port-update}/bin/qbittorrent-protonvpn-port-update";
+                # Make the port updater run in the ProtonVPN network namespace
+                NetworkNamespacePath = "/run/netns/${namespace}";
             };
         };
     };
