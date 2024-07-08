@@ -16,7 +16,7 @@ in
             enableFishIntegration = true;
             theme = builtins.fromTOML (builtins.readFile ./theme.toml);
             plugins = {
-                "smart-enter.yazi" = ./plugins/smart-enter;
+                "smart-enter" = ./plugins/smart-enter;
             };
             keymap = {
                 manager.prepend_keymap = [
