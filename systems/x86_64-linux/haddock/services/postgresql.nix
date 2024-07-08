@@ -12,6 +12,10 @@
             ];
             ensureUsers = [
                 {
+                    name = "root";
+                    ensureClauses.superuser = true;
+                }
+                {
                     name = "authelia-haddock";
                     ensureDBOwnership = true;
                 }
