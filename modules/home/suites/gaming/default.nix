@@ -46,8 +46,11 @@ in
             libstrangle
             # We want those fancy new OpenMW features
             poperigby.openmw-nightly
-            # Doom launcher
+            # Doom
             doomrunner
+            gzdoom
+            # Build Engine
+            raze
         ];
     };
 }
