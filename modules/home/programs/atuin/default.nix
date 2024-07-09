@@ -30,12 +30,13 @@ in
             Install.WantedBy = [ "multi-user.target" ];
             Service = {
                 Type = "oneshot";
-                ExecStart = # bash
-                ''
+                ExecStart = let
+                    cat = "${pkgs.coreutils}/bin/cat";
+                in pkgs.writeShellScript "atuin-login" ''
                     ${pkgs.atuin}/bin/atuin login \
-                        -k $(cat ${config.sops.secrets."common/users/${user}/atuin/key".path}) \
-                        -p $(cat ${config.sops.secrets."common/users/${user}/atuin/password".path}) \
-                        -u $(cat ${config.sops.secrets."common/users/${user}/atuin/username".path})
+                        -k $(${cat} ${config.sops.secrets."common/users/${user}/atuin/key".path}) \
+                        -p $(${cat} ${config.sops.secrets."common/users/${user}/atuin/password".path}) \
+                        -u $(${cat} ${config.sops.secrets."common/users/${user}/atuin/username".path})
                 '';
             };
         };
