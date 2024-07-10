@@ -12,8 +12,8 @@
                 api.server.listen_uri = "127.0.0.1:8090";
                 crowdsec_service.acquisition_path = (pkgs.formats.yaml {}).generate "acquisitions.yaml" {
                     source = "journalctl";
-                    journalctl_filter = ["_SYSTEMD_UNIT=sshd.service"];
-                    labels.type = "syslog";
+                    journalctl_filter = ["_SYSTEMD_UNIT=authelia-haddock.service"];
+                    labels.type = "authelia";
                 }; 
             };
         };
@@ -35,7 +35,7 @@
                         cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
                     fi
                 '';
-                # Install collections for parsing log files and handling scenarios
+                # Install collections for parsing log files and recognizing scenarios
                 installCollections = pkgs.writeScriptBin "install-collections" # bash
                 ''
                     #!${pkgs.runtimeShell}
