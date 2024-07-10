@@ -35,8 +35,19 @@
                         cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
                     fi
                 '';
+                # Install collections for parsing log files and handling scenarios
+                installCollections = pkgs.writeScriptBin "install-collections" # bash
+                ''
+                    #!${pkgs.runtimeShell}
+                    set -euo pipefail
+
+                    if ! cscli collections list | grep -q "authelia"; then
+                        cscli collections install LePresidente/authelia
+                    fi
+                '';
             in [
                 "${registerFirewallBouncer}/bin/register-bouncer"
+                "${installCollections}/bin/install-collections"
             ];
         };
         crowdsec-firewall-bouncer.serviceConfig = let
