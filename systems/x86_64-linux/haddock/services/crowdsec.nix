@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 {
     nixpkgs.overlays = [ inputs.crowdsec.overlays.default ];
@@ -18,39 +18,51 @@
             };
         };
         crowdsec-firewall-bouncer = {
-            # enable = true;
-            settings = {
-                api_url = "http://localhost:8090";
-                api_key = "\${LOCAL_API_KEY}";
-            };
+            enable = true;
         };
     };
 
-    # systemd.services = {
-    #     crowdsec.serviceConfig = {
-    #         ExecStartPre = let
-    #             # Registers the firewall bouncer with the security engine, using the local API key
-    #             registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" ''
-    #                 #!${pkgs.runtimeShell}
-    #                 set -euo pipefail
-    #
-    #                 if ! cscli bouncers list | grep -q "firewall"; then
-    #                     cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
-    #                 fi
-    #             '';
-    #         in [
-    #             "${registerFirewallBouncer}/bin/register-bouncer"
-    #         ];
-    #     };
-    #     crowdsec-firewall-bouncer.serviceConfig = {
-    #         EnvironmentFile = config.sops.templates.crowdsec-firewall-bouncer-secrets.path;
-    #     };
-    # };
+    systemd.services = {
+        crowdsec.serviceConfig = {
+            ExecStartPre = let
+                # Registers the firewall bouncer with the security engine, using the local API key
+                registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" # bash
+                ''
+                    #!${pkgs.runtimeShell}
+                    set -euo pipefail
+
+                    if ! cscli bouncers list | grep -q "firewall"; then
+                        cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
+                    fi
+                '';
+            in [
+                "${registerFirewallBouncer}/bin/register-bouncer"
+            ];
+        };
+        crowdsec-firewall-bouncer.serviceConfig = let
+            pkg = config.services.crowdsec-firewall-bouncer.package; 
+            configFile = config.sops.templates.crowdsec-firewall-bouncer-config.path;
+        in {
+            ExecStart = lib.mkForce "${pkg}/bin/cs-firewall-bouncer -c ${configFile}";
+            ExecStartPre = lib.mkForce ["${pkg}/bin/cs-firewall-bouncer -t -c ${configFile}"];
+        };
+    };
 
     sops = {
         templates = {
-            crowdsec-firewall-bouncer-secrets.content = ''
-                LOCAL_API_KEY=${config.sops.placeholder."haddock/crowdsec/api_keys/firewall_bouncer"}
+            crowdsec-firewall-bouncer-config.content = # bash
+            ''
+                api_key: ${config.sops.placeholder."haddock/crowdsec/api_keys/firewall_bouncer"}
+                api_url: http://localhost:8090
+                blacklists_ipv4: crowdsec-blacklists
+                blacklists_ipv6: crowdsec6-blacklists
+                deny_action: DROP
+                ipset_type: nethash
+                iptables_chains:
+                - INPUT
+                log_mode: stdout
+                mode: iptables
+                update_frequency: 10s
             '';
         };
         secrets = {
