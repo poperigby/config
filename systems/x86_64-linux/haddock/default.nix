@@ -23,6 +23,7 @@
                     "/var/lib/sonarr/*"
                 ];
             };
+            postfix.enable = true;
         };
         suites = {
             common.enable = true;

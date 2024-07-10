@@ -3,6 +3,7 @@
 let
   cfg = config.poperigby.services.backups;
   hostName = config.networking.hostName;
+  mail = config.poperigby.services.postfix.enable;
 in
 {
     options.poperigby.services.backups = {
@@ -33,6 +34,9 @@ in
                 timerConfig.OnCalendar = cfg.frequency;
             };
         };
+
+        # Notify via email when a backup fails
+        systemd.services.restic-backups-borgbase.unitConfig.OnFailure = lib.mkIf mail "notify-failure-email@%i";
 
         # The correct secrets will automatically be used based on the hostname
         sops.secrets = {

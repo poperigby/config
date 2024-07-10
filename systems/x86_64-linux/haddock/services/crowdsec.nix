@@ -26,9 +26,7 @@
         crowdsec.serviceConfig = {
             ExecStartPre = let
                 # Registers the firewall bouncer with the security engine, using the local API key
-                registerFirewallBouncer = pkgs.writeScriptBin "register-bouncer" # bash
-                ''
-                    #!${pkgs.runtimeShell}
+                registerFirewallBouncer = pkgs.writeShellScriptBin "register-bouncer" ''
                     set -euo pipefail
 
                     if ! cscli bouncers list | grep -q "firewall"; then
@@ -36,9 +34,7 @@
                     fi
                 '';
                 # Install collections for parsing log files and recognizing scenarios
-                installCollections = pkgs.writeScriptBin "install-collections" # bash
-                ''
-                    #!${pkgs.runtimeShell}
+                installCollections = pkgs.writeShellScriptBin "install-collections" ''
                     set -euo pipefail
 
                     if ! cscli collections list | grep -q "authelia"; then
