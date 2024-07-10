@@ -31,8 +31,14 @@ in
             ];
         };
 
-        # Make Neovim my pager for the man command
-        home.sessionVariables.MANPAGER = "${pkgs.neovim}/bin/nvim -c 'Man!' -o -";
+        home.sessionVariables = let
+            nvim = "${pkgs.neovim}/bin/nvim";
+        in {
+            # Make Neovim my pager for the man command
+            MANPAGER = "${nvim} -c 'Man!' -o -";
+            # Make Neovim my systemd editor
+            SYSTEMD_EDITOR = "${nvim}";
+        };
 
         xdg.configFile = {
             # Symlink Neovim config to ~/.config/nvim
