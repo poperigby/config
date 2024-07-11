@@ -22,7 +22,7 @@ in
             vendorHash = "sha256-xeO2YHIVAcsdowCUMoifr49Ncynz2QA3WPTCpIuILnk=";
         });
         globalConfig = ''
-            email {env.EMAIL}
+            email poperigby@mailbox.org
             acme_dns porkbun {
                 api_key {env.PORKBUN_API_KEY}
                 api_secret_key {env.PORKBUN_API_SECRET_KEY}
@@ -52,16 +52,11 @@ in
         templates.caddy-secrets = {
             owner = cfg.user;
             content = ''
-                EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
                 PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
                 PORKBUN_API_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_secret_key"}"
             '';
         };
         secrets = {
-             cassidy-email-caddy = {
-                 owner = cfg.user;
-                 key = "common/users/cassidy/email";
-             };
             "haddock/caddy/porkbun_api_key".owner = cfg.user;
             "haddock/caddy/porkbun_api_secret_key".owner = cfg.user;
         };

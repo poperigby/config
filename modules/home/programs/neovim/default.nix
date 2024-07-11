@@ -2,6 +2,7 @@
 
 let
     cfg = config.poperigby.programs.neovim;
+    nvim = "${config.programs.neovim.finalPackage}/bin/nvim";
     nvimDir = "${config.poperigby.configDir}/modules/home/programs/neovim";
 in
 {
@@ -31,9 +32,7 @@ in
             ];
         };
 
-        home.sessionVariables = let
-            nvim = "${pkgs.neovim}/bin/nvim";
-        in {
+        home.sessionVariables = {
             # Make Neovim my pager for the man command
             MANPAGER = "${nvim} -c 'Man!' -o -";
             # Make Neovim my systemd editor
@@ -64,7 +63,7 @@ in
 
             if [ "$(cat $STATE_FILE)" != "$HASH" ]; then
                 echo "Syncing neovim plugins"
-                run ${config.programs.neovim.finalPackage}/bin/nvim --headless "+Lazy! restore" +qa
+                run ${nvim} --headless "+Lazy! restore" +qa
                 run echo $HASH > $STATE_FILE
             else
                 verboseEcho "Neovim plugins already synced, skipping"
