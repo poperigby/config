@@ -35,9 +35,9 @@
                     gpus = {
                         "1002:731F-1DA2:E411-0000:0d:00.0" = {
                             fan_control_enabled = false;
-                            pmfw_options = {};
                             # Undervolt my GPU
                             max_voltage = 1100;
+                            max_core_clock = 1755;
                             # Should help with FreeSync not working
                             performance_level = "high";
                             # Enable after release comes out with this commit:
