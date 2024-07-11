@@ -45,6 +45,7 @@ in
             caligula
             dust
             fd
+            imagemagick
             just
             lazygit
             nh
