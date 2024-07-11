@@ -33,17 +33,23 @@
                         cscli bouncers add "firewall" --key "$(cat ${config.sops.secrets."haddock/crowdsec/api_keys/firewall_bouncer".path})"
                     fi
                 '';
-                # Install collections for parsing log files and recognizing scenarios
-                installCollections = pkgs.writeShellScriptBin "install-collections" ''
+                # Install configurations from CrowdSec Hub
+                installConfigurations = pkgs.writeShellScriptBin "install-configurations" ''
                     set -euo pipefail
 
+                    # Collections
                     if ! cscli collections list | grep -q "authelia"; then
                         cscli collections install LePresidente/authelia
+                    fi
+
+                    # Parsers
+                    if ! cscli parsers list | grep -q "geoip-enrich"; then
+                        cscli parsers install crowdsecurity/geoip-enrich
                     fi
                 '';
             in [
                 "${registerFirewallBouncer}/bin/register-bouncer"
-                "${installCollections}/bin/install-collections"
+                "${installConfigurations}/bin/install-configurations"
             ];
         };
         crowdsec-firewall-bouncer.serviceConfig = let
