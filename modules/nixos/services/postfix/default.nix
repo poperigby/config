@@ -1,12 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.poperigby.services.postfix;
   postfix = config.services.postfix;
-  credentialsFile = config.sops.templates.postfix-sasl-credentials.path;
-  apiKey = config.sops.placeholder.sendgrid-api-key-postfix;
-  aliasFile = config.sops.templates.postfix-root-alias.path;
-  email = config.sops.placeholder.cassidy-email-postfix;
 in
 {
     options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
@@ -22,36 +18,49 @@ in
 
                 # SASL
                 smtp_sasl_auth_enable = "yes";
-                smtp_sasl_password_maps = "texthash:${credentialsFile}";
+                smtp_sasl_password_maps = "texthash:${config.sops.templates.postfix-sasl-credentials.path}";
                 smtp_sasl_security_options = "noanonymous";
                 smtp_sasl_tls_security_options = "noanonymous";
             };
-            aliasFiles.root = aliasFile;
+            # Forward root email to my personal email address
+            rootAlias = "poperigby@mailbox.org";
+        };
+
+        # A systemd template service for notifying via email when a service fails
+        systemd.services."notify-failure-email@" = {
+            unitConfig.Description = "Send an email to root notifying that %i failed";
+            serviceConfig = {
+                Type = "oneshot";
+                ExecStart = let
+                    hostName = config.networking.hostName;
+                    mail = "${pkgs.mailutils}/bin/mail";
+                    mailScript = pkgs.writeShellScriptBin "notify-failure-email" ''
+                        set -euo pipefail
+
+                        SERVICE=$1
+
+                        echo "The service '$SERVICE' has failed on host '${hostName}'" \
+                            | ${mail} -s "Service '$SERVICE' failed on '${hostName}'" root
+                    '';
+                in "${mailScript}/bin/notify-failure-email %i";
+            };
         };
 
         sops = {
             templates = {
                 postfix-sasl-credentials = {
                     owner = postfix.user;
-                    content = ''
+                    content = let
+                        apiKey = config.sops.placeholder.sendgrid-api-key_postfix;
+                    in ''
                         [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKey}
-                    '';
-                };
-                postfix-root-alias = {
-                    owner = postfix.user;
-                    content = ''
-                        root: ${email}, /root/mailbox
                     '';
                 };
             };
             secrets = {
-                sendgrid-api-key-postfix = {
+                sendgrid-api-key_postfix = {
                     owner = postfix.user;
                     key = "common/sendgrid/api_key";
-                };
-                cassidy-email-postfix = {
-                    owner = postfix.user;
-                    key = "common/users/cassidy/email";
                 };
             };
         };

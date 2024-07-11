@@ -22,12 +22,18 @@ in
             vendorHash = "sha256-xeO2YHIVAcsdowCUMoifr49Ncynz2QA3WPTCpIuILnk=";
         });
         globalConfig = ''
-            debug
-            email {env.EMAIL}
+            email poperigby@mailbox.org
             acme_dns porkbun {
                 api_key {env.PORKBUN_API_KEY}
                 api_secret_key {env.PORKBUN_API_SECRET_KEY}
             }
+            # Make the main log more human readable
+            log stdout_logger {
+                output stdout
+                format console
+                exclude http.log.access
+            }
+
         '';
         # Virtual host for testing
         virtualHosts."haddock.cc".extraConfig = ''
@@ -37,23 +43,20 @@ in
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-    # Read secrets into environment variables, that we can then reference with {env.SECRET_NAME}
-    systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;
+    systemd.services.caddy.serviceConfig = {
+        # Read secrets into environment variables, that we can then reference with {env.<SECRET_NAME>}
+        EnvironmentFile = config.sops.templates.caddy-secrets.path;
+    };
 
     sops = {
         templates.caddy-secrets = {
             owner = cfg.user;
             content = ''
-                EMAIL="${config.sops.placeholder.cassidy-email-caddy}"
                 PORKBUN_API_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_key"}"
                 PORKBUN_API_SECRET_KEY="${config.sops.placeholder."haddock/caddy/porkbun_api_secret_key"}"
             '';
         };
         secrets = {
-             cassidy-email-caddy = {
-                 owner = cfg.user;
-                 key = "common/users/cassidy/email";
-             };
             "haddock/caddy/porkbun_api_key".owner = cfg.user;
             "haddock/caddy/porkbun_api_secret_key".owner = cfg.user;
         };

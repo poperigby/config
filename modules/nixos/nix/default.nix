@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.poperigby.nix;
@@ -8,6 +8,10 @@ in
 
     config = lib.mkIf cfg.enable {
         nix = {
+            # Use Lix, for a better experience
+            # https://lix.systems
+            package = pkgs.lix;
+
             settings = {
                 # Enable New CLI and Flakes
                 experimental-features = [ "nix-command" "flakes" ];
