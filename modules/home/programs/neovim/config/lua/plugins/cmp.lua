@@ -82,24 +82,19 @@ return {
                 entries = "custom",
             },
             formatting = { -- Use pretty icons
-                format = function(entry, vim_item)
+                format = function(entry, item)
                     -- Kind icons
-                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-                    -- Source
-                    vim_item.menu = ({
-                        buffer = "[Buffer]",
-                        nvim_lsp = "[LSP]",
-                        luasnip = "[LuaSnip]",
-                        nvim_lua = "[Lua]",
-                        latex_symbols = "[LaTeX]",
-                    })[entry.source.name]
-                    return vim_item
+                    item.kind = string.format("%s %s", kind_icons[item.kind], item.kind)
+
+                    item.menu = ({})[entry.source.name]
+
+                    return item
                 end,
             },
             enabled = function()
-                -- disable completion in comments
+                -- Disable completion in comments
                 local context = require("cmp.config.context")
-                -- keep command mode completion enabled when cursor is in a comment
+                -- Keep command mode completion enabled when cursor is in a comment
                 if vim.api.nvim_get_mode().mode == "c" then
                     return true
                 else
