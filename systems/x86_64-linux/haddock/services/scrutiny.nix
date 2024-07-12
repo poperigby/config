@@ -39,7 +39,7 @@ in
     sops = {
         templates.scrutiny-secrets = {
             content = with config.sops.placeholder; ''
-                SCRUTINY_NOTIFY_URLS=["smtp://apikey:${sendgrid-api-key_scrutiny}@smtp.sendgrid.net:587/?from=admin@haddock.cc&to=poperigby@mailbox.org"]
+                SCRUTINY_NOTIFY_URLS="smtp://apikey:${sendgrid-api-key_scrutiny}@smtp.sendgrid.net:587/?from=admin@haddock.cc&to=poperigby@mailbox.org"
             '';
             owner = "scrutiny";
         };
