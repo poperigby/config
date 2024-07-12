@@ -16,5 +16,5 @@ Copy your `age` private key to `/var/lib/sops-nix/age-key.txt`
 
 ### Build the flake
 ```bash
-sudo nixos-rebuild switch --flake .#<hostname>
+sudo nixos-rebuild switch --flake <repository-location>#<hostname>
 ```
