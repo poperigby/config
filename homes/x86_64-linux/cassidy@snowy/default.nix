@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     poperigby = {
@@ -6,7 +6,7 @@
             common.enable = true;
             gaming = {
                 enable = true;
-                # Game library roots to be backed up
+                # Game library roots from which saves will be backed up
                 libraryRoots = [
                     {
                         path = "/home/cassidy/.local/share/Steam";
@@ -35,6 +35,9 @@
             };
         };
     };
+
+    # 3D printer slicer
+    home.packages = [ pkgs.super-slicer-latest ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.stateVersion = "23.11";
