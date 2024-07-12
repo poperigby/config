@@ -2,7 +2,7 @@
 
 This repository uses [Snowfall Lib](https://github.com/snowfallorg/lib).
 
-Imperative steps are hardware documentation are located in the [wiki](https://codeberg.org/PopeRigby/nixos/wiki).
+Imperative steps and hardware documentation are located in the [wiki](https://codeberg.org/PopeRigby/nixos/wiki).
 
 ## Setup
 
