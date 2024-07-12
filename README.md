@@ -12,7 +12,7 @@ git clone git@codeberg.org:PopeRigby/nixos.git
 ```
 
 ### Setup `age`
-Copy my `age` private key from Bitwarden to `/var/lib/sops-nix/age-key.txt`
+Copy an `age` private key to `/var/lib/sops-nix/age-key.txt`
 
 ### Build the flake
 ```bash
