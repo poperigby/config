@@ -37,14 +37,20 @@
                 installConfigurations = pkgs.writeShellScriptBin "install-configurations" ''
                     set -euo pipefail
 
-                    # Collections
+                    ## Collections
+                    # Parse Authelia log and detect brute forcing attempts
                     if ! cscli collections list | grep -q "authelia"; then
                         cscli collections install LePresidente/authelia
                     fi
 
-                    # Parsers
+                    ## Parsers
+                    # Logs the country of IPs
                     if ! cscli parsers list | grep -q "geoip-enrich"; then
                         cscli parsers install crowdsecurity/geoip-enrich
+                    fi
+                    # Whitelists private IPs, so I don't accidentally ban myself 😬
+                    if ! cscli parsers list | grep -q "whitelists"; then
+                        cscli parsers install crowdsecurity/whitelists
                     fi
                 '';
             in [
