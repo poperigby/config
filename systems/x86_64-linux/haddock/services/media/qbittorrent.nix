@@ -4,6 +4,7 @@
 
 let
     cfg = config.services.qbittorrent;
+    netns = "proton";
 in
 {
     imports = [
@@ -44,9 +45,6 @@ in
                     QueueingSystemEnabled = false;
                     TempPath = "/tmp/qBittorrent";
                     UseAlternativeGlobalSpeedLimit = true;
-                    # Bind to the ProtonVPN WireGuard interface to avoid leaks
-                    # Interface = "proton0";
-                    # InterfaceName = "proton0";
                 };
                 Core.AutoDeleteAddedTorrentFile = "IfAdded";
                 LegalNotice.Accepted = true;
@@ -78,7 +76,7 @@ in
     users.users.qbittorrent.extraGroups = [ "torrents" ];
 
     # Define a network namespace with a VPN for qBittorrent
-    vpnnamespaces.proton0 = {
+    vpnnamespaces."${netns}" = {
         enable = true;
         wireguardConfigFile = config.sops.templates.wireguard-config-file.path;
         accessibleFrom = [
@@ -86,7 +84,7 @@ in
         ];
         portMappings = [
             {
-                # Make the WebUI accessible outside the namespace
+                # Make the WebUI accessible on the bridge interface
                 from = cfg.webuiPort;
                 to = cfg.webuiPort;
             }
@@ -98,7 +96,7 @@ in
             # Make qBittorrent run in the ProtonVPN network namespace
             vpnconfinement = {
                 enable = true;
-                vpnnamespace = "proton0";
+                vpnnamespace = netns;
             };
         };
         # Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN
@@ -109,6 +107,8 @@ in
             wantedBy = [ "multi-user.target" ];
             after = [ "qbittorrent.service" ];
             environment = {
+                # The VPN connection interface
+                VPN_INTERFACE = "${netns}0";
                 QBITTORRENT_WEBUI_HOST = "127.0.0.1";
                 QBITTORRENT_WEBUI_PORT = builtins.toString cfg.webuiPort;
                 QBITTORRENT_WEBUI_USERNAME = "admin";
@@ -125,7 +125,7 @@ in
             # Make the port updater run in the ProtonVPN network namespace
             vpnconfinement = {
                 enable = true;
-                vpnnamespace = "proton0";
+                vpnnamespace = netns;
             };
         };
     };

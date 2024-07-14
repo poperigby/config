@@ -7,6 +7,7 @@
 let
     awk = "${pkgs.gawk}/bin/awk";
     curl = "${pkgs.curl}/bin/curl";
+    iptables = "${pkgs.iptables}/bin/iptables";
     jq = "${pkgs.jq}/bin/jq";
     natpmpc = "${pkgs.libnatpmp}/bin/natpmpc";
 in
@@ -15,6 +16,7 @@ trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
 echo "Starting qbittorent-protonvpn-port-update\n"
 echo "Config:"
+echo "VPN_INTERFACE=$VPN_INTERFACE"
 echo "QBITTORRENT_WEBUI_HOST=$QBITTORRENT_WEBUI_HOST"
 echo "QBITTORRENT_WEBUI_PORT=$QBITTORRENT_WEBUI_PORT"
 echo "QBITTORRENT_WEBUI_USERNAME=$QBITTORRENT_WEBUI_USERNAME"
@@ -73,7 +75,7 @@ while true; do
         continue
     fi
 
-    echo "Updating port..."
+    echo "Updating port"
 
     echo "Logging into qBittorrent WebUI"
     login_data="username=$QBITTORRENT_WEBUI_USERNAME&password=$QBITTORRENT_WEBUI_PASSWORD"
@@ -107,6 +109,12 @@ while true; do
         wait $!
         continue
     fi
+
+    echo "Opening the new port on the firewall, and closing the old port"
+    # Add the new rule
+    ${iptables} -A INPUT -p tcp --dport "$new_port" -j ACCEPT -i "$VPN_INTERFACE"
+    # Delete the old rule
+    ${iptables} -D INPUT -p tcp --dport "$current_port" -j ACCEPT -i "$VPN_INTERFACE"
 
     echo "Successfully updated port"
 
