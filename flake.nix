@@ -36,6 +36,10 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        vpnconfinement = {
+            url = "github:Maroka-chan/VPN-Confinement";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         # Temporary inputs for unmerged PRs
         mygui.url = "github:Tofixrs/nixpkgs/mygui";
         authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
