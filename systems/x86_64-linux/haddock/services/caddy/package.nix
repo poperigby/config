@@ -9,7 +9,6 @@
     testers,
     externalPlugins ? [],
     vendorHash ? "sha256-YNcQtjPGQ0XMSog+sWlH4lG/QdbdI0Lyh/fUGqQUFaY=",
-    ...
 }:
 
 let
