@@ -11,15 +11,15 @@ check:
     nix flake check
 
 # Update the flake.lock, check if it still works, and add it to the git index
-update:
-    nix flake update
+update input="":
+    nix flake update {{input}}
     # Make sure the configuration still works
     nix flake check
     git add flake.*
 
 # Update the flake.lock, and rebuild the system
-upgrade:
-    nix flake update
+upgrade input="":
+    nix flake update {{input}}
     nh os switch .
 
 # Pull from the repository remote and rebuild
