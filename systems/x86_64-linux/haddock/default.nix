@@ -1,11 +1,10 @@
-{ ... }:
+{ lib, ... }:
 
 {
     imports = [
         ./drives.nix
         ./hardware.nix
-        ./services
-    ];
+    ] ++ lib.poperigby.getValidFiles ./services;
 
     poperigby = {
         services = {
