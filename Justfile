@@ -2,9 +2,9 @@
 switch:
     nh os switch .
 
-# Switch to the current configuration with verbose output
+# Switch to the current configuration, and show the trace
 debug:
-    nh os switch . --verbose
+    nh os switch . -- --show-trace
 
 # Check if the configuration works
 check:
