@@ -15,6 +15,8 @@ in
             settings = {
                 # Enable New CLI and Flakes
                 experimental-features = [ "nix-command" "flakes" ];
+                # Only allow users in the `wheel` group to access Nix
+                allowed-users = [ "@wheel" ];
             };
             # Every day, detects files in the store that have identical contents,
             # and replaces them with hard links to a single copy.
