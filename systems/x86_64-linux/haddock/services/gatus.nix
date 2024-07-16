@@ -13,14 +13,6 @@ in
                 debug = true;
                 endpoints = [
                     {
-                        name = "Nextcloud";
-                        url = "https://cloud.haddock.cc";
-                        interval = "5m";
-                        conditions = [
-                            "[STATUS] == 200"
-                        ];
-                    }
-                    {
                         name = "Authelia";
                         url = "https://auth.haddock.cc";
                         interval = "5m";
@@ -29,16 +21,8 @@ in
                         ];
                     }
                     {
-                        name = "Mealie";
-                        url = "https://food.haddock.cc";
-                        interval = "5m";
-                        conditions = [
-                            "[STATUS] == 200"
-                        ];
-                    }
-                    {
-                        name = "Miniflux";
-                        url = "https://news.haddock.cc";
+                        name = "Jellyfin";
+                        url = "http://localhost:8096";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
@@ -53,16 +37,16 @@ in
                         ];
                     }
                     {
-                        name = "Sonarr";
-                        url = "https://tv.haddock.cc";
+                        name = "Mealie";
+                        url = "http://localhost:${builtins.toString config.services.mealie.port}";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
                         ];
                     }
                     {
-                        name = "Radarr";
-                        url = "https://movies.haddock.cc";
+                        name = "Miniflux";
+                        url = "http://localhost:${config.services.miniflux.config.PORT}";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
@@ -70,23 +54,23 @@ in
                     }
                     {
                         name = "Prowlarr";
-                        url = "https://indexers.haddock.cc";
+                        url = "http://localhost:9696";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
                         ];
                     }
                     {
-                        name = "PrusaLink";
-                        url = "https://print.haddock.cc";
+                        name = "Radarr";
+                        url = "http://localhost:7878";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
                         ];
                     }
                     {
-                        name = "Jellyfin";
-                        url = "https://media.haddock.cc";
+                        name = "Sonarr";
+                        url = "http://localhost:8989";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
