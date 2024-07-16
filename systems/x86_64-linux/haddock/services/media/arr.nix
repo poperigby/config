@@ -1,9 +1,17 @@
-# TODO: *arr apps only need access to everything under data/
-
-{ ... }:
+{ inputs, ... }:
 
 {
+    imports = [
+        "${inputs.flaresolverr}/nixos/modules/services/misc/flaresolverr.nix"
+    ];
+
     services = {
+        # A proxy server to bypass Cloudflare protection
+        flaresolverr = {
+            enable = true;
+            package = inputs.flaresolverr.legacyPackages.x86_64-linux.flaresolverr;
+        };
+
         # Manage indexers and sync them with *arr apps
         prowlarr.enable = true;
 

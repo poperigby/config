@@ -164,6 +164,22 @@
         "type": "github"
       }
     },
+    "flaresolverr": {
+      "locked": {
+        "lastModified": 1720625833,
+        "narHash": "sha256-wqFUcMW+JI2rbs4yJKYhdCJheJE5bJan1UgZdItB2Ws=",
+        "owner": "paveloom",
+        "repo": "nixpkgs",
+        "rev": "3bd293093321e56a7aac340062bb440cfdd22a4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "paveloom",
+        "ref": "flaresolverr",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "gatus": {
       "locked": {
         "lastModified": 1716925596,
@@ -375,6 +391,7 @@
         "authelia": "authelia",
         "crowdsec": "crowdsec",
         "disko": "disko",
+        "flaresolverr": "flaresolverr",
         "gatus": "gatus",
         "home-manager": "home-manager",
         "mygui": "mygui",
