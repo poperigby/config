@@ -10,11 +10,19 @@
             enrollKeyFile = config.sops.secrets."haddock/crowdsec/enrollment_key".path;
             settings = {
                 api.server.listen_uri = "127.0.0.1:8090";
-                crowdsec_service.acquisition_path = (pkgs.formats.yaml {}).generate "acquisitions.yaml" {
-                    source = "journalctl";
-                    journalctl_filter = ["_SYSTEMD_UNIT=authelia-haddock.service"];
-                    labels.type = "authelia";
-                }; 
+                crowdsec_service.acquisition_path = pkgs.writeText "acquisitions.yaml" # yaml
+                ''
+                    source: journalctl
+                    journalctl_filter:
+                        - _SYSTEMD_UNIT=authelia-haddock.service
+                    labels:
+                        type: authelia
+                    ---
+                    filenames:
+                        - /var/log/audit/*.log
+                    labels:
+                        type: auditd
+                '';
             };
         };
         crowdsec-firewall-bouncer = {
@@ -43,6 +51,11 @@
                         cscli collections install LePresidente/authelia
                     fi
 
+                    # Parse auditd logs and detect post exploit behavior
+                    if ! cscli collections list | grep -q "auditd"; then
+                        cscli collections install crowdsecurity/auditd
+                    fi
+
                     ## Parsers
                     # Logs the country of IPs
                     if ! cscli parsers list | grep -q "geoip-enrich"; then
@@ -66,6 +79,9 @@
             ExecStartPre = lib.mkForce ["${pkg}/bin/cs-firewall-bouncer -t -c ${configFile}"];
         };
     };
+
+    # Give CrowdSec access to /var/log/audit
+    users.users.crowdsec.extraGroups = [ "audit" ];
 
     sops = {
         templates = {

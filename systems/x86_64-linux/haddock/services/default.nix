@@ -2,6 +2,7 @@
 
 {
     imports = [
+        ./auditd.nix
         ./auth
         ./caddy
         ./crowdsec.nix
