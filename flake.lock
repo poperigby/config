@@ -40,17 +40,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1717702314,
-        "narHash": "sha256-C0UwatW9w+wHCNedn6iWHbM3AxADZ2XK49sZfs4aUlM=",
-        "ref": "refs/heads/main",
-        "rev": "824048e7503820d508f25d44ebe2570263a20d79",
-        "revCount": 11,
+        "lastModified": 1721184803,
+        "narHash": "sha256-1U8tBM2jZSakxWPvsDlkytzhSvJ3QuG+3ktoRDMyHcM=",
+        "ref": "refs/heads/acquisition-dir",
+        "rev": "69783be0e7f65528f42cf1d507b76c0ca37697ea",
+        "revCount": 19,
         "type": "git",
-        "url": "https://codeberg.org/kampka/nix-flake-crowdsec.git"
+        "url": "https://codeberg.org/PopeRigby/nix-flake-crowdsec.git"
       },
       "original": {
+        "ref": "refs/heads/acquisition-dir",
         "type": "git",
-        "url": "https://codeberg.org/kampka/nix-flake-crowdsec.git"
+        "url": "https://codeberg.org/PopeRigby/nix-flake-crowdsec.git"
       }
     },
     "disko": {

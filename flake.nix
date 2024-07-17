@@ -7,7 +7,7 @@
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
         ## Extra inputs
         crowdsec = {
-            url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+            url = "git+https://codeberg.org/PopeRigby/nix-flake-crowdsec.git?ref=refs/heads/acquisition-dir";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         disko = {

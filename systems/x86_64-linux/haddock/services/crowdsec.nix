@@ -8,21 +8,19 @@
             enable = true;
             allowLocalJournalAccess = true;
             enrollKeyFile = config.sops.secrets."haddock/crowdsec/enrollment_key".path;
+            acquisitions = [
+               {
+                   labels.type = "authelia";
+                   source = "journalctl";
+                   journalctl_filter = [ "_SYSTEMD_UNIT=authelia-haddock.service" ];
+               }
+               {
+                   labels.type = "auditd";
+                   filenames = [ "/var/log/audit/*.log" ];
+               }
+            ];
             settings = {
                 api.server.listen_uri = "127.0.0.1:8090";
-                crowdsec_service.acquisition_path = pkgs.writeText "acquisitions.yaml" # yaml
-                ''
-                    source: journalctl
-                    journalctl_filter:
-                        - _SYSTEMD_UNIT=authelia-haddock.service
-                    labels:
-                        type: authelia
-                    ---
-                    filenames:
-                        - /var/log/audit/*.log
-                    labels:
-                        type: auditd
-                '';
             };
         };
         crowdsec-firewall-bouncer = {
