@@ -40,11 +40,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1721184803,
-        "narHash": "sha256-1U8tBM2jZSakxWPvsDlkytzhSvJ3QuG+3ktoRDMyHcM=",
+        "lastModified": 1721185218,
+        "narHash": "sha256-TP1MQdjxurgCnHBDjrS8H0tR0xqLoNEznq+G+fDEv/M=",
         "ref": "refs/heads/acquisition-dir",
-        "rev": "69783be0e7f65528f42cf1d507b76c0ca37697ea",
-        "revCount": 19,
+        "rev": "07f3c5bcffab704d833fd86473cdec23dfb2cd94",
+        "revCount": 21,
         "type": "git",
         "url": "https://codeberg.org/PopeRigby/nix-flake-crowdsec.git"
       },
