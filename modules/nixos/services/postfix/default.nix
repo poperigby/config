@@ -13,6 +13,9 @@ in
             relayHost = "smtp.sendgrid.net";
             relayPort = 587;
             config = {
+                # Don't expose software information in the banner
+                # smtpd_banner = "$myhostname ESMTP";
+
                 header_size_limit = "4096000";
                 smtp_tls_security_level = "encrypt";
 

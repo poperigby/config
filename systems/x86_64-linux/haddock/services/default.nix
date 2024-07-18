@@ -5,6 +5,7 @@
         ./auditd.nix
         ./auth
         ./caddy
+        ./clamav.nix
         ./crowdsec.nix
         ./ddclient.nix
         ./frigate.nix
