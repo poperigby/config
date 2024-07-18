@@ -17,10 +17,10 @@
                     "/var/lib/lldap/*"
                     "/var/lib/mealie/*"
                     "/var/lib/nextcloud/*"
-                    "/var/lib/private/prowlarr/*"
-                    "/var/lib/private/uptime-kuma/*"
+                    "/var/lib/prowlarr/*"
                     "/var/lib/radarr/*"
                     "/var/lib/sonarr/*"
+                    "/var/lib/vikunja/*"
                 ];
             };
             postfix.enable = true;

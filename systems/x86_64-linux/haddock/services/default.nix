@@ -18,6 +18,7 @@
         ./postgresql.nix
         ./prusalink.nix
         ./scrutiny.nix
+        ./vikunja.nix
     ];
 
     # Automatically prune all unused pods, containers, images,
