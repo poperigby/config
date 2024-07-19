@@ -31,6 +31,14 @@
         };
     };
 
+    boot.blacklistedKernelModules = [
+        # https://cisofy.com/lynis/controls/NETW-3200/
+        "dccp"
+        "rds"
+        "sctp"
+        "tipc"
+    ];
+
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
