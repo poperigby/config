@@ -19,6 +19,7 @@
                     "/var/lib/nextcloud/*"
                     "/var/lib/prowlarr/*"
                     "/var/lib/radarr/*"
+                    "/var/lib/readarr/*"
                     "/var/lib/sonarr/*"
                     "/var/lib/vikunja/*"
                 ];
