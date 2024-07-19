@@ -128,6 +128,10 @@ in
                 vpnnamespace = netns;
             };
         };
+        # Update my MyAnonaMouse session IP
+        "${netns}".serviceConfig.ExecStartPost = pkgs.writeShellScriptBin "update-mam-ip" ''
+            ${pkgs.curl}/bin/curl -b "mam_id=$(cat /run/secrets/haddock/myanonamouse/id)" https://t.myanonamouse.net/json/dynamicSeedbox.php
+        '';
     };
 
     sops = {
@@ -154,6 +158,7 @@ in
         };
         secrets = {
             "haddock/protonvpn/private_key".owner = "qbittorrent";
+            "haddock/myanonamouse/id" = {};
         };
     };
 }
