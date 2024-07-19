@@ -8,7 +8,6 @@
                 "authelia-haddock"
                 "lldap"
                 "mealie"
-                "nextcloud"
                 "vikunja"
             ];
             ensureUsers = [
@@ -26,10 +25,6 @@
                 }
                 {
                     name = "mealie";
-                    ensureDBOwnership = true;
-                }
-                {
-                    name = "nextcloud";
                     ensureDBOwnership = true;
                 }
                 {

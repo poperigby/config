@@ -14,7 +14,6 @@
         ./mealie.nix
         ./media
         ./miniflux.nix
-        ./nextcloud.nix
         ./postgresql.nix
         ./prusalink.nix
         ./scrutiny.nix
