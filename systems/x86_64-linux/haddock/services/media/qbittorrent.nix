@@ -129,9 +129,11 @@ in
             };
         };
         # Update my MyAnonaMouse session IP
-        "${netns}".serviceConfig.ExecStartPost = pkgs.writeShellScriptBin "update-mam-ip" ''
-            ${pkgs.curl}/bin/curl -b "mam_id=$(cat /run/secrets/haddock/myanonamouse/id)" https://t.myanonamouse.net/json/dynamicSeedbox.php
-        '';
+        "${netns}".serviceConfig.ExecStartPost = let
+            update-mam-ip = pkgs.writeShellScriptBin "update-mam-ip" ''
+                ${pkgs.curl}/bin/curl -b "mam_id=$(cat /run/secrets/haddock/myanonamouse/id)" https://t.myanonamouse.net/json/dynamicSeedbox.php
+            '';
+        in [ "${update-mam-ip}/bin/update-mam-ip" ];
     };
 
     sops = {
