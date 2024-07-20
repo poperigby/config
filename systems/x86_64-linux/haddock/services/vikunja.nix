@@ -23,12 +23,16 @@ in
             service:
                 interface: ":${builtins.toString cfg.port}"
                 frontendurl: "${cfg.frontendScheme}://${cfg.frontendHostname}/"
+                timezone: "America/Los_Angeles"
             database:
                 type: "${cfg.database.type}"
                 host: "${cfg.database.host}"
             files:
                 basepath: "/var/lib/vikunja/files"
             auth:
+                local:
+                    # We only want to use OIDC
+                    enabled: false
                 openid:
                     enabled: true
                     redirecturl: "https://${cfg.frontendHostname}/auth/openid/"
