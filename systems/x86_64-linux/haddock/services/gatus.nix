@@ -104,7 +104,11 @@ in
 
     systemd.services.gatus = {
         unitConfig = {
-            After = [ "authelia-haddock.service" ];
+            After = [
+                "authelia-haddock.service"
+                # So the OpenID issuer URL can be accessed
+                "caddy.service"
+            ];
             Requires = [ "authelia-haddock.service" ];
         };
         # DynamicUser screws up sops-nix ownership

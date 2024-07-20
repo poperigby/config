@@ -40,3 +40,14 @@ identity_providers:
           - 'openid'
           - 'preferred_username'
           - 'profile'
+      - client_name: "Vikunja"
+        client_id: {{ secret "/run/secrets/vikunja-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+        client_secret: {{ secret "/run/secrets/vikunja-oidc-client-secret_authelia" | mindent 10 "|" | msquote }}
+        public: false
+        authorization_policy: 'one_factor'
+        redirect_uris:
+          - "https://tasks.haddock.cc/auth/openid/authelia"
+        scopes:
+          - "openid"
+          - "email"
+          - "profile"

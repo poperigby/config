@@ -5,18 +5,18 @@
         ./auditd.nix
         ./auth
         ./caddy
+        ./clamav.nix
         ./crowdsec.nix
         ./ddclient.nix
         ./frigate.nix
         ./gatus.nix
-        ./geoipupdate.nix
         ./mealie.nix
         ./media
         ./miniflux.nix
-        ./nextcloud.nix
         ./postgresql.nix
         ./prusalink.nix
         ./scrutiny.nix
+        ./vikunja.nix
     ];
 
     # Automatically prune all unused pods, containers, images,

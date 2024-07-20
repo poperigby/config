@@ -8,21 +8,19 @@
             enable = true;
             allowLocalJournalAccess = true;
             enrollKeyFile = config.sops.secrets."haddock/crowdsec/enrollment_key".path;
+            acquisitions = [
+               {
+                   labels.type = "authelia";
+                   source = "journalctl";
+                   journalctl_filter = [ "_SYSTEMD_UNIT=authelia-haddock.service" ];
+               }
+               {
+                   labels.type = "auditd";
+                   filenames = [ "/var/log/audit/*.log" ];
+               }
+            ];
             settings = {
                 api.server.listen_uri = "127.0.0.1:8090";
-                crowdsec_service.acquisition_path = pkgs.writeText "acquisitions.yaml" # yaml
-                ''
-                    source: journalctl
-                    journalctl_filter:
-                        - _SYSTEMD_UNIT=authelia-haddock.service
-                    labels:
-                        type: authelia
-                    ---
-                    filenames:
-                        - /var/log/audit/*.log
-                    labels:
-                        type: auditd
-                '';
             };
         };
         crowdsec-firewall-bouncer = {
@@ -46,6 +44,11 @@
                     set -euo pipefail
 
                     ## Collections
+                    # Core Linux support
+                    if ! cscli collections list | grep -q "linux"; then
+                        cscli collections install crowdsecurity/linux
+                    fi
+
                     # Parse Authelia log and detect brute forcing attempts
                     if ! cscli collections list | grep -q "authelia"; then
                         cscli collections install LePresidente/authelia
@@ -57,10 +60,6 @@
                     fi
 
                     ## Parsers
-                    # Logs the country of IPs
-                    if ! cscli parsers list | grep -q "geoip-enrich"; then
-                        cscli parsers install crowdsecurity/geoip-enrich
-                    fi
                     # Whitelists private IPs, so I don't accidentally ban myself 😬
                     if ! cscli parsers list | grep -q "whitelists"; then
                         cscli parsers install crowdsecurity/whitelists

@@ -13,6 +13,13 @@ in
             relayHost = "smtp.sendgrid.net";
             relayPort = 587;
             config = {
+                # Don't expose software information in the banner
+                # smtpd_banner = "$myhostname ESMTP";
+
+                # Disable the VRFY command
+                # https://linux-audit.com/postfix-hardening-guide-for-security-and-privacy/#disable-vrfy-verify
+                disable_vrfy_command = true;
+
                 header_size_limit = "4096000";
                 smtp_tls_security_level = "encrypt";
 

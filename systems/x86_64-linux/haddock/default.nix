@@ -17,10 +17,11 @@
                     "/var/lib/lldap/*"
                     "/var/lib/mealie/*"
                     "/var/lib/nextcloud/*"
-                    "/var/lib/private/prowlarr/*"
-                    "/var/lib/private/uptime-kuma/*"
+                    "/var/lib/prowlarr/*"
                     "/var/lib/radarr/*"
+                    "/var/lib/readarr/*"
                     "/var/lib/sonarr/*"
+                    "/var/lib/vikunja/*"
                 ];
             };
             postfix.enable = true;
@@ -29,6 +30,14 @@
             common.enable = true;
         };
     };
+
+    boot.blacklistedKernelModules = [
+        # https://cisofy.com/lynis/controls/NETW-3200/
+        "dccp"
+        "rds"
+        "sctp"
+        "tipc"
+    ];
 
     # Set time zone.
     time.timeZone = "America/Los_Angeles";

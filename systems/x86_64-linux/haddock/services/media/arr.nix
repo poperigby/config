@@ -18,6 +18,9 @@
         # Automatically grab movies
         radarr.enable = true;
 
+        # Automatically grab books
+        readarr.enable = true;
+
         # Automatically grab TV shows
         sonarr.enable = true;
 
@@ -29,6 +32,10 @@
             "movies.haddock.cc".extraConfig = ''
                 import auth
                 reverse_proxy :7878
+            '';
+            "books.haddock.cc".extraConfig = ''
+                import auth
+                reverse_proxy :8787
             '';
             "tv.haddock.cc".extraConfig = ''
                 import auth
@@ -42,6 +49,10 @@
              RADARR__AUTH__REQUIRED = "True";
              RADARR__AUTH__METHOD = "External";
         };
+        readarr.environment = {
+             READARR__AUTH__REQUIRED = "True";
+             READARR__AUTH__METHOD = "External";
+        };
         sonarr.environment = {
              SONARR__AUTH__REQUIRED = "True";
              SONARR__AUTH__METHOD = "External";
@@ -53,6 +64,7 @@
         groups = [ "media" "torrents" ];
     in {
         radarr.extraGroups = groups;
+        readarr.extraGroups = groups;
         sonarr.extraGroups = groups;
     };
 }
