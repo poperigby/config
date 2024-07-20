@@ -14,6 +14,8 @@ in
 writeShellScriptBin "qbittorrent-protonvpn-port-update" ''
 trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
+set -eou pipefail
+
 echo "Starting qbittorent-protonvpn-port-update\n"
 echo "Config:"
 echo "VPN_INTERFACE=$VPN_INTERFACE"
@@ -111,10 +113,15 @@ while true; do
     fi
 
     echo "Opening the new port on the firewall, and closing the old port"
-    # Add the new rule
-    ${iptables} -A INPUT -p tcp --dport "$new_port" -j ACCEPT -i "$VPN_INTERFACE"
-    # Delete the old rule
-    ${iptables} -D INPUT -p tcp --dport "$current_port" -j ACCEPT -i "$VPN_INTERFACE"
+
+    # Add the new rule if it doesn't already exist
+    NEW_RULE="INPUT -p tcp --dport $new_port -j ACCEPT -i $VPN_INTERFACE"
+    ${iptables} -C $NEW_RULE || ${iptables} -A $NEW_RULE
+    # Delete the old rule if it exists
+    OLD_RULE="INPUT -p tcp --dport $current_port -j ACCEPT -i $VPN_INTERFACE"
+    if ${iptables} -C $OLD_RULE 2> /dev/null; then
+        ${iptables} -D $OLD_RULE
+    fi
 
     echo "Successfully updated port"
 
