@@ -43,6 +43,7 @@ in
         home.packages = with pkgs; [
             asciinema
             caligula
+            dogdns
             dust
             fd
             imagemagick
