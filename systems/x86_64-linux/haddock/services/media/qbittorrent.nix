@@ -18,33 +18,27 @@ in
             webuiPort = 8083;
             torrentingPort = 4096;
             serverConfig = {
-                Application.FileLogger = {
-                    Age = 1;
-                    AgeType = 1;
-                    Backup = true;
-                    DeleteOld = true;
-                    Enabled = true;
-                    MaxSizeBytes = 66560;
-                    Path = "/var/log/qBittorrent";
-                };
                 BitTorrent.Session = {
-                    AlternativeGlobalDLSpeedLimit = 0;
-                    AlternativeGlobalUPSpeedLimit = 0;
-                    BTProtocol = "TCP";
-                    BandwidthSchedulerEnabled = true;
+                    ## Speed limits
+                    # 80% of max speed in the VPN
+                    GlobalDLSpeedLimit = 432000;
+                    GlobalUPSpeedLimit = 184000;
+                    ## Queuing
+                    # http://infinite-source.de/az/az-calc.html
+                    QueueingSystemEnabled = true;
+                    MaxActiveDownloads = 9;
+                    MaxActiveTorrents = 13;
+                    MaxActiveUploads = 9;
+                    MaxConnections = 1200;
+                    MaxConnectionsPerTorrent = 111;
+                    MaxUploads = 14;
+                    MaxUploadsPerTorrent = 14;
+                    ## Paths
                     DefaultSavePath = "/mnt/media/data/torrents";
-                    DisableAutoTMMByDefault = false;
-                    # DisableAutoTMMTriggers = {
-                    #     CategorySavePathChanged = false;
-                    #     DefaultSavePathChanged = false;
-                    # };
-                    ExcludedFileNames = "";
-                    GlobalDLSpeedLimit = 1736704;
-                    GlobalUPSpeedLimit = 1736704;
-                    Preallocation = true;
-                    QueueingSystemEnabled = false;
                     TempPath = "/tmp/qBittorrent";
-                    UseAlternativeGlobalSpeedLimit = true;
+                    ## Misc.
+                    BTProtocol = "TCP";
+                    Preallocation = true;
                 };
                 Core.AutoDeleteAddedTorrentFile = "IfAdded";
                 LegalNotice.Accepted = true;
@@ -52,10 +46,6 @@ in
                 Network.PortForwardingEnabled = false;
                 Preferences = {
                     General.Locale = "en";
-                    Scheduler = {
-                        end_time = "@Variant(\0\0\0\xf\x1I\x97\0)";
-                        start_time = "@Variant(\0\0\0\xf\x4\xefm\x80)";
-                    };
                     WebUI = {
                         # I have Authelia in front of qBittorrent, so WebUI login is unnecessary
                         AuthSubnetWhitelist = "0.0.0.0/0";
@@ -99,7 +89,7 @@ in
                 vpnnamespace = netns;
             };
             # Update my MyAnonaMouse session IP
-            "${netns}".serviceConfig.ExecStartPre = let
+            serviceConfig.ExecStartPre = let
                 update-mam-ip = pkgs.writeShellScriptBin "update-mam-ip" ''
                     ${pkgs.curl}/bin/curl -b "mam_id=$(cat /run/secrets/haddock/myanonamouse/id)" https://t.myanonamouse.net/json/dynamicSeedbox.php
                 '';
