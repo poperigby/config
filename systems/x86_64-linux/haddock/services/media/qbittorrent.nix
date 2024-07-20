@@ -88,18 +88,12 @@ in
                 enable = true;
                 vpnnamespace = netns;
             };
-            # Update my MyAnonaMouse session IP
-            serviceConfig.ExecStartPre = let
-                update-mam-ip = pkgs.writeShellScriptBin "update-mam-ip" ''
-                    ${pkgs.curl}/bin/curl -b "mam_id=$(cat /run/secrets/haddock/myanonamouse/id)" https://t.myanonamouse.net/json/dynamicSeedbox.php
-                '';
-            in [ "${update-mam-ip}/bin/update-mam-ip" ];
         };
         # Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN
         qbittorrent-protonvpn-port-update = {
             enable = true;
             description = "Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN";
-            wants = [ "qbittorrent.service" ];
+            bindsTo = [ "qbittorrent.service" ];
             wantedBy = [ "multi-user.target" ];
             after = [ "qbittorrent.service" ];
             environment = {
@@ -124,6 +118,16 @@ in
                 vpnnamespace = netns;
             };
         };
+        # Update my MyAnonaMouse session IP
+        "${netns}".serviceConfig.ExecStartPost = let
+            update-mam-ip = pkgs.writeShellScriptBin "update-mam-ip" ''
+                set -euo pipefail
+
+                ${pkgs.curl}/bin/curl -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) https://t.myanonamouse.net/json/dynamicSeedbox.php
+            '';
+        in [
+            "${update-mam-ip}/bin/update-mam-ip"
+        ];
     };
 
     sops = {
