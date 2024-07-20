@@ -19,16 +19,11 @@ in
             torrentingPort = 4096;
             serverConfig = {
                 BitTorrent.Session = {
-                    ## Speed limits
+                    ## Limits limits
                     # 80% of max speed in the VPN
                     GlobalDLSpeedLimit = 432000;
                     GlobalUPSpeedLimit = 184000;
-                    ## Queuing
                     # http://infinite-source.de/az/az-calc.html
-                    QueueingSystemEnabled = true;
-                    MaxActiveDownloads = 9;
-                    MaxActiveTorrents = 13;
-                    MaxActiveUploads = 9;
                     MaxConnections = 1200;
                     MaxConnectionsPerTorrent = 111;
                     MaxUploads = 14;
