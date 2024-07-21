@@ -1,13 +1,9 @@
-{ config, inputs, system, ... }:
+{ config, ... }:
 
 {
-    imports = [ "${inputs.authelia}/nixos/modules/services/security/authelia.nix" ];
-    disabledModules = [ "${inputs.nixpkgs}/nixos/modules/services/security/authelia.nix" ];
-
     services = {
         authelia.instances.haddock = {
             enable = true;
-            package = inputs.authelia.legacyPackages.${system}.authelia;
             settings = {
                 theme = "auto";
                 authentication_backend.ldap = {

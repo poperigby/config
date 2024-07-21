@@ -10,7 +10,7 @@
         ./ddclient.nix
         ./frigate.nix
         ./gatus.nix
-        ./mealie.nix
+        # ./mealie.nix
         ./media
         ./miniflux.nix
         ./postgresql.nix

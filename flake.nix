@@ -41,9 +41,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         # Temporary inputs for unmerged PRs
-        flaresolverr.url = "github:paveloom/nixpkgs/flaresolverr";
         mygui.url = "github:Tofixrs/nixpkgs/mygui";
-        authelia.url = "github:nicomem/nixpkgs/authelia-4.38";
         gatus.url = "github:pizzapim/nixpkgs/gatus";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     };
