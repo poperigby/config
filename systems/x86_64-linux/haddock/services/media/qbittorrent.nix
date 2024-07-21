@@ -1,16 +1,13 @@
 # Setup based on https://trash-guides.info/Hardlinks/How-to-setup-for/Native/#torrent-clients
 
-{ config, inputs, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let
     cfg = config.services.qbittorrent;
     netns = "proton";
 in
 {
-    imports = [
-        "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
-        inputs.vpnconfinement.nixosModules.default
-    ];
+    imports = [ "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix" ];
 
     services = {
         qbittorrent = {
@@ -34,6 +31,7 @@ in
                     ## Misc.
                     BTProtocol = "TCP";
                     Preallocation = true;
+                    QueueingSystemEnabled = false;
                 };
                 Core.AutoDeleteAddedTorrentFile = "IfAdded";
                 LegalNotice.Accepted = true;
@@ -105,7 +103,7 @@ in
             };
             serviceConfig = {
                 Type = "simple";
-                ExecStart = "${pkgs.poperigby.qbittorrent-protonvpn-port-update}/bin/qbittorrent-protonvpn-port-update";
+                ExecStart = lib.getExe pkgs.poperigby.qbittorrent-protonvpn-port-update;
             };
             # Make the port updater run in the ProtonVPN network namespace
             vpnconfinement = {
@@ -114,15 +112,22 @@ in
             };
         };
         # Update my MyAnonaMouse session IP
-        "${netns}".serviceConfig.ExecStartPost = let
-            update-mam-ip = pkgs.writeShellScriptBin "update-mam-ip" ''
+        update-mam-ip = {
+            enable = true;
+            description = "Update my MyAnonaMouse session IP";
+            wantedBy = [ "multi-user.target" ];
+            script = ''
                 set -euo pipefail
 
-                ${pkgs.curl}/bin/curl -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) https://t.myanonamouse.net/json/dynamicSeedbox.php
+                ${lib.getExe pkgs.curl} \
+                    -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) \
+                    https://t.myanonamouse.net/json/dynamicSeedbox.php
             '';
-        in [
-            "${update-mam-ip}/bin/update-mam-ip"
-        ];
+            vpnconfinement = {
+                enable = true;
+                vpnnamespace = netns;
+            };
+        };
     };
 
     sops = {

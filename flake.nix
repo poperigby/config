@@ -70,6 +70,7 @@
                     modules = with inputs; [
                         crowdsec.nixosModules.crowdsec
                         crowdsec.nixosModules.crowdsec-firewall-bouncer
+                        vpnconfinement.nixosModules.default
                     ];
                 };
                 # Desktop
