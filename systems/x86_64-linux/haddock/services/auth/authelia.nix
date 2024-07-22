@@ -63,14 +63,11 @@
                 # See https://www.authelia.com/integration/proxies/caddy/#implementation
                 server.endpoints.authz.forward-auth.implementation = "ForwardAuth";
             };
-            settingsFiles = [
-                # The template doesn't work correctly when parsed from Nix, so our JWKS is defined here
-                ./jwks.yml
-                # Same for this
-                ./oidc_clients.yaml
-            ];
+            # The template doesn't work correctly when parsed from Nix, so our OIDC clients are defined here
+            settingsFiles = [ ./oidc_clients.yaml ];
             secrets = with config.sops; {
                 jwtSecretFile = secrets."haddock/authelia/jwt_secret".path;
+                oidcIssuerPrivateKeyFile = secrets."haddock/authelia/jwks".path;
                 oidcHmacSecretFile = secrets."haddock/authelia/hmac_secret".path;
                 sessionSecretFile = secrets."haddock/authelia/session_secret".path;
                 storageEncryptionKeyFile = secrets."haddock/authelia/storage_encryption_key".path;
