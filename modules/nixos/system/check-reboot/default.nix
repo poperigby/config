@@ -11,9 +11,10 @@ in
         ''
             set -eou pipefail
 
-            ${inputs.needsreboot.packages.${system}.default}/bin/nixos-needsreboot 2> /dev/null
+            ${lib.getExe inputs.needsreboot.packages.${system}.default} 2> /dev/null
 
             if [ -f /var/run/reboot-required ]; then
+                echo "REBOOT REQUIRED"
                 cat /var/run/reboot-required
             fi
         '';
