@@ -18,6 +18,12 @@ in
             plugins = {
                 "smart-enter" = ./plugins/smart-enter;
             };
+            settings = {
+                manager = {
+                    sort_by = "modified";
+                    sort_reverse = true;
+                };
+            };
             keymap = {
                 manager.prepend_keymap = [
                     {
