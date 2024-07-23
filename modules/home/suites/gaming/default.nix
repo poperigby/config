@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, system, ... }:
 
 let
     cfg = config.poperigby.suites.gaming;
@@ -51,6 +51,8 @@ in
             gzdoom
             # Build Engine
             raze
+            # Quake
+            inputs.vkquake.legacyPackages.${system}.vkquake
         ];
     };
 }
