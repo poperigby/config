@@ -8,11 +8,7 @@ in
 
     config = lib.mkIf cfg.enable {
         boot.loader = {
-            systemd-boot = {
-                enable = true;
-                # Limit the number of generations to keep
-                configurationLimit = 5;
-            };
+            systemd-boot.enable = true;
             efi.canTouchEfiVariables = true;
         };
     };
