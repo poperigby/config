@@ -14,6 +14,7 @@ in
         poperigby = {
             # Font management
             fonts.enable = true;
+            nix.enable = true;
             programs = {
                 atuin.enable = true;
                 bat.enable = true;
