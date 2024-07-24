@@ -78,7 +78,7 @@ sudo mkdir -p /mnt/var/lib/sops-nix
 sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/
 
 echo "Installing NixOS system"
-if sudo nixos-install --flake "$CONFIG_DIR#$TARGET_HOST"; then
+if sudo nixos-install --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST"; then
     echo "Done! Remove your installation media and reboot :)"
     exit 0
 else
