@@ -16,7 +16,6 @@ in
                 ];
                 shellAliases = {
                     cat = "bat";
-                    cd = "z";
                     find = "fd";
                     grep = "rg";
                     jrn = "sudo journalctl";
