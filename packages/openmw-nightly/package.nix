@@ -3,15 +3,19 @@
     boost,
     bullet,
     cmake,
+    fetchFromGitHub,
     fetchFromGitLab,
     ffmpeg,
     inputs,
+    libxml2,
     luajit,
     lz4,
+    minizip,
     openal,
     openscenegraph,
     pkg-config,
     qt6,
+    readline,
     recastnavigation,
     stdenv,
     unshield,
@@ -24,7 +28,34 @@
 let
     GL = "GLVND"; # or "LEGACY";
 
+    collada-dom = stdenv.mkDerivation {
+        pname = "collada-dom";
+        version = "master";
+
+        src = fetchFromGitHub {
+            owner = "rdiankov";
+            repo = "collada-dom";
+            rev = "c1e20b7d6ff806237030fe82f126cb86d661f063";
+            sha256 = "A1ne/D6S0shwCzb9spd1MoSt/238HWA8dvgd+DC9cXc=";
+        };
+
+        postInstall = ''
+            chmod +w -R $out
+            mv $out/include/*/* $out/include
+        '';
+
+        nativeBuildInputs = [ cmake ];
+
+        buildInputs = [
+            boost
+            libxml2
+            minizip
+            readline
+        ];
+    };
+
     osg' = (openscenegraph.override { colladaSupport = true; }).overrideDerivation (old: {
+        COLLADA_DIR = collada-dom;
         cmakeFlags = (old.cmakeFlags or []) ++ [
             "-Wno-dev"
             "-DOpenGL_GL_PREFERENCE=${GL}"
@@ -56,8 +87,8 @@ stdenv.mkDerivation {
     src = fetchFromGitLab {
         owner = "OpenMW";
         repo = "openmw";
-        rev = "cbf0471d8a54e4f8fd1093e698c839f11997693a";
-        hash = "sha256-EVn61FFLHNPfzMgrr1Cykoco2Kmdd1OI2pysY+2iClA=";
+        rev = "4dabcbc82fd5d51361ee929e1452b01c6b7d7170";
+        hash = "sha256-OUP6WcORRt5zJMXr1TKa8WfaumZ2L3NP2miMl50WCWo=";
     };
 
     postPatch = ''
