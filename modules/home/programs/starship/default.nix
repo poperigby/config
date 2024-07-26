@@ -23,6 +23,7 @@ in
                     "$git_status"
                     "$jobs"
                     "$status"
+                    "$container"
                     "$nix_shell"
                     "$shell"
                     "$character"
