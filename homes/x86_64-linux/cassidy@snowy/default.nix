@@ -4,10 +4,19 @@
     poperigby = {
         suites = {
             common.enable = true;
-            gaming = {
+            gaming.enable = true;
+            gui = {
                 enable = true;
+                adaptiveSync = false;
+                resolution = "2560x1440";
+                refreshRate = 165;
+                wallpaper = ./wallpaper.jpg;
+            };
+        };
+        services.ludusavi.settings = {
+                manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
                 # Game library roots from which saves will be backed up
-                libraryRoots = [
+                roots = [
                     {
                         path = "/home/cassidy/.local/share/Steam";
                         store = "steam";
@@ -25,14 +34,15 @@
                         store = "steam";
                     }
                 ];
-            };
-            gui = {
-                enable = true;
-                adaptiveSync = false;
-                resolution = "2560x1440";
-                refreshRate = 165;
-                wallpaper = ./wallpaper.jpg;
-            };
+                customGames = [
+                    {
+                        name = "OpenMW";
+                        files = [ "/home/cassidy/.local/share/openmw/saves" ];
+                    }
+                ];
+                backup.path = "~/.local/state/backups/ludusavi";
+                restore.path = "~/.local/state/backups/ludusavi";
+
         };
     };
 

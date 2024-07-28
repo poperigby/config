@@ -13,5 +13,7 @@ in
                 isDefault = true;
             };
         };
+
+        accounts.email.accounts.poperigby.thunderbird.enable = true;
     };
 }

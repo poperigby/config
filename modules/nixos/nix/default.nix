@@ -4,7 +4,7 @@ let
   cfg = config.poperigby.nix;
 in
 {
-    options.poperigby.nix.enable = lib.mkEnableOption "Enable Nix tweaks";
+    options.poperigby.nix.enable = lib.mkEnableOption "Nix tweaks";
 
     config = lib.mkIf cfg.enable {
         nix = {

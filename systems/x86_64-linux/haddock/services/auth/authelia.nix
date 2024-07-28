@@ -44,7 +44,6 @@
                     sender = "admin@haddock.cc";
                 };
                 identity_providers.oidc = {
-                    # jwks is set in jwks.yml
                     cors = {
                         endpoints = [ "token" ];
                         allowed_origins_from_client_redirect_uris = true;

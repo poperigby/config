@@ -12,8 +12,10 @@ in
 
     config = lib.mkIf cfg.enable {
         poperigby = {
+            accounts.email.enable = true;
             # Font management
             fonts.enable = true;
+            nix.enable = true;
             programs = {
                 atuin.enable = true;
                 bat.enable = true;

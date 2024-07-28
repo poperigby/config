@@ -12,15 +12,15 @@ in
             enable = true;
             # Sets up common libraries to load
             libraries = with pkgs; [
-                stdenv.cc.cc
-                zlib
-                fuse3
-                icu
-                zlib
-                nss
-                openssl
                 curl
                 expat
+                fuse3
+                icu
+                libGL
+                nss
+                openssl
+                stdenv.cc.cc
+                zlib
             ];
         };
     };
