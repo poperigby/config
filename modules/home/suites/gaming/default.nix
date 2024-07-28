@@ -28,6 +28,7 @@ in
             libstrangle
             # We want those fancy new OpenMW features
             poperigby.openmw-nightly
+            poperigby.openmw-validator
             # Doom
             doomrunner
             gzdoom
