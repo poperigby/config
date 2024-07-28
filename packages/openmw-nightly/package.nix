@@ -87,8 +87,8 @@ stdenv.mkDerivation {
     src = fetchFromGitLab {
         owner = "OpenMW";
         repo = "openmw";
-        rev = "4dabcbc82fd5d51361ee929e1452b01c6b7d7170";
-        hash = "sha256-OUP6WcORRt5zJMXr1TKa8WfaumZ2L3NP2miMl50WCWo=";
+        rev = "51455b24e0e256bc3245e10c8256b2ec301829bc";
+        hash = "sha256-9Q0WHsJRrRN9jECaZKmNPktcAWS6nWunwu6P0xJXpII=";
     };
 
     postPatch = ''
