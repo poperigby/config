@@ -2,16 +2,23 @@
 
 let
     cfg = config.services.vikunja;
+    domain = "tasks.haddock.cc";
 in
 {
-    services.vikunja = {
-        enable = true;
-        frontendScheme = "https";
-        frontendHostname = "tasks.haddock.cc";
-        database = {
-            type = "postgres";
-            host = "127.0.0.1:5432";
+    services = {
+        vikunja = {
+            enable = true;
+            frontendScheme = "https";
+            frontendHostname = domain;
+            database = {
+                type = "postgres";
+                host = "127.0.0.1:5432";
+            };
         };
+        caddy.virtualHosts.${domain}.extraConfig = ''
+            import auth
+            reverse_proxy :3456
+        '';
     };
 
     # We need to do this because Vikunja doesn't support setting OpenID secrets with environment variables
@@ -45,10 +52,6 @@ in
         owner = "vikunja";
     };
 
-    services.caddy.virtualHosts."tasks.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :3456
-    '';
 
     systemd.services.vikunja = {
         unitConfig = {
