@@ -2,6 +2,7 @@
 
 let
     cfg = config.poperigby.suites.gaming;
+    omw = inputs.openmw-nix.packages.${system};
 in
 {
     options.poperigby.suites.gaming.enable = lib.mkEnableOption "various programs/tweaks for gaming";
@@ -27,9 +28,9 @@ in
             # For limiting FPS
             libstrangle
             # We want those fancy new OpenMW features
-            poperigby.openmw-nightly
-            poperigby.openmw-validator
-            poperigby.delta-plugin
+            omw.openmw-nightly
+            omw.openmw-validator
+            omw.delta-plugin
             # Doom
             doomrunner
             gzdoom

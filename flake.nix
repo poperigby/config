@@ -28,6 +28,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+        openmw-nix.url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
         snowfall-lib = {
             url = "github:snowfallorg/lib";
             inputs.nixpkgs.follows = "nixpkgs";
