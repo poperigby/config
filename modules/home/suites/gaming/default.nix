@@ -29,6 +29,7 @@ in
             # We want those fancy new OpenMW features
             poperigby.openmw-nightly
             poperigby.openmw-validator
+            poperigby.delta-plugin
             # Doom
             doomrunner
             gzdoom
