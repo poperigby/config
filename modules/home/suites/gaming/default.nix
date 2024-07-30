@@ -28,9 +28,10 @@ in
             # For limiting FPS
             libstrangle
             # We want those fancy new OpenMW features
+            omw.delta-plugin
             omw.openmw-nightly
             omw.openmw-validator
-            omw.delta-plugin
+            omw.plox
             # Doom
             doomrunner
             gzdoom
