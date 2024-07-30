@@ -28,5 +28,6 @@ rustPlatform.buildRustPackage rec {
         description = "A tool for handling and converting markup-based versions of ESP files.";
         homepage = "https://gitlab.com/bmwinger/delta-plugin";
         license = lib.licenses.gpl3;
+        mainProgram = "delta_plugin";
     };
 }
