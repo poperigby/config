@@ -40,5 +40,8 @@ in
             # Quake
             inputs.vkquake.legacyPackages.${system}.vkquake
         ];
+
+        # Improve OpenMW performance on AMD systems
+        home.sessionVariables.OSG_VERTEX_BUFFER_HINT = "VERTEX_BUFFER_OBJECT";
     };
 }
