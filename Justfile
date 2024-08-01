@@ -1,6 +1,10 @@
-# Switch to the current configuration
+# Build the current configuration, and make it the boot default
 switch:
     nh os switch .
+
+# Build the current configuration
+test:
+   nh os test .
 
 # Switch to the current configuration, and show the trace
 debug:
@@ -13,14 +17,14 @@ check:
 # Update the flake.lock, check if it still works, and add it to the git index
 update +input="":
     nix flake update {{input}}
-    # Make sure the configuration still works
-    nix flake check
-    git add flake.*
+    # Make sure the configuration still works, and stage it if it does
+    nix flake check && git add flake.*
 
 # Update the flake.lock, and rebuild the system
 upgrade +input="":
     nix flake update {{input}}
-    nh os switch .
+    # Only stage the flake if the switch succeeds
+    nh os switch . && git add flake.*
 
 # Pull from the repository remote and rebuild
 sync:
