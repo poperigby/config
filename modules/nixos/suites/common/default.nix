@@ -4,7 +4,7 @@ let
   cfg = config.poperigby.suites.common;
 in
 {
-    options.poperigby.suites.common.enable = lib.mkEnableOption "Enable common settings";
+    options.poperigby.suites.common.enable = lib.mkEnableOption "common settings";
 
     config = lib.mkIf cfg.enable {
         # Specifies where my flake is located for nh
@@ -29,7 +29,7 @@ in
             system = {
                 bootloader.enable = true;
                 locale.enable = true;
-                zram.enable = true;
+                swap.enable = true;
             };
             users = {
                 enable = true;
