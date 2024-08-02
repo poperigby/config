@@ -11,7 +11,7 @@ in
             {
                 device = "/var/lib/swapfile";
                 # Size is in megabytes
-                size = 8192;
+                size = 8000;
             }
         ];
     };
