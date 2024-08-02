@@ -31,18 +31,13 @@
         };
     };
 
-    boot.blacklistedKernelModules = [
-        # https://cisofy.com/lynis/controls/NETW-3200/
-        "dccp"
-        "rds"
-        "sctp"
-        "tipc"
-    ];
-
     # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
     services.openssh.enable = true;
+
+    # Enables DHCP on each ethernet and wireless interface
+    networking.useDHCP = true;
 
     # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "23.11";
