@@ -25,6 +25,10 @@ in
                 gnumake
                 nodePackages.npm
                 unzip
+                # Language servers
+                lua-language-server
+                nixd
+                rust-analyzer
             ];
             plugins = [
                 # All other plugins are managed by lazy-nvim

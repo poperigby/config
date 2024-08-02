@@ -4,6 +4,5 @@ return {
         -- Used by the code blocks
         "nvim-tree/nvim-web-devicons",
     },
-    config = true,
     ft = "markdown",
 };

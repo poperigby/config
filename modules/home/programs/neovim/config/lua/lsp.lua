@@ -22,71 +22,47 @@ local format = function(client, bufnr)
     end
 end
 
--- Mason
-require("mason").setup()
--- Automatically setup servers installed with mason.nvim
-require("mason-lspconfig").setup_handlers({
-    -- Default handler
-    function(server_name)
-        lspconfig[server_name].setup({
-            -- Call format() on save
-            on_attach = format,
-        })
-    end,
-    -- Targeted overrides for specific servers
-    -- on_attach = format is required for each
-    ["clangd"] = function()
-        lspconfig.clangd.setup({
-            cmd = {
-                "clangd",
-                "--background-index",
-                "-j=12",
-                "--query-driver=/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++",
-                "--clang-tidy",
-                "--clang-tidy-checks=*",
-                "--all-scopes-completion",
-                "--cross-file-rename",
-                "--completion-style=detailed",
-                "--header-insertion-decorators",
-                "--header-insertion=iwyu",
-                "--pch-storage=memory",
-            },
-            on_attach = format,
-        })
-    end,
-    ["lua_ls"] = function()
-        lspconfig.lua_ls.setup({
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim", "minetest" },
-                    },
+local language_servers = {
+    clangd = {
+        cmd = {
+            "clangd",
+            "--background-index",
+            "-j=12",
+            "--query-driver=/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++",
+            "--clang-tidy",
+            "--clang-tidy-checks=*",
+            "--all-scopes-completion",
+            "--cross-file-rename",
+            "--completion-style=detailed",
+            "--header-insertion-decorators",
+            "--header-insertion=iwyu",
+            "--pch-storage=memory",
+        },
+    },
+    lua_ls = {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { "vim", "minetest" },
                 },
             },
-            on_attach = format,
-        })
-    end,
-    ["rust_analyzer"] = function()
-        lspconfig.rust_analyzer.setup({
-            settings = {
-                ["rust-analyzer"] = {
-                    checkOnSave = {
-                        command = "clippy"
-                    }
-                },
+        },
+    },
+    nixd = {},
+    rust_analyzer = {
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                }
             },
-            on_attach = format,
-        })
-    end,
-})
+        },
+    }
+}
 
--- null-ls
-require("mason-null-ls").setup({
-    handlers = {}
-})
-require("null-ls").setup()
-
--- DAP
-require("mason-nvim-dap").setup({
-    handlers = {}
-})
+for lsp, config in pairs(language_servers) do
+    -- Automatically setup format function
+    config.on_attach = format
+    -- Setup LSP servers
+    lspconfig[lsp].setup(config)
+end
