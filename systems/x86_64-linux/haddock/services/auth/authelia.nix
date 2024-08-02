@@ -41,6 +41,13 @@
                         {
                             domain = "haddock.cc";
                             authelia_url = "https://auth.haddock.cc";
+                            # The period of time the user can be inactive for until the session is destroyed
+                            inactivity = "1M";
+                            # The period of time before the cookie expires and the session is destroyed
+                            expiration = "3M";
+                            # The period of time before the cookie expires and the session is destroyed
+                            # when the remember me box is checked
+                            remember_me = "1y";
                         }
                     ];
                 };
