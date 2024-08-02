@@ -11,10 +11,10 @@
             kernelModules = [];
         };
         kernelModules = [ "k10temp" "nct6775" ];
-        # extraModulePackages = with config.boot.kernelPackages; [
-        #     # Google Coral TPU driver
-        #     gasket
-        # ];
+        extraModulePackages = with config.boot.kernelPackages; [
+            # Google Coral TPU driver
+            gasket
+        ];
     };
 
     # This is actually multiple drives combined into one filesystem
