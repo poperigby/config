@@ -2,9 +2,6 @@
 
 {
     services = {
-        # A proxy server to bypass Cloudflare protection
-        flaresolverr.enable = true;
-
         # Manage indexers and sync them with *arr apps
         prowlarr.enable = true;
 
