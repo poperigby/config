@@ -52,6 +52,7 @@ in
             just
             lazygit
             nh
+            nurl
             ouch
             parted
             poperigby.json2nix
