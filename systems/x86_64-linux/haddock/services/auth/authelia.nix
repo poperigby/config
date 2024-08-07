@@ -1,8 +1,7 @@
 { config, ... }:
 
 let
-    cfg = config.services.authelia.instances.haddock;
-    instance = "authelia-${config.services.authelia.instances.haddock.name}";
+    authelia = "authelia-haddock";
 in
 {
     services = {
@@ -34,11 +33,11 @@ in
                 };
                 storage.postgres = {
                    address = "unix:///run/postgresql";
-                   database = "authelia-haddock";
-                   username = "authelia-haddock";
+                   database = authelia;
+                   username = authelia;
                    # I'm using peer authentication, so this doesn't actually matter, but Authelia
                    # complains if I don't have it.
-                   password = "authelia-haddock";
+                   password = authelia;
                 };
                 session = {
                     redis.host = "/var/run/redis-haddock/redis.sock";
@@ -113,9 +112,9 @@ in
     };
 
     # Give Authelia access to the Redis socket
-    users.users.${cfg.user}.extraGroups = [ "redis-haddock" ];
+    users.users.${authelia}.extraGroups = [ "redis-haddock" ];
 
-    systemd.services.authelia-haddock = {
+    systemd.services.${authelia} = {
         # Authelia requires LLDAP, PostgreSQL, and Redis to be running
         bindsTo = [
             "lldap.service"
@@ -127,15 +126,15 @@ in
     };
 
     sops.secrets = {
-        "haddock/authelia/hmac_secret".owner = "authelia-haddock";
-        "haddock/authelia/jwks".owner = "authelia-haddock";
-        "haddock/authelia/jwt_secret".owner = "authelia-haddock";
-        "haddock/authelia/session_secret".owner = "authelia-haddock";
-        "haddock/authelia/storage_encryption_key".owner = "authelia-haddock";
+        "haddock/authelia/hmac_secret".owner = authelia;
+        "haddock/authelia/jwks".owner = authelia;
+        "haddock/authelia/jwt_secret".owner = authelia;
+        "haddock/authelia/session_secret".owner = authelia;
+        "haddock/authelia/storage_encryption_key".owner = authelia;
         # The password for the `authelia` LLDAP user
-        "haddock/authelia/lldap_authelia_password".owner = "authelia-haddock";
+        "haddock/authelia/lldap_authelia_password".owner = authelia;
         sendgrid-api-key-authelia = {
-            owner = "authelia-haddock";
+            owner = authelia;
             key = "common/sendgrid/api_key";
         };
     };
