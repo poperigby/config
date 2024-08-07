@@ -52,6 +52,7 @@ in
             just
             lazygit
             nh
+            nix-init
             nurl
             ouch
             parted
