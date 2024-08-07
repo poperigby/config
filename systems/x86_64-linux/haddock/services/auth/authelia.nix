@@ -37,6 +37,7 @@ in
                    username = authelia;
                    # I'm using peer authentication, so this doesn't actually matter, but Authelia
                    # complains if I don't have it.
+                   # https://github.com/authelia/authelia/discussions/7646
                    password = authelia;
                 };
                 session = {
