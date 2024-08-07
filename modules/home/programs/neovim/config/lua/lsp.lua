@@ -39,6 +39,7 @@ local language_servers = {
             "--pch-storage=memory",
         },
     },
+    harper_ls = {},
     lua_ls = {
         settings = {
             Lua = {

@@ -28,6 +28,7 @@ in
                 # Language servers
                 lua-language-server
                 nixd
+                poperigby.harper
                 rust-analyzer
             ];
             plugins = [
