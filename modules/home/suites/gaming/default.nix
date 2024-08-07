@@ -27,8 +27,9 @@ in
             protonup-qt
             # For limiting FPS
             libstrangle
-            # We want those fancy new OpenMW features
+            # OpenMW
             omw.delta-plugin
+            omw.groundcoverify
             omw.openmw-nightly
             omw.openmw-validator
             omw.plox
@@ -38,7 +39,7 @@ in
             # Build Engine
             raze
             # Quake
-            inputs.vkquake.legacyPackages.${system}.vkquake
+            vkquake
         ];
 
         # Improve OpenMW performance on AMD systems

@@ -45,7 +45,6 @@
         mygui.url = "github:Tofixrs/nixpkgs/mygui";
         gatus.url = "github:pizzapim/nixpkgs/gatus";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
-        vkquake.url = "github:poperigby/nixpkgs/vkquake-1.31.0";
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems

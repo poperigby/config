@@ -38,8 +38,7 @@ in
             };
             terminal = "${pkgs.wezterm}/bin/wezterm";
             plugins = with pkgs; [
-                rofi-calc
-                rofi-emoji
+                rofi-emoji-wayland
             ];
             font = "Noto Sans";
             theme = ./theme.rasi;
