@@ -1,5 +1,9 @@
 { config, ... }:
 
+let
+    cfg = config.services.authelia.instances.haddock;
+    instance = "authelia-${config.services.authelia.instances.haddock.name}";
+in
 {
     services = {
         authelia.instances.haddock = {
@@ -37,11 +41,12 @@
                    password = "authelia-haddock";
                 };
                 session = {
+                    redis.host = "/var/run/redis-haddock/redis.sock";
                     cookies = [
                         {
                             domain = "haddock.cc";
                             authelia_url = "https://auth.haddock.cc";
-                            # The period of time the user can be inactive for until the session is destroyed
+                            # The period of time the user can be inactive for before the session is destroyed
                             inactivity = "1M";
                             # The period of time before the cookie expires and the session is destroyed
                             expiration = "3M";
@@ -107,11 +112,15 @@
         };
     };
 
+    # Give Authelia access to the Redis socket
+    users.users.${cfg.user}.extraGroups = [ "redis-haddock" ];
+
     systemd.services.authelia-haddock = {
-        # Authelia requires LLDAP and PostgreSQL to be running
+        # Authelia requires LLDAP, PostgreSQL, and Redis to be running
         bindsTo = [
             "lldap.service"
             "postgresql.service"
+            "redis-haddock.service"
         ];
         # Required for templating
         serviceConfig.Environment = "X_AUTHELIA_CONFIG_FILTERS=template";

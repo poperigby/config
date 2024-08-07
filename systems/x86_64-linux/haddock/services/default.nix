@@ -2,6 +2,7 @@
 
 {
     imports = [
+        # ./mealie.nix
         ./auditd.nix
         ./auth
         ./caddy
@@ -10,11 +11,11 @@
         ./ddclient.nix
         ./frigate.nix
         ./gatus.nix
-        # ./mealie.nix
         ./media
         ./miniflux.nix
         ./postgresql.nix
         ./prusalink.nix
+        ./redis.nix
         ./scrutiny.nix
         ./vikunja.nix
     ];
