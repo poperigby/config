@@ -476,6 +476,7 @@
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
+        "ucodenix": "ucodenix",
         "vpnconfinement": "vpnconfinement"
       }
     },
@@ -587,6 +588,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "ucodenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1722904278,
+        "narHash": "sha256-0UnxTu+bbKffBgPBFBH3ATDvGM4cGvdHxDVygYV9ce8=",
+        "owner": "e-tho",
+        "repo": "ucodenix",
+        "rev": "672c3d981344f69e577233ce533a0f14f013834f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "e-tho",
+        "repo": "ucodenix",
         "type": "github"
       }
     },

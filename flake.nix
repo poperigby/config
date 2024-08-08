@@ -37,6 +37,10 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        ucodenix = {
+            url = "github:e-tho/ucodenix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         vpnconfinement = {
             url = "github:Maroka-chan/VPN-Confinement";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -92,6 +96,7 @@
             # Modules that get imported to every NixOS system
             modules.nixos = with inputs; [
                 disko.nixosModules.disko
+                ucodenix.nixosModules.ucodenix
             ];
         };
         homes = {
