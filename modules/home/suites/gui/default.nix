@@ -53,8 +53,9 @@ in
 
         # Packages that don't need any configuration
         home.packages = with pkgs; [
-            nautilus
+            gimp
             grim
+            nautilus
             onlyoffice-bin
             pwvucontrol
             satty
