@@ -11,6 +11,10 @@ in
             enable = true;
             profiles.cassidy = {
                 isDefault = true;
+                settings = {
+                    # Use system emoji font
+                    "font.name-list.emoji" = "emoji";
+                };
             };
         };
 
