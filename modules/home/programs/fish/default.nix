@@ -20,6 +20,7 @@ in
                     grep = "rg";
                     jrn = "sudo journalctl";
                     lg = "lazygit";
+                    nps = "nix search nixpkgs";
                     py = "python";
                     sys = "sudo systemctl";
                     syu = "systemctl --user";
