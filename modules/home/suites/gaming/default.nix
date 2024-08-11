@@ -27,10 +27,10 @@ in
             protonup-qt
             # For limiting FPS
             libstrangle
-            # OpenMW
+            # Morrowind
             omw.delta-plugin
             omw.groundcoverify
-            omw.openmw-nightly
+            omw.openmw-dev
             omw.openmw-validator
             omw.plox
             # Doom
