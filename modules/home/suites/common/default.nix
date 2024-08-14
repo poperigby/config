@@ -59,6 +59,7 @@ in
             poperigby.json2nix
             ripgrep
             sops
+            tree
             vimv-rs
         ];
 

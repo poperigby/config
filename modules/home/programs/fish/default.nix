@@ -24,7 +24,6 @@ in
                     py = "python";
                     sys = "sudo systemctl";
                     syu = "systemctl --user";
-                    tree = "ls --tree";
                 };
                 # Use fish for `nix shell` and `nix develop`
                 interactiveShellInit = ''
