@@ -2,7 +2,7 @@
 
 {
     imports = [
-        # ./mealie.nix
+        ./mealie.nix
         ./auditd.nix
         ./auth
         ./caddy
