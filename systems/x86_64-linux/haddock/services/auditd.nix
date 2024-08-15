@@ -17,7 +17,11 @@
 
     environment.etc."audit/auditd.conf".text =  lib.generators.toKeyValue { mkKeyValue = lib.generators.mkKeyValueDefault {} " = "; } {
         log_group = "audit";
-        space_left = 1000;
-        space_left_action = "rotate";
+        # Maximum log file size in megabytes
+        max_log_file = 1000;
+        max_log_file_action = "rotate";
+        # The amount of log files to keep around
+        num_logs = 3;
+        space_left = 10000;
     };
 }
