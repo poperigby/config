@@ -10,5 +10,9 @@ final: prev: {
                 hash = "sha256-4Nc0dFJrZ7ElN9rrq+CFpayKsrRjRd24fYraUFTzcH8=";
             })
         ];
+        postPatch = oldAttrs.postPatch + ''
+            substituteInPlace mealie/services/backups_v2/alchemy_exporter.py \
+                --replace-fail '"script_location", path.join(PROJECT_DIR, "alembic")' '"script_location", "${oldAttrs.src}/alembic"'
+        '';
     });
 }
