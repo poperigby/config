@@ -29,7 +29,7 @@ in
             system = {
                 bootloader.enable = true;
                 locale.enable = true;
-                swap.enable = true;
+                zram.enable = true;
             };
             users = {
                 enable = true;
