@@ -25,6 +25,10 @@
         };
         crowdsec-firewall-bouncer = {
             enable = true;
+            settings = {
+                api_key = "\${API_KEY}";
+                api_url = "http://localhost:8090";
+            };
         };
     };
 
@@ -70,13 +74,7 @@
                 "${installConfigurations}/bin/install-configurations"
             ];
         };
-        crowdsec-firewall-bouncer.serviceConfig = let
-            pkg = config.services.crowdsec-firewall-bouncer.package; 
-            configFile = config.sops.templates.crowdsec-firewall-bouncer-config.path;
-        in {
-            ExecStart = lib.mkForce "${pkg}/bin/cs-firewall-bouncer -c ${configFile}";
-            ExecStartPre = lib.mkForce ["${pkg}/bin/cs-firewall-bouncer -t -c ${configFile}"];
-        };
+        crowdsec-firewall-bouncer.serviceConfig.EnvironmentFile = config.sops.templates.crowdsec-firewall-bouncer-secrets.path;
     };
 
     # Give CrowdSec access to /var/log/audit
@@ -84,19 +82,8 @@
 
     sops = {
         templates = {
-            crowdsec-firewall-bouncer-config.content = # bash
-            ''
-                api_key: ${config.sops.placeholder."haddock/crowdsec/api_keys/firewall_bouncer"}
-                api_url: http://localhost:8090
-                blacklists_ipv4: crowdsec-blacklists
-                blacklists_ipv6: crowdsec6-blacklists
-                deny_action: DROP
-                ipset_type: nethash
-                iptables_chains:
-                - INPUT
-                log_mode: stdout
-                mode: iptables
-                update_frequency: 10s
+            crowdsec-firewall-bouncer-secrets.content = ''
+                API_KEY=${config.sops.placeholder."haddock/crowdsec/api_keys/firewall_bouncer"}
             '';
         };
         secrets = {
