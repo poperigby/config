@@ -25,9 +25,14 @@ in
                     MaxConnectionsPerTorrent = 111;
                     MaxUploads = 14;
                     MaxUploadsPerTorrent = 14;
+                    ## Automatic torrent management
+                    DisableAutoTMMByDefault = false;
+                    DisableAutoTMMTriggers = {
+                        CategorySavePathChanged = false;
+                        DefaultSavePathChanged = false;
+                    };
                     ## Paths
                     DefaultSavePath = "/mnt/media/data/torrents";
-                    TempPath = "/tmp/qBittorrent";
                     ## Misc.
                     BTProtocol = "TCP";
                     Preallocation = true;
