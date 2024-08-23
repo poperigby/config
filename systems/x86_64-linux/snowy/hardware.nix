@@ -12,13 +12,13 @@
             "usbhid"
             "xhci_pci"
         ];
-        # https://wiki.archlinux.org/title/Improving_performance#Watchdogs
-        kernelParams = [ "nowatchdog" ];
         kernelModules = [
             "k10temp"
             "kvm-amd"
             "nct6775"
         ];
+        # https://wiki.archlinux.org/title/Improving_performance#Watchdogs
+        kernelParams = [ "nowatchdog" ];
         blacklistedKernelModules = [
             # Ryzen hardware watchdog
             "sp5100-tco"
@@ -41,7 +41,7 @@
 
     hardware.enableRedistributableFirmware = true;
 
-    # Keeps microcode updated
+    # Keep microcode updated
     services.ucodenix = {
         enable = true;
         cpuSerialNumber = "0087-0F10-0000-0000-0000-0000";
