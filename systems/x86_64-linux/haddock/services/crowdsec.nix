@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
     nixpkgs.overlays = [ inputs.crowdsec.overlays.default ];
