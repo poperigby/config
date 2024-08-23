@@ -22,6 +22,7 @@ in
                 manager = {
                     sort_by = "modified";
                     sort_reverse = true;
+                    sort_dir_first = false;
                 };
             };
             keymap = {
