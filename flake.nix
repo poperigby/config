@@ -18,6 +18,7 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nixcord.url = "github:kaylorben/nixcord";
         nixos-generators = {
             url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -103,6 +104,7 @@
             # Modules that get imported to every home
             modules = with inputs; [
                 nix-colors.homeManagerModules.default
+                nixcord.homeManagerModules.nixcord
             ];
         };
     };

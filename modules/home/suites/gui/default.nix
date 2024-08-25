@@ -28,13 +28,13 @@ in
         poperigby = {
             desktops.sway.enable = true;
             programs = {
+                discord.enable = true;
                 element-desktop.enable = true;
                 firefox.enable = true;
                 mpv.enable = true;
                 rofi.enable = true;
                 swaylock.enable = true;
                 thunderbird.enable = true;
-                vesktop.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
                 zathura.enable = true;
