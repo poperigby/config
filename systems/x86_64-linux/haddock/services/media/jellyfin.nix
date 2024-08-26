@@ -1,5 +1,3 @@
-# TODO: Jellyfin only needs access to data/media
-
 { pkgs, ... }:
 
 {

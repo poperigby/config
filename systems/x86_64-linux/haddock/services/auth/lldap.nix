@@ -4,7 +4,6 @@ let
     cfg = config.services.lldap;
 in
 {
-    # TODO: Have a special user for Authelia access
     services = {
         lldap = {
             enable = true;
