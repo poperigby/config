@@ -20,12 +20,6 @@ in
                     default_policy = "deny";
                     rules = [
                         {
-                            # Required to use the Vikunja mobile app
-                            domain = "tasks.haddock.cc";
-                            policy = "bypass";
-                            resources = [ "/api.*" ];
-                        }
-                        {
                             domain = "*.haddock.cc";
                             policy = "one_factor";
                         }

@@ -19,6 +19,14 @@ in
             import auth
             reverse_proxy :3456
         '';
+        authelia.instances.haddock.settings.access_control.rules = [
+            {
+                # Required to use the Vikunja mobile app
+                domain = "tasks.haddock.cc";
+                policy = "bypass";
+                resources = [ "/api.*" ];
+            }
+        ];
     };
 
     # We need to do this because Vikunja doesn't support setting OpenID secrets with environment variables
