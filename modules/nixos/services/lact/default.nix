@@ -1,6 +1,18 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+    getExe
+    mapAttrs
+    mdDoc
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkOptionDefault
+    types
+    ;
+
     cfg = config.poperigby.services.lact;
     settingsFormat = pkgs.formats.yaml {};
 
@@ -11,11 +23,11 @@ let
     in
 {
     options.poperigby.services.lact = {
-        enable = lib.mkEnableOption "Enable LACT for controlling AMD GPUs";
+        enable = mkEnableOption "LACT for controlling AMD GPUs";
         gpuOverclock = {
-            enable = lib.mkEnableOption "Whether to enable GPU overclocking";
-            ppfeaturemask = lib.mkOption {
-                type = lib.types.str;
+            enable = mkEnableOption "GPU overclocking";
+            ppfeaturemask = mkOption {
+                type = types.str;
                 default = "0xfffd7fff";
                 example = "0xffffffff";
                 description = ''
@@ -25,19 +37,19 @@ let
                 '';
             };
         };
-        configFile = lib.mkOption {
-            type = with lib.types; nullOr path;
+        configFile = mkOption {
+            type = types.nullOr types.path;
             default = null;
-            description = lib.mdDoc ''
+            description = mdDoc ''
                 Path to a LACT `config.yaml`. Mutually exclusive with the `settings` option.
 
                 It is recommended to run the LACT GUI, generate your configuration there,
                 and then use it here.
             '';
         };
-        settings = lib.mkOption {
+        settings = mkOption {
             type = settingsFormat.type;
-            default = lib.mapAttrs (n: lib.mkOptionDefault) {
+            default = mapAttrs (n: mkOptionDefault) {
                 daemon = {
                     log_level = "info";
                     admin_groups = [ "wheel" "sudo" ];
@@ -46,7 +58,7 @@ let
                 apply_settings_timer = 5;
                 gpus = {};
             };
-            description = lib.mdDoc ''
+            description = mdDoc ''
                 LACT configuration as an attribute set.
 
                 It is recommended to run the LACT GUI, generate your configuration there,
@@ -55,7 +67,7 @@ let
         };
     };
 
-    config = lib.mkIf cfg.enable (lib.mkMerge [
+    config = mkIf cfg.enable (mkMerge [
         {
             assertions = [
                 {
@@ -74,14 +86,14 @@ let
                     After = [ "multi-user.target" ];
                 };
                 serviceConfig = {
-                    ExecStart = "${pkgs.lact}/bin/lact daemon";
+                    ExecStart = "${getExe pkgs.lact} daemon";
                     Nice = -10;
                 };
             };
 
             environment.systemPackages = [ pkgs.lact ];
         }
-        (lib.mkIf cfg.gpuOverclock.enable {
+        (mkIf cfg.gpuOverclock.enable {
             # https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
             boot.kernelParams = [ "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}" ];
         })
