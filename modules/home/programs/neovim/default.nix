@@ -2,11 +2,11 @@
 
 let
     cfg = config.poperigby.programs.neovim;
-    nvim = "${config.programs.neovim.finalPackage}/bin/nvim";
+    nvim = lib.getExe config.programs.neovim.finalPackage;
     nvimDir = "${config.poperigby.configDir}/modules/home/programs/neovim";
 in
 {
-    options.poperigby.programs.neovim.enable = lib.mkEnableOption "Enable Neovim";
+    options.poperigby.programs.neovim.enable = lib.mkEnableOption "Neovim";
 
     config = lib.mkIf cfg.enable {
         programs.neovim = {
@@ -18,22 +18,16 @@ in
             vimAlias = true;
             # Extra packages available to Neovim
             extraPackages = with pkgs; [
-                # TreeSitter needs this to install parsers
-                gcc
-                # Some plugins/tools need these to install
-                cargo
-                gnumake
-                nodePackages.npm
-                unzip
                 # Language servers
                 lua-language-server
                 nixd
                 poperigby.harper
                 rust-analyzer
             ];
-            plugins = [
+            plugins = with pkgs.vimPlugins; [
+                nvim-treesitter.withAllGrammars
                 # All other plugins are managed by lazy-nvim
-                pkgs.vimPlugins.lazy-nvim
+                lazy-nvim
             ];
         };
 
