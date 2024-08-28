@@ -13,7 +13,6 @@ in
     config = lib.mkIf cfg.enable {
         poperigby = {
             accounts.email.enable = true;
-            # Font management
             fonts.enable = true;
             nix.enable = true;
             programs = {
@@ -24,6 +23,7 @@ in
                 fzf.enable = true;
                 git.enable = true;
                 neovim.enable = true;
+                starship.enable = true;
                 tealdeer.enable = true;
                 yazi = {
                     enable = true;
@@ -39,28 +39,46 @@ in
             home-manager.enable = true;
             # Integrates nix-index with command-not-found helper
             nix-index.enable = true;
+            thefuck.enable = true;
+            zoxide.enable = true;
         };
 
-        # Programs that don't require any configuration
-        home.packages = with pkgs; [
-            asciinema
-            caligula
-            dogdns
-            dust
-            fd
-            imagemagick
-            just
-            lazygit
-            nh
-            nix-init
-            nurl
-            ouch
-            parted
-            ripgrep
-            sops
-            tree
-            vimv-rs
-        ];
+        home = {
+            # Programs that don't require any configuration
+            packages = with pkgs; [
+                asciinema
+                caligula
+                dogdns
+                dust
+                fd
+                imagemagick
+                just
+                lazygit
+                nh
+                nix-init
+                nurl
+                ouch
+                parted
+                ripgrep
+                sops
+                tree
+                vimv-rs
+            ];
+            # Handly aliases
+            shellAliases = {
+                cat = "bat";
+                find = "fd";
+                grep = "rg";
+                jrn = "sudo journalctl";
+                lg = "lazygit";
+                license = lib.getExe pkgs.license-generator;
+                nps = "nix search nixpkgs";
+                py = "python";
+                sys = "sudo systemctl";
+                syu = "systemctl --user";
+                yt = lib.getExe pkgs.yt-dlp;
+            };
+        };
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
     };
