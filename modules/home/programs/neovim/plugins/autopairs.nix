@@ -9,8 +9,8 @@
             require("nvim-autopairs").setup({
                 check_ts = true,
                 ts_config = {
+                    -- Don't automatically create pairs in strings
                     lua = { "string" },
-                    -- it will not add pair on that treesitter node
                 },
             })
         '';

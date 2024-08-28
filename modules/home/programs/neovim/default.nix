@@ -41,8 +41,8 @@ in
         };
 
         xdg.configFile = {
-            # Symlink Neovim config to ~/.config/nvim
-            "nvim" = {
+            # Symlink Neovim config to ~/.config/nvim/lua
+            "nvim/lua" = {
                 source = ./config;
                 recursive = true;
             };

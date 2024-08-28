@@ -37,7 +37,8 @@
 
                 local cmp = require("cmp")
                 local luasnip = require("luasnip")
-                return {
+
+                cmp.setup({
                     mapping = cmp.mapping.preset.insert({
                         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
                         ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -105,7 +106,7 @@
                     },
                     -- Don't jump to certain options
                     preselect = cmp.PreselectMode.None,
-                }
+                })
             '';
         }
         cmp-nvim-lsp
