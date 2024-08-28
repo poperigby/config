@@ -56,7 +56,6 @@ in
             nurl
             ouch
             parted
-            poperigby.json2nix
             ripgrep
             sops
             tree
