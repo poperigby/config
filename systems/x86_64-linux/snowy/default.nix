@@ -60,10 +60,8 @@
 
     programs.adb.enable = true;
 
-    # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
-    # Enable NetworkManager
     networking.networkmanager.enable = true;
 
     # TODO: Allow key-only auth

@@ -12,16 +12,18 @@
             backups = {
                 enable = true;
                 paths = [
-                    "/var/backup/*"
-                    "/var/lib/jellyfin/*"
-                    "/var/lib/lldap/*"
-                    "/var/lib/mealie/*"
-                    "/var/lib/nextcloud/*"
-                    "/var/lib/prowlarr/*"
-                    "/var/lib/radarr/*"
-                    "/var/lib/readarr/*"
-                    "/var/lib/sonarr/*"
-                    "/var/lib/vikunja/*"
+                    "/var/backup"
+                    "/var/lib/jellyfin"
+                    "/var/lib/lldap"
+                    "/var/lib/mealie"
+                    "/var/lib/nextcloud"
+                    "/var/lib/paperless"
+                    "/var/lib/prowlarr"
+                    "/var/lib/radarr"
+                    "/var/lib/readarr"
+                    "/var/lib/readarr"
+                    "/var/lib/sonarr"
+                    "/var/lib/vikunja"
                 ];
             };
             postfix.enable = true;
@@ -31,12 +33,10 @@
         };
     };
 
-    # Set time zone.
     time.timeZone = "America/Los_Angeles";
 
     services.openssh.enable = true;
 
-    # Enables DHCP on each ethernet and wireless interface
     networking.useDHCP = true;
 
     # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
