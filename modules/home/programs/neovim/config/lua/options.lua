@@ -36,7 +36,9 @@ for k, v in pairs(options) do
 end
 
 -- Global variables
-local globals = {}
+local globals = {
+    mapleader = ";"
+}
 
 for k, v in pairs(globals) do
     vim.g[k] = v

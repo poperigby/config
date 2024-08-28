@@ -3,7 +3,6 @@
 let
     cfg = config.poperigby.programs.neovim;
     nvim = lib.getExe config.programs.neovim.finalPackage;
-    nvimDir = "${config.poperigby.configDir}/modules/home/programs/neovim";
 in
 {
     options.poperigby.programs.neovim.enable = lib.mkEnableOption "Neovim";
@@ -24,11 +23,14 @@ in
                 poperigby.harper
                 rust-analyzer
             ];
-            plugins = with pkgs.vimPlugins; [
-                nvim-treesitter.withAllGrammars
-                # All other plugins are managed by lazy-nvim
-                lazy-nvim
-            ];
+            extraLuaConfig = # lua
+            ''
+                require("options")
+                require("lsp")
+                require("misc")
+                require("mappings")
+                require("filetype")
+            '';
         };
 
         home.sessionVariables = {
@@ -44,8 +46,6 @@ in
                 source = ./config;
                 recursive = true;
             };
-            # Raw symlink to the plugin manager lock file, so that it stays writeable
-            "nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink "${nvimDir}/lazy-lock.json";
         };
     };
 }
