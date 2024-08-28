@@ -26,9 +26,6 @@
         mkdir-nvim
         none-ls-nvim
         nvim-lspconfig
-        nvim-nu
         nvim-ts-autotag
-        typst-vim
-        vim-caddyfile  
     ];
 }
