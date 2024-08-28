@@ -47,6 +47,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         # Temporary inputs for unmerged PRs
+        caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";
         mygui.url = "github:Tofixrs/nixpkgs/mygui";
         gatus.url = "github:pizzapim/nixpkgs/gatus";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";

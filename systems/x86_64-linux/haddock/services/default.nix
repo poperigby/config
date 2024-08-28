@@ -5,7 +5,7 @@
         ./mealie.nix
         ./auditd.nix
         ./auth
-        ./caddy
+        ./caddy.nix
         ./clamav.nix
         ./crowdsec.nix
         ./ddclient.nix

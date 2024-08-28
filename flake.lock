@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "caddy": {
+      "locked": {
+        "lastModified": 1722203108,
+        "narHash": "sha256-tU+hNrETbcELBuTQtua5wFYyjW+7XlDfHNHmdP4EOLI=",
+        "owner": "Nanotwerp",
+        "repo": "nixpkgs",
+        "rev": "a22412f03017881019a1e129c885c87e4d780f96",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Nanotwerp",
+        "ref": "caddy-rebase",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "crowdsec": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -476,6 +492,7 @@
     },
     "root": {
       "inputs": {
+        "caddy": "caddy",
         "crowdsec": "crowdsec",
         "disko": "disko",
         "gatus": "gatus",
