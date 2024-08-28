@@ -47,12 +47,5 @@ in
             # Raw symlink to the plugin manager lock file, so that it stays writeable
             "nvim/lazy-lock.json".source = config.lib.file.mkOutOfStoreSymlink "${nvimDir}/lazy-lock.json";
         };
-
-
-        # Setup plugins with Lazy during activation
-        home.activation.neovim = lib.home-manager.hm.dag.entryAfter [ "linkGeneration" ] # bash
-        ''
-            run ${nvim} --headless "+Lazy! restore" +qa
-        '';
     };
 }
