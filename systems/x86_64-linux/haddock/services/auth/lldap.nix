@@ -23,9 +23,14 @@ in
         '';
     };
 
-    systemd.services.lldap = {
+    systemd.services.lldap = let
+        dependencies = [
+            "postgresql.service"
+        ];
+    in {
         # LLDAP requires PostgreSQL to be running
-        unitConfig.BindsTo = "postgresql.service";
+        after = dependencies;
+        requires = dependencies;
         # DynamicUser screws up sops-nix ownership because
         # the user doesn't exist outside of runtime.
         serviceConfig.DynamicUser = lib.mkForce false;

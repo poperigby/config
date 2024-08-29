@@ -1,4 +1,5 @@
 { config, inputs, system, ... }:
+
 let
     cfg = config.services.caddy;
 in
@@ -26,7 +27,6 @@ in
                 format console
                 exclude http.log.access
             }
-
         '';
     };
 

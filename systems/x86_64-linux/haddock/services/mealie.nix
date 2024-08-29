@@ -31,11 +31,13 @@ in
         '';
     };
 
-    systemd.services.mealie = {
-        unitConfig = {
-            After = [ "authelia-haddock.service" ];
-            Requires = [ "authelia-haddock.service" ];
-        };
+    systemd.services.mealie = let
+        dependencies = [
+            "postgresql.service"
+        ];
+    in {
+        after = dependencies;
+        requires = dependencies;
         # DynamicUser messes with sops-nix
         serviceConfig.DynamicUser = lib.mkForce false;
     };

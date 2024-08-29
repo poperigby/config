@@ -109,13 +109,17 @@ in
     # Give Authelia access to the Redis socket
     users.users.${authelia}.extraGroups = [ "redis-haddock" ];
 
-    systemd.services.${authelia} = {
-        # Authelia requires LLDAP, PostgreSQL, and Redis to be running
-        bindsTo = [
+    systemd.services.${authelia} = let
+        dependencies = [
             "lldap.service"
             "postgresql.service"
             "redis-haddock.service"
         ];
+
+    in {
+        # Authelia requires LLDAP, PostgreSQL, and Redis to be running
+        after = dependencies;
+        requires = dependencies;
         # Required for templating
         serviceConfig.Environment = "X_AUTHELIA_CONFIG_FILTERS=template";
     };

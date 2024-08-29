@@ -27,17 +27,13 @@ in
         '';
     };
 
-    systemd.services.miniflux = {
-        unitConfig = {
-            After = [
-                "authelia-haddock.service"
-                "postgresql.service"
-            ];
-            Requires = [
-                "authelia-haddock.service"
-                "postgresql.service"
-            ];
-        };
+    systemd.services.miniflux = let
+        dependencies = [
+            "postgresql.service"
+        ];
+    in {
+        after = dependencies;
+        requires = dependencies;
         # DynamicUser screws up sops-nix ownership
         serviceConfig.DynamicUser = lib.mkForce false;
     };

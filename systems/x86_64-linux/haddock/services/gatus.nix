@@ -102,15 +102,14 @@ in
         groups.gatus = {};
     };
 
-    systemd.services.gatus = {
-        unitConfig = {
-            After = [
-                "authelia-haddock.service"
-                # So the OpenID issuer URL can be accessed
-                "caddy.service"
-            ];
-            Requires = [ "authelia-haddock.service" ];
-        };
+    systemd.services.gatus = let
+        dependencies = [
+            # So the OpenID issuer URL can be accessed
+            "caddy.service"
+        ];
+    in {
+        after = dependencies;
+        requires = dependencies;
         # DynamicUser screws up sops-nix ownership
         serviceConfig.DynamicUser = lib.mkForce false;
     };

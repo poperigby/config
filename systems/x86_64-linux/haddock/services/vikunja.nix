@@ -61,11 +61,13 @@ in
     };
 
 
-    systemd.services.vikunja = {
-        unitConfig = {
-            After = [ "authelia-haddock.service" ];
-            Requires = [ "authelia-haddock.service" ];
-        };
+    systemd.services.vikunja = let
+        dependencies = [
+            "postgresql.service"
+        ];
+    in {
+        after = dependencies;
+        requires = dependencies;
         # DynamicUser screws up sops-nix ownership
         serviceConfig.DynamicUser = lib.mkForce false;
     };

@@ -91,9 +91,9 @@ in
         qbittorrent-protonvpn-port-update = {
             enable = true;
             description = "Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN";
-            bindsTo = [ "qbittorrent.service" ];
-            wantedBy = [ "multi-user.target" ];
             after = [ "qbittorrent.service" ];
+            requires = [ "qbittorrent.service" ];
+            wantedBy = [ "multi-user.target" ];
             environment = {
                 # The VPN connection interface
                 VPN_INTERFACE = "${netns}0";
