@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     imports = [
@@ -32,6 +32,10 @@
             common.enable = true;
         };
     };
+
+    environment.systemPackages = with pkgs; [
+        lynis
+    ];
 
     time.timeZone = "America/Los_Angeles";
 
