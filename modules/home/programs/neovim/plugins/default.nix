@@ -19,6 +19,7 @@
         ./trouble.nix
         ./ufo.nix
         ./which-key.nix
+        ./yazi.nix
     ];
 
     # Plugins that require no configuration

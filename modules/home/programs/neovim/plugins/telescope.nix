@@ -17,11 +17,6 @@
                         desc = "Opens Telescope",
                     },
                     {
-                        "<Leader>e",
-                        ":Telescope find_files <CR>",
-                        desc = "Explore files in Telescope",
-                    },
-                    {
                         "<Leader>b",
                         ":Telescope buffers <CR>",
                         desc = "Explore buffers in Telescope",
