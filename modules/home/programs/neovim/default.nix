@@ -18,6 +18,7 @@ in
             # Extra packages available to Neovim
             extraPackages = with pkgs; [
                 # Language servers
+                bash-language-server
                 lua-language-server
                 nixd
                 poperigby.harper

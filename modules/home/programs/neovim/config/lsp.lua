@@ -1,4 +1,4 @@
-local lspconfig = require("lspconfig")
+local lsp = require("lspconfig")
 
 -- Change diagnostic symbols in the sign column (gutter)
 local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
@@ -23,6 +23,7 @@ local format = function(client, bufnr)
 end
 
 local language_servers = {
+    bashls = {},
     clangd = {
         cmd = {
             "clangd",
@@ -61,9 +62,9 @@ local language_servers = {
     }
 }
 
-for lsp, config in pairs(language_servers) do
-    -- Automatically setup format function
+for server, config in pairs(language_servers) do
+    -- Setup format function
     config.on_attach = format
     -- Setup LSP servers
-    lspconfig[lsp].setup(config)
+    lsp[server].setup(config)
 end
