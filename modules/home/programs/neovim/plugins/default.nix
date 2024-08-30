@@ -24,6 +24,7 @@
     # Plugins that require no configuration
     programs.neovim.plugins = with pkgs.vimPlugins; [
         dressing-nvim
+        helpview-nvim
         mkdir-nvim
         none-ls-nvim
         nvim-lspconfig
