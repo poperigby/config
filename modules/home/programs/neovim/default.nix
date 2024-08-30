@@ -1,13 +1,19 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        getExe
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.programs.neovim;
-    nvim = lib.getExe config.programs.neovim.finalPackage;
+    nvim = getExe config.programs.neovim.finalPackage;
 in
 {
-    options.poperigby.programs.neovim.enable = lib.mkEnableOption "Neovim";
+    options.poperigby.programs.neovim.enable = mkEnableOption "Neovim";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.neovim = {
             enable = true;
             # Set EDITOR to nvim
@@ -27,7 +33,6 @@ in
             extraLuaConfig = # lua
             ''
                 require("options")
-                require("lsp")
                 require("misc")
                 require("mappings")
                 require("filetype")

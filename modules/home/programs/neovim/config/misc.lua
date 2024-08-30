@@ -7,12 +7,6 @@ autocmd({ "TextYankPost" }, { -- Highlight text briefly after yank
         vim.highlight.on_yank({ on_visual = false })
     end,
 })
--- autocmd({ "BufWritePost" }, { -- Automatically run `chezmoi apply` on save
---     pattern = vim.env.HOME .. "/.local/share/chezmoi/*",
---     callback = function()
---         io.popen("chezmoi apply")
---     end,
--- })
 
 -- Disable built-in plugins
 local disabled_built_ins = {

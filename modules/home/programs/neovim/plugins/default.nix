@@ -9,6 +9,7 @@
         ./gruvbox.nix
         ./highlight-colors.nix
         ./img-clip.nix
+        ./lspconfig.nix
         ./lualine.nix
         ./luasnip.nix
         ./markview.nix
@@ -28,7 +29,6 @@
         helpview-nvim
         mkdir-nvim
         none-ls-nvim
-        nvim-lspconfig
         nvim-ts-autotag
     ];
 }
