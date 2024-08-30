@@ -8,6 +8,7 @@
         ./fidget.nix
         ./gruvbox.nix
         ./highlight-colors.nix
+        ./img-clip.nix
         ./lualine.nix
         ./luasnip.nix
         ./markview.nix
