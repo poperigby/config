@@ -1,16 +1,20 @@
-# Settings that most homes will want enabled
-
 { config, inputs, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        getExe
+    ;
+
     cfg = config.poperigby.suites.common;
 in
 {
-    options.poperigby.suites.common.enable = lib.mkEnableOption "settings that most homes will want enabled";
+    options.poperigby.suites.common.enable = mkEnableOption "settings that most homes will want enabled";
 
     imports = [ inputs.nix-colors.homeManagerModules.default ];
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         poperigby = {
             accounts.email.enable = true;
             fonts.enable = true;
@@ -71,12 +75,12 @@ in
                 grep = "rg";
                 jrn = "sudo journalctl";
                 lg = "lazygit";
-                license = lib.getExe pkgs.license-generator;
+                license = getExe pkgs.license-generator;
                 nps = "nix search nixpkgs";
                 py = "python";
                 sys = "sudo systemctl";
                 syu = "systemctl --user";
-                yt = lib.getExe pkgs.yt-dlp;
+                yt = getExe pkgs.yt-dlp;
             };
         };
 
