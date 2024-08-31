@@ -40,6 +40,8 @@ in
             raze
             # Quake
             vkquake
+            # DDS viewing
+            poperigby.tacentview
         ];
 
         # Improve OpenMW performance on AMD systems
