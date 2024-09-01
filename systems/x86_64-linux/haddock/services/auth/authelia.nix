@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
     authelia = "authelia-haddock";
@@ -18,7 +18,8 @@ in
                 };
                 access_control = {
                     default_policy = "deny";
-                    rules = [
+                    # We want this rule to be low priority so it doesn't override the others
+                    rules = lib.mkAfter [
                         {
                             domain = "*.haddock.cc";
                             policy = "one_factor";
