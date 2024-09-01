@@ -1,13 +1,18 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.programs.swaylock;
     gui = config.poperigby.suites.gui;
 in
 {
-    options.poperigby.programs.swaylock.enable = lib.mkEnableOption "Enable swaylock";
+    options.poperigby.programs.swaylock.enable = mkEnableOption "Swaylock";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.swaylock = {
             enable = true;
             package = pkgs.swaylock-effects;

@@ -27,7 +27,7 @@ in
                 bash-language-server
                 lua-language-server
                 nixd
-                poperigby.harper
+                harper
                 rust-analyzer
             ];
             extraLuaConfig = # lua
