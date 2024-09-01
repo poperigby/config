@@ -1,23 +1,28 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.programs.yazi;
-  gui = config.poperigby.suites.gui.enable;
+    inherit (lib)
+        getExe
+        mkEnableOption
+        mkIf
+        mkMerge
+        optionals
+    ;
+
+    cfg = config.poperigby.programs.yazi;
+    gui = config.poperigby.suites.gui.enable;
 in
 {
     options.poperigby.programs.yazi = {
-        enable = lib.mkEnableOption "Enable Yazi file explorer";
-        default = lib.mkEnableOption "Make Yazi the default file explorer";
+        enable = mkEnableOption "Yazi file explorer";
+        default = mkEnableOption "Yazi as the default file explorer";
     };
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.yazi = {
             enable = true;
             enableFishIntegration = true;
             theme = builtins.fromTOML (builtins.readFile ./theme.toml);
-            plugins = {
-                "smart-enter" = ./plugins/smart-enter;
-            };
             settings = {
                 manager = {
                     sort_by = "modified";
@@ -37,11 +42,11 @@ in
                         run  = "plugin --sync smart-enter";
                         desc = "Enter the child directory, or open the file";
                     }
-                ] ++ lib.optionals gui [
+                ] ++ optionals gui [
                     # Enable mapping for ripdrag if GUI is enabled
                     {
                         on = [ "<C-n>" ];
-                        run = "shell '${pkgs.ripdrag}/bin/ripdrag $@ -x 2>/dev/null &' --confirm";
+                        run = "shell '${getExe pkgs.ripdrag} $@ -x 2>/dev/null &' --confirm";
                         description = "Open ripdrag for dragging and dropping";
                     }
                 ];
@@ -49,12 +54,12 @@ in
         };
 
         # Do some helpful desktop related tweaks if GUI suite is enabled
-        xdg = lib.mkIf gui (lib.mkMerge [
+        xdg = mkIf gui (mkMerge [
             {
                 desktopEntries.yazi = {
                     name = "Yazi";
                     genericName = "File Browser";
-                    exec = "${pkgs.yazi}/bin/yazi %f";
+                    exec = "${getExe pkgs.yazi} %f";
                     icon = ./icon.png;
                     terminal = true;
                     categories = [ "System" "FileTools" "FileManager" ];
