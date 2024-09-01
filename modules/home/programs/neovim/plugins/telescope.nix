@@ -10,20 +10,16 @@
                 require("telescope").setup()
                 require("telescope").load_extension("fzf")
 
+                local builtin = require("telescope.builtin")
                 require("which-key").add({
                     {
-                        "<Leader>t",
-                        ":Telescope <CR>",
-                        desc = "Opens Telescope",
+                        "<Leader>fb",
+                        builtin.buffers,
+                        desc = "Explore buffers",
                     },
                     {
-                        "<Leader>b",
-                        ":Telescope buffers <CR>",
-                        desc = "Explore buffers in Telescope",
-                    },
-                    {
-                        "<Leader>f",
-                        ":Telescope live_grep <CR>",
+                        "<Leader>fg",
+                        builtin.live_grep,
                         desc = "Search in files",
                     },
                 })
