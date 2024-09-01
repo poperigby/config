@@ -7,8 +7,8 @@
         config = # lua
         ''
             require("markview").setup({
-                modes = { "n", "i", "no", "c" },
-                hybrid_modes = { "i", "n" },
+                modes = { "i", "n", "no", "c" },
+                hybrid_modes = { "i" },
 
                 -- This is nice to have
                 callbacks = {
