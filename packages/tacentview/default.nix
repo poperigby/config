@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
     src = fetchFromGitHub {
         owner = "bluescan";
         repo = pname;
-        rev = "409049e41fd2e77540c7b875c368ddbbecf883fa";
-        hash = "sha256-5uAAYpyquidzbsnLBmV9hpZcUI8vtxW0uLcM/knMnEQ=";
+        rev = "cb674e2a4b40e534616cea17f099922199b7fac4";
+        hash = "sha256-XAyqCFiaPft/FFRRpJatN9MUIfqos3MIqVlhwDL2T90=";
     };
 
     nativeBuildInputs = with pkgs; [
@@ -40,10 +40,8 @@ stdenv.mkDerivation rec {
 
         install -D tacentview -t $out/bin
 
-        mkdir -p $out/tacentview
-        cp -r ../Assets/ -t $out/tacentview/
-
-        mkdir -p $out/share
+        mkdir -p $out/share/tacentview
+        cp -r ../Assets/* -t $out/share/tacentview/
         cp -r ../Linux/deb_template/usr/share/icons $out/share
         cp -r ../Linux/deb_template/usr/share/applications $out/share
 
@@ -58,9 +56,6 @@ stdenv.mkDerivation rec {
         # So Tacent View can find its assets
         wrapProgram $out/bin/tacentview \
             --set NIX_DATA_DIR $out
-
-        substituteInPlace $out/share/applications/tacentview.desktop \
-            --replace "tacentview.png" "tacentview"
     '';
 
     meta = {
