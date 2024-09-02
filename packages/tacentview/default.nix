@@ -12,14 +12,13 @@ stdenv.mkDerivation rec {
     src = fetchFromGitHub {
         owner = "bluescan";
         repo = pname;
-        rev = "cb674e2a4b40e534616cea17f099922199b7fac4";
-        hash = "sha256-XAyqCFiaPft/FFRRpJatN9MUIfqos3MIqVlhwDL2T90=";
+        rev = "a863c4bbe36dc3975fde8dfc731316b39f0a9217";
+        hash = "sha256-jM8mk4D4jWXIJbOaVlHFzM/Z8rBlpV52yomfte3Fj9Y=";
     };
 
     nativeBuildInputs = with pkgs; [
         cmake
         ninja
-        makeWrapper
     ];
 
     buildInputs = with pkgs; [
@@ -49,13 +48,7 @@ stdenv.mkDerivation rec {
     '';
 
     postFixup = ''
-        patchelf \
-            --add-needed ${pkgs.libGL}/lib/libGL.so.1 \
-            $out/bin/tacentview
-
-        # So Tacent View can find its assets
-        wrapProgram $out/bin/tacentview \
-            --set NIX_DATA_DIR $out
+        patchelf --add-needed ${pkgs.libGL}/lib/libGL.so.1 $out/bin/tacentview
     '';
 
     meta = {
