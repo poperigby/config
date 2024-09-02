@@ -63,12 +63,13 @@ in
                 nurl
                 ouch
                 parted
+                poperigby.nix-explore
                 ripgrep
                 sops
                 tree
                 vimv-rs
             ];
-            # Handly aliases
+            # Handy aliases
             shellAliases = {
                 cat = "bat";
                 find = "fd";
