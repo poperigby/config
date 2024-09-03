@@ -1,22 +1,29 @@
 {
-    pkgs,
+    curl,
+    gawk,
+    iptables,
+    jq,
+    lib,
+    libnatpmp,
     writeShellScriptBin,
     ...
 }:
 
 let
-    awk = "${pkgs.gawk}/bin/awk";
-    curl = "${pkgs.curl}/bin/curl";
-    iptables = "${pkgs.iptables}/bin/iptables";
-    jq = "${pkgs.jq}/bin/jq";
-    natpmpc = "${pkgs.libnatpmp}/bin/natpmpc";
+    inherit (lib) getExe;
+
+    gawk' = getExe gawk;
+    curl' = getExe curl;
+    iptables' = getExe iptables;
+    jq' = getExe jq;
+    natpmpc' = getExe libnatpmp;
 in
-writeShellScriptBin "qbittorrent-protonvpn-port-update" ''
+writeShellScriptBin "qbittorrent-vpn-port-update" ''
 trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
-set -eou pipefail
+set -eou
 
-echo "Starting qbittorent-protonvpn-port-update\n"
+echo "Starting qbittorent-vpn-port-update\n"
 echo "Config:"
 echo "VPN_INTERFACE=$VPN_INTERFACE"
 echo "QBITTORRENT_WEBUI_HOST=$QBITTORRENT_WEBUI_HOST"
@@ -48,7 +55,7 @@ while true; do
     fi
 
     echo "Getting forwarded port"
-    mapping_info=$(${natpmpc} -a 1 0 tcp 60 -g 10.2.0.1)
+    mapping_info=$(${natpmpc'} -a 1 0 tcp 60 -g 10.2.0.1)
     if [[ $mapping_info =~ Mapped\ public\ port\ ([0-9]+) ]]; then
         new_port=''${BASH_REMATCH[1]}
         echo "Mapped public port: $new_port"
@@ -83,7 +90,7 @@ while true; do
     login_data="username=$QBITTORRENT_WEBUI_USERNAME&password=$QBITTORRENT_WEBUI_PASSWORD"
     login_url="$qbittorrent_base_url/api/v2/auth/login"
     find_cookie="/set-cookie/ {print substr(\$2, 1, length(\$2)-1)}"
-    cookie=$(${curl} -i --data "$login_data" $login_url 2> /dev/null | ${awk} -e "$find_cookie")
+    cookie=$(${curl'} -i --data "$login_data" $login_url 2> /dev/null | ${gawk'} -e "$find_cookie")
 
     if [ -z "$cookie" ]; then
         echo "Failed to login to qBittorrent WebUI at $login_url"
@@ -95,14 +102,14 @@ while true; do
 
     echo "Sending new port to qBittorrent WebUI"
     set_preferences_url="$qbittorrent_base_url/api/v2/app/setPreferences"
-    ${curl} $set_preferences_url --cookie "$cookie" -d "json={\"listen_port\":$new_port}" 2> /dev/null
+    ${curl'} $set_preferences_url --cookie "$cookie" -d "json={\"listen_port\":$new_port}" 2> /dev/null
 
     echo "Confirming new port"
     get_preferences_url="$qbittorrent_base_url/api/v2/app/preferences"
-    confirm_port=$(${curl} $get_preferences_url --cookie "$cookie" 2> /dev/null | ${jq} .listen_port)
+    confirm_port=$(${curl'} $get_preferences_url --cookie "$cookie" 2> /dev/null | ${jq'} .listen_port)
 
     echo "Logging out"
-    ${curl} -X POST $qbittorrent_base_url/api/v2/auth/logout --cookie "$cookie" 2> /dev/null
+    ${curl'} -X POST $qbittorrent_base_url/api/v2/auth/logout --cookie "$cookie" 2> /dev/null
 
     if [ "$confirm_port" != "$new_port" ]; then
         echo "Errror: Failed updating port"
@@ -116,11 +123,11 @@ while true; do
 
     # Add the new rule if it doesn't already exist
     NEW_RULE="INPUT -p tcp --dport $new_port -j ACCEPT -i $VPN_INTERFACE"
-    ${iptables} -C $NEW_RULE || ${iptables} -A $NEW_RULE
+    ${iptables'} -C $NEW_RULE || ${iptables'} -A $NEW_RULE
     # Delete the old rule if it exists
     OLD_RULE="INPUT -p tcp --dport $current_port -j ACCEPT -i $VPN_INTERFACE"
-    if ${iptables} -C $OLD_RULE 2> /dev/null; then
-        ${iptables} -D $OLD_RULE
+    if ${iptables'} -C $OLD_RULE 2> /dev/null; then
+        ${iptables'} -D $OLD_RULE
     fi
 
     echo "Successfully updated port"

@@ -88,7 +88,7 @@ in
             };
         };
         # Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN
-        qbittorrent-protonvpn-port-update = {
+        qbittorrent-vpn-port-update = {
             enable = true;
             description = "Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN";
             after = [ "qbittorrent.service" ];
@@ -108,7 +108,7 @@ in
             };
             serviceConfig = {
                 Type = "simple";
-                ExecStart = lib.getExe pkgs.poperigby.qbittorrent-protonvpn-port-update;
+                ExecStart = lib.getExe pkgs.poperigby.qbittorrent-vpn-port-update;
                 User = "qbittorrent";
                 Group = "qbittorrent";
             };
