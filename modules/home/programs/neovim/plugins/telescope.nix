@@ -22,6 +22,11 @@
                         builtin.live_grep,
                         desc = "Search in files",
                     },
+                    {
+                        "<Leader>fo",
+                        builtin.oldfiles,
+                        desc = "Explore previously opened files",
+                    },
                 })
             '';
         }
