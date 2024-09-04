@@ -8,21 +8,12 @@
     ];
 
     users = {
-        users = {
-            # This user owns /mnt/media/data/media
-            media = {
-                group = "media";
-                isSystemUser = true;
-            };
-            # This user owns /mnt/media/data/torrents
-            torrents = {
-                group = "torrents";
-                isSystemUser = true;
-            };
+        # This user owns /mnt/media/data
+        users.media = {
+            group = "media";
+            isSystemUser = true;
         };
-        # Members of this group are able to access /mnt/media/data/media
+        # Members of this group are able to access /mnt/media/data
         groups.media = {};
-        # Members of this group are able to access /mnt/media/data/torrents
-        groups.torrents = {};
     };
 }

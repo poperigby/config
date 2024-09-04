@@ -19,11 +19,11 @@
         jellyfin-ffmpeg
     ];
 
-    # Let's Jellyfin's user access rendering devices
     users.users.jellyfin.extraGroups = [
+        # Let's Jellyfin's user access rendering devices
         "render"
         "video"
-        # Gives access to /mnt/media/data/media
+        # Gives access to /mnt/media/data
         "media"
     ];
 }

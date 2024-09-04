@@ -60,8 +60,8 @@ in
         '';
     };
 
-    # Give qBittorrent access to /mnt/media/data/torrents
-    users.users.qbittorrent.extraGroups = [ "torrents" ];
+    # Give qBittorrent access to /mnt/media/data
+    users.users.qbittorrent.extraGroups = [ "media" ];
 
     # Define a network namespace with a VPN for qBittorrent
     vpnnamespaces."${netns}" = {

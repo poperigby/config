@@ -49,9 +49,9 @@
         };
     };
 
-    # Give the *arr apps access to data/media and data/torrents
+    # Give the *arr apps access to data/ and data/
     users.users = let
-        groups = [ "media" "torrents" ];
+        groups = [ "media" ];
     in {
         radarr.extraGroups = groups;
         readarr.extraGroups = groups;
