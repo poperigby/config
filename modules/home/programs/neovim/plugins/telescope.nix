@@ -18,6 +18,11 @@
                         desc = "Explore buffers",
                     },
                     {
+                        "<Leader>fd",
+                        builtin.diagnostics,
+                        desc = "Explore diagnostics",
+                    },
+                    {
                         "<Leader>fg",
                         builtin.live_grep,
                         desc = "Search in files",

@@ -17,7 +17,6 @@
         ./todo-comments.nix
         ./toggleterm.nix
         ./treesitter.nix
-        ./trouble.nix
         ./ufo.nix
         ./which-key.nix
         ./yazi.nix
