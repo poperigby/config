@@ -109,8 +109,6 @@ in
             serviceConfig = {
                 Type = "simple";
                 ExecStart = lib.getExe pkgs.poperigby.qbittorrent-vpn-port-update;
-                User = "qbittorrent";
-                Group = "qbittorrent";
             };
             # Make the port updater run in the ProtonVPN network namespace
             vpnconfinement = {
