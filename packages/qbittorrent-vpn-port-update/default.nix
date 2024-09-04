@@ -10,11 +10,14 @@
 }:
 
 let
-    inherit (lib) getExe;
+    inherit (lib)
+        getExe
+        getExe'
+    ;
 
     gawk' = getExe gawk;
     curl' = getExe curl;
-    iptables' = getExe iptables;
+    iptables' = getExe' iptables "iptables";
     jq' = getExe jq;
     natpmpc' = getExe libnatpmp;
 in
