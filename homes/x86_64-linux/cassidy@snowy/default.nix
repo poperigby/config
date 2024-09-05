@@ -18,11 +18,11 @@
                 # Game library roots from which saves will be backed up
                 roots = [
                     {
-                        path = "/home/cassidy/.local/share/Steam";
+                        path = "~/.local/share/Steam";
                         store = "steam";
                     }
                     {
-                        path = "/home/cassidy/.config/heroic";
+                        path = "~/.config/heroic";
                         store = "heroic";
                     }
                     {
@@ -37,12 +37,15 @@
                 customGames = [
                     {
                         name = "OpenMW";
-                        files = [ "/home/cassidy/.local/share/openmw/saves" ];
+                        files = [ "~/.local/share/openmw/saves" ];
+                    }
+                    {
+                        name = "GZDoom";
+                        files = [ "~/.config/gzdoom/savegames" ];
                     }
                 ];
                 backup.path = "~/.local/state/backups/ludusavi";
                 restore.path = "~/.local/state/backups/ludusavi";
-
         };
     };
 
