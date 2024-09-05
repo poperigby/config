@@ -509,6 +509,7 @@
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
         "ucodenix": "ucodenix",
+        "vim-zscript": "vim-zscript",
         "vpnconfinement": "vpnconfinement"
       }
     },
@@ -640,6 +641,22 @@
       "original": {
         "owner": "e-tho",
         "repo": "ucodenix",
+        "type": "github"
+      }
+    },
+    "vim-zscript": {
+      "locked": {
+        "lastModified": 1725511841,
+        "narHash": "sha256-bW11+r6uSvC/JPZOcIT3nucwvJ1Waalkt6yLUyBsxsk=",
+        "owner": "poperigby",
+        "repo": "nixpkgs",
+        "rev": "1403b9cb0f43d27568d303432feb4f43d2dbf393",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poperigby",
+        "ref": "vim-zscript",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
