@@ -17,6 +17,13 @@ in
                 experimental-features = [ "nix-command" "flakes" ];
                 # Only allow users in the `wheel` group to access Nix
                 allowed-users = [ "@wheel" ];
+                # Extra binary caches
+                substituters = [
+                    "https://nix-community.cachix.org"
+                ];
+                trusted-public-keys = [
+                    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                ];
             };
             # Every day, detects files in the store that have identical contents,
             # and replaces them with hard links to a single copy.
