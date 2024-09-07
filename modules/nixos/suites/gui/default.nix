@@ -5,7 +5,7 @@ let
 in
 {
     options.poperigby.suites.gui = {
-        enable = lib.mkEnableOption "Enable GUI";
+        enable = lib.mkEnableOption "GUI";
     };
 
     config = lib.mkIf cfg.enable {
@@ -15,11 +15,15 @@ in
             };
         };
 
-        # Required for Sway to launch
-        security.polkit.enable = true;
+        security = {
+            # Required for Sway to launch
+            polkit.enable = true;
+            # Required for Swaylock to work
+            pam.services.swaylock = {};
+        };
 
-        # Required for Swaylock to work
-        security.pam.services.swaylock = {};
+        # Show desktop notifications for system bus
+        services.systembus-notify.enable = true;
 
         # Required for tweaking GTK settings
         programs.dconf.enable = true;

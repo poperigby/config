@@ -21,6 +21,7 @@
                     "/home/*/.local/state/backups"
                 ];
             };
+            earlyoom.enable = true;
             geolocation.enable = true;
             lact = {
                 enable = true;
