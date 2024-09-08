@@ -82,9 +82,9 @@ in
     systemd.services = {
         qbittorrent = {
             # Make qBittorrent run in the ProtonVPN network namespace
-            vpnconfinement = {
+            vpnConfinement = {
                 enable = true;
-                vpnnamespace = netns;
+                vpnNamespace = netns;
             };
         };
         # Automatically update the qBittorrent torrenting port with the one forwarded in ProtonVPN
@@ -111,7 +111,7 @@ in
                 ExecStart = lib.getExe pkgs.poperigby.qbittorrent-vpn-port-update;
             };
             # Make the port updater run in the ProtonVPN network namespace
-            vpnconfinement = {
+            vpnConfinement = {
                 enable = true;
                 vpnnamespace = netns;
             };
@@ -128,9 +128,9 @@ in
                     -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) \
                     https://t.myanonamouse.net/json/dynamicSeedbox.php
             '';
-            vpnconfinement = {
+            vpnConfinement = {
                 enable = true;
-                vpnnamespace = netns;
+                vpnNamespace = netns;
             };
         };
     };

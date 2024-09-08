@@ -42,7 +42,7 @@
             url = "github:e-tho/ucodenix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        vpnconfinement = {
+        vpnConfinement = {
             url = "github:Maroka-chan/VPN-Confinement";
             inputs.nixpkgs.follows = "nixpkgs";
         };
@@ -78,7 +78,7 @@
                     modules = with inputs; [
                         crowdsec.nixosModules.crowdsec
                         crowdsec.nixosModules.crowdsec-firewall-bouncer
-                        vpnconfinement.nixosModules.default
+                        vpnConfinement.nixosModules.default
                     ];
                 };
                 # Desktop

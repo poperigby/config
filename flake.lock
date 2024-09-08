@@ -108,7 +108,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "vpnconfinement",
+          "vpnConfinement",
           "nixpkgs"
         ]
       },
@@ -510,7 +510,7 @@
         "sops-nix": "sops-nix",
         "ucodenix": "ucodenix",
         "vim-zscript": "vim-zscript",
-        "vpnconfinement": "vpnconfinement"
+        "vpnConfinement": "vpnConfinement"
       }
     },
     "snowfall-lib": {
@@ -660,7 +660,7 @@
         "type": "github"
       }
     },
-    "vpnconfinement": {
+    "vpnConfinement": {
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": [
@@ -668,11 +668,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718924235,
-        "narHash": "sha256-lu78iQzZGBE9bIvlYgbBYiJ85wR5zSBUPjIQkg6cRQc=",
+        "lastModified": 1725761269,
+        "narHash": "sha256-zb0aQe/X5Lf6H1l6O8LLmNbDpwndnNYKBBkqhXs7c0M=",
         "owner": "Maroka-chan",
         "repo": "VPN-Confinement",
-        "rev": "790f70888c69d55c92442e702647dc619dd7bc61",
+        "rev": "964e83d120550c2303ae251f05d8c36755556631",
         "type": "github"
       },
       "original": {
