@@ -64,7 +64,7 @@ in
     users.users.qbittorrent.extraGroups = [ "media" ];
 
     # Define a network namespace with a VPN for qBittorrent
-    vpnnamespaces."${netns}" = {
+    vpnNamespaces."${netns}" = {
         enable = true;
         wireguardConfigFile = config.sops.templates.wireguard-config-file.path;
         accessibleFrom = [
@@ -113,7 +113,7 @@ in
             # Make the port updater run in the ProtonVPN network namespace
             vpnConfinement = {
                 enable = true;
-                vpnnamespace = netns;
+                vpnNamespace = netns;
             };
         };
         # Update my MyAnonaMouse session IP
