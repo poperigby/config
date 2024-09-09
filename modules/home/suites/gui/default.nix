@@ -1,30 +1,43 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        mkOption
+    ;
+
+    inherit (lib.types)
+        int
+        nullOr
+        path
+        str
+    ;
+
     cfg = config.poperigby.suites.gui;
 in
 {
     options.poperigby.suites.gui = {
-        enable = lib.mkEnableOption "Enable GUI";
-        adaptiveSync = lib.mkEnableOption "Enable adaptive sync (FreeSync)";
-        resolution = lib.mkOption {
-            type = lib.types.str;
+        enable = mkEnableOption "GUI";
+        adaptiveSync = mkEnableOption "adaptive sync (FreeSync)";
+        resolution = mkOption {
+            type = str;
             default = "";
             description = "The resolution you want to use, in the form of <width>x<height>";
         };
-        refreshRate = lib.mkOption {
-            type = lib.types.int;
+        refreshRate = mkOption {
+            type = int;
             default = 60;
             description = "The refresh rate you want to use";
         };
-        wallpaper = lib.mkOption {
-            type = lib.types.nullOr lib.types.path;
+        wallpaper = mkOption {
+            type = nullOr path;
             default = null;
             description = "The path to a wallpaper you want to use.";
         };
     };
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         poperigby = {
             desktops.sway.enable = true;
             programs = {
@@ -60,6 +73,7 @@ in
             pwvucontrol
             satty
             slurp
+            tor-browser
         ];
 
         xdg.portal = {
@@ -77,14 +91,16 @@ in
             gtk.enable = true;
         };
 
-        gtk = {
+        gtk = let
+            css = builtins.readFile ./gtk.css; 
+        in {
             enable = true;
             theme = {
                 name = "adw-gtk3-dark";
                 package = pkgs.adw-gtk3;
             };
-            gtk4.extraCss = builtins.readFile ./gtk.css;
-            gtk3.extraCss = builtins.readFile ./gtk.css;
+            gtk4.extraCss = css;
+            gtk3.extraCss = css;
         };
 
         dconf.settings = {
