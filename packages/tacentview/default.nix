@@ -1,8 +1,14 @@
 {
+    cmake,
     fetchFromGitHub,
     lib,
-    pkgs,
+    libGL,
+    ninja,
+    poperigby,
     stdenv,
+    xorg,
+    zenity,
+    ...
 }:
 
 stdenv.mkDerivation rec {
@@ -12,16 +18,16 @@ stdenv.mkDerivation rec {
     src = fetchFromGitHub {
         owner = "bluescan";
         repo = pname;
-        rev = "a863c4bbe36dc3975fde8dfc731316b39f0a9217";
-        hash = "sha256-jM8mk4D4jWXIJbOaVlHFzM/Z8rBlpV52yomfte3Fj9Y=";
+        rev = "17a3cfa645dd14ffe07b1b5225c26fc435229779";
+        hash = "sha256-ynfx8COjtXLyH7+Fm4ODtYzWXOJBK0e21hdy3XKV+GI=";
     };
 
-    nativeBuildInputs = with pkgs; [
+    nativeBuildInputs = [
         cmake
         ninja
     ];
 
-    buildInputs = with pkgs; [
+    buildInputs = [
         libGL
         poperigby.tacent
         xorg.libX11
@@ -30,7 +36,7 @@ stdenv.mkDerivation rec {
     ];
 
     cmakeFlags = [
-        "-DFETCHCONTENT_SOURCE_DIR_TACENT=${pkgs.poperigby.tacent.src}"
+        "-DFETCHCONTENT_SOURCE_DIR_TACENT=${poperigby.tacent.src}"
         "-DPACKAGE_NIX=True"
     ];
 
@@ -40,7 +46,7 @@ stdenv.mkDerivation rec {
         install -D tacentview -t $out/bin
 
         mkdir -p $out/share/tacentview
-        cp -r ../Assets/* -t $out/share/tacentview/
+        cp -r ../Assets $out/share/tacentview/
         cp -r ../Linux/deb_template/usr/share/icons $out/share
         cp -r ../Linux/deb_template/usr/share/applications $out/share
 
@@ -48,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
 
     postFixup = ''
-        patchelf --add-needed ${pkgs.libGL}/lib/libGL.so.1 $out/bin/tacentview
+        patchelf --add-needed ${libGL}/lib/libGL.so.1 $out/bin/tacentview
     '';
 
     meta = {
