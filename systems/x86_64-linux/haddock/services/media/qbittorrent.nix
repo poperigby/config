@@ -1,14 +1,12 @@
 # Setup based on https://trash-guides.info/Hardlinks/How-to-setup-for/Native/#torrent-clients
 
-{ config, inputs, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     cfg = config.services.qbittorrent;
     netns = "proton";
 in
 {
-    imports = [ "${inputs.qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix" ];
-
     services = {
         qbittorrent = {
             enable = true;
@@ -137,7 +135,8 @@ in
 
     sops = {
         templates.wireguard-config-file = {
-            content = ''
+            content = # ini
+            ''
                 [Interface]
                 # Key for Haddock
                 # Bouncing = 20

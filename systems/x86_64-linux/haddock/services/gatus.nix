@@ -1,20 +1,17 @@
-{ config, inputs, lib, ... }:
+{ config, ... }:
 
 let
     cfg = config.services.gatus;
 in
 {
-    imports = [ "${inputs.gatus}/nixos/modules/services/monitoring/gatus.nix" ];
-
     services = {
         gatus = {
             enable = true;
             settings = {
-                debug = true;
                 endpoints = [
                     {
                         name = "Authelia";
-                        url = "https://auth.haddock.cc";
+                        url = "http://localhost:9091";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
@@ -77,70 +74,11 @@ in
                         ];
                     }
                 ];
-                security.oidc = {
-                    issuer-url = "https://auth.haddock.cc";
-                    redirect-url = "https://status.haddock.cc/authorization-code/callback";
-                    client-id = "$OIDC_CLIENT_ID";
-                    client-secret = "$OIDC_CLIENT_SECRET";
-                    scopes = [ "openid" ];
-                };
             };
-            environmentFile = config.sops.templates.gatus-secrets.path;
         };
         caddy.virtualHosts."status.haddock.cc".extraConfig = ''
             import auth
             reverse_proxy :${builtins.toString cfg.settings.web.port}
         '';
-    };
-
-    # Setup a user and group for Gatus
-    users = {
-        users.gatus = {
-            group = "gatus";
-            isSystemUser = true;
-        };
-        groups.gatus = {};
-    };
-
-    systemd.services.gatus = let
-        dependencies = [
-            # So the OpenID issuer URL can be accessed
-            "caddy.service"
-        ];
-    in {
-        after = dependencies;
-        requires = dependencies;
-        # DynamicUser screws up sops-nix ownership
-        serviceConfig.DynamicUser = lib.mkForce false;
-    };
-
-    sops = {
-        templates.gatus-secrets = {
-            content = ''
-                OIDC_CLIENT_ID=${config.sops.placeholder.gatus-oidc-client-id_gatus} 
-                OIDC_CLIENT_SECRET=${config.sops.placeholder.gatus-oidc-client-secret_gatus} 
-            '';
-            owner = "gatus";
-        };
-        secrets = {
-            # Gatus
-            gatus-oidc-client-id_gatus = {
-                key = "haddock/gatus/oidc_client_id";
-                owner = "gatus";
-            };
-            gatus-oidc-client-secret_gatus = {
-                key = "haddock/gatus/oidc_client_secret";
-                owner = "gatus";
-            };
-            # Authelia
-            gatus-oidc-client-id_authelia = {
-                key = "haddock/gatus/oidc_client_id";
-                owner = "authelia-haddock";
-            };
-            gatus-oidc-client-secret_authelia = {
-                key = "haddock/gatus/oidc_client_secret";
-                owner = "authelia-haddock";
-            };
-        };
     };
 }

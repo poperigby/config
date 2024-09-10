@@ -79,6 +79,8 @@
                         crowdsec.nixosModules.crowdsec
                         crowdsec.nixosModules.crowdsec-firewall-bouncer
                         vpn-confinement.nixosModules.default
+                        "${gatus}/nixos/modules/services/monitoring/gatus.nix"
+                        "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
                     ];
                 };
                 # Desktop

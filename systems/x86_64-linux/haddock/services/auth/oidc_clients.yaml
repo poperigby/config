@@ -1,15 +1,6 @@
 identity_providers:
   oidc:
     clients:
-      - client_name: 'Gatus'
-        client_id: {{ secret "/run/secrets/gatus-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
-        client_secret: {{ secret "/run/secrets/gatus-oidc-client-secret_authelia" | mindent 10 "|" | msquote }}
-        public: false
-        authorization_policy: 'one_factor'
-        redirect_uris:
-          - 'https://status.haddock.cc/authorization-code/callback'
-        scopes:
-          - 'openid'
       - client_name: 'Mealie'
         client_id: {{ secret "/run/secrets/mealie-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
         public: true
