@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
     pname = "tacentview";
-    version = "1.0.44";
+    version = "1.0.46";
 
     src = fetchFromGitHub {
         owner = "bluescan";
         repo = pname;
-        rev = "17a3cfa645dd14ffe07b1b5225c26fc435229779";
-        hash = "sha256-ynfx8COjtXLyH7+Fm4ODtYzWXOJBK0e21hdy3XKV+GI=";
+        rev = version;
+        hash = "sha256-d4A26p1hmkYEZ+h6kRbHHr4QmAc3PMe3qYdkeKIRGkU=";
     };
 
     nativeBuildInputs = [

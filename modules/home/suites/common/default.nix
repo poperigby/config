@@ -55,6 +55,7 @@ in
                 dogdns
                 dust
                 fd
+                file
                 imagemagick
                 just
                 lazygit

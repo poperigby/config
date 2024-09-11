@@ -25,9 +25,10 @@ in
             extraPackages = with pkgs; [
                 # Language servers
                 bash-language-server
+                clang-tools
+                harper
                 lua-language-server
                 nixd
-                harper
                 rust-analyzer
             ];
             extraLuaConfig = # lua
