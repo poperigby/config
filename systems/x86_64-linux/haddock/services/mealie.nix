@@ -13,6 +13,8 @@ in
                 MAX_WORKERS = 1;
                 WEB_CONCURRENCY = 1;
                 BASE_URL = "https://food.haddock.cc";
+                # Time until session expires
+                TOKEN_TIME = 2200;
                 # Database
                 DB_ENGINE = "postgres";
                 # https://github.com/mealie-recipes/mealie/issues/3573
