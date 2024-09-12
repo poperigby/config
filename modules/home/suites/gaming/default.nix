@@ -38,6 +38,8 @@ in
             raze
             # Quake
             vkquake
+            # Baldur's Gate 3
+            poperigby.lampray
             # DDS viewing
             poperigby.tacentview
         ] ++ (with inputs.openmw-nix.packages.${system}; [
