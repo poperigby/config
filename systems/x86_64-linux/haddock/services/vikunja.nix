@@ -39,6 +39,8 @@ in
                 interface: ":${builtins.toString cfg.port}"
                 frontendurl: "${cfg.frontendScheme}://${cfg.frontendHostname}/"
                 timezone: "America/Los_Angeles"
+                # Increase time until user is logged out to 3 months
+                jwtttl: 7889400
             database:
                 type: "${cfg.database.type}"
                 host: "${cfg.database.host}"

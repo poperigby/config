@@ -20,6 +20,7 @@
                     "/var/lib/paperless"
                     "/var/lib/prowlarr"
                     "/var/lib/radarr"
+                    "/var/lib/radicale"
                     "/var/lib/readarr"
                     "/var/lib/readarr"
                     "/var/lib/sonarr"
