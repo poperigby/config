@@ -57,7 +57,7 @@ in
                       - name: "Authelia"
                         authurl: "https://auth.haddock.cc"
                         clientid: "${config.sops.placeholder.vikunja-oidc-client-id_vikunja}"
-                        clientsecret: "${config.sops.placeholder.vikunja-oidc-client-secret_vikunja}"
+                        clientsecret: "${config.sops.placeholder."haddock/vikunja/oidc_client_secret/vikunja"}"
         '';
         owner = "vikunja";
     };
@@ -87,17 +87,11 @@ in
             key = "haddock/vikunja/oidc_client_id";
             owner = "vikunja";
         };
-        vikunja-oidc-client-secret_vikunja = {
-            key = "haddock/vikunja/oidc_client_secret";
-            owner = "vikunja";
-        };
         vikunja-oidc-client-id_authelia = {
             key = "haddock/vikunja/oidc_client_id";
             owner = "authelia-haddock";
         };
-        vikunja-oidc-client-secret_authelia = {
-            key = "haddock/vikunja/oidc_client_secret";
-            owner = "authelia-haddock";
-        };
+        "haddock/vikunja/oidc_client_secret/vikunja".owner = "vikunja";
+        "haddock/vikunja/oidc_client_secret/authelia".owner = "authelia-haddock";
     };
 }

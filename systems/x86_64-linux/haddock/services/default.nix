@@ -13,6 +13,7 @@
         ./mealie.nix
         ./media
         ./miniflux.nix
+        ./ocis.nix
         ./postgresql.nix
         ./prusalink.nix
         ./radicale.nix

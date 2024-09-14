@@ -1,39 +1,48 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+    inherit (lib)
+        mkForce
+        getExe
+    ;
+in
 {
     services = {
         radicale = {
             enable = true;
-            settings = {
-                # auth = {
-                #     type = "radicale_auth_ldap";
-                #     ldap_url = "ldap://localhost:3890";
-                #     ldap_base = "dc=haddock,dc=cc";
-                #     ldap_attribute = "uid";
-                #     ldap_filter = "(objectClass=person)";
-                #     ldap_binddn = "uid=radicale,ou=people,dc=haddock,dc=cc";
-                #     ldap_password = "CHANGEME";
-                #     ldap_scope = "LEVEL";
-                #     ldap_support_extended = "no";
-                # };
-            };
         };
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
             redir / /radicale/
             handle_path /radicale/* {
-                reverse_proxy localhost:5232 {
+                reverse_proxy :5232 {
                     header_up X-Script-Name /radicale
                 }
             }
         '';
     };
 
-    environment.systemPackages = [ pkgs.poperigby.radicale3-ldap-auth ];
+    sops = {
+        templates.radicale-config = {
+            content = # ini
+            ''
+                [auth]
+                type = ldap
+                ldap_uri = ldap://localhost:3890
+                ldap_base = dc=haddock,dc=cc
+                ldap_reader_dn = uid=radicale,ou=people,dc=haddock,dc=cc
+                ldap_secret = ${config.sops.placeholder."haddock/radicale/ldap_secret"}
+                ldap_filter = (objectClass=person)
+            '';
+            owner = "radicale";
+        };
+        secrets."haddock/radicale/ldap_secret".owner = "radicale";
+    };
 
     systemd.services.radicale = let
-       dependencies = [ "lldap.nix" ];
+       dependencies = [ "lldap.service" ];
     in {
         after = dependencies;
         requires = dependencies;
+        serviceConfig.ExecStart = mkForce "${getExe pkgs.radicale} -C ${config.sops.templates.radicale-config.path}";
     };
 }

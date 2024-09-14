@@ -15,7 +15,7 @@ in
                 # OpenID Connect
                 OAUTH2_PROVIDER = "oidc";
                 OAUTH2_CLIENT_ID_FILE = config.sops.secrets.miniflux-oidc-client-id_miniflux.path;
-                OAUTH2_CLIENT_SECRET_FILE = config.sops.secrets.miniflux-oidc-client-secret_miniflux.path;
+                OAUTH2_CLIENT_SECRET_FILE = config.sops.secrets."haddock/miniflux/oidc_client_secret/miniflux".path;
                 OAUTH2_REDIRECT_URL = "https://news.haddock.cc/oauth2/oidc/callback";
                 OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://auth.haddock.cc";
                 OAUTH2_USER_CREATION = "1";
@@ -57,24 +57,16 @@ in
         };
         secrets = {
             "haddock/miniflux/admin_password" = {};
-            # Miniflux
             miniflux-oidc-client-id_miniflux = {
                 key = "haddock/miniflux/oidc_client_id";
                 owner = "miniflux";
             };
-            miniflux-oidc-client-secret_miniflux = {
-                key = "haddock/miniflux/oidc_client_secret";
-                owner = "miniflux";
-            };
-            # Authelia (read from authelia/oidc_clients.yaml)
             miniflux-oidc-client-id_authelia = {
                 key = "haddock/miniflux/oidc_client_id";
                 owner = "authelia-haddock";
             };
-            miniflux-oidc-client-secret_authelia = {
-                key = "haddock/miniflux/oidc_client_secret";
-                owner = "authelia-haddock";
-            };
+            "haddock/miniflux/oidc_client_secret/miniflux".owner = "miniflux";
+            "haddock/miniflux/oidc_client_secret/authelia".owner = "authelia-haddock";
         };
     };
 }
