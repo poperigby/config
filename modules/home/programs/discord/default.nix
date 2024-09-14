@@ -1,14 +1,21 @@
 { config, lib, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.programs.discord;
 in
 {
-    options.poperigby.programs.discord.enable = lib.mkEnableOption "Discord";
+    options.poperigby.programs.discord.enable = mkEnableOption "Discord";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.nixcord = {
             enable = true;
+            vesktop.enable = true;
+            discord.enable = false;
             config = {
                 plugins = {
                     alwaysTrust.enable = true;
