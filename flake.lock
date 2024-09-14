@@ -454,6 +454,22 @@
         "type": "github"
       }
     },
+    "ocis": {
+      "locked": {
+        "lastModified": 1725867985,
+        "narHash": "sha256-LPfPSg4RlENIbSb/hWGY+kZPPdQRJCayLssJibHi+pQ=",
+        "owner": "xinyangli",
+        "repo": "nixpkgs",
+        "rev": "7e8678a3718c0a700e05184b2bc0f45f47b687e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xinyangli",
+        "ref": "ocis",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "openmw-nix": {
       "inputs": {
         "mygui": "mygui_2",
@@ -504,6 +520,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "ocis": "ocis",
         "openmw-nix": "openmw-nix",
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",

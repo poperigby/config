@@ -48,8 +48,9 @@
         };
         # Temporary inputs for unmerged PRs
         caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";
-        mygui.url = "github:Tofixrs/nixpkgs/mygui";
         gatus.url = "github:pizzapim/nixpkgs/gatus";
+        mygui.url = "github:Tofixrs/nixpkgs/mygui";
+        ocis.url = "github:xinyangli/nixpkgs/ocis";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
         vim-zscript.url = "github:poperigby/nixpkgs/vim-zscript";
     };
