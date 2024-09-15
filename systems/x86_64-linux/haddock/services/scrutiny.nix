@@ -17,7 +17,7 @@ in
         };
         caddy.virtualHosts."drives.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy :${builtins.toString cfg.settings.web.listen.port}
+            reverse_proxy :${toString cfg.settings.web.listen.port}
         '';
     };
 

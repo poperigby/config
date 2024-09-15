@@ -1,12 +1,18 @@
 { config, lib, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        readFile
+    ;
+
     cfg = config.poperigby.programs.firefox;
 in
 {
-    options.poperigby.programs.firefox.enable = lib.mkEnableOption "Enable Firefox";
+    options.poperigby.programs.firefox.enable = mkEnableOption "Firefox";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.firefox = {
             enable = true;
             profiles.cassidy = {
@@ -16,7 +22,7 @@ in
                     # We don't want Firefox overwriting our search configuration on launch
                     force = true;
                 };
-                userChrome = builtins.readFile ./userChrome.css;
+                userChrome = readFile ./userChrome.css;
                 settings = {
                     # Allow loading userChrome.css for styling
                     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

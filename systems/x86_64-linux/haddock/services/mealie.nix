@@ -29,7 +29,7 @@ in
         };
         caddy.virtualHosts."food.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy :${builtins.toString cfg.port}
+            reverse_proxy :${toString cfg.port}
         '';
     };
 

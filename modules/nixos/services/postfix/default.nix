@@ -60,7 +60,7 @@ in
                     content = let
                         apiKey = config.sops.placeholder.sendgrid-api-key_postfix;
                     in ''
-                        [${postfix.relayHost}]:${builtins.toString postfix.relayPort} apikey:${apiKey}
+                        [${postfix.relayHost}]:${toString postfix.relayPort} apikey:${apiKey}
                     '';
                 };
             };

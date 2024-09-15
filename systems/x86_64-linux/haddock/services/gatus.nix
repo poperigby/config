@@ -35,7 +35,7 @@ in
                     }
                     {
                         name = "Mealie";
-                        url = "http://localhost:${builtins.toString config.services.mealie.port}";
+                        url = "http://localhost:${toString config.services.mealie.port}";
                         interval = "5m";
                         conditions = [
                             "[STATUS] == 200"
@@ -78,7 +78,7 @@ in
         };
         caddy.virtualHosts."status.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy :${builtins.toString cfg.settings.web.port}
+            reverse_proxy :${toString cfg.settings.web.port}
         '';
     };
 }

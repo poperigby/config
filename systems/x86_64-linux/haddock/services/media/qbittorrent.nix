@@ -54,7 +54,7 @@ in
         };
         caddy.virtualHosts."torrent.haddock.cc".extraConfig = ''
             import auth
-            reverse_proxy 192.168.15.1:${builtins.toString cfg.webuiPort}
+            reverse_proxy 192.168.15.1:${toString cfg.webuiPort}
         '';
     };
 
@@ -96,7 +96,7 @@ in
                 # The VPN connection interface
                 VPN_INTERFACE = "${netns}0";
                 QBITTORRENT_WEBUI_HOST = "127.0.0.1";
-                QBITTORRENT_WEBUI_PORT = builtins.toString cfg.webuiPort;
+                QBITTORRENT_WEBUI_PORT = toString cfg.webuiPort;
                 QBITTORRENT_WEBUI_USERNAME = "admin";
                 QBITTORRENT_WEBUI_PASSWORD = "adminadmin";
                 INITIAL_DELAY_SEC = "10";

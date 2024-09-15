@@ -36,7 +36,7 @@ in
         content = # yaml
         ''
             service:
-                interface: ":${builtins.toString cfg.port}"
+                interface: ":${toString cfg.port}"
                 frontendurl: "${cfg.frontendScheme}://${cfg.frontendHostname}/"
                 timezone: "America/Los_Angeles"
                 # Increase time until user is logged out to 3 months

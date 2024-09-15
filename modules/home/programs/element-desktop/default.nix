@@ -10,7 +10,7 @@ in
         home.packages = [ pkgs.element-desktop ];
 
         # TODO: Make this an option
-        xdg.configFile."Element/config.json".text = builtins.toJSON {
+        xdg.configFile."Element/config.json".text = lib.toJSON {
             setting_defaults = {
                 custom_themes = [
                     {

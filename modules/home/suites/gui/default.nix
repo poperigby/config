@@ -5,6 +5,7 @@ let
         mkEnableOption
         mkIf
         mkOption
+        readFile
     ;
 
     inherit (lib.types)
@@ -92,7 +93,7 @@ in
         };
 
         gtk = let
-            css = builtins.readFile ./gtk.css; 
+            css = readFile ./gtk.css;
         in {
             enable = true;
             theme = {

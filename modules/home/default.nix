@@ -8,7 +8,7 @@
         description = "Location of my flake configuration repository";
         default = "${config.home.homeDirectory}/Projects/nixos";
         example = "${config.home.homeDirectory}/config";
-        apply = builtins.toString;
+        apply = toString;
     };
 
     config = {
