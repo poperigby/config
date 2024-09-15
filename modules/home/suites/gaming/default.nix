@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, system, ... }:
+{ config, lib, pkgs, ... }:
 
 let
     inherit (lib)
@@ -16,6 +16,7 @@ in
             programs = {
                 # MangoHUD, for monitoring hardware and software during gameplay
                 mangohud.enable = true;
+                morrowind.enable = true;
             };
             services = {
                 # For backing up games
@@ -42,19 +43,9 @@ in
             poperigby.lampray
             # DDS viewing
             poperigby.tacentview
-        ] ++ (with inputs.openmw-nix.packages.${system}; [
-            # Morrowind
-            delta-plugin
-            groundcoverify
-            openmw-dev
-            openmw-validator
-            plox
-        ]);
+        ];
 
         home.sessionVariables = {
-            # Improve OpenMW performance on AMD systems
-            # https://modding-openmw.com/tips/performance/#os-gpu-specific-tips
-            OSG_VERTEX_BUFFER_HINT = "VERTEX_BUFFER_OBJECT";
             # Let GZDoom know where IWADs are
             DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
         };
