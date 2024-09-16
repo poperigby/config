@@ -8,6 +8,7 @@
                 "authelia-haddock"
                 "lldap"
                 "mealie"
+                "paperless"
                 "vikunja"
             ];
             ensureUsers = [
@@ -25,6 +26,10 @@
                 }
                 {
                     name = "mealie";
+                    ensureDBOwnership = true;
+                }
+                {
+                    name = "paperless";
                     ensureDBOwnership = true;
                 }
                 {
