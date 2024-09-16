@@ -51,6 +51,7 @@ in
             # Programs that don't require any configuration
             packages = with pkgs; [
                 asciinema
+                binsider
                 caligula
                 dogdns
                 dust

@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }:
+{ pkgs, ... }:
 
 {
     imports = [
@@ -29,6 +29,6 @@
         mkdir-nvim
         none-ls-nvim
         nvim-ts-autotag
-        inputs.vim-zscript.legacyPackages.${system}.vimPlugins.vim-zscript
+        vim-zscript
     ];
 }
