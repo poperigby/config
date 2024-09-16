@@ -29,7 +29,7 @@ in
                 harper
                 lua-language-server
                 nixd
-                ruff
+                pyright
                 rust-analyzer
             ];
             extraLuaConfig = # lua

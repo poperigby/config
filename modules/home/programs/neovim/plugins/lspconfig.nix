@@ -59,7 +59,7 @@
                     },
                 },
                 nixd = {},
-                ruff = {},
+                pyright = {},
                 rust_analyzer = {
                     settings = {
                         ["rust-analyzer"] = {
