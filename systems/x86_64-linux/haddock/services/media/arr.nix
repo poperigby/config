@@ -1,18 +1,28 @@
 { ... }:
 
 {
+    # Groups are set to "media" to give *arr access to /mnt/media/data, and make hardlinks work
     services = {
         # Manage indexers and sync them with *arr apps
         prowlarr.enable = true;
 
         # Automatically grab movies
-        radarr.enable = true;
+        radarr = {
+            enable = true;
+            group = "media";
+        };
 
         # Automatically grab books
-        readarr.enable = true;
+        readarr = {
+            enable = true;
+            group = "media";
+        };
 
         # Automatically grab TV shows
-        sonarr.enable = true;
+        sonarr = {
+            enable = true;
+            group = "media";
+        };
 
         caddy.virtualHosts = {
             "indexers.haddock.cc".extraConfig = ''
@@ -47,14 +57,5 @@
              SONARR__AUTH__REQUIRED = "True";
              SONARR__AUTH__METHOD = "External";
         };
-    };
-
-    # Give the *arr apps access to data/ and data/
-    users.users = let
-        groups = [ "media" ];
-    in {
-        radarr.extraGroups = groups;
-        readarr.extraGroups = groups;
-        sonarr.extraGroups = groups;
     };
 }

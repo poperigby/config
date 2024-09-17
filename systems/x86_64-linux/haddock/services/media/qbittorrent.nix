@@ -10,6 +10,8 @@ in
     services = {
         qbittorrent = {
             enable = true;
+            # To give qBittorrent access to /mnt/media/data, and make hardlinks work
+            group = "media";
             webuiPort = 8083;
             torrentingPort = 4096;
             serverConfig = {
@@ -57,9 +59,6 @@ in
             reverse_proxy 192.168.15.1:${toString cfg.webuiPort}
         '';
     };
-
-    # Give qBittorrent access to /mnt/media/data
-    users.users.qbittorrent.extraGroups = [ "media" ];
 
     # Define a network namespace with a VPN for qBittorrent
     vpnNamespaces."${netns}" = {
