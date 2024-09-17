@@ -18,6 +18,11 @@
                    labels.type = "auditd";
                    filenames = [ "/var/log/audit/*.log" ];
                }
+               {
+                   labels.type = "syslog";
+                   source = "journalctl";
+                   journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
+               }
             ];
             settings.api.server.listen_uri = api_uri;
         };
