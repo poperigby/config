@@ -9,6 +9,7 @@ in
             enable = true;
             settings = {
                 ldap_base_dn = "dc=haddock,dc=cc";
+                ldap_user_email = "admin@haddock.cc";
                 database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql";
             };
             environment = {

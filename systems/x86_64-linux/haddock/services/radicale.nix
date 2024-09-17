@@ -32,6 +32,7 @@ in
                 ldap_reader_dn = uid=radicale,ou=people,dc=haddock,dc=cc
                 ldap_secret = ${config.sops.placeholder."haddock/radicale/ldap_secret"}
                 ldap_filter = (objectClass=person)
+                lc_username = True
             '';
             owner = "radicale";
         };
