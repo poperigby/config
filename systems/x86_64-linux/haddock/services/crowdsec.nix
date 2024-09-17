@@ -53,7 +53,7 @@
                 set -euo pipefail
 
                 ## Collections
-                # Core Linux support
+                # Core Linux support (includes SSH)
                 if ! cscli collections list | grep -q "linux"; then
                     cscli collections install crowdsecurity/linux
                 fi
@@ -69,6 +69,11 @@
                 fi
 
                 ## Parsers
+                # Parse successful SSH logins
+                if ! cscli parsers list | grep -q "sshd-success-logs"; then
+                    cscli parsers install crowdsecurity/sshd-success-logs
+                fi
+
                 # Whitelists private IPs, so I don't accidentally ban myself 😬
                 if ! cscli parsers list | grep -q "whitelists"; then
                     cscli parsers install crowdsecurity/whitelists
