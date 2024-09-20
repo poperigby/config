@@ -30,8 +30,8 @@ in
         '';
     };
 
-    # Allow HTTPS
-    networking.firewall.allowedTCPPorts = [ 443 ];
+    # Allow HTTP/S
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
 
     # Read secrets into environment variables, that we can then reference with {env.<SECRET_NAME>}
     systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;
