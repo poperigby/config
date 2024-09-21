@@ -10,6 +10,7 @@ in
             listenPort = 8084;
             settings = {
                 title = "Haddock";
+                background.image = ./oregon.jpg;
                 quicklaunch.showSearchSuggestions = true;
             };
         };
