@@ -31,6 +31,7 @@ in
                 nixd
                 pyright
                 rust-analyzer
+                yaml-language-server
             ];
             extraLuaConfig = # lua
             ''
