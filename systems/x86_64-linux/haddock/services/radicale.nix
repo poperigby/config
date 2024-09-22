@@ -5,6 +5,8 @@ let
         mkForce
         getExe
     ;
+
+    lldap = config.services.lldap;
 in
 {
     services = {
@@ -27,11 +29,11 @@ in
             ''
                 [auth]
                 type = ldap
-                ldap_uri = ldap://localhost:3890
+                ldap_uri = ldap://localhost:${toString lldap.settings.ldap_port}
                 ldap_base = dc=haddock,dc=cc
                 ldap_reader_dn = uid=radicale,ou=people,dc=haddock,dc=cc
                 ldap_secret = ${config.sops.placeholder."haddock/radicale/ldap_secret"}
-                ldap_filter = (objectClass=person)
+                ldap_filter = (&(objectClass=person)(uid={0}))
                 lc_username = True
             '';
             owner = "radicale";
