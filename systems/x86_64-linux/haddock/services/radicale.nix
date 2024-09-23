@@ -1,17 +1,20 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
 let
-    inherit (lib)
-        mkForce
-        getExe
-    ;
-
     lldap = config.services.lldap;
 in
 {
     services = {
         radicale = {
             enable = true;
+            settings.auth = {
+                type = "ldap";
+                ldap_uri = "ldap://localhost:${toString lldap.settings.ldap_port}";
+                ldap_base = "dc=haddock,dc=cc";
+                ldap_reader_dn = "uid=radicale,ou=people,dc=haddock,dc=cc";
+                ldap_filter = "(&(objectClass=person)(uid={0}))";
+                lc_username = true;
+            };
         };
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
             redir / /radicale/
@@ -24,17 +27,10 @@ in
     };
 
     sops = {
-        templates.radicale-config = {
-            content = # ini
+        templates.radicale-secrets = {
+            content = # bash
             ''
-                [auth]
-                type = ldap
-                ldap_uri = ldap://localhost:${toString lldap.settings.ldap_port}
-                ldap_base = dc=haddock,dc=cc
-                ldap_reader_dn = uid=radicale,ou=people,dc=haddock,dc=cc
-                ldap_secret = ${config.sops.placeholder."haddock/radicale/ldap_secret"}
-                ldap_filter = (&(objectClass=person)(uid={0}))
-                lc_username = True
+                RADICALE_OPTION_AUTH_LDAP_SECRET=${config.sops.placeholder."haddock/radicale/ldap_secret"}
             '';
             owner = "radicale";
         };
@@ -46,6 +42,6 @@ in
     in {
         after = dependencies;
         requires = dependencies;
-        serviceConfig.ExecStart = mkForce "${getExe pkgs.radicale} -C ${config.sops.templates.radicale-config.path}";
+        serviceConfig.EnvironmentFile = config.sops.templates.radicale-secrets.path;
     };
 }
