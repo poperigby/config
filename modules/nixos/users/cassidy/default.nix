@@ -1,26 +1,35 @@
 { config, lib, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        optionals
+    ;
+
     cfg = config.poperigby.users.cassidy;
+    virtualization = config.poperigby.services.virtualization.enable;
+    printing = config.poperigby.hardware.printing.enable;
 in
 {
-    options.poperigby.users.cassidy.enable = lib.mkEnableOption "Cassidy user";
+    options.poperigby.users.cassidy.enable = mkEnableOption "Cassidy user";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         sops.secrets."common/users/cassidy/password".neededForUsers = true;
 
-        # Set up me :)
+        # Set up me 🙂
         users.users.cassidy = {
             isNormalUser = true;
             hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
             description = "Cassidy Wilson";
             extraGroups = [
-                # For sudo access
                 "wheel"
-                # For libvirt access
-                "libvirtd"
-                # For ADB access
                 "adbusers"
+            ] ++ optionals virtualization [
+                "libvirtd"
+            ] ++ optionals printing [
+                # Rootless CUPS
+                "lp"
             ];
         };
 
