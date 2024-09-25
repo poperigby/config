@@ -5,8 +5,8 @@ final: prev: {
         src = prev.fetchFromGitHub {
             owner = "PopeRigby";
             repo = "Radicale";
-            rev = "cd0822c7029d";
-            hash = "sha256-hEg49Mr0Q8yFjKIv8hGiUjbccHqN4O8QO+n/rdS5F6k=";
+            rev = "94562b0b5d55019c513e638c664c8c1fd4bc067e";
+            hash = "sha256-t/bZNh4cvJRYmM/DEswsvw7My+L54XMnw9R1CISHdXQ=";
         };
 
         propagatedBuildInputs = old.propagatedBuildInputs ++ [
