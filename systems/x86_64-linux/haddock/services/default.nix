@@ -10,6 +10,7 @@
         ./ddclient.nix
         ./frigate.nix
         ./gatus.nix
+        ./immich.nix
         ./mealie.nix
         ./media
         ./miniflux.nix

@@ -13,6 +13,7 @@
                 enable = true;
                 paths = [
                     "/var/backup"
+                    "/var/lib/immich"
                     "/var/lib/jellyfin"
                     "/var/lib/lldap"
                     "/var/lib/mealie"

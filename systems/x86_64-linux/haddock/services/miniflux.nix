@@ -11,7 +11,7 @@ in
             # Use my local PostgreSQL database
             createDatabaseLocally = true;
             config = {
-                PORT = "8081";
+                PORT = "8083";
                 # OpenID Connect
                 OAUTH2_PROVIDER = "oidc";
                 OAUTH2_CLIENT_ID_FILE = config.sops.secrets.miniflux-oidc-client-id_miniflux.path;
