@@ -10,6 +10,18 @@ in
             import auth
             reverse_proxy http://${cfg.host}:${toString cfg.port}
         '';
+        authelia.instances.haddock.settings.access_control.rules = [
+            {
+                # Required to use the Immich mobile app
+                domain = "photos.haddock.cc";
+                policy = "bypass";
+                resources = [
+                   "^/.well-known/immich"
+                   "^/api"
+                   "^/share"
+                ];
+            }
+        ];
     };
 
     sops.secrets = {
