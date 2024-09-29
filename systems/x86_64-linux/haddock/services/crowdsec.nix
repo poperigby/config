@@ -19,6 +19,11 @@
                    filenames = [ "/var/log/audit/*.log" ];
                }
                {
+                   labels.type = "immich";
+                   source = "journalctl";
+                   journalctl_filter = [ "_SYSTEMD_UNIT=immich-server.service" ];
+               }
+               {
                    labels.type = "syslog";
                    source = "journalctl";
                    journalctl_filter = [ "_SYSTEMD_UNIT=sshd.service" ];
@@ -66,6 +71,11 @@
                 # Parse auditd logs and detect post exploit behavior
                 if ! cscli collections list | grep -q "auditd"; then
                     cscli collections install crowdsecurity/auditd
+                fi
+
+                # Parse Immich logs and detect brute forcing attempts
+                if ! cscli collections list | grep -q "immich"; then
+                    cscli collections install gauth-fr/immich
                 fi
 
                 ## Parsers
