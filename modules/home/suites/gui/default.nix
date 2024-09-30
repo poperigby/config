@@ -51,7 +51,6 @@ in
                 thunderbird.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
-                zathura.enable = true;
                 imv = {
                     enable = true;
                     default = true;
@@ -78,11 +77,15 @@ in
             tor-browser
         ];
 
-        xdg.portal = {
-            enable = true;
-            # Fallback portal
-            config.common.default = "gtk";
-            extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        xdg = {
+            portal = {
+                enable = true;
+                # Fallback portal
+                config.common.default = "gtk";
+                extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+            };
+            # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
+            mimeApps.enable = true;
         };
 
         # Theming
