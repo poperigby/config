@@ -61,6 +61,8 @@
 
     programs.adb.enable = true;
 
+    virtualisation.waydroid.enable = true;
+
     time.timeZone = "America/Los_Angeles";
 
     networking.networkmanager.enable = true;
