@@ -269,22 +269,6 @@
         "type": "github"
       }
     },
-    "mygui_2": {
-      "locked": {
-        "lastModified": 1716480759,
-        "narHash": "sha256-GuvNI8u2Dmu0FRTVzg/rQyV9BXFqyP3c65YVgI0Kiqk=",
-        "owner": "Tofixrs",
-        "repo": "nixpkgs",
-        "rev": "8e80bc70b31e86a0c32dd41ba436b79e783255fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Tofixrs",
-        "ref": "mygui",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -472,7 +456,7 @@
     },
     "openmw-nix": {
       "inputs": {
-        "mygui": "mygui_2",
+        "mygui": "mygui",
         "nixpkgs": "nixpkgs_2",
         "snowfall-lib": "snowfall-lib"
       },
@@ -513,7 +497,6 @@
         "disko": "disko",
         "gatus": "gatus",
         "home-manager": "home-manager",
-        "mygui": "mygui",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
         "nixcord": "nixcord",
