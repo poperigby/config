@@ -15,8 +15,6 @@ in
     options.poperigby.users.cassidy.enable = mkEnableOption "Cassidy user";
 
     config = mkIf cfg.enable {
-        sops.secrets."common/users/cassidy/password".neededForUsers = true;
-
         # Set up me 🙂
         users.users.cassidy = {
             isNormalUser = true;
@@ -38,5 +36,7 @@ in
             username = "cassidy";
             homeDirectory = "/home/cassidy";
         };
+
+        sops.secrets."common/users/cassidy/password".neededForUsers = true;
     };
 }
