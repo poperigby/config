@@ -48,7 +48,7 @@
         };
         # Temporary inputs for unmerged PRs
         caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";
-        gatus.url = "github:pizzapim/nixpkgs/gatus";
+        limo.url = "github:TomaSajt/nixpkgs/limo";
         ocis.url = "github:xinyangli/nixpkgs/ocis";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     };
@@ -64,10 +64,8 @@
         # A namespace to use for my flake's packages, library, and overlays.
         snowfall.namespace = "poperigby";
 
-        channels-config = {
-            # Allow unfree packages
-            allowUnfree = true;
-        };
+        # Allow unfree packages
+        channels-config.allowUnfree = true;
 
         systems = {
             # Host specific options
@@ -78,7 +76,6 @@
                         crowdsec.nixosModules.crowdsec
                         crowdsec.nixosModules.crowdsec-firewall-bouncer
                         vpn-confinement.nixosModules.default
-                        "${gatus}/nixos/modules/services/monitoring/gatus.nix"
                         "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
                     ];
                 };

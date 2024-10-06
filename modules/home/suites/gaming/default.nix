@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, system, ... }:
 
 let
     inherit (lib)
@@ -43,6 +43,8 @@ in
             poperigby.lampray
             # DDS viewing
             poperigby.tacentview
+            # Mod manager
+            (inputs.limo.legacyPackages.${system}.limo.override { unrar = unrar.overrideAttrs { meta.license = []; }; })
         ];
 
         home.sessionVariables = {
