@@ -3,6 +3,7 @@
 {
     imports = [
         ./drives.nix
+        ./hardware.nix
     ];
 
     poperigby = {

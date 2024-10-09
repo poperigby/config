@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
     # Set password for root user
@@ -24,6 +24,9 @@
 
     # Allows easy connection to Wi-Fi
     networking.networkmanager.enable = true;
+
+    # wpa_supplicant sucks
+    networking.wireless.enable = lib.mkForce false;
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "23.11";
