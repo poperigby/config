@@ -40,8 +40,8 @@ if [ "$(id -u)" -eq 0 ]; then
     exit 1
 fi
 
-if ! AGE_KEY_FILE=$(search_up "age-key.txt"); then
-    echo "Cannot find 'age-key.txt' in the current or any parent directories."
+if ! AGE_KEY_FILE=$(search_up "key.txt"); then
+    echo "Cannot find 'key.txt' in the current or any parent directories."
     echo "Please copy it over and try again."
     exit 1
 fi
@@ -73,7 +73,7 @@ if ${gum}/bin/gum confirm --default=false "Would you like to partition and forma
      sudo ${disko}/bin/disko --mode disko --flake "$CONFIG_DIR#$TARGET_HOST"
 fi
 
-echo "Copying age-key.txt to /mnt"
+echo "Copying key.txt to /mnt"
 sudo mkdir -p /mnt/var/lib/sops-nix
 sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/
 
