@@ -40,7 +40,7 @@
                                 };
                                 "@nix" = {
                                     mountpoint = "/nix";
-                                    mountOptions = [ "compress=ztsd" "noatime" ];
+                                    mountOptions = [ "compress=zstd" "noatime" ];
                                 };
                             };
                         };
