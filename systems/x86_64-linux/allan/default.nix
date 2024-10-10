@@ -11,7 +11,7 @@
             audio.enable = true;
             bluetooth.enable = true;
             printing.enable = true;
-            scanning.enable = true;
+            # scanning.enable = true;
         };
         services = {
             backups = {
