@@ -4,10 +4,16 @@ let
     inherit (lib)
         mkEnableOption
         mkIf
+        mkMerge
         mkOption
     ;
 
-    inherit (lib.types) listOf str;
+    inherit (lib.types)
+        bool
+        listOf
+        str
+        submodule
+    ;
 
     cfg = config.poperigby.services.backups;
     hostName = config.networking.hostName;
@@ -16,6 +22,19 @@ in
 {
     options.poperigby.services.backups = {
         enable = mkEnableOption "Restic backups";
+        repositories = mkOption {
+            default = { borgbase = true; };
+            type = submodule {
+                options = {
+                    borgbase = mkOption {
+                        type = bool;
+                        description = "Enable BorgBase";
+                        default = true;
+                    };
+                    tintin = mkEnableOption "Tintin";
+                };
+            };
+        };
         paths = mkOption {
             type = listOf str;
         };
@@ -36,7 +55,7 @@ in
                 "--keep-yearly 1"
             ];
         in {
-            borgbase = {
+            borgbase = mkIf cfg.repositories.borgbase {
                 repositoryFile = secrets."${hostName}/restic/borgbase/url".path;
                 passwordFile = secrets."${hostName}/restic/borgbase/password".path;
                 # Create the repository if it doesn't exist
@@ -45,7 +64,7 @@ in
                 paths = cfg.paths;
                 timerConfig.OnCalendar = cfg.frequency;
             };
-            tintin = {
+            tintin = mkIf cfg.repositories.tintin {
                 repositoryFile = secrets."${hostName}/restic/tintin/url".path;
                 passwordFile = secrets."${hostName}/restic/tintin/password".path;
                 initialize = true;
@@ -60,11 +79,15 @@ in
         systemd.services.restic-backups-tintin.unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
 
         # The correct secrets will automatically be used based on the hostname
-        sops.secrets = {
-            "${hostName}/restic/borgbase/url" = {};
-            "${hostName}/restic/borgbase/password" = {};
-            "${hostName}/restic/tintin/url" = {};
-            "${hostName}/restic/tintin/password" = {};
-        };
+        sops.secrets = mkMerge [
+            (mkIf cfg.repositories.borgbase {
+                "${hostName}/restic/borgbase/url" = {};
+                "${hostName}/restic/borgbase/password" = {};
+            })
+            (mkIf cfg.repositories.tintin {
+                "${hostName}/restic/tintin/url" = {};
+                "${hostName}/restic/tintin/password" = {};
+            })
+        ];
     };
 }

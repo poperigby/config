@@ -11,6 +11,8 @@
         services = {
             backups = {
                 enable = true;
+                # Backup to Tintin as well as BorgBase
+                repositories.tintin = true;
                 paths = [
                     "/var/backup"
                     "/var/lib/immich"
