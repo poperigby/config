@@ -7,7 +7,6 @@
             gaming.enable = true;
             gui = {
                 enable = true;
-                adaptiveSync = false;
                 resolution = "2560x1440";
                 refreshRate = 165;
                 wallpaper = ./wallpaper.jpg;

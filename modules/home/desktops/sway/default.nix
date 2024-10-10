@@ -39,13 +39,9 @@ in
                 };
                 output = {
                     "*" = {
-                        # I'm using a script to automatically set this for fullscreen apps only
-                        adaptive_sync = "off";
                         mode = "${gui.resolution}@${toString gui.refreshRate}Hz";
                         scale = toString gui.scale;
                         bg = lib.mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
-                        # https://github.com/swaywm/sway/issues/7714#issuecomment-1694356639
-                        max_render_time = lib.mkIf gui.adaptiveSync "1";
                     };
                 };
                 modifier = "Mod4";
@@ -62,24 +58,16 @@ in
                     {
                         command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
                     }
-                ] ++ lib.optionals gui.adaptiveSync [
-                    {
-                        command = "${pkgs.poperigby.automatic-vrr-fullscreen}/bin/automatic-vrr-fullscreen";
-                        always = true;
-                    }
                 ];
             };
-            extraOptions = lib.mkIf gui.adaptiveSync [
-                # It may be possible to remove this on Sway 1.10
-                # https://github.com/swaywm/sway/issues/7714#issuecomment-1694356639
-                "-Dnoscanout"
-            ];
         };
 
-        # Start sway if we open a login shell on TTY1
-        programs.bash.profileExtra = ''
+        # Start Sway if we open a login shell on TTY1
+        # Fallback to bash shell if Sway fails to start
+        programs.bash.profileExtra = # bash
+        ''
             if [ "$(tty)" = "/dev/tty1" ]; then
-                exec sway
+                exec sway || exec bash
             fi
         '';
 

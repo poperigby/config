@@ -21,7 +21,6 @@ in
 {
     options.poperigby.suites.gui = {
         enable = mkEnableOption "GUI";
-        adaptiveSync = mkEnableOption "adaptive sync (FreeSync)";
         resolution = mkOption {
             type = str;
             default = "";
