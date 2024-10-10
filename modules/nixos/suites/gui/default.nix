@@ -27,5 +27,8 @@ in
 
         # Required for tweaking GTK settings
         programs.dconf.enable = true;
+
+        # Required for Sway to run
+        hardware.graphics.enable = true;
     };
 }
