@@ -1,17 +1,26 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        getExe
+        getExe'
+        mkEnableOption
+        mkIf
+    ;
+
+    inherit (config.sops) secrets;
+
     cfg = config.poperigby.programs.atuin;
     user = config.snowfallorg.user.name;
 in
 {
-    options.poperigby.programs.atuin.enable = lib.mkEnableOption "Enable atuin";
+    options.poperigby.programs.atuin.enable = mkEnableOption "Enable atuin";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.atuin = {
             enable = true;
             settings = {
-                key_path = config.sops.secrets."common/users/${user}/atuin/key".path;
+                key_path = secrets."common/users/${user}/atuin/key".path;
                 # Enable sync v2 by default
                 sync.records = true;
                 # Immediately execute a command without having to press Enter twice
@@ -27,16 +36,16 @@ in
                 Description = "Automatically login to Atuin if not already logged in";
                 After = [ "sops-nix.service" ];
             };
-            Install.WantedBy = [ "multi-user.target" ];
+            Install.WantedBy = [ "default.target" ];
             Service = {
                 Type = "oneshot";
                 ExecStart = let
-                    cat = "${pkgs.coreutils}/bin/cat";
+                    cat = getExe' pkgs.coreutils "cat";
                 in pkgs.writeShellScript "atuin-login" ''
-                    ${pkgs.atuin}/bin/atuin login \
-                        -k $(${cat} ${config.sops.secrets."common/users/${user}/atuin/key".path}) \
-                        -p $(${cat} ${config.sops.secrets."common/users/${user}/atuin/password".path}) \
-                        -u $(${cat} ${config.sops.secrets."common/users/${user}/atuin/username".path})
+                    ${getExe pkgs.atuin} login \
+                        -k $(${cat} ${secrets."common/users/${user}/atuin/key".path}) \
+                        -p $(${cat} ${secrets."common/users/${user}/atuin/password".path}) \
+                        -u $(${cat} ${secrets."common/users/${user}/atuin/username".path})
                 '';
             };
         };
