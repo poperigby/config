@@ -7,6 +7,7 @@
             gui = {
                 enable = true;
                 resolution = "2256x1504";
+                scale = 1.5;
                 refreshRate = 60;
                 wallpaper = ./wallpaper.jpg;
             };

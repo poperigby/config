@@ -88,6 +88,10 @@ in
                     on-click = "${getExe pkgs.pwvucontrol}";
                     on-click-right = "${getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
                 };
+                battery = {
+                    format = "{capacity}% {icon}";
+                    format-icons = [ " " " " " " " " " " ];
+                };
                 bluetooth = rec {
                     format = "󰂯";
                     format-disabled = "󰂲";

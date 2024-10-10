@@ -9,6 +9,7 @@ let
     ;
 
     inherit (lib.types)
+        float
         int
         nullOr
         path
@@ -25,6 +26,11 @@ in
             type = str;
             default = "";
             description = "The resolution you want to use, in the form of <width>x<height>";
+        };
+        scale = mkOption {
+            type = float;
+            default = 1.0;
+            description = "Scale factor";
         };
         refreshRate = mkOption {
             type = int;
