@@ -39,7 +39,8 @@
     };
 
     # Automatically change timezone based on location
-    services.automatic-timezoned.enable = true;
+    # services.automatic-timezoned.enable = true;
+    time.timeZone = "America/Los_Angeles";
 
     # Power saving
     services.thermald.enable = true;

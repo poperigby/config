@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        getExe
+        getExe'
+    ;
+
     cfg = config.poperigby.desktops.sway;
     sway = config.wayland.windowManager.sway;
 in
@@ -56,6 +61,8 @@ in
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
+            "${mod}+p" = "exec ${getExe pkgs.swaylock}";
+
             ## Screenshots
             # Full screen
             "Print" = "exec ${grim} ${screenshotLocation}";
@@ -69,6 +76,15 @@ in
             "${mod}+slash" = ''
                 exec ${menu} -modi clipboard:${pkgs.poperigby.cliphist-rofi-img}/bin/cliphist-rofi-img -show clipboard -show-icons
             '';
+
+            ## Media keys
+            # Volume
+            "XF86AudioRaiseVolume"  = "exec ${getExe' pkgs.wireplumber "wpctl"} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
+            "XF86AudioLowerVolume" = "exec ${getExe' pkgs.wireplumber "wpctl"} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-";
+            "XF86AudioMute" = "exec ${getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            # Brightness
+            "XF86MonBrightnessDown" = "exec ${getExe pkgs.brightnessctl} set 5%-";
+            "XF86MonBrightnessUp" = "exec ${getExe pkgs.brightnessctl} set 5%+";
         };
     };
 }

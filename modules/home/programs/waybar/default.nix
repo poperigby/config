@@ -1,13 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        getExe
+        getExe'
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.programs.waybar;
     colors = config.colorScheme.palette;
 in
 {
-    options.poperigby.programs.waybar.enable = lib.mkEnableOption "Enable Waybar";
+    options.poperigby.programs.waybar.enable = mkEnableOption "Enable Waybar";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.waybar = {
             enable = true;
             settings.mainBar = {
@@ -78,8 +85,8 @@ in
                     format-muted = "󰝟 ";
                     format-icons = [ " " " " " " ];
                     scroll-step = 5.0;
-                    on-click = "${pkgs.pwvucontrol}/bin/pwvucontrol";
-                    on-click-right = "${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+                    on-click = "${getExe pkgs.pwvucontrol}";
+                    on-click-right = "${getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
                 };
                 bluetooth = rec {
                     format = "󰂯";
@@ -90,14 +97,15 @@ in
                     tooltip-format-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
                     tooltip-format-enumerate-connected = "{device_alias}";
                     tooltip-format-enumerate-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
-                    on-click = "${pkgs.blueman}/bin/blueman-manager";
+                    on-click = "${getExe' pkgs.blueman "blueman-manager"}";
                 };
                 network = {
                       format = "{ifname}";
-                      format-wifi = "{essid} ({signalStrength}%) ";
+                      format-wifi = " ";
                       tooltip-format-wifi = "{essid} ({signalStrength}%)";
                       format-ethernet = "󰈀";
                       tooltip-format-ethernet = "{ifname}";
+                      on-click = "${getExe pkgs.wezterm} start ${getExe' pkgs.networkmanager "nmtui"}";
                       # An empty format will hide the module.
                       format-disconnected = "";
                       max-length = 50;
@@ -105,7 +113,7 @@ in
                 # Grabweather
                 "custom/weather" = {
                     # TODO: Make hover show detailed weather information
-                    exec = "${pkgs.poperigby.grabweather}/bin/grabweather";
+                    exec = "${getExe pkgs.poperigby.grabweather}";
                     format = " {} ";
                     interval = 900;
                     tooltip = false;

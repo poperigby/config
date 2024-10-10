@@ -28,5 +28,6 @@ rustPlatform.buildRustPackage rec {
         description = "A simple tool that returns the current weather.";
         homepage = "https://codeberg.org/PopeRigby/grabweather";
         license = licenses.gpl3;
+        mainProgram = pname;
     };
 }
