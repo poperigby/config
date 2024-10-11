@@ -64,6 +64,7 @@ in
             services = {
                 clipboard.enable = true;
                 gammastep.enable = true;
+                swayidle.enable = true;
                 swaync.enable = true;
                 udiskie.enable = true;
             };
@@ -93,6 +94,9 @@ in
             # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
             mimeApps.enable = true;
         };
+
+        # Enable Wayland for Chromium and Electron based apps
+        home.sessionVariables.NIXOS_OZONE_WL = 1;
 
         # Theming
         home.pointerCursor = {

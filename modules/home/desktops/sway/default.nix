@@ -29,12 +29,8 @@ in
                         xkb_options = "caps:super";
                     };
                     "type:touchpad" = {
-                        # Disable touchpad while typing
-                        dwt = "enabled";
                         # Enable tap to click
                         tap = "enabled";
-                        # Enable middle click emulation
-                        middle_emulation = "enabled";
                     };
                 };
                 output = {
