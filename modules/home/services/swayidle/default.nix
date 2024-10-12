@@ -9,7 +9,7 @@ let
     ;
 
     cfg = config.poperigby.services.swayidle;
-    swaylock = getExe pkgs.swaylock;
+    swaylock = getExe config.programs.swaylock.package;
 in
 {
     options.poperigby.services.swayidle.enable = mkEnableOption "idle daemon";

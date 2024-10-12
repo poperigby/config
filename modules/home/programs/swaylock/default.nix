@@ -17,8 +17,15 @@ in
             enable = true;
             package = pkgs.swaylock-effects;
             settings = {
+                # Clock
                 clock = true;
-                effect-compose = "${gui.wallpaper}";
+                timestr = "%H:%M";
+                # Indicator
+                indicator-idle-visible = true;
+                indicator-radius = 100;
+                # Background
+                image = toString gui.wallpaper;
+                effect-blur = "7x5";
             };
         };
     };

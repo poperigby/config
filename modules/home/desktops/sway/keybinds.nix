@@ -61,7 +61,7 @@ in
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
-            "${mod}+p" = "exec ${getExe pkgs.swaylock}";
+            "${mod}+p" = "exec ${getExe config.programs.swaylock.package}";
 
             ## Screenshots
             # Full screen
