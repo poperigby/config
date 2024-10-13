@@ -12,14 +12,15 @@ in
         poperigby = {
             services = {
                 udisks2.enable = true;
+                regreet.enable = true;
             };
         };
 
         security = {
             # Required for Sway to launch
             polkit.enable = true;
-            # Required for Swaylock to work
-            pam.services.swaylock = {};
+            # Required for Swaylock to work and allow fingerprint login
+            pam.services.swaylock.fprintAuth = true;
         };
 
         # Show desktop notifications for system bus

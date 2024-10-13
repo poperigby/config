@@ -16,9 +16,7 @@
         services = {
             backups = {
                 enable = true;
-                paths = [
-                    "/home/*/.local/share"
-                ];
+                paths = [];
             };
             geolocation.enable = true;
         };

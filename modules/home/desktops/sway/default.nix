@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib) getExe;
+
     cfg = config.poperigby.desktops.sway;
     gui = config.poperigby.suites.gui;
 in
@@ -49,10 +51,7 @@ in
                 # Programs to launch when Sway starts
                 startup = [
                     {
-                        command = "${pkgs.ckb-next}/bin/ckb-next --background";
-                    }
-                    {
-                        command = "${pkgs.element-desktop}/bin/element-desktop --hidden";
+                        command = "${getExe pkgs.element-desktop} --hidden";
                     }
                 ];
             };

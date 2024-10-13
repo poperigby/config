@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
+let
+    inherit (lib) getExe;
+in
 {
     poperigby = {
         suites = {
@@ -46,6 +49,11 @@
                 backup.path = "~/.local/state/backups/ludusavi";
                 restore.path = "~/.local/state/backups/ludusavi";
         };
+        wayland.windowManager.sway.startup = [
+            {
+                command = "${getExe pkgs.ckb-next} --background";
+            }
+        ];
     };
 
     # 3D printer slicer
