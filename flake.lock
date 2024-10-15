@@ -253,11 +253,11 @@
     },
     "limo": {
       "locked": {
-        "lastModified": 1728290268,
-        "narHash": "sha256-qu7GmHGXFGRQfj7wDs1kBdv4Rs6XUrVf2RdpTe9kj/k=",
+        "lastModified": 1728722299,
+        "narHash": "sha256-YBMK0f9P7cdbjUkgV5cGBZYd+NSxBMgt4oljATVMjP8=",
         "owner": "TomaSajt",
         "repo": "nixpkgs",
-        "rev": "b58b17180241db2cd4830177c7cd5a17fea7b4a6",
+        "rev": "b751fcd58e7a79004111790dd33d95bcb8dfd414",
         "type": "github"
       },
       "original": {
