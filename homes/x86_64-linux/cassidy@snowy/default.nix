@@ -49,12 +49,14 @@ in
                 backup.path = "~/.local/state/backups/ludusavi";
                 restore.path = "~/.local/state/backups/ludusavi";
         };
-        wayland.windowManager.sway.startup = [
-            {
-                command = "${getExe pkgs.ckb-next} --background";
-            }
-        ];
     };
+
+    # Controls Corsair hardware
+    wayland.windowManager.sway.config.startup = [
+        {
+            command = "${getExe pkgs.ckb-next} --background";
+        }
+    ];
 
     # 3D printer slicer
     home.packages = [ pkgs.super-slicer-latest ];
