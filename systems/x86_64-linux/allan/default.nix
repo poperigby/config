@@ -55,6 +55,13 @@
         };
     };
 
+    # Firmware updating
+    services.fwupd = {
+        enable = true;
+        # Required to get firmware updates for Intel CPUs
+        extraRemotes = [ "lvfs-testing" ];
+    };
+
     # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "23.11";
 }
