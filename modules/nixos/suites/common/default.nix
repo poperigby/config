@@ -39,7 +39,7 @@ in
                 sudo.enable = true;
             };
             system = {
-                bootloader.enable = true;
+                boot.loader = true;
                 locale.enable = true;
                 zram.enable = true;
             };

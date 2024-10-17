@@ -24,6 +24,7 @@
             common.enable = true;
             gui.enable = true;
         };
+        system.boot.secureBoot = true;
     };
 
     # Enable NetworkManager

@@ -18,6 +18,10 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        lanzaboote = {
+            url = "github:nix-community/lanzaboote";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         nixcord.url = "github:kaylorben/nixcord";
         nixos-generators = {
             url = "github:nix-community/nixos-generators";
