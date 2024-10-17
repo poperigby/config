@@ -1,15 +1,23 @@
-# Adjusts screen gamma based on time of day
 { config, lib, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.services.gammastep;
 in
 {
-    options.poperigby.services.gammastep.enable = lib.mkEnableOption "Enable GammaStep";
+    options.poperigby.services.gammastep.enable = mkEnableOption "Gammastep";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         services.gammastep = {
             enable = true;
+            temperature = {
+                day = 6500;
+                night = 4500;
+            };
             # Location provider
             provider = "geoclue2";
         };
