@@ -12,6 +12,10 @@
         kernelModules = [
             "kvm-intel"
         ];
+        blacklistedKernelModules = [
+            # Intel watchdog
+            "iTCO_wdt"
+        ];
         # https://wiki.archlinux.org/title/Improving_performance#Watchdogs
         kernelParams = [ "nowatchdog" ];
     };

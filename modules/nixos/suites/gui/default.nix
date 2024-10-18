@@ -17,7 +17,6 @@ in
         poperigby = {
             services = {
                 udisks2.enable = true;
-                regreet.enable = true;
             };
         };
 

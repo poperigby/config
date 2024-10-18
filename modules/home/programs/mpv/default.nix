@@ -1,12 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
+    inherit (lib)
+        mkEnableOption
+        mkIf
+    ;
+
     cfg = config.poperigby.programs.mpv;
 in
 {
-    options.poperigby.programs.mpv.enable = lib.mkEnableOption "Enable MPV";
+    options.poperigby.programs.mpv.enable = mkEnableOption "MPV";
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         programs.mpv = {
             enable = true;
             config = {
