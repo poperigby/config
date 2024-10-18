@@ -21,7 +21,8 @@ in
             grim = "${pkgs.grim}/bin/grim";
             slurp = "${pkgs.slurp}/bin/slurp";
             screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'Screenshot_%Y-%m-%d_%H-%M.png')";
-            # screenshotSound = "${pkgs.alsa-utils}/bin/aplay ${./camera.wav}";
+            # Media
+            swayosd = getExe' pkgs.swayosd "swayosd-client";
         in lib.mkOptionDefault {
             ## Basics
             # Quit the focused window
@@ -79,12 +80,12 @@ in
 
             ## Media keys
             # Volume
-            "XF86AudioRaiseVolume"  = "exec ${getExe' pkgs.wireplumber "wpctl"} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
-            "XF86AudioLowerVolume" = "exec ${getExe' pkgs.wireplumber "wpctl"} set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-";
-            "XF86AudioMute" = "exec ${getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            "XF86AudioRaiseVolume"  = "exec ${swayosd} --output-volume raise";
+            "XF86AudioLowerVolume" = "exec ${swayosd} --output-volume lower";
+            "XF86AudioMute" = "exec ${swayosd} --output-volume mute-toggle";
             # Brightness
-            "XF86MonBrightnessDown" = "exec ${getExe pkgs.brightnessctl} set 5%-";
-            "XF86MonBrightnessUp" = "exec ${getExe pkgs.brightnessctl} set 5%+";
+            "XF86MonBrightnessUp" = "exec ${swayosd} --brightness +10";
+            "XF86MonBrightnessDown" = "exec ${swayosd} --brightness -10";
         };
     };
 }

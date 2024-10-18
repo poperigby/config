@@ -36,9 +36,9 @@ in
                     "tray"
                     # Fixed width modules
                     "wireplumber"
-                    "battery"
                     "bluetooth"
                     "network"
+                    "battery"
                     "custom/weather"
                     "custom/notification"
                 ];
@@ -81,8 +81,8 @@ in
                     spacing = 10;
                 };
                 wireplumber = {
-                    format = "{volume}% {icon}";
-                    format-muted = "󰝟 ";
+                    format = "{icon}";
+                    format-muted = " ";
                     format-icons = [ " " " " " " ];
                     scroll-step = 5.0;
                     on-click = "${getExe pkgs.pwvucontrol}";

@@ -65,6 +65,7 @@ in
                 clipboard.enable = true;
                 gammastep.enable = true;
                 swayidle.enable = true;
+                swayosd.enable = true;
                 swaync.enable = true;
                 udiskie.enable = true;
             };
