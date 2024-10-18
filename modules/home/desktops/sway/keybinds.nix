@@ -62,6 +62,7 @@ in
             # Toggle control center
             "${mod}+n" = "exec ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
 
+            "${mod}+o" = "exec ${getExe config.programs.wlogout.package}";
             "${mod}+p" = "exec ${getExe config.programs.swaylock.package}";
 
             ## Screenshots

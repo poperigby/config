@@ -56,6 +56,7 @@ in
                 thunderbird.enable = true;
                 waybar.enable = true;
                 wezterm.enable = true;
+                wlogout.enable = true;
                 imv = {
                     enable = true;
                     default = true;
