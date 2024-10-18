@@ -53,6 +53,9 @@ in
                     {
                         command = "${getExe pkgs.element-desktop} --hidden";
                     }
+                    {
+                        command = getExe pkgs.autotiling-rs;
+                    }
                 ];
             };
         };
