@@ -28,8 +28,8 @@ in
                 options = {
                     borgbase = mkOption {
                         type = bool;
-                        description = "Enable BorgBase";
                         default = true;
+                        description = "Enable BorgBase";
                     };
                     tintin = mkEnableOption "Tintin";
                 };

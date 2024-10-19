@@ -12,6 +12,12 @@
                 wallpaper = ./wallpaper.jpg;
             };
         };
+        services.swayidle.timeouts = {
+            # 10 minutes
+            lock = 600;
+            # 15 minutes
+            sleep = 900;
+        };
     };
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

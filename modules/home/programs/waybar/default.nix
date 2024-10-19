@@ -80,13 +80,18 @@ in
                 tray = {
                     spacing = 10;
                 };
-                wireplumber = {
+                wireplumber = let
+                    pwvucontrol = getExe pkgs.pwvucontrol;
+                    swayosd = getExe' pkgs.swayosd "swayosd-client";
+                in {
                     format = "{icon}";
                     format-muted = " ";
                     format-icons = [ " " " " " " ];
                     scroll-step = 5.0;
-                    on-click = "${getExe pkgs.pwvucontrol}";
-                    on-click-right = "${getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+                    on-click = "${pwvucontrol}";
+                    on-click-right = "${swayosd} --output-volume mute-toggle";
+                    on-scroll-up = "${swayosd} --output-volume raise";
+                    on-scroll-down = "${swayosd} --output-volume lower";
                 };
                 battery = {
                     format = "{capacity}% {icon}";
