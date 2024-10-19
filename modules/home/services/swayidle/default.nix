@@ -1,9 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
     inherit (lib)
         getExe
-        getExe'
         mkEnableOption
         mkIf
     ;
@@ -30,7 +29,7 @@ in
                 {
                     # After 10 minutes, go to sleep
                     timeout = 600;
-                    command = "${getExe' pkgs.systemd "systemctl"} suspend";
+                    command = "systemctl suspend";
                 }
             ];
         };

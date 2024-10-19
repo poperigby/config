@@ -20,7 +20,6 @@ local options = {
     splitright  = true,     -- Put new windows right of current
     updatetime  = 250,      -- Reduce updatetime which affects CursorHold
     autoindent  = true,     -- Copy indent from current line when starting a new line
-    smartindent = true,     -- Do smart auto indenting when starting a new line
     scrolloff   = 2,        -- Lines of context
     hidden      = true,     -- Don't abandon hidden buffers
     laststatus  = 2,        -- Enable global status line
