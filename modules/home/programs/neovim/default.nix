@@ -26,6 +26,7 @@ in
                 # Language servers
                 bash-language-server
                 clang-tools
+                csharp-ls
                 harper
                 lua-language-server
                 nixd

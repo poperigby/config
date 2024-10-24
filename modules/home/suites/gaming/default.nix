@@ -39,8 +39,6 @@ in
             raze
             # Quake
             vkquake
-            # Baldur's Gate 3
-            poperigby.lampray
             # DDS viewing
             poperigby.tacentview
             # Mod manager
