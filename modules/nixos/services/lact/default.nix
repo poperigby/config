@@ -2,15 +2,15 @@
 
 let
     inherit (lib)
-    getExe
-    mapAttrs
-    mdDoc
-    mkEnableOption
-    mkIf
-    mkMerge
-    mkOption
-    mkOptionDefault
-    types
+        getExe
+        mapAttrs
+        mdDoc
+        mkEnableOption
+        mkIf
+        mkMerge
+        mkOption
+        mkOptionDefault
+        types
     ;
 
     cfg = config.poperigby.services.lact;
