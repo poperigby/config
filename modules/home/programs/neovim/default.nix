@@ -50,9 +50,9 @@ in
             SYSTEMD_EDITOR = "${nvim}";
         };
 
-        xdg.configFile = {
+        xdg = {
             # Symlink Neovim config to ~/.config/nvim/lua
-            "nvim/lua" = {
+            configFile."nvim/lua" = {
                 source = ./config;
                 recursive = true;
             };
