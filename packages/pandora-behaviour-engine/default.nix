@@ -12,8 +12,8 @@ buildDotnetModule {
     src = fetchFromGitHub {
         owner = "poperigby";
         repo = "Pandora-Behaviour-Engine-Plus";
-        rev = "bc403bda71a7c47181fcf2732e627017f5bbff4f";
-        hash = "sha256-/x4fp2phhoDqxC+Ck3IqVLIueJl1350gbU9HEhIa4qM=";
+        rev = "828cca46ab05727defafe24239750de52c3249e8";
+        hash = "sha256-iSemGYfAG+nE0byz2N7iuwX4yHpXGSRzTtNgb+Bbs54=";
         fetchSubmodules = true;
     };
 
