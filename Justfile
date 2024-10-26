@@ -17,8 +17,6 @@ check:
 # Update the flake.lock, check if it still works, and add it to the git index
 update +input="":
     nix flake update {{input}}
-    # Make sure the configuration still works, and stage it if it does
-    nix flake check && git add flake.*
 
 # Update the flake.lock, and rebuild the system
 upgrade +input="":

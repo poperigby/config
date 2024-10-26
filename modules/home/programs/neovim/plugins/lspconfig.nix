@@ -30,6 +30,7 @@
                 end
 
                 local language_servers = {
+                    csharp_ls = {},
                     bashls = {},
                     clangd = {
                         cmd = {

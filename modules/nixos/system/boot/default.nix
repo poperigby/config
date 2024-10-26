@@ -12,7 +12,7 @@ in
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
     options.poperigby.system.boot = {
-        loader = mkEnableOption "bootloader settings";
+        loader = mkEnableOption "boot settings";
         secureBoot = mkEnableOption "Secure Boot";
     };
 
@@ -27,6 +27,9 @@ in
                 enable = true;
                 pkiBundle = "/etc/secureboot";
             };
+            # Fixes the warnings discussed here
+            # https://github.com/NixOS/nixpkgs/issues/342082
+            initrd.systemd.enable = true;
         };
 
         # For debugging and troubleshooting Secure Boot
