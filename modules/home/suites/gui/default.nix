@@ -120,6 +120,11 @@ in
             gtk3.extraCss = css;
         };
 
+        qt = {
+            enable = true;
+            style.name = "adwaita-dark";
+        };
+
         dconf.settings = {
             # Get rid of GTK titlebar buttons
             "org/gnome/desktop/wm/preferences".button-layout = ":";

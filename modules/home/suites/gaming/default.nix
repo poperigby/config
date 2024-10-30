@@ -37,12 +37,9 @@ in
             gzdoom
             # Build Engine
             raze
-            # Quake
-            vkquake
-            # DDS viewing
-            poperigby.tacentview
-            # Mod manager
+            # Bethesda
             limo
+            poperigby.synthesis
         ];
 
         home.sessionVariables = {

@@ -24,11 +24,15 @@ buildDotnetModule rec {
 
     propagatedBuildInputs = [ git ];
 
+    postFixup = ''
+        mv $out/bin/Synthesis.Bethesda.CLI $out/bin/synthesis
+    '';
+
     meta = {
         description = "A patcher pipeline framework and GUI.  Run collections of code-based mods to create content customized for your load order";
         homepage = "https://github.com/Mutagen-Modding/Synthesis";
         license = lib.licenses.gpl3Only;
-        mainProgram = "Synthesis.Bethesda.CLI";
+        mainProgram = pname;
         platforms = lib.platforms.all;
     };
 }
