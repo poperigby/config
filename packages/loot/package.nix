@@ -1,0 +1,86 @@
+{
+    boost,
+    cmake,
+    fetchFromGitHub,
+    fmt_11,
+    git,
+    gtest,
+    icu,
+    inputs,
+    installShellFiles,
+    lib,
+    minizip-ng,
+    ogdf,
+    poperigby,
+    qt6Packages,
+    spdlog,
+    stdenv,
+    system,
+    tbb_2021_11,
+    tomlplusplus,
+}:
+
+stdenv.mkDerivation rec {
+    pname = "loot";
+    version = "0.24.0";
+
+    src = fetchFromGitHub {
+        owner = "loot";
+        repo = "loot";
+        rev = version;
+        hash = "sha256-PFgL3VCi95SvhNEF/Ffqoo4uBUF9ID/7TVf/54vNREI=";
+        leaveDotGit = true;
+    };
+
+    nativeBuildInputs = [
+        cmake
+        git
+        installShellFiles
+        qt6Packages.wrapQtAppsHook
+    ];
+
+    buildInputs = [
+        (boost.override { enableStatic = true; })
+        fmt_11
+        icu
+        inputs.limo.legacyPackages.${system}.libloot
+        minizip-ng
+        ogdf
+        poperigby.valve-file-vdf
+        qt6Packages.qtbase
+        spdlog
+        tbb_2021_11
+        tomlplusplus
+    ];
+
+    cmakeFlags = let
+        inherit (lib) cmakeFeature cmakeBool;
+    in [
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_FMT" "${fmt_11.src}")
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_GTEST" "${gtest.src}")
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_MINIZIP" "${minizip-ng.src}")
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_SPDLOG" "${spdlog.src}")
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_TOMLPLUSPLUS" "${tomlplusplus.src}")
+        (cmakeFeature "FETCHCONTENT_SOURCE_DIR_VALVEFILEVDF" "${poperigby.valve-file-vdf.src}")
+        (cmakeBool "LOOT_BUILD_TESTS" false)
+    ];
+
+    doCheck = false;
+
+    installPhase = ''
+        runHook preInstall
+
+        mv LOOT loot
+        installBin loot
+
+        runHook postInstall
+    '';
+
+    meta = {
+        description = "A modding utility for Starfield and some Elder Scrolls and Fallout games";
+        homepage = "https://github.com/loot/loot";
+        license = lib.licenses.gpl3Only;
+        platforms = lib.platforms.all;
+        mainProgram = "loot";
+    };
+}
