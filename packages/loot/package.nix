@@ -48,6 +48,7 @@ stdenv.mkDerivation rec {
         ogdf
         poperigby.valve-file-vdf
         qt6Packages.qtbase
+        qt6Packages.qtwayland
         spdlog
         tbb_2021_11
         tomlplusplus
@@ -70,8 +71,16 @@ stdenv.mkDerivation rec {
     installPhase = ''
         runHook preInstall
 
-        mv LOOT loot
-        installBin loot
+        installBin LOOT
+
+        mkdir -p $out/share/metainfo
+        install -D ../resources/linux/io.github.loot.loot.metainfo.xml $out/share/metainfo/io.github.loot.loot.metainfo.xml
+
+        mkdir -p $out/share/applications
+        install -D ../resources/linux/io.github.loot.loot.desktop $out/share/applications/io.github.loot.loot.desktop
+
+        mkdir -p $out/share/icons/hicolor/scalable/apps
+        install -D ../resources/icons/loot.svg $out/share/icons/hicolor/scalable/apps/io.github.loot.loot.svg
 
         runHook postInstall
     '';
@@ -81,6 +90,6 @@ stdenv.mkDerivation rec {
         homepage = "https://github.com/loot/loot";
         license = lib.licenses.gpl3Only;
         platforms = lib.platforms.all;
-        mainProgram = "loot";
+        mainProgram = "LOOT";
     };
 }

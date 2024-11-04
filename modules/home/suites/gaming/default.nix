@@ -39,6 +39,7 @@ in
             raze
             # Bethesda
             limo
+            poperigby.loot
             poperigby.synthesis
         ];
 
