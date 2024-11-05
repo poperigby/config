@@ -34,6 +34,13 @@ in
                         {
                             title = "Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox";
                         }
+                        # xEdit
+                        {
+                           title = "Please check or double click the module that you want to Quick Auto Clean";
+                        }
+                        {
+                            title = "Which files do you want to add this record to?";
+                        }
                     ];
                 };
         };
