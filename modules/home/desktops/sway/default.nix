@@ -1,13 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-    inherit (lib) getExe;
+    inherit (lib)
+        getExe
+        mkEnableOption
+        mkIf
+    ;
 
     cfg = config.poperigby.desktops.sway;
     gui = config.poperigby.suites.gui;
 in
 {
-    options.poperigby.desktops.sway.enable = lib.mkEnableOption "Enable Sway window manager";
+    options.poperigby.desktops.sway.enable = mkEnableOption "Enable Sway window manager";
 
     imports = [
         ./keybinds.nix
@@ -15,7 +19,7 @@ in
         ./styling.nix
     ];
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
         wayland.windowManager.sway = {
             enable = true;
             # Integrates Sway with systemd, which will allow applications to depend on it
@@ -39,12 +43,14 @@ in
                     "*" = {
                         mode = "${gui.resolution}@${toString gui.refreshRate}Hz";
                         scale = toString gui.scale;
-                        bg = lib.mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
+                        bg = mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
+                        adaptive_sync = mkIf gui.vrr "on";
+                        max_render_time = mkIf gui.vrr "1";
                     };
                 };
                 modifier = "Mod4";
-                menu = "${pkgs.rofi-wayland}/bin/rofi";
-                terminal = "${pkgs.wezterm}/bin/wezterm";
+                menu = getExe pkgs.rofi-wayland;
+                terminal = getExe pkgs.wezterm;
                 defaultWorkspace = "workspace number 1";
                 # We'll just use systemd to start Waybar
                 bars = [];

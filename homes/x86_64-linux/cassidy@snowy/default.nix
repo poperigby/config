@@ -12,6 +12,7 @@ in
                 enable = true;
                 resolution = "2560x1440";
                 refreshRate = 165;
+                vrr = true;
                 wallpaper = ./wallpaper.jpg;
             };
         };

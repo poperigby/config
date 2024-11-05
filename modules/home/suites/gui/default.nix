@@ -36,6 +36,7 @@ in
             default = 60;
             description = "The refresh rate you want to use";
         };
+        vrr = mkEnableOption "Variable refresh rate (adaptive sync)";
         wallpaper = mkOption {
             type = nullOr path;
             default = null;
