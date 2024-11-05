@@ -37,10 +37,13 @@ in
             gzdoom
             # Build Engine
             raze
+            # Quake
+            vkquake
             # Bethesda
             limo
             poperigby.loot
             poperigby.synthesis
+            protontricks
         ];
 
         home.sessionVariables = {

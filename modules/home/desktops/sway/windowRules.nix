@@ -41,6 +41,21 @@ in
                         {
                             title = "Which files do you want to add this record to?";
                         }
+                        {
+                            title = "Save changed files:";
+                        }
+                        {
+                            title = "Create ModGroup...";
+                        }
+                        {
+                            title = "In which module's .modgroups file should the new ModGroup be stored?";
+                        }
+                        {
+                            title = "Reloading ModGroups - Which ModGroups do you want to activate?";
+                        }
+                        {
+                            title = "Which files do you want to add these records to?";
+                        }
                     ];
                 };
         };

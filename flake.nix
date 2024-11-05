@@ -46,15 +46,13 @@
             url = "github:e-tho/ucodenix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        vpn-confinement = {
-            url = "github:Maroka-chan/VPN-Confinement";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
         # Temporary inputs for unmerged PRs
         caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";
         limo.url = "github:TomaSajt/nixpkgs/limo";
         ocis.url = "github:xinyangli/nixpkgs/ocis";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
+        ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
     };
 
     # This function is run on `nixos-rebuild switch`, and generates NixOS systems
