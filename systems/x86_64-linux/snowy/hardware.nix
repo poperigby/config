@@ -28,8 +28,5 @@
     hardware.enableRedistributableFirmware = true;
 
     # Keep microcode updated
-    services.ucodenix = {
-        enable = true;
-        cpuSerialNumber = "0087-0F10-0000-0000-0000-0000";
-    };
+    services.ucodenix.enable = true;
 }

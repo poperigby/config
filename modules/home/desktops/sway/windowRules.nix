@@ -56,6 +56,9 @@ in
                         {
                             title = "Which files do you want to add these records to?";
                         }
+                        {
+                            title = "Module Selection";
+                        }
                     ];
                 };
         };

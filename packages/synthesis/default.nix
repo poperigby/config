@@ -8,13 +8,14 @@
 
 buildDotnetModule rec {
     pname = "synthesis";
-    version = "0.30.6";
+    version = "0.31-pr001";
 
     src = fetchFromGitHub {
         owner = "Mutagen-Modding";
         repo = "Synthesis";
-        rev = version;
-        hash = "sha256-6LKapTIKnZMbJtKEUOx64iitznRYmC4QOhLFW/qsKBo=";
+        rev = "bf5dc85af5ac51d85f36b393eb03ea0a855cfde5";
+        hash = "sha256-clEInCKrARoM66mbz0ROXBHfX4CGHPji9o2N3nLHw7A=";
+        leaveDotGit = true;
     };
 
     projectFile = "Synthesis.Bethesda.CLI/Synthesis.Bethesda.CLI.csproj";
