@@ -13,24 +13,25 @@ buildDotnetModule rec {
     src = fetchFromGitHub {
         owner = "Mutagen-Modding";
         repo = "Synthesis";
-        rev = "7662db46944855d1166e04f9b5b14ca2ec7622d8";
-        hash = "sha256-LsJdN0FAtuT1ErSX1S6NCuZCRnKd0ZZptISf6B5g2/Y=";
+        rev = "781f9deb4fd92d838c9663e1a85ca7fe4b68e762";
+        hash = "sha256-FsCAZyROChS8rbt/fPNMYxYPQerCzqlGF3+uwk41u8k=";
         leaveDotGit = true;
     };
 
     projectFile = "Synthesis.Bethesda.CLI/Synthesis.Bethesda.CLI.csproj";
     dotnet-sdk = dotnetCorePackages.sdk_8_0;
-    dotnet-runtime = dotnetCorePackages.runtime_8_0;
+    # Required for Synthesis to find the SDK
+    dotnet-runtime = dotnetCorePackages.sdk_8_0;
     nugetDeps = ./deps.nix;
 
-    propagatedBuildInputs = [ git ];
+    nativeBuildInputs = [ git ];
 
     postFixup = ''
-        mv $out/bin/Synthesis.Bethesda.CLI $out/bin/synthesis
+        mv $out/bin/Synthesis.Bethesda.CLI $out/bin/${pname}
     '';
 
     meta = {
-        description = "A patcher pipeline framework and GUI.  Run collections of code-based mods to create content customized for your load order";
+        description = "Patcher pipeline framework and GUI.  Run collections of code-based mods to create content customized for your load order";
         homepage = "https://github.com/Mutagen-Modding/Synthesis";
         license = lib.licenses.gpl3Only;
         mainProgram = pname;
