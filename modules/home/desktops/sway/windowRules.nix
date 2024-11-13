@@ -59,6 +59,9 @@ in
                         {
                             title = "Module Selection";
                         }
+                        {
+                            title = "What modules should be included in the ModGroup?";
+                        }
                     ];
                 };
         };

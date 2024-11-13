@@ -13,8 +13,8 @@ buildDotnetModule rec {
     src = fetchFromGitHub {
         owner = "Mutagen-Modding";
         repo = "Synthesis";
-        rev = "bf5dc85af5ac51d85f36b393eb03ea0a855cfde5";
-        hash = "sha256-clEInCKrARoM66mbz0ROXBHfX4CGHPji9o2N3nLHw7A=";
+        rev = "7662db46944855d1166e04f9b5b14ca2ec7622d8";
+        hash = "sha256-LsJdN0FAtuT1ErSX1S6NCuZCRnKd0ZZptISf6B5g2/Y=";
         leaveDotGit = true;
     };
 
