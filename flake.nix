@@ -42,10 +42,7 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        ucodenix = {
-            url = "github:e-tho/ucodenix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        ucodenix.url = "github:e-tho/ucodenix";
         vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
         # Temporary inputs for unmerged PRs
         caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";

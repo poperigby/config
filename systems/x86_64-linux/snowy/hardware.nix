@@ -28,5 +28,8 @@
     hardware.enableRedistributableFirmware = true;
 
     # Keep microcode updated
-    services.ucodenix.enable = true;
+    services.ucodenix = {
+        enable = true;
+        cpuModelId = "00870F10";
+    };
 }
