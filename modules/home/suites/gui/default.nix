@@ -81,7 +81,6 @@ in
             nautilus
             onlyoffice-bin
             pwvucontrol
-            satty
             signal-desktop
             slurp
             tor-browser

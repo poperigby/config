@@ -59,8 +59,11 @@ in
         }
     ];
 
-    # 3D printer slicer
-    home.packages = [ pkgs.super-slicer-latest ];
+    home.packages = with pkgs; [
+        blender-hip
+        # 3D printer slicer
+        super-slicer-latest
+    ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     home.stateVersion = "23.11";
