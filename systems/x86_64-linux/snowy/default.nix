@@ -19,6 +19,8 @@
                 enable = true;
                 paths = [
                     "/home/*/.local/state/backups"
+                    # Custom Skyrim patches and xEdit modgroups
+                    "/home/cassidy/Games/Modding/Games/Skyrim/739"
                 ];
             };
             earlyoom.enable = true;
