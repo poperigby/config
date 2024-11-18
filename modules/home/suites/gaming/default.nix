@@ -40,6 +40,7 @@ in
             # Quake
             vkquake
             # Bethesda
+            jpexs
             limo
             poperigby.loot
             poperigby.synthesis
@@ -50,5 +51,7 @@ in
             # Let GZDoom know where IWADs are
             DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
         };
+
+        xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
     };
 }
