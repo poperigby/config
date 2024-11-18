@@ -17,10 +17,14 @@
         services = {
             backups = {
                 enable = true;
-                paths = [
+                paths = let
+                    cassidy = "/home/cassidy";
+                in [
                     "/home/*/.local/state/backups"
                     # Custom Skyrim patches and xEdit modgroups
-                    "/home/cassidy/Games/Modding/Games/Skyrim/739"
+                    "${cassidy}/Games/Modding/Games/Skyrim/739"
+                    # Skyrim load order, custom LOOT rules, etc.
+                    "${cassidy}/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition"
                 ];
             };
             earlyoom.enable = true;
