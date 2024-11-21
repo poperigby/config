@@ -78,6 +78,7 @@ in
             bottles
             gimp
             grim
+            inkscape
             nautilus
             onlyoffice-bin
             pwvucontrol

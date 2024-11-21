@@ -39,6 +39,8 @@ in
             raze
             # Quake
             vkquake
+            # Minecraft
+            prismlauncher
             # Bethesda
             jpexs
             limo
