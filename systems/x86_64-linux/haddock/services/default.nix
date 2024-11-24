@@ -14,7 +14,7 @@
         ./mealie.nix
         ./media
         ./miniflux.nix
-        ./ocis.nix
+        # ./ocis.nix
         ./paperless.nix
         ./postgresql.nix
         ./prusalink.nix
