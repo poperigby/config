@@ -20,10 +20,10 @@
             "sctp"
             "tipc"
         ];
-        extraModulePackages = with config.boot.kernelPackages; [
-            # Google Coral TPU driver
-            gasket
-        ];
+        # extraModulePackages = with config.boot.kernelPackages; [
+        #     # Google Coral TPU driver
+        #     gasket
+        # ];
     };
 
     hardware.enableRedistributableFirmware = true;
