@@ -570,11 +570,11 @@
     },
     "ocis": {
       "locked": {
-        "lastModified": 1731984867,
-        "narHash": "sha256-Gxhdj8ZJioknfHfr3lGndJYocrFlQ+CrsSZFU8Uqw1g=",
+        "lastModified": 1732181224,
+        "narHash": "sha256-DF6d2FljmXbRurJGT9q69IIAgMTaCfyT/NZ5wXUIy4M=",
         "owner": "xinyangli",
         "repo": "nixpkgs",
-        "rev": "cc960b6eeeaf40964ec547ff849293a74cd4f367",
+        "rev": "4e17c3e53fda94d45b8703414fdf6d547febe4a9",
         "type": "github"
       },
       "original": {
