@@ -1,7 +1,7 @@
 {
     # Setup the primary disk
     disko.devices.disk.primary = {
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-WD_Blue_SN580_1TB_244432808685";
         type = "disk";
         content = {
             type = "gpt";
