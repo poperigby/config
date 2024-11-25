@@ -14,7 +14,7 @@ in
             defaultSopsFile = lib.snowfall.fs.get-file "secrets/secrets.yaml";
             age = {
                 # This is the default AGE key that will be used for bootstrapping the system
-                keyFile = "/var/lib/sops-nix/age-key.txt";
+                keyFile = "/var/lib/sops-nix/key.txt";
             };
         };
     };

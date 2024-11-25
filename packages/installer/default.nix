@@ -75,7 +75,7 @@ fi
 
 echo "Copying key.txt to /mnt"
 sudo mkdir -p /mnt/var/lib/sops-nix
-sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/age-key.txt
+sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/key.txt
 
 echo "Installing NixOS system"
 if sudo nixos-install --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST"; then
