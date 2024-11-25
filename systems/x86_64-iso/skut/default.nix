@@ -18,7 +18,7 @@
         btrfs-progs
         curl
         git
-        parted
+        gptfdisk
         poperigby.installer
     ];
 

@@ -64,7 +64,7 @@ in
                 nix-init
                 nurl
                 ouch
-                parted
+                gptfdisk
                 poperigby.nix-explore
                 ripgrep
                 sops
