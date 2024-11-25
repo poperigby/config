@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
     propagatedBuildInputs = with python3Packages; [
        pillow
        simpleeval
-       inputs.ttkbootstrap.legacyPackages.${system}.python3Packages.ttkbootstrap
+       # inputs.ttkbootstrap.legacyPackages.${system}.python3Packages.ttkbootstrap
     ];
 
     meta = {
