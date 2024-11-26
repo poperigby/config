@@ -19,7 +19,6 @@
                     "/var/lib/jellyfin"
                     "/var/lib/lldap"
                     "/var/lib/mealie"
-                    "/var/lib/nextcloud"
                     "/var/lib/paperless"
                     "/var/lib/prowlarr"
                     "/var/lib/radarr"
