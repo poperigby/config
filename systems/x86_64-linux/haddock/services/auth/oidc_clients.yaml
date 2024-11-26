@@ -36,14 +36,14 @@ identity_providers:
         redirect_uris:
           - "https://news.haddock.cc/oauth2/oidc/callback"
       # https://doc.owncloud.com/ocis/next/deployment/services/s-list/idp.html
-      - client_name: "OCIS Web"
-        client_id: {{ secret "/run/secrets/ocis-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
-        public: true
-        authorization_policy: "one_factor"
-        redirect_uris:
-          - "https://files.haddock.cc/"
-          - "https://files.haddock.cc/oidc-callback.html"
-          - "https://files.haddock.cc/oidc-silent-redirect.html"
+      # - client_name: "OCIS Web"
+      #   client_id: {{ secret "/run/secrets/ocis-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+      #   public: true
+      #   authorization_policy: "one_factor"
+      #   redirect_uris:
+      #     - "https://files.haddock.cc/"
+      #     - "https://files.haddock.cc/oidc-callback.html"
+      #     - "https://files.haddock.cc/oidc-silent-redirect.html"
       # https://docs.paperless-ngx.com/advanced_usage/#openid-connect-and-social-authentication
       - client_name: "Paperless"
         client_id: {{ secret "/run/secrets/paperless-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
