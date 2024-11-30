@@ -45,7 +45,7 @@
         ucodenix.url = "github:e-tho/ucodenix";
         vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
         # Temporary inputs for unmerged PRs
-        caddy.url = "github:Nanotwerp/nixpkgs/caddy-rebase";
+        caddy.url = "github:vincentbernat/nixpkgs/feature/caddy-plugins";
         limo.url = "github:TomaSajt/nixpkgs/limo";
         ocis.url = "github:xinyangli/nixpkgs/ocis";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
