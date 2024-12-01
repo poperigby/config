@@ -37,7 +37,7 @@
                     ensureDBOwnership = true;
                 }
             ];
-            # TODO: How can I tighten this up?
+            # TODO: Required for Vikunja, but can I tighten it up?
             authentication = lib.mkForce ''
                 # TYPE  DATABASE        USER            ADDRESS                 METHOD
                 local   all             all                                     trust
