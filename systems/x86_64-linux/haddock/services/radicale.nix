@@ -30,7 +30,7 @@ in
         templates.radicale-secrets = {
             content = # bash
             ''
-                RADICALE_OPTION_AUTH_LDAP_SECRET=${config.sops.placeholder."haddock/radicale/ldap_secret"}
+                RADICALE_OPTIONS="--auth-ldap-secret=${config.sops.placeholder."haddock/radicale/ldap_secret"}"
             '';
             owner = "radicale";
         };

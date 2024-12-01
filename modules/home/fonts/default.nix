@@ -24,7 +24,7 @@ in
             # Emoji font
             noto-fonts-color-emoji
             # Monospace font
-            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+            nerd-fonts.jetbrains-mono
         ];
     };
 }
