@@ -604,6 +604,22 @@
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       }
     },
+    "p7zr": {
+      "locked": {
+        "lastModified": 1720013956,
+        "narHash": "sha256-E8MQtaHslxMoIOkzzrD/rLSjLAYmHNrCIajRfhVbC8g=",
+        "owner": "ByteSudoer",
+        "repo": "nixpkgs",
+        "rev": "1ef3d6fd9f94310facc2f5a7bdff76416903afb3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ByteSudoer",
+        "ref": "init-py7zr",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -663,6 +679,7 @@
         "nixpkgs": "nixpkgs_3",
         "ocis": "ocis",
         "openmw-nix": "openmw-nix",
+        "p7zr": "p7zr",
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
