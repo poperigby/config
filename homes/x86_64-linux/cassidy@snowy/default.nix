@@ -61,8 +61,6 @@ in
 
     home.packages = with pkgs; [
         blender-hip
-        # 3D printer slicer
-        super-slicer-latest
     ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
