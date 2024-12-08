@@ -44,8 +44,8 @@
     };
     # This is defined here instead of in disko.devices because I don't want Disko formatting these
     # This is actually multiple drives combined into one filesystem
-    # fileSystems."/mnt/media" = {
-    #     device = "/dev/disk/by-uuid/45208395-9c37-4bc4-ae87-c4ab5f39794b";
-    #     fsType = "btrfs";
-    # };
+    fileSystems."/mnt/media" = {
+        device = "/dev/disk/by-id/ata-ST4000DM004-2CV104_ZFN35CMF";
+        fsType = "btrfs";
+    };
 }
