@@ -8,6 +8,17 @@ autocmd({ "TextYankPost" }, { -- Highlight text briefly after yank
     end,
 })
 
+-- Disable TreeSitter if file is >1MB
+autocmd("BufReadPost", {
+    pattern = { "*" },
+    callback = function()
+        local filesize = vim.fn.getfsize(vim.fn.expand("%:p"))
+        if filesize < 1024 * 1024 then
+            vim.treesitter.stop()
+        end
+    end,
+})
+
 -- Disable built-in plugins
 local disabled_built_ins = {
     "gzip",

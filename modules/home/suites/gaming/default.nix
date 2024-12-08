@@ -44,6 +44,7 @@ in
             # Bethesda
             jpexs
             limo
+            poperigby.libwinpath
             poperigby.loot
             poperigby.synthesis
             protontricks
