@@ -13,6 +13,7 @@ in
                 ldap_base = "dc=haddock,dc=cc";
                 ldap_reader_dn = "uid=radicale,ou=people,dc=haddock,dc=cc";
                 ldap_filter = "(&(objectClass=person)(uid={0}))";
+                ldap_secret_file = config.sops.secrets."haddock/radicale/ldap_secret".path;
                 lc_username = true;
             };
         };
@@ -26,22 +27,12 @@ in
         '';
     };
 
-    sops = {
-        templates.radicale-secrets = {
-            content = # bash
-            ''
-                RADICALE_OPTIONS="--auth-ldap-secret=${config.sops.placeholder."haddock/radicale/ldap_secret"}"
-            '';
-            owner = "radicale";
-        };
-        secrets."haddock/radicale/ldap_secret".owner = "radicale";
-    };
+    sops.secrets."haddock/radicale/ldap_secret".owner = "radicale";
 
     systemd.services.radicale = let
        dependencies = [ "lldap.service" ];
     in {
         after = dependencies;
         requires = dependencies;
-        serviceConfig.EnvironmentFile = config.sops.templates.radicale-secrets.path;
     };
 }
