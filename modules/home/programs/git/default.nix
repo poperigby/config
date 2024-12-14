@@ -26,6 +26,8 @@ in
                 # Make the default branch name "main"
                 init.defaultBranch = "main";
                 push.default = "current";
+                # Don't change line endings
+                core.autocrlf = "false";
             };
         };
     };

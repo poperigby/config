@@ -62,6 +62,7 @@ in
                 lazygit
                 nh
                 nix-init
+                nixfmt-rfc-style
                 nurl
                 ouch
                 parted

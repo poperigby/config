@@ -20,7 +20,7 @@ in
             # Screenshooting
             grim = "${pkgs.grim}/bin/grim";
             slurp = "${pkgs.slurp}/bin/slurp";
-            screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'Screenshot_%Y-%m-%d_%H-%M.png')";
+            screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'Screenshot_%Y-%m-%d_%H-%M-%S-%N.png')";
             # Media
             swayosd = getExe' pkgs.swayosd "swayosd-client";
         in lib.mkOptionDefault {

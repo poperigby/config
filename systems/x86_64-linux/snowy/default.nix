@@ -23,6 +23,8 @@
                     "/home/*/.local/state/backups"
                     # Custom Skyrim patches and xEdit modgroups
                     "${cassidy}/Games/Modding/Games/Skyrim/739"
+                    # Synthesis profiles
+                    "${cassidy}/Games/Modding/Tools/Synthesis"
                     # Skyrim load order, custom LOOT rules, etc.
                     "${cassidy}/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition"
                 ];
