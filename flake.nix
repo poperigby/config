@@ -48,7 +48,7 @@
         caddy.url = "github:vincentbernat/nixpkgs/feature/caddy-plugins";
         limo.url = "github:TomaSajt/nixpkgs/limo";
         ocis.url = "github:xinyangli/nixpkgs/ocis";
-        p7zr.url = "github:ByteSudoer/nixpkgs/init-py7zr";
+        py7zr.url = "github:ByteSudoer/nixpkgs/init-py7zr";
         qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
         ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
     };
