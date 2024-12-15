@@ -5,6 +5,7 @@
         ./autopairs.nix
         ./cmp.nix
         ./comment.nix
+        ./dap.nix
         ./fidget.nix
         ./gruvbox.nix
         ./highlight-colors.nix

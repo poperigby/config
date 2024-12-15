@@ -1,4 +1,5 @@
 {
+    callPackage,
     fetchFromGitHub,
     inputs,
     lib,
@@ -30,10 +31,10 @@ python3.pkgs.buildPythonApplication {
         qtawesome
         qtpy
         rarfile
-        virtual-glob
         jstyleson
     ]) ++ [
-        inputs.p7zr.legacyPackages.${system}.python3.pkgs.p7zr
+        inputs.py7zr.legacyPackages.${system}.python3.pkgs.py7zr
+        (callPackage ./virtualGlob.nix)
     ];
 
     pythonImportsCheck = [ "dynamic_interface_patcher" ];
