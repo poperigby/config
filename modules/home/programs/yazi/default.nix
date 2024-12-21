@@ -29,11 +29,20 @@ in
       enable = true;
       enableFishIntegration = true;
       theme = fromTOML (readFile ./theme.toml);
+      initLua = ./init.lua;
       settings = {
         manager = {
           sort_by = "mtime";
           sort_reverse = true;
           sort_dir_first = false;
+        };
+      };
+      plugins = {
+        yamb = pkgs.fetchFromGitHub {
+          owner = "h-hg";
+          repo = "yamb.yazi";
+          rev = "108347b0392fc819af04506dd0405fb744dfca68";
+          hash = "sha256-/BU/jVWgLK7JmPQpCHXhPCH+LrLy7RIYyIX0TYbTpuk=";
         };
       };
       keymap = {
@@ -54,6 +63,62 @@ in
               ];
               run = "cd ~/Pictures/Screenshots";
               desc = "Go the Screenshots directory";
+            }
+            # Yamb bookmark manager
+            {
+              on = [
+                "u"
+                "a"
+              ];
+              run = "plugin yamb --args=save";
+              desc = "Add bookmark";
+            }
+            {
+              on = [
+                "u"
+                "g"
+              ];
+              run = "plugin yamb --args=jump_by_key";
+              desc = "Jump bookmark by key";
+            }
+            {
+              on = [
+                "u"
+                "G"
+              ];
+              run = "plugin yamb --args=jump_by_fzf";
+              desc = "Jump bookmark by fzf";
+            }
+            {
+              on = [
+                "u"
+                "d"
+              ];
+              run = "plugin yamb --args=delete_by_key";
+              desc = "Delete bookmark by key";
+            }
+            {
+              on = [
+                "u"
+                "D"
+              ];
+              run = "plugin yamb --args=delete_by_fzf";
+              desc = "Delete bookmark by fzf";
+            }
+            {
+              on = [
+                "u"
+                "A"
+              ];
+              run = "plugin yamb --args=delete_all";
+              desc = "Delete all bookmarks";
+            }
+            {
+              on = [
+                "u"
+                "r"
+              ];
+              run = "plug";
             }
           ]
           ++ optionals gui [
