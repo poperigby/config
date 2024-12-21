@@ -10,8 +10,8 @@ final: prev: {
         src = prev.fetchFromGitHub {
           owner = "limo-app";
           repo = "limo";
-          rev = "d995e58a71511fc247652b8ddfe255cefd4d51c1";
-          hash = "sha256-T05Fgg0hjxutlSPAdule1HQa9zfr9QMEvbmq/K4axdc=";
+          rev = "011a7c9ae910db420c10cf1b1c3bcdaa22f91bc8";
+          hash = "sha256-NSlZRFkLq3Ks6h4imDcouyiouKYeY7AK1U6a4CXaaA0=";
         };
       });
 }
