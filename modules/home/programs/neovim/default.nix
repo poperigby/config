@@ -35,8 +35,10 @@ in
         harper
         lua-language-server
         nixd
+        nodejs
         pyright
         rust-analyzer
+        typescript
         vscode-langservers-extracted
         yaml-language-server
       ];

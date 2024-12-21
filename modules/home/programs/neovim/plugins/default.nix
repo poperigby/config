@@ -18,6 +18,7 @@
     ./todo-comments.nix
     ./toggleterm.nix
     ./treesitter.nix
+    ./typescript-tools.nix
     ./ufo.nix
     ./which-key.nix
     ./yazi.nix
