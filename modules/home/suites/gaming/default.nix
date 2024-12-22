@@ -50,6 +50,7 @@ in
       jpexs
       limo
       nifskope
+      poperigby.dar2oar
       poperigby.libwinpath
       poperigby.loot
       poperigby.synthesis
