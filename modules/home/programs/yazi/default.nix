@@ -36,6 +36,35 @@ in
           sort_reverse = true;
           sort_dir_first = false;
         };
+        plugin = {
+          prepend_previewers = [
+            # Archive previewer
+            {
+              mime = "application/*zip";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-tar";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-bzip2";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-7z-compressed";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-rar";
+              run = "ouch";
+            }
+            {
+              mime = "application/x-xz";
+              run = "ouch";
+            }
+          ];
+        };
       };
       plugins = {
         yamb = pkgs.fetchFromGitHub {
@@ -44,25 +73,21 @@ in
           rev = "108347b0392fc819af04506dd0405fb744dfca68";
           hash = "sha256-/BU/jVWgLK7JmPQpCHXhPCH+LrLy7RIYyIX0TYbTpuk=";
         };
+        ouch = pkgs.fetchFromGitHub {
+          owner = "ndtoan96";
+          repo = "ouch.yazi";
+          tag = "0.4.0";
+          hash = "sha256-eRjdcBJY5RHbbggnMHkcIXUF8Sj2nhD/o7+K3vD3hHY=";
+        };
       };
       keymap = {
         manager.prepend_keymap =
           [
+            # Ouch archive manager
             {
-              on = [
-                "g"
-                "m"
-              ];
-              run = "cd /run/media/$USER";
-              desc = "Go to the removable drives directory";
-            }
-            {
-              on = [
-                "g"
-                "s"
-              ];
-              run = "cd ~/Pictures/Screenshots";
-              desc = "Go the Screenshots directory";
+              on = [ "C" ];
+              run = "plugin ouch --args=zip";
+              desc = "Compress with ouch";
             }
             # Yamb bookmark manager
             {
