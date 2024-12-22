@@ -32,6 +32,22 @@
         "type": "github"
       }
     },
+    "chime": {
+      "locked": {
+        "lastModified": 1734910651,
+        "narHash": "sha256-t31VCZOJAbrMdtp3Baf90OIZC0KVSrOrBBi9pRGP1ps=",
+        "owner": "poperigby",
+        "repo": "nixpkgs",
+        "rev": "28953f561e60e25ada571b0f919a9f63b7db255d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poperigby",
+        "ref": "chime",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "cpu-microcodes": {
       "flake": false,
       "locked": {
@@ -346,22 +362,6 @@
         "type": "github"
       }
     },
-    "limo": {
-      "locked": {
-        "lastModified": 1731494373,
-        "narHash": "sha256-yinQe1CULxgu9QxaxbkxUyl4vhSwj/WEPPw6LxLeonM=",
-        "owner": "TomaSajt",
-        "repo": "nixpkgs",
-        "rev": "b5711fd002a7dcb5b0c452602e4692d9028d9982",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TomaSajt",
-        "ref": "limo",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "mygui": {
       "locked": {
         "lastModified": 1716480759,
@@ -650,16 +650,16 @@
     },
     "py7zr": {
       "locked": {
-        "lastModified": 1720013956,
-        "narHash": "sha256-E8MQtaHslxMoIOkzzrD/rLSjLAYmHNrCIajRfhVbC8g=",
-        "owner": "ByteSudoer",
+        "lastModified": 1734469106,
+        "narHash": "sha256-q/0KAzLtAx9+jpXGsIB39NsUQZPHENobsZR8a5Ca7GU=",
+        "owner": "poperigby",
         "repo": "nixpkgs",
-        "rev": "1ef3d6fd9f94310facc2f5a7bdff76416903afb3",
+        "rev": "af7a398a24d9d777dad3e1e723eee7b93f3d98aa",
         "type": "github"
       },
       "original": {
-        "owner": "ByteSudoer",
-        "ref": "init-py7zr",
+        "owner": "poperigby",
+        "ref": "py7zr",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -683,11 +683,11 @@
     "root": {
       "inputs": {
         "caddy": "caddy",
+        "chime": "chime",
         "crowdsec": "crowdsec",
         "disko": "disko",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
-        "limo": "limo",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
         "nixcord": "nixcord",
@@ -702,6 +702,7 @@
         "sops-nix": "sops-nix",
         "ttkbootstrap": "ttkbootstrap",
         "ucodenix": "ucodenix",
+        "virtual-glob": "virtual-glob",
         "vpn-confinement": "vpn-confinement"
       }
     },
@@ -899,6 +900,22 @@
       "original": {
         "owner": "e-tho",
         "repo": "ucodenix",
+        "type": "github"
+      }
+    },
+    "virtual-glob": {
+      "locked": {
+        "lastModified": 1734904721,
+        "narHash": "sha256-7PcVcM+Cu8Na91Y4PmS35afxFX+RbhaW+wLXgO4CjNk=",
+        "owner": "poperigby",
+        "repo": "nixpkgs",
+        "rev": "8a422ec79e6a401c9f5fe02e571cd11602d34d8d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poperigby",
+        "ref": "virtual-glob",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
