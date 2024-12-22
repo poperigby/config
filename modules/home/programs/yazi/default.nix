@@ -36,6 +36,15 @@ in
           sort_reverse = true;
           sort_dir_first = false;
         };
+        opener = {
+          extract = [
+            {
+              run = "ouch d -y \"$@\"";
+              desc = "Extract here with ouch";
+              for = "unix";
+            }
+          ];
+        };
         plugin = {
           prepend_previewers = [
             # Archive previewer
@@ -150,7 +159,7 @@ in
             # Enable mapping for ripdrag if GUI is enabled
             {
               on = [ "<C-n>" ];
-              run = "shell '${getExe pkgs.ripdrag} $@ -x 2>/dev/null &' --confirm";
+              run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
               description = "Open ripdrag for dragging and dropping";
             }
           ];
