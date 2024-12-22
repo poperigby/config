@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
   version = "0.9.0";
 
   src = fetchFromGitHub {
-    owner = "poperigby";
+    owner = "SARDONYX-sard";
     repo = "dar-to-oar";
-    rev = "include-font";
+    rev = "bd7f82269d74ae6dd68d14f74581aad9a5fe43e2";
     hash = "sha256-3Af3LCZ4r+3TpbIp75urlbvSzw2FHTgnsPg6J7dvFcs=";
   };
 
