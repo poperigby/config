@@ -51,6 +51,7 @@ in
       limo
       nifskope
       poperigby.dar2oar
+      poperigby.hkxc
       poperigby.libwinpath
       poperigby.loot
       poperigby.synthesis
