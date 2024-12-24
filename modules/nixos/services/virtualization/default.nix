@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.services.virtualization;
-    gui = config.poperigby.suites.gui;
+    cfg = config.custom.services.virtualization;
+    gui = config.custom.suites.gui;
 in
 {
-    options.poperigby.services.virtualization.enable = lib.mkEnableOption "Enable virtualization with libvirt";
+    options.custom.services.virtualization.enable = lib.mkEnableOption "Enable virtualization with libvirt";
 
     config = lib.mkIf cfg.enable {
         virtualisation.libvirtd.enable = true;

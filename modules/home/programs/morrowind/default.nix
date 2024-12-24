@@ -8,10 +8,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.morrowind;
+    cfg = config.custom.programs.morrowind;
 in
 {
-    options.poperigby.programs.morrowind.enable = mkEnableOption "OpenMW and modding tools";
+    options.custom.programs.morrowind.enable = mkEnableOption "OpenMW and modding tools";
 
     config = mkIf cfg.enable {
         home.packages = with inputs.openmw-nix.packages.${system}; [

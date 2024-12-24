@@ -105,7 +105,7 @@ in
             };
             serviceConfig = {
                 Type = "simple";
-                ExecStart = lib.getExe pkgs.poperigby.qbittorrent-vpn-port-update;
+                ExecStart = lib.getExe pkgs.custom.qbittorrent-vpn-port-update;
             };
             # Make the port updater run in the ProtonVPN network namespace
             vpnConfinement = {

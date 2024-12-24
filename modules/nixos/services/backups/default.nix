@@ -15,12 +15,12 @@ let
     submodule
     ;
 
-  cfg = config.poperigby.services.backups;
+  cfg = config.custom.services.backups;
   hostName = config.networking.hostName;
-  mail = config.poperigby.services.postfix.enable;
+  mail = config.custom.services.postfix.enable;
 in
 {
-  options.poperigby.services.backups = {
+  options.custom.services.backups = {
     enable = mkEnableOption "Restic backups";
     repositories = mkOption {
       default = {

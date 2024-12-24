@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.hardware.printing;
+    cfg = config.custom.hardware.printing;
 in
 {
-    options.poperigby.hardware.printing.enable = mkEnableOption "printing";
+    options.custom.hardware.printing.enable = mkEnableOption "printing";
 
     config = mkIf cfg.enable {
         services = {

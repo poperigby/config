@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.services.gammastep;
+    cfg = config.custom.services.gammastep;
 in
 {
-    options.poperigby.services.gammastep.enable = mkEnableOption "Gammastep";
+    options.custom.services.gammastep.enable = mkEnableOption "Gammastep";
 
     config = mkIf cfg.enable {
         services.gammastep = {

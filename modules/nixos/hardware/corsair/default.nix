@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.hardware.corsair;
+  cfg = config.custom.hardware.corsair;
 in
 {
-    options.poperigby.hardware.corsair.enable = lib.mkEnableOption "Enable Corsair hardware control";
+    options.custom.hardware.corsair.enable = lib.mkEnableOption "Enable Corsair hardware control";
 
     config = lib.mkIf cfg.enable {
         hardware.ckb-next = {

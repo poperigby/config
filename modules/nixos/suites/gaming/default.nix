@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.suites.gaming;
+  cfg = config.custom.suites.gaming;
 in
 {
-    options.poperigby.suites.gaming.enable = lib.mkEnableOption "Enable gaming programs/tweaks";
+    options.custom.suites.gaming.enable = lib.mkEnableOption "Enable gaming programs/tweaks";
 
     config = lib.mkIf cfg.enable {
         # This does some helpful Steam related tweaks (as well as installing Steam)

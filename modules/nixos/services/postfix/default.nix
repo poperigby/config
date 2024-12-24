@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.services.postfix;
+  cfg = config.custom.services.postfix;
   postfix = config.services.postfix;
 in
 {
-    options.poperigby.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
+    options.custom.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
 
     config = lib.mkIf cfg.enable {
         services.postfix = {

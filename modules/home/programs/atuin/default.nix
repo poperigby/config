@@ -10,11 +10,11 @@ let
 
     inherit (config.sops) secrets;
 
-    cfg = config.poperigby.programs.atuin;
+    cfg = config.custom.programs.atuin;
     user = config.snowfallorg.user.name;
 in
 {
-    options.poperigby.programs.atuin.enable = mkEnableOption "Enable atuin";
+    options.custom.programs.atuin.enable = mkEnableOption "Enable atuin";
 
     config = mkIf cfg.enable {
         programs.atuin = {

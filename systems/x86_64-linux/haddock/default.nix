@@ -7,7 +7,7 @@
     ./services
   ];
 
-  poperigby = {
+  custom = {
     services = {
       backups = {
         enable = true;

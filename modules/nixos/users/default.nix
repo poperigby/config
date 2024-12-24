@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.users;
+    cfg = config.custom.users;
 in
 {
-    options.poperigby.users.enable = mkEnableOption "user settings";
+    options.custom.users.enable = mkEnableOption "user settings";
 
     config = mkIf cfg.enable {
         # Don't allow changing users with normal commands, allowing Nix to

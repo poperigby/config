@@ -1,12 +1,12 @@
 { config, inputs, lib, ... }:
 
 let
-    cfg = config.poperigby.security.secrets;
+    cfg = config.custom.security.secrets;
 in
 {
     imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
-    options.poperigby.security.secrets.enable = lib.mkEnableOption "Enable secret management";
+    options.custom.security.secrets.enable = lib.mkEnableOption "Enable secret management";
 
     config = lib.mkIf cfg.enable {
         # Secret management

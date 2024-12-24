@@ -1,7 +1,7 @@
 { ... }:
 
 {
-    poperigby = {
+    custom = {
         suites = {
             common.enable = true;
             gui = {

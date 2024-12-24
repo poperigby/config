@@ -7,10 +7,10 @@ let
         readFile
     ;
 
-    cfg = config.poperigby.programs.wezterm;
+    cfg = config.custom.programs.wezterm;
 in
 {
-    options.poperigby.programs.wezterm.enable = mkEnableOption "WezTerm";
+    options.custom.programs.wezterm.enable = mkEnableOption "WezTerm";
 
     config = mkIf cfg.enable {
         programs.wezterm = {

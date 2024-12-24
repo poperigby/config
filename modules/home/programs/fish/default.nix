@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.programs.fish;
+    cfg = config.custom.programs.fish;
 in
 {
-    options.poperigby.programs.fish.enable = lib.mkEnableOption "fish";
+    options.custom.programs.fish.enable = lib.mkEnableOption "fish";
 
     config = lib.mkIf cfg.enable {
         programs = {

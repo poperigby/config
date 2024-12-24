@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.services.geolocation;
+    cfg = config.custom.services.geolocation;
 in
 {
-    options.poperigby.services.geolocation.enable = mkEnableOption "automatic geolocation provider";
+    options.custom.services.geolocation.enable = mkEnableOption "automatic geolocation provider";
 
     config = mkIf cfg.enable {
         services.geoclue2 = {

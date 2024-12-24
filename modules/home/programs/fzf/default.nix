@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.fzf;
+    cfg = config.custom.programs.fzf;
 in
 {
-    options.poperigby.programs.fzf.enable = lib.mkEnableOption "Enable fzf";
+    options.custom.programs.fzf.enable = lib.mkEnableOption "Enable fzf";
 
     config = lib.mkIf cfg.enable {
         programs.fzf = {

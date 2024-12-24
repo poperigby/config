@@ -13,7 +13,7 @@ let
         types
     ;
 
-    cfg = config.poperigby.services.lact;
+    cfg = config.custom.services.lact;
     settingsFormat = pkgs.formats.yaml {};
 
     configFile = if cfg.configFile == null then
@@ -22,7 +22,7 @@ let
         cfg.configFile;
     in
 {
-    options.poperigby.services.lact = {
+    options.custom.services.lact = {
         enable = mkEnableOption "LACT for controlling AMD GPUs";
         gpuOverclock = {
             enable = mkEnableOption "GPU overclocking";

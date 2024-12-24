@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.services.smartd;
+  cfg = config.custom.services.smartd;
 in
 {
-    options.poperigby.services.smartd = {
+    options.custom.services.smartd = {
         enable = lib.mkEnableOption "Enable smartd to monitor drives";
     };
 

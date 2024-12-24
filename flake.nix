@@ -64,7 +64,7 @@
       src = ./.;
 
       # A namespace to use for my flake's packages, library, and overlays.
-      snowfall.namespace = "poperigby";
+      snowfall.namespace = "custom";
 
       channels-config = {
         allowUnfree = true;

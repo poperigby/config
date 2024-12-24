@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.git;
+    cfg = config.custom.programs.git;
 in
 {
-    options.poperigby.programs.git.enable = lib.mkEnableOption "Enable git";
+    options.custom.programs.git.enable = lib.mkEnableOption "Enable git";
 
     config = lib.mkIf cfg.enable {
         programs.git = {

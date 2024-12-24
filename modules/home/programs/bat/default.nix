@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.bat;
+    cfg = config.custom.programs.bat;
 in
 {
-    options.poperigby.programs.bat.enable = lib.mkEnableOption "Enable bat";
+    options.custom.programs.bat.enable = lib.mkEnableOption "Enable bat";
 
     config = lib.mkIf cfg.enable {
         programs.bat = {

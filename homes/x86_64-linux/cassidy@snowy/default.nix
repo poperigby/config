@@ -4,7 +4,7 @@ let
     inherit (lib) getExe;
 in
 {
-    poperigby = {
+    custom = {
         suites = {
             common.enable = true;
             gaming.enable = true;

@@ -6,11 +6,11 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.hardware.scanning;
-    gui = config.poperigby.suites.gui;
+    cfg = config.custom.hardware.scanning;
+    gui = config.custom.suites.gui;
 in
 {
-    options.poperigby.hardware.scanning.enable = mkEnableOption "scanning";
+    options.custom.hardware.scanning.enable = mkEnableOption "scanning";
 
     config = mkIf cfg.enable {
         hardware.sane = {

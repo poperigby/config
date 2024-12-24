@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.services.ludusavi;
+    cfg = config.custom.services.ludusavi;
     settingsFormat = pkgs.formats.yaml {};
 
     configFile = if cfg.configFile == null then
@@ -10,7 +10,7 @@ let
         cfg.configFile;
 in
 {
-    options.poperigby.services.ludusavi = {
+    options.custom.services.ludusavi = {
         enable = lib.mkEnableOption "Whether to enable the Ludusavi game backup tool";
         configFile = lib.mkOption {
             type = with lib.types; nullOr path;

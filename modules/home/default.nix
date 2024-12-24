@@ -3,7 +3,7 @@
 { config, lib, ... }:
 
 {
-    options.poperigby.configDir = lib.mkOption {
+    options.custom.configDir = lib.mkOption {
         type = lib.types.path;
         description = "Location of my flake configuration repository";
         default = "${config.home.homeDirectory}/Projects/nixos";

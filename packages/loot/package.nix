@@ -11,7 +11,7 @@
   libloot,
   minizip-ng,
   ogdf,
-  poperigby,
+  custom,
   qt6Packages,
   spdlog,
   stdenv,
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     libloot
     minizip-ng
     ogdf
-    poperigby.valve-file-vdf
+    custom.valve-file-vdf
     qt6Packages.qtbase
     qt6Packages.qtwayland
     spdlog
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       (cmakeFeature "FETCHCONTENT_SOURCE_DIR_MINIZIP" "${minizip-ng.src}")
       (cmakeFeature "FETCHCONTENT_SOURCE_DIR_SPDLOG" "${spdlog.src}")
       (cmakeFeature "FETCHCONTENT_SOURCE_DIR_TOMLPLUSPLUS" "${tomlplusplus.src}")
-      (cmakeFeature "FETCHCONTENT_SOURCE_DIR_VALVEFILEVDF" "${poperigby.valve-file-vdf.src}")
+      (cmakeFeature "FETCHCONTENT_SOURCE_DIR_VALVEFILEVDF" "${custom.valve-file-vdf.src}")
       (cmakeBool "LOOT_BUILD_TESTS" false)
     ];
 

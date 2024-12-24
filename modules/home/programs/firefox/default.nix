@@ -7,10 +7,10 @@ let
         readFile
     ;
 
-    cfg = config.poperigby.programs.firefox;
+    cfg = config.custom.programs.firefox;
 in
 {
-    options.poperigby.programs.firefox.enable = mkEnableOption "Firefox";
+    options.custom.programs.firefox.enable = mkEnableOption "Firefox";
 
     config = mkIf cfg.enable {
         programs.firefox = {

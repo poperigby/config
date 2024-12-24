@@ -15,11 +15,11 @@ let
     readFile
     ;
 
-  cfg = config.poperigby.programs.yazi;
-  gui = config.poperigby.suites.gui.enable;
+  cfg = config.custom.programs.yazi;
+  gui = config.custom.suites.gui.enable;
 in
 {
-  options.poperigby.programs.yazi = {
+  options.custom.programs.yazi = {
     enable = mkEnableOption "Yazi file explorer";
     default = mkEnableOption "Yazi as the default file explorer";
   };

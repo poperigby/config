@@ -7,11 +7,11 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.desktops.sway;
-    gui = config.poperigby.suites.gui;
+    cfg = config.custom.desktops.sway;
+    gui = config.custom.suites.gui;
 in
 {
-    options.poperigby.desktops.sway.enable = mkEnableOption "Enable Sway window manager";
+    options.custom.desktops.sway.enable = mkEnableOption "Enable Sway window manager";
 
     imports = [
         ./keybinds.nix

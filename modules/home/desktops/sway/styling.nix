@@ -1,7 +1,7 @@
 { config, inputs, lib, ... }:
 
 let
-    cfg = config.poperigby.desktops.sway;
+    cfg = config.custom.desktops.sway;
     colors = config.colorScheme.palette;
     fonts = config.fonts.fontconfig.defaultFonts;
 in

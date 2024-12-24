@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.programs.rofi;
+    cfg = config.custom.programs.rofi;
 in
 {
-    options.poperigby.programs.rofi.enable = lib.mkEnableOption "Enable Rofi";
+    options.custom.programs.rofi.enable = lib.mkEnableOption "Enable Rofi";
 
     config = lib.mkIf cfg.enable {
         programs.rofi = {

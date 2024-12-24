@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.services.clipboard;
+    cfg = config.custom.services.clipboard;
 in
 {
-    options.poperigby.services.clipboard.enable = lib.mkEnableOption "Enable clipboard manager";
+    options.custom.services.clipboard.enable = lib.mkEnableOption "Enable clipboard manager";
 
     config = lib.mkIf cfg.enable {
         # Stores clipboard items in a database and allows recalling them with a picker

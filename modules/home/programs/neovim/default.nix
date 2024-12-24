@@ -12,12 +12,12 @@ let
     mkIf
     ;
 
-  cfg = config.poperigby.programs.neovim;
-  gui = config.poperigby.suites.gui.enable;
+  cfg = config.custom.programs.neovim;
+  gui = config.custom.suites.gui.enable;
   nvim = getExe config.programs.neovim.finalPackage;
 in
 {
-  options.poperigby.programs.neovim.enable = mkEnableOption "Neovim";
+  options.custom.programs.neovim.enable = mkEnableOption "Neovim";
 
   config = mkIf cfg.enable {
     programs = {

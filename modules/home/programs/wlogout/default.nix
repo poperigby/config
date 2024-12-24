@@ -7,10 +7,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.wlogout;
+    cfg = config.custom.programs.wlogout;
 in
 {
-    options.poperigby.programs.wlogout.enable = mkEnableOption "logout menu";
+    options.custom.programs.wlogout.enable = mkEnableOption "logout menu";
 
     config = mkIf cfg.enable {
         programs.wlogout = {

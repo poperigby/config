@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.thunderbird;
+    cfg = config.custom.programs.thunderbird;
 in
 {
-    options.poperigby.programs.thunderbird.enable = lib.mkEnableOption "Enable thunderbird";
+    options.custom.programs.thunderbird.enable = lib.mkEnableOption "Enable thunderbird";
 
     config = lib.mkIf cfg.enable {
         programs.thunderbird = {

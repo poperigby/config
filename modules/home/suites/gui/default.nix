@@ -16,10 +16,10 @@ let
         str
     ;
 
-    cfg = config.poperigby.suites.gui;
+    cfg = config.custom.suites.gui;
 in
 {
-    options.poperigby.suites.gui = {
+    options.custom.suites.gui = {
         enable = mkEnableOption "GUI";
         resolution = mkOption {
             type = str;
@@ -45,7 +45,7 @@ in
     };
 
     config = mkIf cfg.enable {
-        poperigby = {
+        custom = {
             desktops.sway.enable = true;
             programs = {
                 discord.enable = true;
