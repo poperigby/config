@@ -13,42 +13,61 @@ let
     ;
 
   cfg = config.poperigby.programs.neovim;
+  gui = config.poperigby.suites.gui.enable;
   nvim = getExe config.programs.neovim.finalPackage;
 in
 {
   options.poperigby.programs.neovim.enable = mkEnableOption "Neovim";
 
   config = mkIf cfg.enable {
-    programs.neovim = {
-      enable = true;
-      # Set EDITOR to nvim
-      defaultEditor = true;
-      # Alias vi and vim to nvim
-      viAlias = true;
-      vimAlias = true;
-      # Extra packages available to Neovim
-      extraPackages = with pkgs; [
-        # Language servers
-        bash-language-server
-        clang-tools
-        csharp-ls
-        harper
-        lua-language-server
-        nixd
-        nodejs
-        pyright
-        rust-analyzer
-        typescript
-        vscode-langservers-extracted
-        yaml-language-server
-      ];
-      extraLuaConfig = # lua
-        ''
-          require("options")
-          require("misc")
-          require("mappings")
-          require("filetype")
-        '';
+    programs = {
+      neovim = {
+        enable = true;
+        # Set EDITOR to nvim
+        defaultEditor = true;
+        # Alias vi and vim to nvim
+        viAlias = true;
+        vimAlias = true;
+        # Extra packages available to Neovim
+        extraPackages = with pkgs; [
+          # Language servers
+          bash-language-server
+          clang-tools
+          csharp-ls
+          harper
+          lua-language-server
+          nixd
+          nodejs
+          pyright
+          rust-analyzer
+          typescript
+          vscode-langservers-extracted
+          yaml-language-server
+        ];
+        extraLuaConfig = # lua
+          ''
+            require("options")
+            require("misc")
+            require("mappings")
+            require("filetype")
+            ${lib.optionalString gui "require(\"gui\")"}
+          '';
+      };
+      neovide = mkIf gui {
+        enable = true;
+        settings = {
+          font = {
+            normal = [ "JetBrainsMono Nerd Font" ];
+            size = 11.0;
+            # Disable ligatures 😠
+            fetures = [
+              "-calt"
+              "-clig"
+              "-liga"
+            ];
+          };
+        };
+      };
     };
 
     home.sessionVariables = {
@@ -67,6 +86,7 @@ in
     };
 
     home.packages = [
+      # Disable built-in Neovim wrapper .desktop entry
       (lib.hiPrio (
         pkgs.runCommand "nvim.desktop-hide" { } ''
           mkdir -p "$out/share/applications"
