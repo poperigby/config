@@ -59,8 +59,8 @@ in
           font = {
             normal = [ "JetBrainsMono Nerd Font" ];
             size = 11.0;
-            # Disable ligatures 😠
-            fetures = [
+            # Disable ligatures 🤢
+            features."JetBrainsMono Nerd Font" = [
               "-calt"
               "-clig"
               "-liga"
