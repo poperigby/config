@@ -47,7 +47,6 @@
     # Temporary inputs for unmerged PRs
     caddy.url = "github:vincentbernat/nixpkgs/feature/caddy-plugins";
     chime.url = "github:poperigby/nixpkgs/chime";
-    ocis.url = "github:xinyangli/nixpkgs/ocis";
     py7zr.url = "github:poperigby/nixpkgs/py7zr";
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
