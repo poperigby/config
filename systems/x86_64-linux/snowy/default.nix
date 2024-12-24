@@ -15,22 +15,24 @@
       scanning.enable = true;
     };
     services = {
-      backups = {
-        enable = true;
-        paths =
-          let
-            cassidy = "/home/cassidy";
-          in
-          [
+
+      backups =
+        let
+          cassidy = "/home/cassidy";
+        in
+        {
+          enable = true;
+          paths = [
             "/home/*/.local/state/backups"
-            # Custom Skyrim patches and xEdit modgroups
-            "${cassidy}/Games/Modding/Games/Skyrim/739"
-            # Synthesis profiles
-            "${cassidy}/Games/Modding/Tools/Synthesis"
+            # Modding setups
+            "${cassidy}/Games/Modding"
             # Skyrim load order, custom LOOT rules, etc.
             "${cassidy}/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition"
           ];
-      };
+          exclude = [
+            "${cassidy}/Games/Modding/Games/*/_download"
+          ];
+        };
       earlyoom.enable = true;
       geolocation.enable = true;
       lact = {
