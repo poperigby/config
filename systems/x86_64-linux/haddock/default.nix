@@ -14,6 +14,7 @@
         # Backup to Tintin as well as BorgBase
         repositories.tintin = true;
         paths = [
+          "/srv/minecraft/*/world"
           "/var/backup"
           "/var/lib/immich"
           "/var/lib/jellyfin"

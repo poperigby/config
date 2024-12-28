@@ -32,6 +32,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     openmw-nix.url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
     snowfall-lib = {
@@ -85,6 +89,7 @@
             modules = with inputs; [
               crowdsec.nixosModules.crowdsec
               crowdsec.nixosModules.crowdsec-firewall-bouncer
+              nix-minecraft.nixosModules.minecraft-servers
               vpn-confinement.nixosModules.default
               "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
             ];
