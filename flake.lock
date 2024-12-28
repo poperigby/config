@@ -562,11 +562,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1735355342,
-        "narHash": "sha256-X0Md5YIxS8nBUGbFTqFgUbtBUrBybYlLu3T9kPjQdBU=",
+        "lastModified": 1735362358,
+        "narHash": "sha256-0FiIFnsMoYFffkBVP4rQUK0lrw9iTXjdyKzXayCQjDQ=",
         "ref": "refs/heads/main",
-        "rev": "0f15d1e78934de491ffa111f7e9149e9e42d0929",
-        "revCount": 14,
+        "rev": "f3882bc1ef803c74399e50e9aad9a2d3bccd0093",
+        "revCount": 15,
         "type": "git",
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       },
