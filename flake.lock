@@ -553,34 +553,20 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1734649271,
-        "narHash": "sha256-4EVBRhOjMDuGtMaofAIqzJbg4Ql7Ai0PSeuVZTHjyKQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "d70bd19e0a38ad4790d3913bf08fcbfc9eeca507",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "openmw-nix": {
       "inputs": {
         "mygui": "mygui",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1735286157,
-        "narHash": "sha256-KGfmNMKkv/7IOdDOkJQdPbRt3zj2u2YJc+kYy6ee/Bo=",
+        "lastModified": 1735355342,
+        "narHash": "sha256-X0Md5YIxS8nBUGbFTqFgUbtBUrBybYlLu3T9kPjQdBU=",
         "ref": "refs/heads/main",
-        "rev": "8eddca32107d5d5604c42a1d6c6596ecc5081ecf",
-        "revCount": 13,
+        "rev": "0f15d1e78934de491ffa111f7e9149e9e42d0929",
+        "revCount": 14,
         "type": "git",
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       },
