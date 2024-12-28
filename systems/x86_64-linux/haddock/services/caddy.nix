@@ -1,7 +1,6 @@
 {
   config,
-  inputs,
-  system,
+  pkgs,
   ...
 }:
 
@@ -11,7 +10,7 @@ in
 {
   services.caddy = {
     enable = true;
-    package = inputs.caddy.legacyPackages.${system}.caddy.withPlugins {
+    package = pkgs.caddy.withPlugins {
       plugins = [
         "github.com/caddy-dns/porkbun@v0.1.5"
       ];

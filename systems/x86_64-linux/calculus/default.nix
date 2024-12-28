@@ -1,10 +1,10 @@
 { ... }:
 
 {
-  # imports = [
-  #   ./drives.nix
-  #   ./hardware.nix
-  # ];
+  imports = [
+    ./drives.nix
+    ./hardware.nix
+  ];
 
   custom = {
     hardware = {
