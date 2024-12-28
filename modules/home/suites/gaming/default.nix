@@ -40,8 +40,6 @@ in
       # Doom
       doomrunner
       gzdoom
-      # Build Engine
-      raze
       # Quake
       vkquake
       # Minecraft
