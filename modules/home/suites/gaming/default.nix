@@ -52,7 +52,6 @@ in
       nifskope
       custom.dar2oar
       custom.hkxc
-      custom.libwinpath
       custom.loot
       custom.synthesis
       protontricks
