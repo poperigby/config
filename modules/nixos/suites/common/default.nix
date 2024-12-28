@@ -34,7 +34,6 @@ in
     custom = {
       nix.enable = true;
       services = {
-        distrobox.enable = true;
         envfs.enable = true;
         ld.enable = true;
         smartd.enable = true;
