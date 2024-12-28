@@ -82,7 +82,7 @@ writeShellScriptBin "installer" ''
   sudo mkdir -p /mnt/var/lib/sops-nix
   sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/key.txt
 
-  echo "Installing NixOS system"
+  echo "Installing NixOS! Please wait..."
   if sudo nixos-install --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST" |& ${getExe nix-output-monitor}; then
       echo "Done! Remove your installation media and reboot :)"
       exit 0
