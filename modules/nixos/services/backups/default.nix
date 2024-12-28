@@ -69,6 +69,7 @@ in
           initialize = true;
           pruneOpts = pruneOpts;
           paths = cfg.paths;
+          exclude = cfg.exclude;
           timerConfig.OnCalendar = cfg.frequency;
         };
         tintin = mkIf cfg.repositories.tintin {

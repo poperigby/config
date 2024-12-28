@@ -8,7 +8,7 @@ final: prev: {
       owner = "fo76utils";
       repo = oldAttrs.pname;
       rev = "c268a902ba4ef52b2824504a53815fa5bbdc5b5e";
-      hash = "sha256-Bj8HVALU6knaEEq0CezmfhQUrP6UXdItxJBQ4irNNGo=";
+      hash = "sha256-sRK7FikPH0S7qDJGUKW4+riybykrI9JbPRk3z+GUTDg=";
       deepClone = true;
       fetchSubmodules = true;
     };

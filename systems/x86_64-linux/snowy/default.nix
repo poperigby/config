@@ -30,7 +30,7 @@
             "${cassidy}/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition"
           ];
           exclude = [
-            "${cassidy}/Games/Modding/Games/*/_download"
+            "${cassidy}/Games/Modding/Games/*/_download/"
           ];
         };
       earlyoom.enable = true;
