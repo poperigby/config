@@ -42,6 +42,7 @@ in
     };
     exclude = mkOption {
       type = listOf str;
+      default = [ ];
     };
     frequency = mkOption {
       type = str;
