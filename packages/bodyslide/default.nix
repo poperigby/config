@@ -8,6 +8,7 @@
   python312,
   stdenv,
   wxGTK32,
+  tree,
 }:
 
 let
@@ -22,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchFromGitHub {
       owner = "ousnius";
       repo = "BodySlide-and-Outfit-Studio";
-      tag = finalAttrs.version;
+      rev = "v${finalAttrs.version}";
       hash = "sha256-6OZ4ByTCMmZIz6hWbtEH5N3jvWqSYxpoooGB2gdnSag=";
       fetchSubmodules = true;
     })
@@ -42,11 +43,15 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "fbxsdk_dir" "${placeholder "src"}/source/fbxsdk")
+  ];
+
   postUnpack = # hash
     ''
       mkdir -p ./source/fbxsdk
       ${lib.getExe python} ${./automate_installer.py} ./fbx${fbxVersion}_fbxsdk_linux ./source/fbxsdk
-      ls ./source
+      ls ./source/fbxsdk/lib/gcc
     '';
 
   meta = {

@@ -15,21 +15,20 @@
   qt6Packages,
   spdlog,
   stdenv,
-  tbb_2021_11,
+  tbb_2022_0,
   tomlplusplus,
   ...
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "loot";
-  version = "0.24.0";
+  version = "master";
 
   src = fetchFromGitHub {
     owner = "loot";
     repo = "loot";
-    rev = version;
-    hash = "sha256-PFgL3VCi95SvhNEF/Ffqoo4uBUF9ID/7TVf/54vNREI=";
-    leaveDotGit = true;
+    rev = "8e9b765f11a30e955c9738b934d5123edf641067";
+    hash = "sha256-HOP5o5i7ckgidBhAGNqSdHDLTvRaygJW+TL5M3duruM=";
   };
 
   nativeBuildInputs = [
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     qt6Packages.qtbase
     qt6Packages.qtwayland
     spdlog
-    tbb_2021_11
+    tbb_2022_0
     tomlplusplus
   ];
 
