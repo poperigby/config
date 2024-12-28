@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.direnv;
+    cfg = config.custom.programs.direnv;
 in
 {
-    options.poperigby.programs.direnv.enable = lib.mkEnableOption "Enable direnv";
+    options.custom.programs.direnv.enable = lib.mkEnableOption "Enable direnv";
 
     config = lib.mkIf cfg.enable {
         programs.direnv = {

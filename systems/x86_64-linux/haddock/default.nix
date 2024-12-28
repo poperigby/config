@@ -7,7 +7,7 @@
     ./services
   ];
 
-  poperigby = {
+  custom = {
     services = {
       backups = {
         enable = true;
@@ -34,6 +34,7 @@
     suites = {
       common.enable = true;
     };
+    users.cassidy.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

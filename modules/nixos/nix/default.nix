@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.nix;
+  cfg = config.custom.nix;
 in
 {
-    options.poperigby.nix.enable = lib.mkEnableOption "Nix tweaks";
+    options.custom.nix.enable = lib.mkEnableOption "Nix tweaks";
 
     config = lib.mkIf cfg.enable {
         nix = {

@@ -19,7 +19,7 @@
         curl
         git
         parted
-        poperigby.installer
+        custom.installer
     ];
 
     # Allows easy connection to Wi-Fi

@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.services.distrobox;
+    cfg = config.custom.services.distrobox;
 in
 {
-    options.poperigby.services.distrobox.enable = lib.mkEnableOption "DistroBox";
+    options.custom.services.distrobox.enable = lib.mkEnableOption "DistroBox";
 
     config = lib.mkIf cfg.enable {
         virtualisation.podman.enable = true;

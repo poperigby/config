@@ -6,15 +6,15 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.suites.gui;
+    cfg = config.custom.suites.gui;
 in
 {
-    options.poperigby.suites.gui = {
+    options.custom.suites.gui = {
         enable = mkEnableOption "GUI";
     };
 
     config = mkIf cfg.enable {
-        poperigby = {
+        custom = {
             services = {
                 udisks2.enable = true;
             };

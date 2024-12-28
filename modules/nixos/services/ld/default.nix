@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.services.ld;
+  cfg = config.custom.services.ld;
 in
 {
-    options.poperigby.services.ld.enable = lib.mkEnableOption "Enable nix-ld";
+    options.custom.services.ld.enable = lib.mkEnableOption "Enable nix-ld";
 
     config = lib.mkIf cfg.enable {
         # Allows running random dynamically linked binaries seamlessly

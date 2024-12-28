@@ -8,10 +8,10 @@ let
 
     inherit (lib.strings) toJSON;
 
-    cfg = config.poperigby.programs.element-desktop;
+    cfg = config.custom.programs.element-desktop;
 in
 {
-    options.poperigby.programs.element-desktop.enable = mkEnableOption "Element Desktop";
+    options.custom.programs.element-desktop.enable = mkEnableOption "Element Desktop";
 
     config = mkIf cfg.enable {
         home.packages = [ pkgs.element-desktop ];

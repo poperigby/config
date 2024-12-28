@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.mpv;
+    cfg = config.custom.programs.mpv;
 in
 {
-    options.poperigby.programs.mpv.enable = mkEnableOption "MPV";
+    options.custom.programs.mpv.enable = mkEnableOption "MPV";
 
     config = mkIf cfg.enable {
         programs.mpv = {

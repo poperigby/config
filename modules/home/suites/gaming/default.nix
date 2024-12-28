@@ -11,13 +11,13 @@ let
     mkIf
     ;
 
-  cfg = config.poperigby.suites.gaming;
+  cfg = config.custom.suites.gaming;
 in
 {
-  options.poperigby.suites.gaming.enable = mkEnableOption "various programs/tweaks for gaming";
+  options.custom.suites.gaming.enable = mkEnableOption "various programs/tweaks for gaming";
 
   config = mkIf cfg.enable {
-    poperigby = {
+    custom = {
       programs = {
         # MangoHUD, for monitoring hardware and software during gameplay
         mangohud.enable = true;
@@ -50,11 +50,10 @@ in
       jpexs
       limo
       nifskope
-      poperigby.dar2oar
-      poperigby.hkxc
-      poperigby.libwinpath
-      poperigby.loot
-      poperigby.synthesis
+      custom.dar2oar
+      custom.hkxc
+      custom.loot
+      custom.synthesis
       protontricks
     ];
 

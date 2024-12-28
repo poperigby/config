@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.desktops.sway;
+    cfg = config.custom.desktops.sway;
 in
 {
     config = lib.mkIf cfg.enable {

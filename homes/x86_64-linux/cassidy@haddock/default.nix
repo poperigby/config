@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-    poperigby = {
+    custom = {
         # Haddock's config directory isn't in the default spot
         configDir = "${config.home.homeDirectory}/nixos";
         suites = {

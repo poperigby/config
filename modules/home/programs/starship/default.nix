@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.starship;
+    cfg = config.custom.programs.starship;
 in
 {
-    options.poperigby.programs.starship.enable = lib.mkEnableOption "Enable Starship prompt";
+    options.custom.programs.starship.enable = lib.mkEnableOption "Enable Starship prompt";
 
     config = lib.mkIf cfg.enable {
         programs.starship = {

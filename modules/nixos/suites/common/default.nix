@@ -11,10 +11,10 @@ let
     mkIf
     ;
 
-  cfg = config.poperigby.suites.common;
+  cfg = config.custom.suites.common;
 in
 {
-  options.poperigby.suites.common.enable = mkEnableOption "common settings";
+  options.custom.suites.common.enable = mkEnableOption "common settings";
 
   config = mkIf cfg.enable {
     # Specifies where my flake is located for nh
@@ -31,10 +31,9 @@ in
       ];
     };
 
-    poperigby = {
+    custom = {
       nix.enable = true;
       services = {
-        distrobox.enable = true;
         envfs.enable = true;
         ld.enable = true;
         smartd.enable = true;
@@ -48,10 +47,7 @@ in
         locale.enable = true;
         zram.enable = true;
       };
-      users = {
-        enable = true;
-        cassidy.enable = true;
-      };
+      users.enable = true;
     };
   };
 }

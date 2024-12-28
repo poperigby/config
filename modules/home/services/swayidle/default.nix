@@ -13,11 +13,11 @@ let
         int
     ;
 
-    cfg = config.poperigby.services.swayidle;
+    cfg = config.custom.services.swayidle;
     swaylock = getExe config.programs.swaylock.package;
 in
 {
-    options.poperigby.services.swayidle = {
+    options.custom.services.swayidle = {
         enable = mkEnableOption "idle daemon";
         timeouts = mkOption {
             type = submodule {

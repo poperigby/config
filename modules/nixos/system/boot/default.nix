@@ -6,12 +6,12 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.system.boot;
+    cfg = config.custom.system.boot;
 in
 {
     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-    options.poperigby.system.boot = {
+    options.custom.system.boot = {
         loader = mkEnableOption "boot settings";
         secureBoot = mkEnableOption "Secure Boot";
     };

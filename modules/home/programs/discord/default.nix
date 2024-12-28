@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.discord;
+    cfg = config.custom.programs.discord;
 in
 {
-    options.poperigby.programs.discord.enable = mkEnableOption "Discord";
+    options.custom.programs.discord.enable = mkEnableOption "Discord";
 
     config = mkIf cfg.enable {
         programs.nixcord = {

@@ -37,7 +37,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    openmw-nix.url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
+    openmw-nix = {
+      url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +52,6 @@
     ucodenix.url = "github:e-tho/ucodenix";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
-    caddy.url = "github:vincentbernat/nixpkgs/feature/caddy-plugins";
     chime.url = "github:poperigby/nixpkgs/chime";
     py7zr.url = "github:poperigby/nixpkgs/py7zr";
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
@@ -68,7 +70,7 @@
       src = ./.;
 
       # A namespace to use for my flake's packages, library, and overlays.
-      snowfall.namespace = "poperigby";
+      snowfall.namespace = "custom";
 
       channels-config = {
         allowUnfree = true;

@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.hardware.audio;
+  cfg = config.custom.hardware.audio;
 in
 {
-    options.poperigby.hardware.audio.enable = lib.mkEnableOption "Enable audio";
+    options.custom.hardware.audio.enable = lib.mkEnableOption "Enable audio";
 
     config = lib.mkIf cfg.enable {
         services.pipewire = {

@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.system.zram;
+  cfg = config.custom.system.zram;
 in
 {
-    options.poperigby.system.zram.enable = lib.mkEnableOption "Enable zRAM swap";
+    options.custom.system.zram.enable = lib.mkEnableOption "Enable zRAM swap";
 
     config = lib.mkIf cfg.enable {
         # Explanation of why I'm using zRAM, and not a swap partition/file:

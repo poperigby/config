@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.accounts.email;
+  cfg = config.custom.accounts.email;
 in
 {
-    options.poperigby.accounts.email.enable = lib.mkEnableOption "email account";
+    options.custom.accounts.email.enable = lib.mkEnableOption "email account";
 
     config = lib.mkIf cfg.enable {
         accounts.email.accounts.poperigby = rec {

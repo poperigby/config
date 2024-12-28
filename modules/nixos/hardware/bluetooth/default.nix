@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.hardware.bluetooth;
-  gui = config.poperigby.suites.gui.enable;
+  cfg = config.custom.hardware.bluetooth;
+  gui = config.custom.suites.gui.enable;
 in
 {
-    options.poperigby.hardware.bluetooth.enable = lib.mkEnableOption "Enable Bluetooth";
+    options.custom.hardware.bluetooth.enable = lib.mkEnableOption "Enable Bluetooth";
 
     config = lib.mkIf cfg.enable {
         hardware.bluetooth = {

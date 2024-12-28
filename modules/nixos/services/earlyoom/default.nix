@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
 let
-    cfg = config.poperigby.services.earlyoom;
-    gui = config.poperigby.suites.gui.enable;
+    cfg = config.custom.services.earlyoom;
+    gui = config.custom.suites.gui.enable;
 in
 {
-    options.poperigby.services.earlyoom.enable = lib.mkEnableOption "Early OOM";
+    options.custom.services.earlyoom.enable = lib.mkEnableOption "Early OOM";
 
     config = lib.mkIf cfg.enable {
         services.earlyoom = {

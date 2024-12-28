@@ -7,12 +7,12 @@ let
         optionals
     ;
 
-    cfg = config.poperigby.users.cassidy;
-    virtualization = config.poperigby.services.virtualization.enable;
-    printing = config.poperigby.hardware.printing.enable;
+    cfg = config.custom.users.cassidy;
+    virtualization = config.custom.services.virtualization.enable;
+    printing = config.custom.hardware.printing.enable;
 in
 {
-    options.poperigby.users.cassidy.enable = mkEnableOption "Cassidy user";
+    options.custom.users.cassidy.enable = mkEnableOption "Cassidy user";
 
     config = mkIf cfg.enable {
         # Set up me 🙂

@@ -6,7 +6,7 @@ let
         getExe'
     ;
 
-    cfg = config.poperigby.desktops.sway;
+    cfg = config.custom.desktops.sway;
     sway = config.wayland.windowManager.sway;
 in
 {
@@ -76,7 +76,7 @@ in
             "${mod}+period" = "exec ${menu} -modi emoji -show emoji";
             # Clipboard history
             "${mod}+slash" = ''
-                exec ${menu} -modi clipboard:${pkgs.poperigby.cliphist-rofi-img}/bin/cliphist-rofi-img -show clipboard -show-icons
+                exec ${menu} -modi clipboard:${pkgs.custom.cliphist-rofi-img}/bin/cliphist-rofi-img -show clipboard -show-icons
             '';
 
             ## Media keys

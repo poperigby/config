@@ -6,10 +6,10 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.services.swayosd;
+    cfg = config.custom.services.swayosd;
 in
 {
-    options.poperigby.services.swayosd.enable = mkEnableOption "SwayOSD";
+    options.custom.services.swayosd.enable = mkEnableOption "SwayOSD";
 
     config = mkIf cfg.enable {
         services.swayosd = {

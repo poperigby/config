@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.services.swaync;
+    cfg = config.custom.services.swaync;
 in
 {
-    options.poperigby.services.swaync.enable = lib.mkEnableOption "Enable Sway Notification Center";
+    options.custom.services.swaync.enable = lib.mkEnableOption "Enable Sway Notification Center";
 
     config = lib.mkIf cfg.enable {
         services.swaync = {

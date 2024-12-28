@@ -6,11 +6,11 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.swaylock;
-    gui = config.poperigby.suites.gui;
+    cfg = config.custom.programs.swaylock;
+    gui = config.custom.suites.gui;
 in
 {
-    options.poperigby.programs.swaylock.enable = mkEnableOption "Swaylock";
+    options.custom.programs.swaylock.enable = mkEnableOption "Swaylock";
 
     config = mkIf cfg.enable {
         programs.swaylock = {

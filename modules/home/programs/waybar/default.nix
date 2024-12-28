@@ -8,11 +8,11 @@ let
         mkIf
     ;
 
-    cfg = config.poperigby.programs.waybar;
+    cfg = config.custom.programs.waybar;
     colors = config.colorScheme.palette;
 in
 {
-    options.poperigby.programs.waybar.enable = mkEnableOption "Enable Waybar";
+    options.custom.programs.waybar.enable = mkEnableOption "Enable Waybar";
 
     config = mkIf cfg.enable {
         programs.waybar = {
@@ -122,7 +122,7 @@ in
                 # Grabweather
                 "custom/weather" = {
                     # TODO: Make hover show detailed weather information
-                    exec = "${getExe pkgs.poperigby.grabweather}";
+                    exec = "${getExe pkgs.custom.grabweather}";
                     format = " {} ";
                     interval = 900;
                     tooltip = false;

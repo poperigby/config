@@ -1,11 +1,11 @@
 { config, inputs, lib, ... }:
 
 let
-    cfg = config.poperigby.programs.imv;
+    cfg = config.custom.programs.imv;
     colors = config.colorScheme.palette;
 in
 {
-    options.poperigby.programs.imv = {
+    options.custom.programs.imv = {
         enable = lib.mkEnableOption "Enable imv";
         default = lib.mkEnableOption "Make imv the default image viewer";
     };

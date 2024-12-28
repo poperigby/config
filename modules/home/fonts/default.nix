@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    cfg = config.poperigby.fonts;
+    cfg = config.custom.fonts;
 in
 {
-    options.poperigby.fonts.enable = lib.mkEnableOption "Enable font settings";
+    options.custom.fonts.enable = lib.mkEnableOption "Enable font settings";
 
     config = lib.mkIf cfg.enable {
         fonts.fontconfig = {

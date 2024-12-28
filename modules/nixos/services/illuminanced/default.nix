@@ -15,7 +15,7 @@ let
         path
     ;
 
-    cfg = config.poperigby.services.illuminanced;
+    cfg = config.custom.services.illuminanced;
 
     settingsFormat = pkgs.formats.toml {};
     configFile = if cfg.configFile == null then
@@ -24,7 +24,7 @@ let
         cfg.configFile;
 in
 {
-    options.poperigby.services.illuminanced = {
+    options.custom.services.illuminanced = {
         enable = mkEnableOption "ambient light monitoring service";
         configFile = mkOption {
             type = nullOr path;
@@ -84,7 +84,7 @@ in
             documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
             serviceConfig = {
                 Type = "forking";
-                ExecStart = "${getExe pkgs.poperigby.illuminanced} -c ${configFile}";
+                ExecStart = "${getExe pkgs.custom.illuminanced} -c ${configFile}";
                 PIDFile = "/run/illuminanced.pid";
                 Restart = "on-failure";
             };

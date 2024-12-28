@@ -13,16 +13,16 @@ let
     getExe
     ;
 
-  cfg = config.poperigby.suites.common;
+  cfg = config.custom.suites.common;
 in
 {
-  options.poperigby.suites.common.enable =
+  options.custom.suites.common.enable =
     mkEnableOption "settings that most homes will want enabled";
 
   imports = [ inputs.nix-colors.homeManagerModules.default ];
 
   config = mkIf cfg.enable {
-    poperigby = {
+    custom = {
       accounts.email.enable = true;
       fonts.enable = true;
       nix.enable = true;
@@ -78,7 +78,7 @@ in
         nurl
         ouch
         parted
-        poperigby.nix-explore
+        custom.nix-explore
         ripgrep
         sops
         tree

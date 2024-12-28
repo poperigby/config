@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.poperigby.security.sudo;
+  cfg = config.custom.security.sudo;
 in
 {
-    options.poperigby.security.sudo.enable = lib.mkEnableOption "sudo tweaks";
+    options.custom.security.sudo.enable = lib.mkEnableOption "sudo tweaks";
 
     config = lib.mkIf cfg.enable {
         security.sudo = {

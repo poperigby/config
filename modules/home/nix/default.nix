@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.poperigby.nix;
+  cfg = config.custom.nix;
 in
 {
-    options.poperigby.nix.enable = lib.mkEnableOption "Nix tweaks";
+    options.custom.nix.enable = lib.mkEnableOption "Nix tweaks";
 
     config = lib.mkIf cfg.enable {
         # This has to be enabled here too: https://github.com/NixOS/nix/issues/8508
