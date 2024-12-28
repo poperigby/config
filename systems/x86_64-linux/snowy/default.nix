@@ -80,6 +80,7 @@
       gaming.enable = true;
       gui.enable = true;
     };
+    users.cassidy.enable = true;
   };
 
   programs.adb.enable = true;

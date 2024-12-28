@@ -47,10 +47,7 @@ in
         locale.enable = true;
         zram.enable = true;
       };
-      users = {
-        enable = true;
-        cassidy.enable = true;
-      };
+      users.enable = true;
     };
   };
 }

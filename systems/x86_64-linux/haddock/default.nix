@@ -33,6 +33,7 @@
     suites = {
       common.enable = true;
     };
+    users.cassidy.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
