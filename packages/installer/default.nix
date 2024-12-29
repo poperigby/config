@@ -70,7 +70,10 @@ writeShellScriptBin "installer" ''
   echo "based on the chosen system's Disko configuration."
   if ${getExe gum} confirm --default=false "Would you like to partition and format your disk?"; then
        # Partition and mount disks based on the system's Disko configuration
-       sudo ${getExe disko} --mode destroy,format,mount --flake "$CONFIG_DIR#$TARGET_HOST"
+       sudo ${getExe disko} \
+           --mode destroy,format,mount \
+           --yes-wipe-all-disks \
+           --flake "$CONFIG_DIR#$TARGET_HOST"
   else
        # Mount disks based on the system's Disko configuration
        sudo ${getExe disko} --mode mount --flake "$CONFIG_DIR#$TARGET_HOST"
