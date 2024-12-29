@@ -14,8 +14,7 @@ let
   inherit (lib) getExe;
 in
 writeShellScriptBin "installer" ''
-  # Fail if piped commands fail
-  set -uo pipefail
+  set -euo pipefail
 
   CONFIG_DIR="$HOME/config"
 
@@ -70,11 +69,11 @@ writeShellScriptBin "installer" ''
   echo "The following operation will automatically partition and format your disk"
   echo "based on the chosen system's Disko configuration."
   if ${getExe gum} confirm --default=false "Would you like to partition and format your disk?"; then
-      # Confirm the user actually wants to partition the disk
-      ${getExe gum} confirm --default=false "Are you sure you want to continue? Disks configured with Disko will be wiped!"
-
        # Partition and mount disks based on the system's Disko configuration
-       sudo ${getExe disko} --mode disko --flake "$CONFIG_DIR#$TARGET_HOST"
+       sudo ${getExe disko} --mode destroy,format,mount --flake "$CONFIG_DIR#$TARGET_HOST"
+  else
+       # Mount disks based on the system's Disko configuration
+       sudo ${getExe disko} --mode mount --flake "$CONFIG_DIR#$TARGET_HOST"
   fi
 
   echo "Copying key.txt to /mnt"
@@ -82,7 +81,7 @@ writeShellScriptBin "installer" ''
   sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/key.txt
 
   echo "Installing NixOS! Please wait..."
-  if sudo nixos-install --verbose --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST"; then
+  if sudo nixos-install --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST"; then
       echo "Done! Remove your installation media and reboot :)"
       exit 0
   else
