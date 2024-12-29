@@ -5,7 +5,6 @@
   git,
   gum,
   lib,
-  nix-output-monitor,
   sops,
   writeShellScriptBin,
   ...
@@ -83,7 +82,7 @@ writeShellScriptBin "installer" ''
   sudo cp "$AGE_KEY_FILE" /mnt/var/lib/sops-nix/key.txt
 
   echo "Installing NixOS! Please wait..."
-  if sudo nixos-install --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST" |& ${getExe nix-output-monitor}; then
+  if sudo nixos-install --verbose --no-root-password --flake "$CONFIG_DIR#$TARGET_HOST"; then
       echo "Done! Remove your installation media and reboot :)"
       exit 0
   else
