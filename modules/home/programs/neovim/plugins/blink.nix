@@ -35,11 +35,16 @@
               -- elsewhere in your config, without redefining it, via `opts_extend`
               sources = {
                   default = { "lsp", "path", "snippets", "buffer" },
+                  cmdline = {
+                      min_keyword_length = 2,
+                  },
               },
 
               -- Don't automatically show completion menu in cmdline
               completion = {
-                  menu = { auto_show = function(ctx) return ctx.mode ~= 'cmdline' end }
+                  list = {
+                      selection = 'auto_insert',
+                  },
               }
           })
         '';
