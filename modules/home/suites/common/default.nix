@@ -16,8 +16,7 @@ let
   cfg = config.custom.suites.common;
 in
 {
-  options.custom.suites.common.enable =
-    mkEnableOption "settings that most homes will want enabled";
+  options.custom.suites.common.enable = mkEnableOption "settings that most homes will want enabled";
 
   imports = [ inputs.nix-colors.homeManagerModules.default ];
 
@@ -65,6 +64,7 @@ in
         asciinema
         binsider
         caligula
+        custom.nix-explore
         dogdns
         dust
         fd
@@ -78,7 +78,7 @@ in
         nurl
         ouch
         parted
-        custom.nix-explore
+        pciutils
         ripgrep
         sops
         tree
