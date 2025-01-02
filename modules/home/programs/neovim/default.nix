@@ -36,6 +36,7 @@ in
           csharp-ls
           harper
           lua-language-server
+          luajitPackages.teal-language-server
           nixd
           nodejs
           pyright

@@ -72,6 +72,7 @@
                       },
                   },
               },
+              teal_ls = {},
               yamlls = {
                   settings = {
                       yaml = {
