@@ -5,6 +5,7 @@
     suites = {
       common.enable = true;
       gaming.enable = true;
+      gui.enable = true;
     };
   };
 
