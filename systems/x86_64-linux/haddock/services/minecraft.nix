@@ -26,6 +26,10 @@
             inherit (pkgs) fetchurl linkFarmFromDrvs;
           in
           linkFarmFromDrvs "mods" (attrValues {
+            balm = fetchurl {
+              url = "https://cdn.modrinth.com/data/MBAkmtvl/versions/9pTQ0wCu/balm-fabric-1.21.4-21.4.5.jar";
+              sha512 = "cb7ae3fd9be8a9c2bdaee53787dab640fc09009e259fbf5e11566c16665835b43528603bda5716c1d8f84eb40abb5b8573b6448e77194b9779fa703bda1c4c29";
+            };
             c2me = fetchurl {
               url = "https://cdn.modrinth.com/data/VSNURh3q/versions/c8KSyi6D/c2me-fabric-mc1.21.4-0.3.1%2Brc.1.0.jar";
               sha512 = "ea436b38ffd5183711e77615793654bfe7d97d2ec408149e81e0d06f854c924b373a5f6ae0740fdc177caebef3b2c41b11d92c6a313295973488f38efda57f59";
@@ -62,6 +66,22 @@
               url = "https://cdn.modrinth.com/data/xGdtZczs/versions/aek1vsQ6/polymer-bundled-0.11.3%2B1.21.4.jar";
               sha512 = "17e4238ddbe4151e0f074955a00bdd788449d8c100a9465ecb6da155527689501442cbcc5cb4eb05943e6b525286d3a7f5a10c7fc0ba91cec2614260d6f1efbb";
             };
+            resourceLib = fetchurl {
+              url = "https://cdn.modrinth.com/data/XLhounCW/versions/IlGsDa0e/resourcelibrary-fabric-1.21.4-2.4.6.jar";
+              sha512 = "d207dad20a2b19e245c0b9701b65d69eb3faf226621ab391562be37d628ce1e0bb29814f610555a067097d6ed742621990311585f0b28614783ba07f7ed3433b";
+            };
+            resourceConfigAPI = fetchurl {
+              url = "https://cdn.modrinth.com/data/69TY9iyJ/versions/Wd68kZhT/resourceconfigapi-fabric-1.21.4-3.4.3.jar";
+              sha512 = "51bfea791c92ec2b6567c7e8495e1fbdca96605d6623039fdfdb37a259b98b8d97bd8ae78f9763c3b345374c584f00e68e0676aa5957457fd4d4393a70c187cd";
+            };
+            rightClickHarvest = fetchurl {
+              url = "https://cdn.modrinth.com/data/Cnejf5xM/versions/lylk05D8/rightclickharvest-fabric-4.4.4%2B1.21.4.jar";
+              sha512 = "c972c4539652adb01f2d7d7e313be39dd49f44a71510a0fce64ae1915b44968b2450ace3e5c38af8959e76792f813ca56ee7fbc4f012e7b6f27d10934828e7f3";
+            };
+            rottenFleshToLeather = fetchurl {
+              url = "https://cdn.modrinth.com/data/8nIicBYu/versions/Xxt0CDG2/jrftl-1.21.4-fabric-1.9.1.jar";
+              sha512 = "290b94bd5f4a537684dd2c57af981c4080e0c76883f49895c431b481766824717d64c0c9396d9b1b57dd23dbbf8b762d51ac6c873308a938be0aa752cac90c82";
+            };
             scalableLux = fetchurl {
               url = "https://cdn.modrinth.com/data/Ps1zyz6x/versions/DUpB8IQV/ScalableLux-0.1.1%2Bfabric.452731d-all.jar";
               sha512 = "2f985e3bcca07eea0771ab5a88eca433460510f11af0efdfa01d2ffeb5f8628b3a12100ec50db2d2aa9567dd11684e027d9442be16f7e658ce5946706d9e4f6b";
@@ -70,13 +90,9 @@
               url = "https://cdn.modrinth.com/data/4WWQxlQP/versions/uJYh4tBK/servercore-fabric-1.5.8%2B1.21.4.jar";
               sha512 = "5fe7feb62487d54b3779d4418a675b82be817b3e35a808f320582e4efec2422454c8a129793f0c11c9eb8a0f406c0f7e2003d46c936416a2bfea6a5f85a4ead2";
             };
-            serverSideWaystones = fetchurl {
-              url = "https://cdn.modrinth.com/data/BzV6ulv0/versions/CLdbeNYb/sswaystones-1.1.5.jar";
-              sha512 = "086c8d032f36a7b49f98eb1459712134e66cfc40f5b32a9caf509cc87ae9eb17f2dc5f716ce3a55492f7286de167f27b704365ad4dffdd63e2ae5e38b4cb8cd4";
-            };
-            sleep = fetchurl {
-              url = "https://cdn.modrinth.com/data/WTzuSu8P/versions/3rFkoWwZ/sleep-v.3.1.1.jar";
-              sha512 = "329f2d8cd2d657c500ed0fa2aa20223e955b20c223ac7096bbf1b6d967ea4112f9d9b8ed198190e6b8a0ccfc4860787d2f0cec8b4b1671b40d801e8baee4ec05";
+            sleepWarp = fetchurl {
+              url = "https://cdn.modrinth.com/data/DlSXkZVT/versions/l1huJSrg/sleepwarp-2.6.0%2B1.21.4-rc3.jar";
+              sha512 = "1abfe84c1c4c4424d27d646851caca3ba3c56710e252a5811328798ada86a9d0b66f190cb54d124e92afc0a50b822c7f935430e7b0a66f7f92340e61a4996e2d";
             };
             stoneIsStone = fetchurl {
               url = "https://cdn.modrinth.com/data/P4chhBIh/versions/LZ4YUdvo/stone-is-stone-1.1.0%2Bmc1.21.2.jar";
@@ -97,6 +113,10 @@
             xaerosWorldMap = fetchurl {
               url = "https://cdn.modrinth.com/data/NcUtCpym/versions/BnFw7PFl/XaerosWorldMap_1.39.2_Fabric_1.21.4.jar";
               sha512 = "36c7b9036aa3a2899e4758cc935370ba1e7bf41f8ae0eb25d301ae2f18591bb0e4abfa748c968abd3edd471857ae7dc211217ea07d50ecbd8300df25678008a5";
+            };
+            waystones = fetchurl {
+              url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/mHsEGxpy/waystones-fabric-1.21.4-21.4.1.jar";
+              sha512 = "ac63119aa15e8aa817a25fd718e55baf1c51020213b6f86097a0ed5d34d51f6a648594c2b8b7b1b121a326e281f21e74310560708efe57f2377cf062df9bf6c1";
             };
           });
         "ops.json" =

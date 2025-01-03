@@ -14,7 +14,7 @@ in
       plugins = [
         "github.com/caddy-dns/porkbun@v0.1.5"
       ];
-      hash = "sha256-/23XIDPpF+i/F/5pCD/7ZHx4lxWU/HZBwi13eWc+h2w=";
+      hash = "sha256-tCyIO7L3LKZQbic0lK46xugXL9n3rwgdUjdkYop6Z3E=";
     };
     email = "poperigby@mailbox.org";
     globalConfig = ''
