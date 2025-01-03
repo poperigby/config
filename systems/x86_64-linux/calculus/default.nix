@@ -20,7 +20,13 @@
     users.shane.enable = true;
   };
 
-  services.xserver.desktopManager.gnome.enable = true;
+  services = {
+    openssh.enable = true;
+    xserver = {
+      desktopManager.gnome.enable = true;
+      displayManager.gdm.enable = true;
+    };
+  };
 
   time.timeZone = "America/Los_Angeles";
 
