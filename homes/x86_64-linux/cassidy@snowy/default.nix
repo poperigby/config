@@ -7,7 +7,10 @@ in
   custom = {
     suites = {
       common.enable = true;
-      gaming.enable = true;
+      gaming = {
+        enable = true;
+        bethesda = true;
+      };
       gui = {
         enable = true;
         resolution = "2560x1440";

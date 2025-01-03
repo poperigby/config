@@ -9,19 +9,24 @@ let
   inherit (lib)
     mkEnableOption
     mkIf
+    optionals
     ;
 
   cfg = config.custom.suites.gaming;
+  bethesda = config.custom.suites.gaming.bethesda;
 in
 {
-  options.custom.suites.gaming.enable = mkEnableOption "various programs/tweaks for gaming";
+  options.custom.suites.gaming = {
+    enable = mkEnableOption "various programs/tweaks for gaming";
+    bethesda = mkEnableOption "various programs for Bethesda games";
+  };
 
   config = mkIf cfg.enable {
     custom = {
       programs = {
         # MangoHUD, for monitoring hardware and software during gameplay
         mangohud.enable = true;
-        morrowind.enable = true;
+        morrowind.enable = bethesda;
       };
       services = {
         # For backing up games
@@ -30,30 +35,33 @@ in
     };
 
     # Packages
-    home.packages = with pkgs; [
-      # For GOG and Epic Games 🤢
-      heroic
-      # For managing compatibility tools
-      protonup-qt
-      # For limiting FPS
-      libstrangle
-      # Doom
-      doomrunner
-      gzdoom
-      # Quake
-      vkquake
-      # Minecraft
-      prismlauncher
-      # Bethesda
-      jpexs
-      limo
-      nifskope
-      custom.dar2oar
-      custom.hkxc
-      custom.loot
-      custom.synthesis
-      protontricks
-    ];
+    home.packages =
+      with pkgs;
+      [
+        protontricks
+        # For GOG and Epic Games 🤢
+        heroic
+        # For managing compatibility tools
+        protonup-qt
+        # For limiting FPS
+        libstrangle
+        # Doom
+        doomrunner
+        gzdoom
+        # Quake
+        vkquake
+        # Minecraft
+        prismlauncher
+      ]
+      ++ optionals bethesda [
+        jpexs
+        limo
+        nifskope
+        custom.dar2oar
+        custom.hkxc
+        custom.loot
+        custom.synthesis
+      ];
 
     home.sessionVariables = {
       # Let GZDoom know where IWADs are
