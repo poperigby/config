@@ -26,6 +26,10 @@
             inherit (pkgs) fetchurl linkFarmFromDrvs;
           in
           linkFarmFromDrvs "mods" (attrValues {
+            architectury = fetchurl {
+              url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/XRwibvvn/architectury-15.0.1-fabric.jar";
+              sha512 = "df0e163a560439c1911c584821a643c665b13bbd541db9a9f318cdf33db0aee4573e3c901e4a3aad585e10013de1b4dc62143dce0855a2c915fcd0b35ee28263";
+            };
             balm = fetchurl {
               url = "https://cdn.modrinth.com/data/MBAkmtvl/versions/9pTQ0wCu/balm-fabric-1.21.4-21.4.5.jar";
               sha512 = "cb7ae3fd9be8a9c2bdaee53787dab640fc09009e259fbf5e11566c16665835b43528603bda5716c1d8f84eb40abb5b8573b6448e77194b9779fa703bda1c4c29";
@@ -45,6 +49,10 @@
             ferriteCore = fetchurl {
               url = "https://cdn.modrinth.com/data/uXXizFIs/versions/IPM0JlHd/ferritecore-7.1.1-fabric.jar";
               sha512 = "f41dc9e8b28327a1e29b14667cb42ae5e7e17bcfa4495260f6f851a80d4b08d98a30d5c52b110007ee325f02dac7431e3fad4560c6840af0bf347afad48c5aac";
+            };
+            jamlib = fetchurl {
+              url = "https://cdn.modrinth.com/data/IYY9Siz8/versions/2J8TKset/jamlib-fabric-1.2.2%2B1.21.4.jar";
+              sha512 = "b20e4d625d36d16b06eaa8410bf01042487d2b5896a1f0cffc6b713b3e1112498ef63a021ee776da02d79d367c658935aaba20273d7f2f4a731d2b1890e484e2";
             };
             lithium = fetchurl {
               url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/t1FlWYl9/lithium-fabric-0.14.3%2Bmc1.21.4.jar";
@@ -114,6 +122,10 @@
               url = "https://cdn.modrinth.com/data/NcUtCpym/versions/BnFw7PFl/XaerosWorldMap_1.39.2_Fabric_1.21.4.jar";
               sha512 = "36c7b9036aa3a2899e4758cc935370ba1e7bf41f8ae0eb25d301ae2f18591bb0e4abfa748c968abd3edd471857ae7dc211217ea07d50ecbd8300df25678008a5";
             };
+            yetAnotherConfigLib = fetchurl {
+              url = "https://cdn.modrinth.com/data/1eAoo2KR/versions/VtWuZoXP/YetAnotherConfigLib-3.6.2%2B1.21.4-fabric.jar";
+              sha512 = "50f3996aa4382692bbe569ee26506dacd0f4775d86964b5a5c47451e9514d5bf755b5fc1b75e629fc6391fe33d98598977e15c8880ed0f5785c5511ac3360933";
+            };
             waystones = fetchurl {
               url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/mHsEGxpy/waystones-fabric-1.21.4-21.4.1.jar";
               sha512 = "ac63119aa15e8aa817a25fd718e55baf1c51020213b6f86097a0ed5d34d51f6a648594c2b8b7b1b121a326e281f21e74310560708efe57f2377cf062df9bf6c1";
@@ -128,6 +140,12 @@
             text = # json
               ''
                 [
+                    {
+                        "uuid": "856e015c-7937-49d8-80dc-35ccdf96e3c2",
+                        "name": "jujubunicorn",
+                        "level": 4,
+                        "bypassesPlayerLimit": true
+                    },
                     {
                         "uuid": "945a016d-b341-453c-8dca-cc16091088ca",
                         "name": "PopeRigby",
