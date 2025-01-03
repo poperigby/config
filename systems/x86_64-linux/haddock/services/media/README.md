@@ -12,7 +12,9 @@ I followed [TRaSH Guides](https://trash-guides.info/Hardlinks/How-to-setup-for/N
 Make sure `data/` is owned by the `media` group, and all new files are created with `rw-` permissions for groups. You can do that like this:
 
 ```bash
-sudo chgrp -R media data/
+cd /mnt/media
+sudo chown -R media:media data/media
+sudo chown -R qbittorrent:media data/torrents
 sudo chmod g+s data/
 sudo setfacl -Rdm g::rwX data/
 ```

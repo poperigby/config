@@ -3,9 +3,6 @@
 {
   # Groups are set to "media" to give *arr access to /mnt/media/data, and make hardlinks work
   services = {
-    # Automatically solve Cloudflare challenges
-    flaresolverr.enable = true;
-
     # Manage indexers and sync them with *arr apps
     prowlarr.enable = true;
 
