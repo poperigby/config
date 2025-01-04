@@ -80,6 +80,7 @@
       gaming.enable = true;
       gui.enable = true;
     };
+    desktops.sway.enable = true;
     users.cassidy.enable = true;
   };
 

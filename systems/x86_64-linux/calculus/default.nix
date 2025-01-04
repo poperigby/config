@@ -16,16 +16,14 @@
     suites = {
       common.enable = true;
       gaming.enable = true;
+      gui.enable = true;
     };
+    desktops.gnome.enable = true;
     users.shane.enable = true;
   };
 
   services = {
     openssh.enable = true;
-    xserver = {
-      desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
-    };
   };
 
   time.timeZone = "America/Los_Angeles";

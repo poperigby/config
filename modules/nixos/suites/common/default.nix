@@ -17,10 +17,6 @@ in
   options.custom.suites.common.enable = mkEnableOption "common settings";
 
   config = mkIf cfg.enable {
-    # Specifies where my flake is located for nh
-    # TODO: Shouldn't the be configDir?
-    environment.sessionVariables.FLAKE = "/home/cassidy/nixos";
-
     boot = {
       # Use the latest version of the Linux kernel
       kernelPackages = pkgs.linuxPackages_latest;
