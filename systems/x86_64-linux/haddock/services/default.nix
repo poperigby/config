@@ -14,7 +14,7 @@
     ./immich.nix
     ./mealie.nix
     ./media
-    ./minecraft.nix
+    ./minecraft
     ./miniflux.nix
     ./paperless.nix
     ./postgresql.nix

@@ -1,24 +1,12 @@
 {
-  inputs,
   lib,
   pkgs,
-  system,
   ...
 }:
 
 {
   services.minecraft-servers = {
-    enable = true;
-    eula = true;
-    openFirewall = true;
     servers.fabric = {
-      enable = true;
-      package = inputs.nix-minecraft.legacyPackages.${system}.fabricServers.fabric-1_21_4;
-      serverProperties = {
-        server-name = "Haddock";
-        allow-cheats = true;
-        difficulty = "normal";
-      };
       symlinks = {
         mods =
           let
@@ -26,9 +14,17 @@
             inherit (pkgs) fetchurl linkFarmFromDrvs;
           in
           linkFarmFromDrvs "mods" (attrValues {
+            appleskin = fetchurl {
+              url = "https://cdn.modrinth.com/data/EsAfCjCV/versions/cHQjeYVS/appleskin-fabric-mc1.21.3-3.0.6.jar";
+              sha512 = "b572a3eea43e0084819c88dd7fac6a0a5d5555d9b73df927b97f29764f281cadbfc8cc5f8f6b6920f1677bcec87b411e5a582d305a191735ad8d60fc90900900";
+            };
             architectury = fetchurl {
               url = "https://cdn.modrinth.com/data/lhGA9TYQ/versions/XRwibvvn/architectury-15.0.1-fabric.jar";
               sha512 = "df0e163a560439c1911c584821a643c665b13bbd541db9a9f318cdf33db0aee4573e3c901e4a3aad585e10013de1b4dc62143dce0855a2c915fcd0b35ee28263";
+            };
+            backpacks = fetchurl {
+              url = "https://cdn.modrinth.com/data/t8iyhYu7/versions/68AM0uE1/resource_backpacks-fabric-1.21.4-0.11.0-BETA.jar";
+              sha512 = "5795a4cc72ce4ba7de69cea99c8ffb5667177ea14899064bc96750be13556e24cd6c0f5c24d1080401b8de72c79f98d5ff759ceae795bbb107cd5cd599cea1d3";
             };
             balm = fetchurl {
               url = "https://cdn.modrinth.com/data/MBAkmtvl/versions/9pTQ0wCu/balm-fabric-1.21.4-21.4.5.jar";
@@ -131,36 +127,6 @@
               sha512 = "ac63119aa15e8aa817a25fd718e55baf1c51020213b6f86097a0ed5d34d51f6a648594c2b8b7b1b121a326e281f21e74310560708efe57f2377cf062df9bf6c1";
             };
           });
-        "ops.json" =
-          let
-            inherit (pkgs) writeTextFile;
-          in
-          writeTextFile {
-            name = "ops.json";
-            text = # json
-              ''
-                [
-                    {
-                        "uuid": "856e015c-7937-49d8-80dc-35ccdf96e3c2",
-                        "name": "jujubunicorn",
-                        "level": 4,
-                        "bypassesPlayerLimit": true
-                    },
-                    {
-                        "uuid": "945a016d-b341-453c-8dca-cc16091088ca",
-                        "name": "PopeRigby",
-                        "level": 4,
-                        "bypassesPlayerLimit": true
-                    },
-                    {
-                        "uuid": "8131a51c-51e1-46b2-9ce4-8376c00712a3",
-                        "name": "TootyFart",
-                        "level": 4,
-                        "bypassesPlayerLimit": true
-                    }
-                ]
-              '';
-          };
       };
     };
   };
