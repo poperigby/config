@@ -45,6 +45,10 @@
   };
 
   systemd.services = {
+    prowlarr.environment = {
+      PROWLARR__AUTH__REQUIRED = "True";
+      PROWLARR__AUTH__METHOD = "External";
+    };
     radarr.environment = {
       RADARR__AUTH__REQUIRED = "True";
       RADARR__AUTH__METHOD = "External";
