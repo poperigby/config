@@ -22,7 +22,7 @@ in
         desktopManager.gnome.enable = true;
       };
       # For system tray icons
-      udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+      udev.packages = [ pkgs.gnome-settings-daemon ];
     };
 
     # Extensions
