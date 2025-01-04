@@ -10,7 +10,6 @@ let
     mkEnableOption
     mkIf
     mkOption
-    readFile
     ;
 
   inherit (lib.types)
@@ -51,30 +50,13 @@ in
 
   config = mkIf cfg.enable {
     custom = {
-      desktops.sway.enable = true;
       programs = {
         discord.enable = true;
         element-desktop.enable = true;
         firefox.enable = true;
         mpv.enable = true;
-        rofi.enable = true;
-        swaylock.enable = true;
         thunderbird.enable = true;
-        waybar.enable = true;
         wezterm.enable = true;
-        wlogout.enable = true;
-        imv = {
-          enable = true;
-          default = true;
-        };
-      };
-      services = {
-        clipboard.enable = true;
-        gammastep.enable = true;
-        swayidle.enable = true;
-        swayosd.enable = true;
-        swaync.enable = true;
-        udiskie.enable = true;
       };
     };
 
@@ -82,70 +64,16 @@ in
     home.packages = with pkgs; [
       bottles
       gimp
-      grim
       inkscape
-      nautilus
       onlyoffice-bin
-      pwvucontrol
       signal-desktop
-      slurp
       tor-browser
     ];
 
-    xdg = {
-      portal = {
-        enable = true;
-        # Fallback portal
-        config.common.default = "gtk";
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      };
-      # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
-      mimeApps.enable = true;
-    };
+    # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
+    xdg.mimeApps.enable = true;
 
     # Enable Wayland for Chromium and Electron based apps
     home.sessionVariables.NIXOS_OZONE_WL = 1;
-
-    # Theming
-    home.pointerCursor = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-      size = 24;
-      gtk.enable = true;
-    };
-
-    gtk =
-      let
-        css = readFile ./gtk.css;
-      in
-      {
-        enable = true;
-        theme = {
-          name = "adw-gtk3-dark";
-          package = pkgs.adw-gtk3;
-        };
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
-        gtk4.extraCss = css;
-        gtk3.extraCss = css;
-      };
-
-    qt = {
-      enable = true;
-      platformTheme.name = "gtk";
-      style.name = "adwaita-dark";
-    };
-
-    dconf.settings = {
-      # Get rid of GTK titlebar buttons
-      "org/gnome/desktop/wm/preferences".button-layout = ":";
-      "org/blueman/general".plugin-list = [
-        # Disable annoying Blueman plugins
-        "!ConnectionNotifier"
-        "!StatusNotifierItem"
-      ];
-    };
   };
 }

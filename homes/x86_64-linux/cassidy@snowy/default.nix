@@ -5,6 +5,7 @@ let
 in
 {
   custom = {
+    desktops.sway.enable = true;
     suites = {
       common.enable = true;
       gaming = {
