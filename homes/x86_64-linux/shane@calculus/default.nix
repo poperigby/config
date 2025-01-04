@@ -9,7 +9,7 @@
     };
   };
 
-  programs.dconf.settings = {
+  dconf.settings = {
     "org/gnome/settings-daemon/plugins/power" = {
       "sleep-inactive-ac-type" = "nothing";
       "sleep-inactive-ac-timeout" = 0;
