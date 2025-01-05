@@ -94,10 +94,6 @@
               url = "https://cdn.modrinth.com/data/4WWQxlQP/versions/uJYh4tBK/servercore-fabric-1.5.8%2B1.21.4.jar";
               sha512 = "5fe7feb62487d54b3779d4418a675b82be817b3e35a808f320582e4efec2422454c8a129793f0c11c9eb8a0f406c0f7e2003d46c936416a2bfea6a5f85a4ead2";
             };
-            sleepWarp = fetchurl {
-              url = "https://cdn.modrinth.com/data/DlSXkZVT/versions/l1huJSrg/sleepwarp-2.6.0%2B1.21.4-rc3.jar";
-              sha512 = "1abfe84c1c4c4424d27d646851caca3ba3c56710e252a5811328798ada86a9d0b66f190cb54d124e92afc0a50b822c7f935430e7b0a66f7f92340e61a4996e2d";
-            };
             stoneIsStone = fetchurl {
               url = "https://cdn.modrinth.com/data/P4chhBIh/versions/LZ4YUdvo/stone-is-stone-1.1.0%2Bmc1.21.2.jar";
               sha512 = "ebc75753db8aa902f4b84643e0e5be8d0cf806242cddc61a77afb66864ba5dfdb6d54755f8d9fc29f4c5dccdb6556c6f6a4b7c1fddf63a2af0a8ca1c9667e910";
