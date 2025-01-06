@@ -2,6 +2,7 @@
 
 let
   inherit (lib) getExe;
+  inherit (pkgs) fetchFromGitHub;
 in
 {
   custom = {
@@ -63,9 +64,20 @@ in
     }
   ];
 
-  # home.packages = with pkgs; [
-  #     blender-hip
-  # ];
+  home.packages = with pkgs; [
+    blender-hip
+  ];
+
+  home.file.morrowindBlenderPlugin = {
+    source = fetchFromGitHub {
+      owner = "Greatness7";
+      repo = "io_scene_mw";
+      rev = "0.8.103";
+      hash = "sha256-f1PgjSs6jU99oqEJgOwb/wX8gVW+2DNgS+kkeka/Mo0=";
+    };
+    target = ".config/blender/4.3/scripts/addons/io_scene_mw";
+    recursive = true;
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.11";
