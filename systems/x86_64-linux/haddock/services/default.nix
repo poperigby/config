@@ -10,6 +10,7 @@
     ./crowdsec.nix
     ./ddclient.nix
     ./frigate.nix
+    ./forgejoActions.nix
     ./gatus.nix
     ./immich.nix
     ./mealie.nix
