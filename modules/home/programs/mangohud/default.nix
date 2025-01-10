@@ -15,6 +15,7 @@ in
         # Display the current GPU information
         gpu_stats = true;
         gpu_temp = true;
+        gpu_mem_clock = true;
         # Display the current CPU information
         cpu_stats = true;
         cpu_temp = true;
