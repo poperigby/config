@@ -40,8 +40,6 @@ local settings = {
         { key = "9", mods = "ALT", action = wezterm.action({ ActivateTab = 8 }) },
     },
     color_scheme = "Gruvbox dark, soft (base16)",
-    -- Temporary workaround for https://github.com/NixOS/nixpkgs/issues/336069
-    front_end = "WebGpu",
 }
 
 -- Copy the settings from the settings table to the config table
