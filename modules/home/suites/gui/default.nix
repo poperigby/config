@@ -67,6 +67,7 @@ in
       inkscape
       onlyoffice-bin
       signal-desktop
+      tenacity
       tor-browser
     ];
 
