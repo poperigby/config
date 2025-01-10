@@ -82,6 +82,7 @@ in
         ripgrep
         sops
         tree
+        usbutils
         vimv-rs
       ];
       # Handy aliases

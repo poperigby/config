@@ -5,7 +5,6 @@
   inputs = {
     ## Official inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    master.url = "github:NixOS/nixpkgs/master";
     ## Extra inputs
     crowdsec = {
       url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
