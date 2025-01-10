@@ -32,6 +32,7 @@ in
         fish.enable = true;
         fzf.enable = true;
         git.enable = true;
+        gpg.enable = true;
         neovim.enable = true;
         starship.enable = true;
         tealdeer.enable = true;
