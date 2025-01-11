@@ -3,14 +3,7 @@
 {
   programs.neovim.plugins = [
     {
-      plugin = pkgs.vimPlugins.blink-cmp.overrideAttrs (old: {
-        patches = [
-          (pkgs.replaceVars (pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/HeitorAugustoLN/nixpkgs/8fd65e57f1d1fdbe5151d23a972b00c632d33162/pkgs/applications/editors/vim/plugins/non-generated/blink-cmp/force-version.patch";
-            hash = "sha256-/3psGDvmZBg7fXNJNtErV2dqzRqsMdAc1d6vaMpxdN0=";
-          }) { inherit (old.src) tag; })
-        ];
-      });
+      plugin = pkgs.vimPlugins.blink-cmp;
       type = "lua";
       config = # lua
         ''
@@ -43,7 +36,9 @@
               -- Don't automatically show completion menu in cmdline
               completion = {
                   list = {
-                      selection = 'auto_insert',
+                      selection = {
+                          auto_insert = false
+                      },
                   },
               }
           })
