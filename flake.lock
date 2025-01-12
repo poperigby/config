@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736526728,
-        "narHash": "sha256-vb/ldbBHRbfT9U7SoCYmxh+h+PHuFqGjCBO0bPXsze4=",
+        "lastModified": 1736591904,
+        "narHash": "sha256-LFO8pSrPKrH8OPq2HaAuBG5skk8/MNJ/9YmK3KsnSks=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "b1a94497b1c27fe7f81e3e76990959f5051da18b",
+        "rev": "33827d2bd16bfe2e21b62956526c72d313595dfd",
         "type": "github"
       },
       "original": {
@@ -422,11 +422,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736440205,
-        "narHash": "sha256-QJgTI//KEGuEJC6FDxuI9Dq8PewIpnxD2NVx2/OHbfc=",
+        "lastModified": 1736652904,
+        "narHash": "sha256-8uolHABgroXqzs03QdulHp8H9e5kWQZnnhcda1MKbBM=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "a2200b499efa01ca8646173e94cdfcc93188f2b8",
+        "rev": "271e5bd7c57e1f001693799518b10a02d1123b12",
         "type": "github"
       },
       "original": {
@@ -444,11 +444,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736473741,
-        "narHash": "sha256-mt/uzoQ9J7o4lEP1mBJSArE6jsXKhpbnBWFfeOu0CUc=",
+        "lastModified": 1736646923,
+        "narHash": "sha256-kU6J2zS90yskkmcbUcHKrDBxsUZWwLNMiCHnzJs2Rjg=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "39e804edbf69b926d25db2bb43b80995911d5776",
+        "rev": "cbd313bed852a2f277e7199ce060ac224bdce7da",
         "type": "github"
       },
       "original": {
@@ -465,16 +465,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1736541900,
-        "narHash": "sha256-y8YGBYMcRikl8piAwjoS3mR85PvMEv3tLIa8L0090pg=",
-        "owner": "DontEatOreo",
+        "lastModified": 1736646796,
+        "narHash": "sha256-3znfnGcVB+IHvl1DslZZmc+uHf2bR8ED9XHN3kTUnaM=",
+        "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "2cfb85d7b97b59bf6e590c017fd901e038995520",
+        "rev": "f441cc9e60a3f7401888f8acf2edce6f0fd213cd",
         "type": "github"
       },
       "original": {
-        "owner": "DontEatOreo",
-        "ref": "fix-vencord-stable",
+        "owner": "kaylorben",
         "repo": "nixcord",
         "type": "github"
       }
@@ -619,11 +618,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1736566598,
-        "narHash": "sha256-jG7kzuXCdnNS4ZDXExp4U96od7I4L/XgZ0OLwxTPVIo=",
+        "lastModified": 1736669790,
+        "narHash": "sha256-OQrTjDMdgbgcJLmQIhBM/rKduVAcCgUnmnOO1uVkyfY=",
         "ref": "refs/heads/main",
-        "rev": "6715e3d8b19efa6e4bd0f5ce483be94148560549",
-        "revCount": 37,
+        "rev": "c2c97522c9338ea3a491a4c47ab7dcac358b90d1",
+        "revCount": 43,
         "type": "git",
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       },
