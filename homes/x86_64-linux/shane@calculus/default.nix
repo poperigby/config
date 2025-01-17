@@ -10,9 +10,18 @@
   };
 
   dconf.settings = {
-    "org/gnome/settings-daemon/plugins/power" = {
-      "sleep-inactive-ac-type" = "nothing";
-      "sleep-inactive-ac-timeout" = 0;
+    "org/gnome" = {
+      "desktop/interface/scaling-factor" = 3;
+      "settings-daemon/plugins/power" = {
+        sleep-inactive-ac-type = "nothing";
+        sleep-inactive-ac-timeout = 0;
+      };
+      shell = {
+        disable-user-extensions = false;
+        enabled-extensions = with pkgs.gnomeExtensions; [
+          dash-to-dock.extensionUuid
+        ];
+      };
     };
   };
 
