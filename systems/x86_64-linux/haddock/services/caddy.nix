@@ -12,9 +12,9 @@ in
     enable = true;
     package = pkgs.caddy.withPlugins {
       plugins = [
-        "github.com/caddy-dns/porkbun@v0.1.5"
+        "github.com/caddy-dns/porkbun@v0.2.1"
       ];
-      hash = "sha256-7jJVKbBDlmuh8/O97nnnOkEApGeOGB7F0vdp9PQk5gQ=";
+      hash = "sha256-5rfdWHT2ah5THFKjcSoN+aTLhnjQYbNFQxQTfXB439I=";
     };
     email = "poperigby@mailbox.org";
     globalConfig = ''
