@@ -380,6 +380,22 @@
         "type": "github"
       }
     },
+    "lldap": {
+      "locked": {
+        "lastModified": 1736987677,
+        "narHash": "sha256-lRleMLx1TKZRXAImjunDmiTVhXopnXLsU7FdX1MwgJM=",
+        "owner": "mjm",
+        "repo": "nixpkgs",
+        "rev": "33950a17821d1ad5b85085f763911a3c6fc178f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mjm",
+        "ref": "push-mpttlsztsvwn",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "mygui": {
       "locked": {
         "lastModified": 1716480759,
@@ -697,6 +713,7 @@
         "disko": "disko",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
+        "lldap": "lldap",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
         "nix-minecraft": "nix-minecraft",
@@ -711,7 +728,6 @@
         "sops-nix": "sops-nix",
         "ttkbootstrap": "ttkbootstrap",
         "ucodenix": "ucodenix",
-        "virtual-glob": "virtual-glob",
         "vpn-confinement": "vpn-confinement"
       }
     },
@@ -924,22 +940,6 @@
       "original": {
         "owner": "e-tho",
         "repo": "ucodenix",
-        "type": "github"
-      }
-    },
-    "virtual-glob": {
-      "locked": {
-        "lastModified": 1736805502,
-        "narHash": "sha256-T9g/Je/tCwT33HXli/ewA0kpcTA5iwjX2Pv7eTgzlPI=",
-        "owner": "poperigby",
-        "repo": "nixpkgs",
-        "rev": "ccc74115160d4256da0c36f97fe537d8f441f418",
-        "type": "github"
-      },
-      "original": {
-        "owner": "poperigby",
-        "ref": "virtual-glob",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
