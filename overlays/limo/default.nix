@@ -1,12 +1,20 @@
 { ... }:
 
 final: prev: {
-  limo = prev.limo.overrideAttrs (old: {
+  limo = (prev.limo.override { withUnrar = true; }).overrideAttrs (old: {
     src = prev.fetchFromGitHub {
       owner = "limo-app";
       repo = "limo";
-      rev = "200176f6e5a8065fdef415e3ea5d3501d192d12d";
-      hash = "sha256-KQD7U9sHHsxKIzMbrYqhTBUfFZpsoqiSxz5zMNIxU4o=";
+      rev = "ef8668a218e6c9c18f4fd627661f28288e7ad47c";
+      hash = "sha256-Q/7Xq9kCFlGCZ3ha6ogZBqCvOryUDRY8MnxRglM9YO8=";
     };
+
+    buildInputs =
+      old.buildInputs
+      ++ (with prev; [
+        lz4
+        zlib
+        zstd
+      ]);
   });
 }

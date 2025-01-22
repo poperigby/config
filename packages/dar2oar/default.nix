@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-3Af3LCZ4r+3TpbIp75urlbvSzw2FHTgnsPg6J7dvFcs=";
   };
 
-  cargoHash = "sha256-ldQPydmrp2JffYuo/msqRujRuZAH1zFA1zJjOq9cTVw=";
+  cargoHash = "sha256-6tU3mT5I4pBdjnzgzBHnQaKuMbCgCfpBJLi1F6Walkg=";
 
   npmDeps = fetchNpmDeps {
     inherit src;
