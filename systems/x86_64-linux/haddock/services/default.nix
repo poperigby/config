@@ -8,7 +8,7 @@
     ./caddy.nix
     ./clamav.nix
     ./crowdsec.nix
-    ./ddclient.nix
+    ./ddns-updater.nix
     ./frigate.nix
     ./forgejoActions.nix
     ./gatus.nix

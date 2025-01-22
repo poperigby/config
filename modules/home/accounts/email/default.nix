@@ -4,28 +4,28 @@ let
   cfg = config.custom.accounts.email;
 in
 {
-    options.custom.accounts.email.enable = lib.mkEnableOption "email account";
+  options.custom.accounts.email.enable = lib.mkEnableOption "email account";
 
-    config = lib.mkIf cfg.enable {
-        accounts.email.accounts.poperigby = rec {
-            primary = true;
+  config = lib.mkIf cfg.enable {
+    accounts.email.accounts.poperigby = rec {
+      primary = true;
 
-            realName = "PopeRigby";
-            address = "poperigby@mailbox.org";
-            aliases = [ "cassidyw@mailbox.org" ];
-            passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/email/password".path}";
+      realName = "PopeRigby";
+      address = "poperigby@mailbox.org";
+      aliases = [ "cassidyw@mailbox.org" ];
+      passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/email/password".path}";
 
-            userName = address;
-            imap = {
-                host = "imap.mailbox.org";
-                port = 993;
-            };
-            smtp = {
-                host = "smtp.mailbox.org";
-                port = 465;
-            };
-        };
-
-        sops.secrets."common/users/cassidy/email/password" = {};
+      userName = address;
+      imap = {
+        host = "imap.mailbox.org";
+        port = 993;
+      };
+      smtp = {
+        host = "smtp.mailbox.org";
+        port = 465;
+      };
     };
+
+    sops.secrets."common/users/cassidy/email/password" = { };
+  };
 }

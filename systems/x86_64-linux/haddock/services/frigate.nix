@@ -1,10 +1,10 @@
-# NVR with realtime local object detection for IP cameras 
+# NVR with realtime local object detection for IP cameras
 
 { ... }:
 
 {
-    services.frigate = {
-        enable = false;
-        settings = {};
-    };
+  services.frigate = {
+    enable = false;
+    settings = { };
+  };
 }

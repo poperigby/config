@@ -1,94 +1,100 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-    inherit (lib)
-        getExe
-        mapAttrs
-        mkEnableOption
-        mkIf
-        mkOption
-        mkOptionDefault
+  inherit (lib)
+    getExe
+    mapAttrs
+    mkEnableOption
+    mkIf
+    mkOption
+    mkOptionDefault
     ;
 
-    inherit (lib.types)
-        nullOr
-        path
+  inherit (lib.types)
+    nullOr
+    path
     ;
 
-    cfg = config.custom.services.illuminanced;
+  cfg = config.custom.services.illuminanced;
 
-    settingsFormat = pkgs.formats.toml {};
-    configFile = if cfg.configFile == null then
-        settingsFormat.generate "illuminanced.toml" cfg.settings
+  settingsFormat = pkgs.formats.toml { };
+  configFile =
+    if cfg.configFile == null then
+      settingsFormat.generate "illuminanced.toml" cfg.settings
     else
-        cfg.configFile;
+      cfg.configFile;
 in
 {
-    options.custom.services.illuminanced = {
-        enable = mkEnableOption "ambient light monitoring service";
-        configFile = mkOption {
-            type = nullOr path;
-            default = null;
-        };
-        settings = mkOption {
-            default = mapAttrs (n: mkOptionDefault) {
-                daemonize = {
-                    log_to = "syslog";
-                    pid_file = "/run/illuminanced.pid";
-                    log_level = "ERROR";
-                };
-                general = {
-                    check_period_in_seconds = 1;
-                    light_steps = 10;
-                    min_backlight = 70;
-                    step_barrier = 0.1;
-                    max_backlight_file = "/sys/class/backlight/intel_backlight/max_brightness";
-                    backlight_file = "/sys/class/backlight/intel_backlight/brightness";
-                    illuminance_file = "/sys/bus/acpi/devices/ACPI0008:00/iio:device0/in_illuminance_raw";
-                    event_device_mask = "/dev/input/event*";
-                    event_device_name = "Asus WMI hotkeys";
-                    enable_max_brightness_mode = true;
-                    filename_for_sensor_activation = "";
-                };
-                kalman = {
-                    q = 1;
-                    r = 20;
-                    covariance = 10;
-                };
-                light = {
-                    points_count = 6;
-                    illuminance_0 = 0;
-                    light_0 = 0;
-                    illuminance_1 = 20;
-                    light_1 = 1;
-                    illuminance_2 = 300;
-                    light_2 = 3;
-                    illuminance_3 = 700;
-                    light_3 = 4;
-                    illuminance_4 = 1100;
-                    light_4 = 5;
-                    illuminance_5 = 7100;
-                    light_5 = 10;
-                };
-            };
-            type = settingsFormat.type;
-        };
+  options.custom.services.illuminanced = {
+    enable = mkEnableOption "ambient light monitoring service";
+    configFile = mkOption {
+      type = nullOr path;
+      default = null;
     };
-
-    config = mkIf cfg.enable {
-        services.syslogd.enable = true;
-
-        systemd.services.illuminanced = {
-            description = "Ambient light monitoring Service";
-            requires = [ "syslog.socket" ];
-            documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
-            serviceConfig = {
-                Type = "forking";
-                ExecStart = "${getExe pkgs.custom.illuminanced} -c ${configFile}";
-                PIDFile = "/run/illuminanced.pid";
-                Restart = "on-failure";
-            };
-            wantedBy = [ "multi-user.target" ];
+    settings = mkOption {
+      default = mapAttrs (n: mkOptionDefault) {
+        daemonize = {
+          log_to = "syslog";
+          pid_file = "/run/illuminanced.pid";
+          log_level = "ERROR";
         };
+        general = {
+          check_period_in_seconds = 1;
+          light_steps = 10;
+          min_backlight = 70;
+          step_barrier = 0.1;
+          max_backlight_file = "/sys/class/backlight/intel_backlight/max_brightness";
+          backlight_file = "/sys/class/backlight/intel_backlight/brightness";
+          illuminance_file = "/sys/bus/acpi/devices/ACPI0008:00/iio:device0/in_illuminance_raw";
+          event_device_mask = "/dev/input/event*";
+          event_device_name = "Asus WMI hotkeys";
+          enable_max_brightness_mode = true;
+          filename_for_sensor_activation = "";
+        };
+        kalman = {
+          q = 1;
+          r = 20;
+          covariance = 10;
+        };
+        light = {
+          points_count = 6;
+          illuminance_0 = 0;
+          light_0 = 0;
+          illuminance_1 = 20;
+          light_1 = 1;
+          illuminance_2 = 300;
+          light_2 = 3;
+          illuminance_3 = 700;
+          light_3 = 4;
+          illuminance_4 = 1100;
+          light_4 = 5;
+          illuminance_5 = 7100;
+          light_5 = 10;
+        };
+      };
+      type = settingsFormat.type;
     };
+  };
+
+  config = mkIf cfg.enable {
+    services.syslogd.enable = true;
+
+    systemd.services.illuminanced = {
+      description = "Ambient light monitoring Service";
+      requires = [ "syslog.socket" ];
+      documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
+      serviceConfig = {
+        Type = "forking";
+        ExecStart = "${getExe pkgs.custom.illuminanced} -c ${configFile}";
+        PIDFile = "/run/illuminanced.pid";
+        Restart = "on-failure";
+      };
+      wantedBy = [ "multi-user.target" ];
+    };
+  };
 }

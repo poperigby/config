@@ -4,10 +4,10 @@ let
   cfg = config.custom.system.locale;
 in
 {
-    options.custom.system.locale.enable = lib.mkEnableOption "Enable locale settings";
+  options.custom.system.locale.enable = lib.mkEnableOption "Enable locale settings";
 
-    config = lib.mkIf cfg.enable {
-        # Select internationalization properties.
-        i18n.defaultLocale = "en_US.UTF-8";
-    };
+  config = lib.mkIf cfg.enable {
+    # Select internationalization properties.
+    i18n.defaultLocale = "en_US.UTF-8";
+  };
 }

@@ -1,12 +1,14 @@
 { pkgs, ... }:
 
 {
-    programs.neovim.plugins = [{
-        plugin = pkgs.vimPlugins.which-key-nvim;
-        type = "lua";
-        config = # lua
+  programs.neovim.plugins = [
+    {
+      plugin = pkgs.vimPlugins.which-key-nvim;
+      type = "lua";
+      config = # lua
         ''
-            require("which-key").setup({})
+          require("which-key").setup({})
         '';
-    }];
+    }
+  ];
 }

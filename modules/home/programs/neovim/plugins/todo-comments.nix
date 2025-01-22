@@ -1,12 +1,14 @@
 { pkgs, ... }:
 
 {
-    programs.neovim.plugins = [{
-        plugin = pkgs.vimPlugins.todo-comments-nvim;
-        type = "lua";
-        config = # lua
+  programs.neovim.plugins = [
+    {
+      plugin = pkgs.vimPlugins.todo-comments-nvim;
+      type = "lua";
+      config = # lua
         ''
-            require("todo-comments").setup({})
+          require("todo-comments").setup({})
         '';
-    }];
+    }
+  ];
 }
