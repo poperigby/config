@@ -709,7 +709,7 @@
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
-        "stable": "stable",
+        "swayfx": "swayfx",
         "ttkbootstrap": "ttkbootstrap",
         "ucodenix": "ucodenix",
         "vikunja": "vikunja",
@@ -802,18 +802,18 @@
         "type": "github"
       }
     },
-    "stable": {
+    "swayfx": {
       "locked": {
-        "lastModified": 1737404927,
-        "narHash": "sha256-e1WgPJpIYbOuokjgylcsuoEUCB4Jl2rQXa2LUD6XAG8=",
-        "owner": "NixOS",
+        "lastModified": 1737659476,
+        "narHash": "sha256-jAaH6CIsRfY+g6HtDBTl2amPk8xOmrf3PXDJBIxSWCw=",
+        "owner": "LordGrimmauld",
         "repo": "nixpkgs",
-        "rev": "ae584d90cbd0396a422289ee3efb1f1c9d141dc3",
+        "rev": "7933373dd9ff5f7fd4703ac405a176aa1b8701af",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-24.11",
+        "owner": "LordGrimmauld",
+        "ref": "swayfx-fix",
         "repo": "nixpkgs",
         "type": "github"
       }

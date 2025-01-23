@@ -5,7 +5,6 @@
   inputs = {
     ## Official inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     ## Extra inputs
     crowdsec = {
       url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
@@ -56,6 +55,7 @@
     chime.url = "github:poperigby/nixpkgs/chime";
     py7zr.url = "github:poperigby/nixpkgs/py7zr";
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
+    swayfx.url = "github:LordGrimmauld/nixpkgs/swayfx-fix";
     ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
     vikunja.url = "github:leona-ya/nixpkgs/push-ryonnsmyolmm";
   };

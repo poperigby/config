@@ -32,7 +32,7 @@ in
       # Integrates Sway with systemd, which will allow applications to depend on it
       # by depending on "graphical.target".
       systemd.enable = true;
-      package = inputs.stable.legacyPackages.${system}.swayfx;
+      package = inputs.swayfx.legacyPackages.${system}.swayfx;
       # Required for SwayFX to work
       checkConfig = false;
       config = {
