@@ -1,8 +1,6 @@
 {
   config,
-  inputs,
   lib,
-  system,
   ...
 }:
 
@@ -13,7 +11,6 @@ in
   services = {
     lldap = {
       enable = true;
-      package = inputs.lldap.legacyPackages.${system}.lldap;
       settings = {
         ldap_base_dn = "dc=haddock,dc=cc";
         ldap_user_email = "admin@haddock.cc";

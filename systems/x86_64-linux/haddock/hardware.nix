@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   boot = {
@@ -29,8 +29,10 @@
   hardware.enableRedistributableFirmware = true;
 
   # Keep microcode updated
-  # services.ucodenix = {
-  #     enable = true;
-  #     cpuModelId = "";
-  # };
+  services.ucodenix = {
+    enable = true;
+    cpuModelId = "00870F10";
+  };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

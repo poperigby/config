@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   boot = {
@@ -32,4 +32,6 @@
     enable = true;
     cpuModelId = "00A60F12";
   };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
