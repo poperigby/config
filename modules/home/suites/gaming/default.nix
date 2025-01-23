@@ -56,9 +56,6 @@ in
       ++ optionals bethesda [
         jpexs
         limo
-        nifskope
-        custom.dar2oar
-        custom.hkxc
         custom.loot
         custom.synthesis
       ];

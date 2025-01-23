@@ -709,6 +709,7 @@
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
+        "stable": "stable",
         "ttkbootstrap": "ttkbootstrap",
         "ucodenix": "ucodenix",
         "vikunja": "vikunja",
@@ -798,6 +799,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "stable": {
+      "locked": {
+        "lastModified": 1737404927,
+        "narHash": "sha256-e1WgPJpIYbOuokjgylcsuoEUCB4Jl2rQXa2LUD6XAG8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ae584d90cbd0396a422289ee3efb1f1c9d141dc3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
