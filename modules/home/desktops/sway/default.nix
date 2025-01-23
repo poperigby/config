@@ -63,12 +63,9 @@ in
         bars = [ ];
         # Programs to launch when Sway starts
         startup = [
-          {
-            command = "${getExe pkgs.element-desktop} --hidden";
-          }
-          {
-            command = getExe pkgs.autotiling-rs;
-          }
+          { command = "${getExe pkgs.firefox}"; }
+          { command = "${getExe pkgs.element-desktop} --hidden"; }
+          { command = getExe pkgs.autotiling-rs; }
         ];
       };
     };
