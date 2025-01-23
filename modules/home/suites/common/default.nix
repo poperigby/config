@@ -69,6 +69,7 @@ in
         dogdns
         dust
         fd
+        ffmpeg
         file
         imagemagick
         just
