@@ -34,14 +34,13 @@ in
       settings = {
         cache.enabled = true;
         network = "host";
-        # options = "-e NIX_REMOTE=daemon -v /nix/:/nix/ -v /nix/var/nix/daemon-socket:/nix/var/nix/daemon-socket";
-        # valid_volumes = [ "/nix/" ];
       };
     };
   };
 
   systemd.services.gitea-runner-default = {
     preStart = "${actionsImage} | ${getExe config.virtualisation.podman.package} load";
+    after = [ "podman.socket" ];
     serviceConfig = {
       DynamicUser = mkForce false;
       User = mkForce "forgejo_actions";
