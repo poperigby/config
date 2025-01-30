@@ -65,7 +65,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    # blender-hip
+    blender-hip
   ];
 
   home.file.morrowindBlenderPlugin = {

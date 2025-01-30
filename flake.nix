@@ -57,7 +57,6 @@
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     swayfx.url = "github:LordGrimmauld/nixpkgs/swayfx-fix";
     ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
-    vikunja.url = "github:leona-ya/nixpkgs/push-ryonnsmyolmm";
   };
 
   # This function is run on `nixos-rebuild switch`, and generates NixOS systems
