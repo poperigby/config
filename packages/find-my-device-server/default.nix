@@ -22,6 +22,11 @@ buildGoModule rec {
     "-w"
   ];
 
+  postInstall = ''
+    mkdir -p $out/share/findmydeviceserver
+    cp -r $src/web/* $out/share/findmydeviceserver
+  '';
+
   meta = {
     description = "A server to communicate with the FMD Android app, to locate and control your devices";
     homepage = "https://gitlab.com/Nulide/findmydeviceserver";
