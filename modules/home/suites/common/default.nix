@@ -84,6 +84,7 @@ in
         ripgrep
         sops
         tree
+        typst
         usbutils
         vimv-rs
       ];

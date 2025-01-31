@@ -41,6 +41,7 @@ in
           nodejs
           pyright
           rust-analyzer
+          tinymist
           typescript
           vscode-langservers-extracted
           yaml-language-server

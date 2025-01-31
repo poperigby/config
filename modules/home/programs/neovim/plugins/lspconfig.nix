@@ -73,6 +73,7 @@
                   },
               },
               teal_ls = {},
+              tinymist = {},
               yamlls = {
                   settings = {
                       yaml = {
