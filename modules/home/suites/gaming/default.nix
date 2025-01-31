@@ -52,6 +52,7 @@ in
         vkquake
         # Minecraft
         prismlauncher
+        gpu-screen-recorder-gtk
       ]
       ++ optionals bethesda [
         jpexs
