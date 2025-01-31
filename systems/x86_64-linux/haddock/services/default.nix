@@ -9,6 +9,7 @@
     ./clamav.nix
     ./crowdsec.nix
     ./ddns-updater.nix
+    ./findMyDeviceServer.nix
     ./frigate.nix
     ./forgejoActions.nix
     ./gatus.nix
