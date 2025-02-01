@@ -13,7 +13,12 @@ let
     mkOption
     ;
 
-  inherit (lib.types) nullOr path int;
+  inherit (lib.types)
+    int
+    nullOr
+    path
+    str
+    ;
 
   cfg = config.custom.services.findMyDeviceServer;
   settingsFormat = pkgs.formats.yaml { };
@@ -30,6 +35,16 @@ in
     port = mkOption {
       type = int;
       default = 8080;
+    };
+    user = mkOption {
+      type = str;
+      default = "findmydevice";
+      description = "User account under which Find My Device Server runs";
+    };
+    group = mkOption {
+      type = str;
+      default = "findmydevice";
+      description = "User group under which Find My Device Server runs";
     };
     configFile = mkOption {
       type = nullOr path;
@@ -66,15 +81,19 @@ in
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-          ExecStart = "${getExe pkgs.custom.find-my-device-server} serve --web-dir ${pkgs.custom.find-my-device-server}/share/findmydeviceserver --config ${configFile}";
-          WorkingDirectory = "/var/lib/findmydeviceserver";
-          User = "findmydevice";
-          Group = "findmydevice";
+          ExecStart =
+            let
+              db = "/var/lib/findmydeviceserver/db";
+              web = "${pkgs.custom.find-my-device-server}/share/findmydeviceserver";
+            in
+            "${getExe pkgs.custom.find-my-device-server} serve -c ${configFile} -d ${db} -w ${web}";
+          User = cfg.user;
+          Group = cfg.group;
         };
       };
       tmpfiles.settings."10-find-my-device-server"."/var/lib/findmydeviceserver".d = {
-        user = "findmydevice";
-        group = "findmydevice";
+        user = cfg.user;
+        group = cfg.group;
         mode = "0755";
       };
     };

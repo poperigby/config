@@ -16,6 +16,7 @@ let
       git
       nix
       nodejs
+      coreutils
     ];
     config = {
       Cmd = [ "bash" ];
@@ -30,7 +31,7 @@ in
       name = config.networking.hostName;
       url = "https://codeberg.org";
       tokenFile = config.sops.templates.forgejo-actions-codeberg-token.path;
-      labels = [ "haddock:docker://localhost/${actionsImage.imageName}:latest" ];
+      labels = [ "haddock:docker://${actionsImage.imageName}:latest" ];
       settings = {
         cache.enabled = true;
         network = "host";
@@ -39,22 +40,21 @@ in
   };
 
   systemd.services.gitea-runner-default = {
-    preStart = "${actionsImage} | ${getExe config.virtualisation.podman.package} load";
-    after = [ "podman.socket" ];
+    preStart = "${actionsImage} | ${getExe config.virtualisation.docker.package} load";
     serviceConfig = {
       DynamicUser = mkForce false;
       User = mkForce "forgejo_actions";
     };
   };
 
-  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
   users = {
     users.forgejo_actions = {
       isSystemUser = true;
       group = "forgejo_actions";
-      # The runner needs permission to access the Podman socket
-      extraGroups = [ "podman" ];
+      # The runner needs permission to access the Docker socket
+      extraGroups = [ "docker" ];
     };
     groups.forgejo_actions = { };
   };
