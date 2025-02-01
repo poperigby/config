@@ -13,13 +13,21 @@ let
     tag = "latest";
     contents = with pkgs; [
       bash
+      cacert
+      coreutils
       git
       nix
       nodejs
-      coreutils
+      openssl
+      gnugrep
+      less
     ];
     config = {
       Cmd = [ "bash" ];
+      Env = [
+        # So Git can find the required certificates
+        "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
+      ];
     };
   };
 in
