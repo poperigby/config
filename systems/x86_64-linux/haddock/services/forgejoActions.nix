@@ -21,12 +21,14 @@ let
       openssl
       gnugrep
       less
+      # Provides the env utility at /usr/bin/env.
+      dockerTools.usrBinEnv
     ];
     config = {
       Cmd = [ "bash" ];
       Env = [
-        # So Git can find the required certificates
-        "GIT_SSL_CAINFO=/etc/ssl/certs/ca-bundle.crt"
+        "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
+        "NIX_CONFIG=extra-experimental-features = nix-command flakes"
       ];
     };
   };

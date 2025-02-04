@@ -25,6 +25,7 @@ in
     home-manager.users.shane.home = {
       username = "shane";
       homeDirectory = "/home/shane";
+      stateVersion = config.system.stateVersion;
     };
 
     sops.secrets."common/users/shane/password".neededForUsers = true;

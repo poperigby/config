@@ -34,7 +34,11 @@
     suites = {
       common.enable = true;
     };
-    users.cassidy.enable = true;
+    users = {
+      cassidy.enable = true;
+      julian.enable = true;
+      shane.enable = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

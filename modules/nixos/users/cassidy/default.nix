@@ -38,6 +38,7 @@ in
     home-manager.users.cassidy.home = {
       username = "cassidy";
       homeDirectory = "/home/cassidy";
+      stateVersion = config.system.stateVersion;
     };
 
     sops.secrets."common/users/cassidy/password".neededForUsers = true;
