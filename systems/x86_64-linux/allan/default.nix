@@ -67,6 +67,7 @@
       common.enable = true;
       gui.enable = true;
     };
+    desktops.sway.enable = true;
     system.boot.secureBoot = true;
     users.cassidy.enable = true;
   };
