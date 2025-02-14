@@ -6,26 +6,38 @@
 }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.fonts;
 in
 {
-  options.custom.fonts.enable = lib.mkEnableOption "Enable font settings";
+  options.custom.fonts.enable = mkEnableOption "font settings";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     fonts.fontconfig = {
       enable = true;
       defaultFonts = {
-        sansSerif = [ "Noto Sans" ];
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK"
+        ];
         # Make the serif font actually sans-serif for uniformity
-        serif = [ "Noto Sans" ];
+        serif = [
+          "Noto Sans"
+          "Noto Sans CJK"
+        ];
         monospace = [ "JetBrainsMono Nerd Font" ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
-
     home.packages = with pkgs; [
-      # Main font
+      # Latin font
       noto-fonts
+      # Chinese, Japanese, and Korean font
+      noto-fonts-cjk-sans
       # Emoji font
       noto-fonts-color-emoji
       # Monospace font
