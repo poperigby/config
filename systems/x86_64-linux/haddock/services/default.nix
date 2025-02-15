@@ -14,6 +14,7 @@
     ./forgejoActions.nix
     ./gatus.nix
     ./immich.nix
+    ./insurgency.nix
     ./mealie.nix
     ./media
     ./minecraft

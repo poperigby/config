@@ -14,6 +14,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flux = {
+      url = "github:IogaMaster/flux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -91,6 +95,7 @@
             modules = with inputs; [
               crowdsec.nixosModules.crowdsec
               crowdsec.nixosModules.crowdsec-firewall-bouncer
+              flux.nixosModules.default
               nix-minecraft.nixosModules.minecraft-servers
               vpn-confinement.nixosModules.default
               "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
