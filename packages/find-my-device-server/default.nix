@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "find-my-device-server";
-  version = "0.8.0";
+  version = "0.10.0";
 
   src = fetchFromGitLab {
     owner = "Nulide";
     repo = "findmydeviceserver";
     tag = "v${version}";
-    hash = "sha256-VU+0udOKG5MLyFKDEjTc+OzGalcXJWBAWWuX66rSpaM=";
+    hash = "sha256-tHOBpl+wwjske1e5jNxqvpL45j0VIiaWWogS/EdoD/A=";
   };
 
-  vendorHash = "sha256-2BAI2ScF6jeeShsR5ZTBkAOTcY/GvorC6l3ifpO3TCM=";
+  vendorHash = "sha256-Tfr9bZmHOfPpTqI0z2foNwh55E4eG8BVvJ0VV55q4KY=";
 
   ldflags = [
     "-s"
