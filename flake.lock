@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739529569,
-        "narHash": "sha256-sQzLVCRPfAV/TJXru/jhCyecMXinG/sW8KLoYg0nOpk=",
+        "lastModified": 1739582867,
+        "narHash": "sha256-rO528HmsiPi3RO9kZdYt0NnzN3pxpXz33m6H/sIFgzI=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "e51159153b5fbe5c41caab41a7212df93c42d34b",
+        "rev": "4edb87a2ac9010da6fea50fc56d67e123fca85f4",
         "type": "github"
       },
       "original": {
@@ -342,11 +342,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739558847,
-        "narHash": "sha256-v5oO22kUXPyX80408SmjRPopc6f0JpbTgbSzqxAvWTU=",
+        "lastModified": 1739571712,
+        "narHash": "sha256-0UdSDV/TBY+GuxXLbrLq3l2Fq02ciyKCIMy4qmnfJXQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7da01bc47ad48d696c96fcfd63d10063855d5486",
+        "rev": "6d3163aea47fdb1fe19744e91306a2ea4f602292",
         "type": "github"
       },
       "original": {
@@ -618,11 +618,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1736707830,
-        "narHash": "sha256-mqTtthMIaf0MuDgazLu4nzUVmQOTLyZHdsNRUMO3Cm4=",
+        "lastModified": 1739589457,
+        "narHash": "sha256-HpNHAwvJa6ZvTowWIz90yaqBRyL8h+ZEd0kRl0TG4b0=",
         "ref": "refs/heads/main",
-        "rev": "896cb5abae5ccce62531352c13a61acad972c98d",
-        "revCount": 45,
+        "rev": "c3402f1cb6fae33bbb3b4349fe3cdca050d119fa",
+        "revCount": 46,
         "type": "git",
         "url": "https://codeberg.org/PopeRigby/openmw-nix.git"
       },
