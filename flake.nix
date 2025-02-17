@@ -6,6 +6,7 @@
     ## Official inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     ## Extra inputs
+    cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     crowdsec = {
       url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
       inputs.nixpkgs.follows = "nixpkgs";
