@@ -27,7 +27,7 @@
     caddy.virtualHosts = {
       "indexers.haddock.cc".extraConfig = ''
         import auth
-        reverse_proxy :9696
+        reverse_proxy 192.168.15.1:9696
       '';
       "movies.haddock.cc".extraConfig = ''
         import auth
@@ -45,9 +45,16 @@
   };
 
   systemd.services = {
-    prowlarr.environment = {
-      PROWLARR__AUTH__REQUIRED = "True";
-      PROWLARR__AUTH__METHOD = "External";
+    prowlarr = {
+      environment = {
+        PROWLARR__AUTH__REQUIRED = "True";
+        PROWLARR__AUTH__METHOD = "External";
+      };
+      # Make Prowlarr run in the VPN namespace so it has the same IP as qBittorrent
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "proton";
+      };
     };
     radarr.environment = {
       RADARR__AUTH__REQUIRED = "True";
