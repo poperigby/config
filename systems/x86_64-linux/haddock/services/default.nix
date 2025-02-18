@@ -10,14 +10,13 @@
     ./crowdsec.nix
     ./ddns-updater.nix
     ./findMyDeviceServer.nix
-    ./frigate.nix
     ./forgejoActions.nix
+    ./frigate.nix
+    ./games
     ./gatus.nix
     ./immich.nix
-    ./insurgency.nix
     ./mealie.nix
     ./media
-    ./minecraft
     ./miniflux.nix
     ./paperless.nix
     ./postgresql.nix
