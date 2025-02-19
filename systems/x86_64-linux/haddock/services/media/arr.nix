@@ -24,24 +24,28 @@
       group = "media";
     };
 
-    caddy.virtualHosts = {
-      "indexers.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy 192.168.15.1:9696
-      '';
-      "movies.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :7878
-      '';
-      "books.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :8787
-      '';
-      "tv.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :8989
-      '';
-    };
+    caddy.virtualHosts =
+      let
+        netns = "192.168.15.1";
+      in
+      {
+        "indexers.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${netns}:9696
+        '';
+        "movies.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${netns}:7878
+        '';
+        "books.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${netns}:8787
+        '';
+        "tv.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${netns}:8989
+        '';
+      };
   };
 
   systemd.services = {
@@ -56,17 +60,35 @@
         vpnNamespace = "proton";
       };
     };
-    radarr.environment = {
-      RADARR__AUTH__REQUIRED = "True";
-      RADARR__AUTH__METHOD = "External";
+    radarr = {
+      environment = {
+        RADARR__AUTH__REQUIRED = "True";
+        RADARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "proton";
+      };
     };
-    readarr.environment = {
-      READARR__AUTH__REQUIRED = "True";
-      READARR__AUTH__METHOD = "External";
+    readarr = {
+      environment = {
+        READARR__AUTH__REQUIRED = "True";
+        READARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "proton";
+      };
     };
-    sonarr.environment = {
-      SONARR__AUTH__REQUIRED = "True";
-      SONARR__AUTH__METHOD = "External";
+    sonarr = {
+      environment = {
+        SONARR__AUTH__REQUIRED = "True";
+        SONARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "proton";
+      };
     };
   };
 }

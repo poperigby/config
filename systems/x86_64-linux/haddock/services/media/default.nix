@@ -40,6 +40,21 @@
           from = 9696;
           to = 9696;
         }
+        {
+          # Radarr
+          from = 7878;
+          to = 7878;
+        }
+        {
+          # Readarr
+          from = 8787;
+          to = 8787;
+        }
+        {
+          # Sonarr
+          from = 8989;
+          to = 8989;
+        }
       ];
   };
 
