@@ -2,6 +2,7 @@
 
 let
   cfg = config.services.gatus;
+  namespaceAddress = config.vpnNamespaces.proton.namespaceAddress;
 in
 {
   services = {
@@ -59,7 +60,7 @@ in
           }
           {
             name = "Prowlarr";
-            url = "http://localhost:9696";
+            url = "http://${namespaceAddress}:9696";
             interval = "5m";
             conditions = [
               "[STATUS] == 200"
@@ -67,7 +68,7 @@ in
           }
           {
             name = "Radarr";
-            url = "http://localhost:7878";
+            url = "http://${namespaceAddress}:7878";
             interval = "5m";
             conditions = [
               "[STATUS] == 200"
@@ -75,7 +76,7 @@ in
           }
           {
             name = "Sonarr";
-            url = "http://localhost:8989";
+            url = "http://${namespaceAddress}:8989";
             interval = "5m";
             conditions = [
               "[STATUS] == 200"

@@ -8,6 +8,8 @@
 }:
 
 let
+  inherit (lib) getExe;
+
   cfg = config.services.qbittorrent;
   netns = "proton";
 in
@@ -21,7 +23,7 @@ in
       torrentingPort = 4096;
       serverConfig = {
         BitTorrent.Session = {
-          ## Limits limits
+          ## Limits
           # 80% of max speed in the VPN
           GlobalDLSpeedLimit = 432000;
           GlobalUPSpeedLimit = 184000;
@@ -59,10 +61,14 @@ in
         };
       };
     };
-    caddy.virtualHosts."torrent.haddock.cc".extraConfig = ''
-      import auth
-      reverse_proxy 192.168.15.1:${toString cfg.webuiPort}
-    '';
+    caddy.virtualHosts."torrent.haddock.cc".extraConfig =
+      let
+        namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
+      in
+      ''
+        import auth
+        reverse_proxy ${namespaceAddress}:${toString cfg.webuiPort}
+      '';
   };
 
   systemd.services = {
@@ -93,7 +99,7 @@ in
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = lib.getExe pkgs.custom.qbittorrent-vpn-port-update;
+        ExecStart = getExe pkgs.custom.qbittorrent-vpn-port-update;
       };
       vpnConfinement = {
         enable = true;
@@ -108,7 +114,7 @@ in
       script = ''
         set -euo pipefail
 
-        ${lib.getExe pkgs.curl} \
+        ${getExe pkgs.curl} \
             -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) \
             https://t.myanonamouse.net/json/dynamicSeedbox.php
       '';

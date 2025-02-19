@@ -18,7 +18,7 @@
   };
 
   # Define a network namespace with a VPN for qBittorrent and Prowlarr
-  vpnNamespaces."proton" = {
+  vpnNamespaces.proton = {
     enable = true;
     wireguardConfigFile = config.sops.templates.wireguard-config-file.path;
     accessibleFrom = [

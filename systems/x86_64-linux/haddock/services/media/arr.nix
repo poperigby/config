@@ -1,5 +1,8 @@
-{ ... }:
+{ config, ... }:
 
+let
+  netns = "proton";
+in
 {
   # Groups are set to "media" to give *arr access to /mnt/media/data, and make hardlinks work
   services = {
@@ -26,24 +29,24 @@
 
     caddy.virtualHosts =
       let
-        netns = "192.168.15.1";
+        namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
       in
       {
         "indexers.haddock.cc".extraConfig = ''
           import auth
-          reverse_proxy ${netns}:9696
+          reverse_proxy ${namespaceAddress}:9696
         '';
         "movies.haddock.cc".extraConfig = ''
           import auth
-          reverse_proxy ${netns}:7878
+          reverse_proxy ${namespaceAddress}:7878
         '';
         "books.haddock.cc".extraConfig = ''
           import auth
-          reverse_proxy ${netns}:8787
+          reverse_proxy ${namespaceAddress}:8787
         '';
         "tv.haddock.cc".extraConfig = ''
           import auth
-          reverse_proxy ${netns}:8989
+          reverse_proxy ${namespaceAddress}:8989
         '';
       };
   };
@@ -57,7 +60,7 @@
       # Make Prowlarr run in the VPN namespace so it has the same IP as qBittorrent
       vpnConfinement = {
         enable = true;
-        vpnNamespace = "proton";
+        vpnNamespace = netns;
       };
     };
     radarr = {
@@ -67,7 +70,7 @@
       };
       vpnConfinement = {
         enable = true;
-        vpnNamespace = "proton";
+        vpnNamespace = netns;
       };
     };
     readarr = {
@@ -77,7 +80,7 @@
       };
       vpnConfinement = {
         enable = true;
-        vpnNamespace = "proton";
+        vpnNamespace = netns;
       };
     };
     sonarr = {
@@ -87,7 +90,7 @@
       };
       vpnConfinement = {
         enable = true;
-        vpnNamespace = "proton";
+        vpnNamespace = netns;
       };
     };
   };
