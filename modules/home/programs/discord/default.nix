@@ -14,8 +14,6 @@ in
   config = mkIf cfg.enable {
     programs.nixcord = {
       enable = true;
-      vesktop.enable = true;
-      discord.enable = false;
       config = {
         plugins = {
           alwaysTrust.enable = true;
