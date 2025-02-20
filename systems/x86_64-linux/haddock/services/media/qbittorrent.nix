@@ -8,6 +8,8 @@
 }:
 
 let
+  inherit (lib) getExe;
+
   cfg = config.services.qbittorrent;
   netns = "proton";
 in
@@ -21,7 +23,7 @@ in
       torrentingPort = 4096;
       serverConfig = {
         BitTorrent.Session = {
-          ## Limits limits
+          ## Limits
           # 80% of max speed in the VPN
           GlobalDLSpeedLimit = 432000;
           GlobalUPSpeedLimit = 184000;
@@ -59,31 +61,18 @@ in
         };
       };
     };
-    caddy.virtualHosts."torrent.haddock.cc".extraConfig = ''
-      import auth
-      reverse_proxy 192.168.15.1:${toString cfg.webuiPort}
-    '';
-  };
-
-  # Define a network namespace with a VPN for qBittorrent
-  vpnNamespaces."${netns}" = {
-    enable = true;
-    wireguardConfigFile = config.sops.templates.wireguard-config-file.path;
-    accessibleFrom = [
-      "192.168.1.0/24"
-    ];
-    portMappings = [
-      {
-        # Make the WebUI accessible on the bridge interface
-        from = cfg.webuiPort;
-        to = cfg.webuiPort;
-      }
-    ];
+    caddy.virtualHosts."torrent.haddock.cc".extraConfig =
+      let
+        namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
+      in
+      ''
+        import auth
+        reverse_proxy ${namespaceAddress}:${toString cfg.webuiPort}
+      '';
   };
 
   systemd.services = {
     qbittorrent = {
-      # Make qBittorrent run in the ProtonVPN network namespace
       vpnConfinement = {
         enable = true;
         vpnNamespace = netns;
@@ -110,9 +99,8 @@ in
       };
       serviceConfig = {
         Type = "simple";
-        ExecStart = lib.getExe pkgs.custom.qbittorrent-vpn-port-update;
+        ExecStart = getExe pkgs.custom.qbittorrent-vpn-port-update;
       };
-      # Make the port updater run in the ProtonVPN network namespace
       vpnConfinement = {
         enable = true;
         vpnNamespace = netns;
@@ -126,7 +114,7 @@ in
       script = ''
         set -euo pipefail
 
-        ${lib.getExe pkgs.curl} \
+        ${getExe pkgs.curl} \
             -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) \
             https://t.myanonamouse.net/json/dynamicSeedbox.php
       '';
@@ -137,32 +125,5 @@ in
     };
   };
 
-  sops = {
-    templates.wireguard-config-file = {
-      content = # ini
-        ''
-          [Interface]
-          # Key for Haddock
-          # Bouncing = 20
-          # NetShield = 1
-          # Moderate NAT = off
-          # NAT-PMP (Port Forwarding) = on
-          # VPN Accelerator = on
-          PrivateKey = ${config.sops.placeholder."haddock/protonvpn/private_key"}
-          Address = 10.2.0.2/32
-          DNS = 10.2.0.1
-
-          [Peer]
-          # US-WA#103
-          PublicKey = mdgZ6wT7AXGznoYqxERZexx9aPEd/FhQ+P6fdXCBuVQ=
-          AllowedIPs = 0.0.0.0/0
-          Endpoint = 149.102.254.78:51820
-        '';
-      owner = "qbittorrent";
-    };
-    secrets = {
-      "haddock/protonvpn/private_key".owner = "qbittorrent";
-      "haddock/myanonamouse/id" = { };
-    };
-  };
+  sops.secrets."haddock/myanonamouse/id" = { };
 }

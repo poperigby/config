@@ -1,5 +1,8 @@
-{ ... }:
+{ config, ... }:
 
+let
+  netns = "proton";
+in
 {
   # Groups are set to "media" to give *arr access to /mnt/media/data, and make hardlinks work
   services = {
@@ -24,42 +27,71 @@
       group = "media";
     };
 
-    caddy.virtualHosts = {
-      "indexers.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :9696
-      '';
-      "movies.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :7878
-      '';
-      "books.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :8787
-      '';
-      "tv.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :8989
-      '';
-    };
+    caddy.virtualHosts =
+      let
+        namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
+      in
+      {
+        "indexers.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:9696
+        '';
+        "movies.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:7878
+        '';
+        "books.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:8787
+        '';
+        "tv.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:8989
+        '';
+      };
   };
 
   systemd.services = {
-    prowlarr.environment = {
-      PROWLARR__AUTH__REQUIRED = "True";
-      PROWLARR__AUTH__METHOD = "External";
+    prowlarr = {
+      environment = {
+        PROWLARR__AUTH__REQUIRED = "True";
+        PROWLARR__AUTH__METHOD = "External";
+      };
+      # Make Prowlarr run in the VPN namespace so it has the same IP as qBittorrent
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
     };
-    radarr.environment = {
-      RADARR__AUTH__REQUIRED = "True";
-      RADARR__AUTH__METHOD = "External";
+    radarr = {
+      environment = {
+        RADARR__AUTH__REQUIRED = "True";
+        RADARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
     };
-    readarr.environment = {
-      READARR__AUTH__REQUIRED = "True";
-      READARR__AUTH__METHOD = "External";
+    readarr = {
+      environment = {
+        READARR__AUTH__REQUIRED = "True";
+        READARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
     };
-    sonarr.environment = {
-      SONARR__AUTH__REQUIRED = "True";
-      SONARR__AUTH__METHOD = "External";
+    sonarr = {
+      environment = {
+        SONARR__AUTH__REQUIRED = "True";
+        SONARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
     };
   };
 }
