@@ -7,6 +7,7 @@
       enable = true;
       environment = {
         CONFIG_FILEPATH = config.sops.templates.ddns-updater-config.path;
+        LOG_LEVEL = "debug";
       };
     };
     caddy.virtualHosts."ddns.haddock.cc".extraConfig = ''
