@@ -24,6 +24,7 @@
     ./radicale.nix
     ./redis.nix
     ./scrutiny.nix
+    ./silverbullet.nix
     ./vikunja.nix
   ];
 

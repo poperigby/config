@@ -25,6 +25,7 @@
           "/var/lib/radarr"
           "/var/lib/radicale"
           "/var/lib/readarr"
+          "/var/lib/silverbullet"
           "/var/lib/sonarr"
           "/var/lib/vikunja"
         ];
