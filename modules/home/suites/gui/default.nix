@@ -52,6 +52,7 @@ in
     custom = {
       programs = {
         discord.enable = true;
+        element-desktop.enable = true;
         firefox.enable = true;
         mpv.enable = true;
         thunderbird.enable = true;
@@ -62,7 +63,6 @@ in
     # Packages that don't need any configuration
     home.packages = with pkgs; [
       bottles
-      cinny-desktop
       gimp
       inkscape
       onlyoffice-bin

@@ -85,8 +85,8 @@ in
         ouch = pkgs.fetchFromGitHub {
           owner = "ndtoan96";
           repo = "ouch.yazi";
-          tag = "v0.4.1";
-          hash = "sha256-oUEUGgeVbljQICB43v9DeEM3XWMAKt3Ll11IcLCS/PA=";
+          tag = "v0.4.0";
+          hash = "sha256-eRjdcBJY5RHbbggnMHkcIXUF8Sj2nhD/o7+K3vD3hHY=";
         };
       };
       keymap = {
