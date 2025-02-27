@@ -1,9 +1,4 @@
-{
-  config,
-  inputs,
-  system,
-  ...
-}:
+{ config, pkgs, ... }:
 
 let
   cfg = config.services.ocis;
@@ -12,7 +7,7 @@ in
   services = {
     ocis = {
       enable = true;
-      package = inputs.ocis.legacyPackages.${system}.ocis;
+      package = pkgs.ocis;
       environment = {
         # We don't need the builtin identitiy provider or manager
         # OCIS_EXCLUDE_RUN_SERVICES = "idp,idm";

@@ -2,7 +2,7 @@
 
 {
   imports = [
-    # ./ocis.nix
+    ./ocis.nix
     ./auditd.nix
     ./auth
     ./caddy.nix

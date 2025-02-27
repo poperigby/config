@@ -37,7 +37,7 @@ in
       src = fetchSteam {
         inherit name;
         appId = "581330";
-        hash = "sha256-tFlltXxbEn/6DD8NIaAnYajQVwGz0WyTJNYSw9XbDyE=";
+        hash = "sha256-ZNoZx8KvOs5UymMBYWvSs3TmWdDHM+jXveDI6icEG28=";
       };
       startCmd =
         let
@@ -54,7 +54,7 @@ in
         ''
           ${binary} +servercfgfile ${config} -console -port ${toString port}
         '';
-      hash = "sha256-tFlltXxbEn/6DD8NIaAnYajQVwGz0WyTJNYSw9XbDyE=";
+      hash = "sha256-+EQWzdD0cziA/535Zayqi6u5bci+ZmVqSNb7DwJW6DU=";
     };
   };
 }
