@@ -28,7 +28,9 @@
               -- elsewhere in your config, without redefining it, via `opts_extend`
               sources = {
                   default = { "lsp", "path", "snippets", "buffer" },
-                  cmdline = {
+              },
+              cmdline = {
+                  sources = {
                       min_keyword_length = 2,
                   },
               },
