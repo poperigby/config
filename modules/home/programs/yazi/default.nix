@@ -79,14 +79,14 @@ in
         yamb = pkgs.fetchFromGitHub {
           owner = "h-hg";
           repo = "yamb.yazi";
-          rev = "108347b0392fc819af04506dd0405fb744dfca68";
-          hash = "sha256-/BU/jVWgLK7JmPQpCHXhPCH+LrLy7RIYyIX0TYbTpuk=";
+          rev = "22af0033be18eead7b04c2768767d38ccfbaa05b";
+          hash = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
         };
         ouch = pkgs.fetchFromGitHub {
           owner = "ndtoan96";
           repo = "ouch.yazi";
-          tag = "v0.4.0";
-          hash = "sha256-eRjdcBJY5RHbbggnMHkcIXUF8Sj2nhD/o7+K3vD3hHY=";
+          rev = "v0.4.1";
+          hash = "sha256-oUEUGgeVbljQICB43v9DeEM3XWMAKt3Ll11IcLCS/PA=";
         };
       };
       keymap = {
