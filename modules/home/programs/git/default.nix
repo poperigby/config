@@ -22,12 +22,28 @@ in
         h = "log --graph --oneline";
       };
       extraConfig = {
-        color.ui = true;
-        # Make the default branch name "main"
-        init.defaultBranch = "main";
-        push.default = "current";
-        # Don't change line endings
         core.autocrlf = "false";
+        color.ui = true;
+        column.ui = "auto";
+        branch.sort = "-committerdate";
+        tag.sort = "version:refname";
+        init.defaultBranch = "main";
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "plain";
+          mnemonicPrefix = true;
+          renames = true;
+        };
+        push = {
+          default = "simple";
+          autoSetupRemote = true;
+          followTags = true;
+        };
+        fetch = {
+          prune = true;
+          pruneTags = true;
+          all = true;
+        };
       };
     };
   };
