@@ -25,7 +25,10 @@
     ];
   };
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    xpadneo.enable = true;
+  };
 
   # Keep microcode updated
   services.ucodenix = {
