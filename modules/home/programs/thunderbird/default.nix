@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.custom.programs.thunderbird;
@@ -9,6 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.thunderbird = {
       enable = true;
+      package = pkgs.thunderbird-latest;
       profiles.cassidy = {
         isDefault = true;
         settings = {
