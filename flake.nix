@@ -116,6 +116,12 @@
               "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
             ];
           };
+          # 3D printer
+          nestor = {
+            modules = with inputs; [
+              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            ];
+          };
         };
         # Modules that get imported to every NixOS system
         modules.nixos = with inputs; [
