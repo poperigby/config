@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   custom = {
@@ -20,4 +20,6 @@
       sleep = 900;
     };
   };
+
+  home.packages = with pkgs; [ kdePackages.kdenlive ];
 }
