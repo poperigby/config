@@ -42,6 +42,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
     openmw-nix = {
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -119,7 +120,9 @@
           # 3D printer
           nestor = {
             modules = with inputs; [
-              "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+              nixos-raspberrypi.nixosModules.sd-image
+              nixos-raspberrypi.nixosModules.raspberry-pi-02.base
+              nixos-raspberrypi.nixosModules.trusted-nix-caches
             ];
           };
         };

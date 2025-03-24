@@ -1,14 +1,32 @@
-{ lib, pkgs, ... }:
+{ modulesPath, ... }:
 
-let
-  inherit (lib) mkForce;
-in
 {
+  disabledModules = [
+    (modulesPath + "/rename.nix")
+  ];
+
   time.timeZone = "America/Los_Angeles";
 
   services = {
     openssh.enable = true;
-    octoprint.enable = true;
+    octoprint = {
+      enable = true;
+      plugins =
+        plugins: with plugins; [
+          # Show IP address on Prusa screen
+          IpOnConnect
+        ];
+      extraConfig = {
+        # Allow communicating with printer over serial connection
+        # https://help.prusa3d.com/article/octoprint-configuration-and-install_2182#configure-rpi-zero-w-gpio
+        serial = {
+          additionalPorts = [ "/dev/ttyAMA0" ];
+          autoconnect = true;
+          baudrate = 115200;
+          port = "/dev/ttyAMA0";
+        };
+      };
+    };
   };
 
   networking.networkmanager.enable = true;
@@ -21,17 +39,6 @@ in
       extraGroups = [ "wheel" ];
     };
     groups.nixos = { };
-  };
-
-  boot = {
-    kernelPackages = mkForce pkgs.linuxPackages_latest;
-    supportedFilesystems = {
-      zfs = mkForce false;
-    };
-    extraModprobeConfig = ''
-      # Fix broken WiFi
-      options brcmfmac roamoff=1 feature_disable=0x82000
-    '';
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
