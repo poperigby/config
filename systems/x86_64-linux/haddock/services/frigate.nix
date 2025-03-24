@@ -1,5 +1,3 @@
-# NVR with realtime local object detection for IP cameras
-
 { ... }:
 
 {
