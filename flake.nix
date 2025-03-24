@@ -58,11 +58,8 @@
     ucodenix.url = "github:e-tho/ucodenix";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
-    chime.url = "github:poperigby/nixpkgs/chime";
-    py7zr.url = "github:poperigby/nixpkgs/py7zr";
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     swayfx.url = "github:LordGrimmauld/nixpkgs/swayfx-fix";
-    ttkbootstrap.url = "github:PopeRigby/nixpkgs/ttkbootstrap";
   };
 
   # This function is run on `nixos-rebuild switch`, and generates NixOS systems
@@ -120,7 +117,6 @@
           # 3D printer
           nestor = {
             modules = with inputs; [
-              nixos-raspberrypi.nixosModules.sd-image
               nixos-raspberrypi.nixosModules.raspberry-pi-02.base
               nixos-raspberrypi.nixosModules.trusted-nix-caches
             ];

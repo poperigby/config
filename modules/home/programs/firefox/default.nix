@@ -17,8 +17,8 @@ in
       enable = true;
       profiles.cassidy = {
         search = {
-          default = "DuckDuckGo";
-          privateDefault = "DuckDuckGo";
+          default = "ddg";
+          privateDefault = "ddg";
           # We don't want Firefox overwriting our search configuration on launch
           force = true;
         };
