@@ -10,6 +10,7 @@
       "sd_mod"
     ];
     kernelModules = [
+      # "gasket"
       "k10temp"
       "nct6775"
     ];
@@ -21,8 +22,8 @@
       "tipc"
     ];
     # extraModulePackages = with config.boot.kernelPackages; [
-    #     # Google Coral TPU driver
-    #     gasket
+    #   # Google Coral TPU driver
+    #   gasket
     # ];
   };
 
