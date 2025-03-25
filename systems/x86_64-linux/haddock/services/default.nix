@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./ocis.nix
+    # ./ocis.nix
     ./auditd.nix
     ./auth
     ./caddy.nix
@@ -11,7 +11,6 @@
     ./ddns-updater.nix
     ./findMyDeviceServer.nix
     ./forgejoActions.nix
-    ./frigate.nix
     ./games
     ./gatus.nix
     ./immich.nix
