@@ -117,7 +117,10 @@
           # 3D printer
           nestor = {
             modules = with inputs; [
+              nixos-raspberrypi.lib.inject-overlays
               nixos-raspberrypi.nixosModules.raspberry-pi-02.base
+              nixos-raspberrypi.nixosModules.nixpkgs-rpi
+              nixos-raspberrypi.nixosModules.sd-image-uboot
               nixos-raspberrypi.nixosModules.trusted-nix-caches
             ];
           };

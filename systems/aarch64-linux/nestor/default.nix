@@ -1,6 +1,11 @@
-{ modulesPath, ... }:
+{ lib, modulesPath, ... }:
 
 {
+  imports = [
+    ./octoprint.nix
+    (lib.mkAliasOptionModuleMD [ "environment" "checkConfigurationOptions" ] [ "_module" "check" ])
+  ];
+
   disabledModules = [
     (modulesPath + "/rename.nix")
   ];
@@ -9,24 +14,6 @@
 
   services = {
     openssh.enable = true;
-    octoprint = {
-      enable = true;
-      plugins =
-        plugins: with plugins; [
-          # Show IP address on Prusa screen
-          IpOnConnect
-        ];
-      extraConfig = {
-        # Allow communicating with printer over serial connection
-        # https://help.prusa3d.com/article/octoprint-configuration-and-install_2182#configure-rpi-zero-w-gpio
-        serial = {
-          additionalPorts = [ "/dev/ttyAMA0" ];
-          autoconnect = true;
-          baudrate = 115200;
-          port = "/dev/ttyAMA0";
-        };
-      };
-    };
   };
 
   networking.networkmanager.enable = true;
