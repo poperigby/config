@@ -6,6 +6,12 @@ in
 {
   # Groups are set to "media" to give *arr access to /mnt/media/data, and make hardlinks work
   services = {
+    # Automatically grab subtitles
+    bazarr = {
+      enable = true;
+      group = "media";
+    };
+
     # Manage indexers and sync them with *arr apps
     prowlarr.enable = true;
 
@@ -32,6 +38,11 @@ in
         namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
       in
       {
+        "subtitles.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:${toString config.services.bazarr.listenPort}
+          # reverse_proxy :6767
+        '';
         "indexers.haddock.cc".extraConfig = ''
           import auth
           reverse_proxy ${namespaceAddress}:9696
@@ -52,6 +63,12 @@ in
   };
 
   systemd.services = {
+    bazarr = {
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
+    };
     prowlarr = {
       environment = {
         PROWLARR__AUTH__REQUIRED = "True";
