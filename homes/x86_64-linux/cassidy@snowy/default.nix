@@ -66,6 +66,7 @@ in
 
   home.packages = with pkgs; [
     blender-hip
+    er-patcher
   ];
 
   home.file.morrowindBlenderPlugin = {
