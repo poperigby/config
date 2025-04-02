@@ -62,7 +62,7 @@ writeShellScriptBin "installer" ''
   if grep -q "luks" "$CONFIG_DIR/systems/x86_64-linux/$TARGET_HOST/drives.nix"; then
       echo "Copying LUKS password to /tmp/luks_password"
       export SOPS_AGE_KEY_FILE=$AGE_KEY_FILE
-      ${getExe sops} --decrypt --extract "['$TARGET_HOST']['luks_password']" "$CONFIG_DIR/secrets/secrets.yaml" > /tmp/luks_password
+      ${getExe sops} --decrypt --extract "['$TARGET_HOST']['luks_password']" "$CONFIG_DIR/secrets.yaml" > /tmp/luks_password
   fi
 
   # Partition the disk if the user wants to
