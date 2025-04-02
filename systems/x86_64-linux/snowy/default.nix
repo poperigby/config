@@ -15,7 +15,6 @@
       scanning.enable = true;
     };
     services = {
-
       backups =
         let
           cassidy = "/home/cassidy";

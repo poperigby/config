@@ -14,6 +14,10 @@
       "k10temp"
       "nct6775"
     ];
+    kernelParams = [
+      # Don't perform microcode checksum, as it prevents the microcode from loading
+      "microcode.amd_sha_check=off"
+    ];
     blacklistedKernelModules = [
       # https://cisofy.com/lynis/controls/NETW-3200
       "dccp"

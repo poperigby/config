@@ -18,7 +18,11 @@
       "nct6775"
     ];
     # https://wiki.archlinux.org/title/Improving_performance#Watchdogs
-    kernelParams = [ "nowatchdog" ];
+    kernelParams = [
+      "nowatchdog"
+      # Don't perform microcode checksum, as it prevents the microcode from loading
+      "microcode.amd_sha_check=off"
+    ];
     blacklistedKernelModules = [
       # Ryzen hardware watchdog
       "sp5100-tco"
