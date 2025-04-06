@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "illuminanced";
-  version = "unstable-2024-10-22";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "mikhail-m1";
     repo = "illuminanced";
-    rev = "ee95f97dc1ed197abe3a7c4f3ad45121a077d3eb";
-    hash = "sha256-dilApolbxgl//2YVbd4ITYVNwfCQQ8LPayqmmW5Jhv8=";
+    rev = "4c6178c35f672d042bfb8c833f90281e95be1b95";
+    hash = "sha256-D0nEPnb1MFMQHJMhJo1ursfsclFG+XInBtFQXs7y0qw=";
   };
 
-  cargoHash = "sha256-93dAMNSM3WJJ+Hpa4MurNTu7ErqfpQgWt9I20MpO7yk=";
+  cargoHash = "sha256-66BYq6qsj0oUETWiAm5uyHjOlR1yZm+JIE6bFQ8b9ZY=";
 
   meta = {
     description = "Ambient Light Sensor Daemon for Linux";
