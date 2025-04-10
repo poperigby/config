@@ -20,8 +20,6 @@
     # https://wiki.archlinux.org/title/Improving_performance#Watchdogs
     kernelParams = [
       "nowatchdog"
-      # Don't perform microcode checksum, as it prevents the microcode from loading
-      "microcode.amd_sha_check=off"
     ];
     blacklistedKernelModules = [
       # Ryzen hardware watchdog
