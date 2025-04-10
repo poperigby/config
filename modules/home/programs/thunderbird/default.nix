@@ -6,12 +6,17 @@
 }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.thunderbird;
 in
 {
-  options.custom.programs.thunderbird.enable = lib.mkEnableOption "Enable thunderbird";
+  options.custom.programs.thunderbird.enable = mkEnableOption "Enable thunderbird";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.thunderbird = {
       enable = true;
       package = pkgs.thunderbird-latest;
