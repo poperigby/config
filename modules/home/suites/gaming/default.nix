@@ -55,10 +55,8 @@ in
         gpu-screen-recorder-gtk
       ]
       ++ optionals bethesda [
-        jpexs
         limo
         custom.loot
-        custom.synthesis
       ];
 
     home.sessionVariables = {

@@ -62,10 +62,11 @@ in
         # We'll just use systemd to start Waybar
         bars = [ ];
         # Programs to launch when Sway starts
-        startup = [
-          { command = "${getExe pkgs.firefox}"; }
-          { command = "${getExe pkgs.element-desktop} --hidden"; }
-          { command = getExe pkgs.autotiling-rs; }
+        startup = with pkgs; [
+          { command = "${getExe firefox}"; }
+          { command = "${getExe element-desktop} --hidden"; }
+          { command = getExe autotiling-rs; }
+          { command = getExe networkmanagerapplet; }
         ];
       };
     };

@@ -42,7 +42,6 @@ in
           # Fixed width modules
           "wireplumber"
           "bluetooth"
-          "network"
           "battery"
           "custom/weather"
           "custom/notification"
@@ -124,17 +123,6 @@ in
           tooltip-format-enumerate-connected = "{device_alias}";
           tooltip-format-enumerate-connected-battery = "{device_alias} - 󰁹 {device_battery_percentage}%";
           on-click = "${getExe' pkgs.blueman "blueman-manager"}";
-        };
-        network = {
-          format = "{ifname}";
-          format-wifi = " ";
-          tooltip-format-wifi = "{essid} ({signalStrength}%)";
-          format-ethernet = "󰈀";
-          tooltip-format-ethernet = "{ifname}";
-          on-click = "${getExe pkgs.wezterm} start ${getExe' pkgs.networkmanager "nmtui"}";
-          # An empty format will hide the module.
-          format-disconnected = "";
-          max-length = 50;
         };
         # Grabweather
         "custom/weather" = {
