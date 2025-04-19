@@ -1,19 +1,25 @@
 { config, lib, ... }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.accounts.email;
+  user = config.home.username;
 in
 {
-  options.custom.accounts.email.enable = lib.mkEnableOption "email account";
+  options.custom.accounts.email.enable = mkEnableOption "email account";
 
-  config = lib.mkIf cfg.enable {
-    accounts.email.accounts.poperigby = rec {
+  config = mkIf cfg.enable {
+    accounts.email.accounts.${user} = rec {
       primary = true;
 
       realName = "PopeRigby";
       address = "poperigby@mailbox.org";
       aliases = [ "cassidyw@mailbox.org" ];
-      passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/email/password".path}";
+      passwordCommand = "cat ${config.sops.secrets."common/users/${user}/email/password".path}";
 
       userName = address;
       imap = {
@@ -26,6 +32,6 @@ in
       };
     };
 
-    sops.secrets."common/users/cassidy/email/password" = { };
+    sops.secrets."common/users/${user}/email/password" = { };
   };
 }
