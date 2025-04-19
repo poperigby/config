@@ -32,6 +32,12 @@
     xpadneo.enable = true;
   };
 
+  systemd.tmpfiles.rules = [
+    # Reduce Xbox controller rumble intensity by given percentage
+    # https://atar-axis.github.io/xpadneo
+    "w /sys/module/hid_xpadneo/parameters/rumble_attenuation - - - - 25"
+  ];
+
   # Keep microcode updated
   services.ucodenix = {
     enable = true;
