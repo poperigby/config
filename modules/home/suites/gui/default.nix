@@ -63,7 +63,7 @@ in
     # Packages that don't need any configuration
     home.packages = with pkgs; [
       bottles
-      gimp
+      gimp3
       inkscape
       onlyoffice-bin
       signal-desktop
