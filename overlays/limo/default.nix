@@ -5,8 +5,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "limo-app";
       repo = "limo";
-      rev = "0686d1096692636c17f4ce9bd28f33c48fe4067e";
-      hash = "sha256-tLt0MKIP9+EIDo5goP+DVyOfgueAaE65JeSr4tcrtTY=";
+      rev = "90d9d9eddc87b8512266da64f135ecd1e292c931";
+      hash = "sha256-hgtqpP1H9+TAuP5b/Wvx4mqeYRKyaluMlyzHEmIgSqo=";
     };
 
     buildInputs =

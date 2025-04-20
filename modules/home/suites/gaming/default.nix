@@ -56,7 +56,6 @@ in
       ]
       ++ optionals bethesda [
         limo
-        custom.loot
       ];
 
     home.sessionVariables = {
