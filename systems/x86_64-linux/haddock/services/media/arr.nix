@@ -40,8 +40,7 @@ in
       {
         "subtitles.haddock.cc".extraConfig = ''
           import auth
-          reverse_proxy ${namespaceAddress}:${toString config.services.bazarr.listenPort}
-          # reverse_proxy :6767
+          reverse_proxy :${toString config.services.bazarr.listenPort}
         '';
         "indexers.haddock.cc".extraConfig = ''
           import auth
@@ -63,12 +62,6 @@ in
   };
 
   systemd.services = {
-    bazarr = {
-      vpnConfinement = {
-        enable = true;
-        vpnNamespace = netns;
-      };
-    };
     prowlarr = {
       environment = {
         PROWLARR__AUTH__REQUIRED = "True";
