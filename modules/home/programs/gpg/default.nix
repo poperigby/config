@@ -22,7 +22,7 @@ in
 
     services.gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentry.package = pkgs.pinentry-gnome3;
       # Cache for 1 year
       maxCacheTtl = 31536000;
     };
