@@ -16,7 +16,7 @@ in
     accounts.email.accounts.${user} = rec {
       primary = true;
 
-      realName = "PopeRigby";
+      realName = "Cassidy";
       address = "poperigby@mailbox.org";
       aliases = [ "cassidyw@mailbox.org" ];
       passwordCommand = "cat ${config.sops.secrets."common/users/${user}/email/password".path}";
