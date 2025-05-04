@@ -4,18 +4,18 @@
   rustPlatform,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "illuminanced";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "mikhail-m1";
     repo = "illuminanced";
-    rev = "4c6178c35f672d042bfb8c833f90281e95be1b95";
-    hash = "sha256-D0nEPnb1MFMQHJMhJo1ursfsclFG+XInBtFQXs7y0qw=";
+    tag = finalAttrs.version;
+    hash = "sha256-ZEVma0uj9rsWB+vfUL7w3dHxI/ppBCG23TirGE+RREk=";
   };
 
-  cargoHash = "sha256-66BYq6qsj0oUETWiAm5uyHjOlR1yZm+JIE6bFQ8b9ZY=";
+  cargoHash = "sha256-kPWoQ6rE4wBjmqQLNPY4UWJt/AOgr+eVKY0ZK7B4K1A=";
 
   meta = {
     description = "Ambient Light Sensor Daemon for Linux";
@@ -23,4 +23,4 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.gpl3Only;
     mainProgram = "illuminanced";
   };
-}
+})
