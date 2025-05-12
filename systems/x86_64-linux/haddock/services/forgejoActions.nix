@@ -29,6 +29,7 @@ let
       Env = [
         "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
         "NIX_CONFIG=extra-experimental-features = nix-command flakes"
+        "NIX_PATH=nixpkgs=flake nixpkgs /nix/var/nix/profiles/per-user/root/channels"
       ];
     };
   };
