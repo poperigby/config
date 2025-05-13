@@ -1,9 +1,7 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
-  system,
   ...
 }:
 
@@ -32,7 +30,7 @@ in
       # Integrates Sway with systemd, which will allow applications to depend on it
       # by depending on "graphical.target".
       systemd.enable = true;
-      package = inputs.swayfx.legacyPackages.${system}.swayfx;
+      package = pkgs.swayfx;
       # Required for SwayFX to work
       checkConfig = false;
       config = {
@@ -124,21 +122,34 @@ in
       };
     };
 
-    systemd.user.services.polkit-gnome-authentication-agent-1 = {
-      Unit = {
-        Description = "polkit-gnome-authentication-agent-1";
-        Wants = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
+    systemd.user.services = {
+      polkit-gnome-authentication-agent-1 = {
+        Unit = {
+          Description = "polkit-gnome-authentication-agent-1";
+          Wants = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
       };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
+      wayland-pipewire-idle-inhibit = {
+        Unit = {
+          Description = "Inhibit Wayland idling when media is played through pipewire";
+          Documentation = "https://github.com/rafaelrc7/wayland-pipewire-idle-inhibit";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "simple";
+          ExecStart = "${getExe pkgs.wayland-pipewire-idle-inhibit}";
+          Restart = "always";
+          RestartSec = 10;
+        };
       };
     };
   };

@@ -812,7 +812,6 @@
         "qbittorrent": "qbittorrent",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
-        "swayfx": "swayfx",
         "ucodenix": "ucodenix",
         "vpn-confinement": "vpn-confinement"
       }
@@ -921,22 +920,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "swayfx": {
-      "locked": {
-        "lastModified": 1737659476,
-        "narHash": "sha256-jAaH6CIsRfY+g6HtDBTl2amPk8xOmrf3PXDJBIxSWCw=",
-        "owner": "LordGrimmauld",
-        "repo": "nixpkgs",
-        "rev": "7933373dd9ff5f7fd4703ac405a176aa1b8701af",
-        "type": "github"
-      },
-      "original": {
-        "owner": "LordGrimmauld",
-        "ref": "swayfx-fix",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },

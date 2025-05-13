@@ -59,7 +59,6 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
-    swayfx.url = "github:LordGrimmauld/nixpkgs/swayfx-fix";
   };
 
   # This function is run on `nixos-rebuild switch`, and generates NixOS systems
