@@ -52,23 +52,7 @@ in
             require("misc")
             require("mappings")
             require("filetype")
-            ${lib.optionalString gui "require(\"gui\")"}
           '';
-      };
-      neovide = mkIf gui {
-        enable = true;
-        settings = {
-          font = {
-            normal = [ "JetBrainsMono Nerd Font" ];
-            size = 11.0;
-            # Disable ligatures 🤢
-            features."JetBrainsMono Nerd Font" = [
-              "-calt"
-              "-clig"
-              "-liga"
-            ];
-          };
-        };
       };
     };
 
@@ -85,17 +69,19 @@ in
         source = ./config;
         recursive = true;
       };
+      desktopEntries.nvim = mkIf gui {
+        name = "Neovim";
+        genericName = "Text Editor";
+        exec = "${getExe pkgs.wezterm} start nvim %F";
+        terminal = false;
+        type = "Application";
+        icon = "nvim";
+        categories = [
+          "Utility"
+          "TextEditor"
+        ];
+        mimeType = [ "text/plain" ];
+      };
     };
-
-    home.packages = [
-      # Disable built-in Neovim wrapper .desktop entry
-      (lib.hiPrio (
-        pkgs.runCommand "nvim.desktop-hide" { } ''
-          mkdir -p "$out/share/applications"
-          cat "${config.programs.neovim.finalPackage}/share/applications/nvim.desktop" > "$out/share/applications/nvim.desktop"
-          echo "Hidden=1" >> "$out/share/applications/nvim.desktop"
-        ''
-      ))
-    ];
   };
 }
