@@ -8,7 +8,7 @@ Imperative steps and hardware documentation are located in the [wiki](https://co
 
 ### Clone the repository
 ```bash
-git clone git@codeberg.org:PopeRigby/nixos.git
+git clone git@codeberg.org:PopeRigby/config.git
 ```
 
 ### Setup `age`
