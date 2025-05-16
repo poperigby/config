@@ -12,6 +12,9 @@
 
 let
   inherit (lib) getExe;
+
+  disko' = getExe disko;
+  gum' = getExe gum;
 in
 writeShellScriptBin "installer" ''
   set -euo pipefail
@@ -34,6 +37,7 @@ writeShellScriptBin "installer" ''
           current_dir=$(dirname "$current_dir")
       done
 
+      echo "Cannot find '$filename' in the current or any parent directories."
       return 1
   }
 
@@ -44,19 +48,18 @@ writeShellScriptBin "installer" ''
   fi
 
   if ! AGE_KEY_FILE=$(search_up "key.txt"); then
-      echo "Cannot find 'key.txt' in the current or any parent directories."
       echo "Please copy it over and try again."
       exit 1
   fi
 
   # Clone my NixOS configuration repository if it's not already there
   if [ ! -d "$CONFIG_DIR" ]; then
-      ${getExe git} clone https://codeberg.org/PopeRigby/nixos.git "$CONFIG_DIR"
+      ${getExe git} clone https://codeberg.org/PopeRigby/config.git "$CONFIG_DIR"
   fi
 
   # Ask which system to install
   echo "Which system would you like to install?"
-  TARGET_HOST=$(ls -1 "$CONFIG_DIR/systems/x86_64-linux" | ${getExe gum} choose)
+  TARGET_HOST=$(ls -1 "$CONFIG_DIR/systems/x86_64-linux" | ${gum'} choose)
 
   # Put the host's LUKS password in /tmp/luks_password if it uses LUKS
   if grep -q "luks" "$CONFIG_DIR/systems/x86_64-linux/$TARGET_HOST/drives.nix"; then
@@ -68,15 +71,15 @@ writeShellScriptBin "installer" ''
   # Partition the disk if the user wants to
   echo "The following operation will automatically partition and format your disk"
   echo "based on the chosen system's Disko configuration."
-  if ${getExe gum} confirm --default=false "Would you like to partition and format your disk?"; then
+  if ${gum'} confirm --default=false "Would you like to partition and format your disk?"; then
        # Partition and mount disks based on the system's Disko configuration
-       sudo ${getExe disko} \
+       sudo ${disko'} \
            --mode destroy,format,mount \
            --yes-wipe-all-disks \
            --flake "$CONFIG_DIR#$TARGET_HOST"
   else
        # Mount disks based on the system's Disko configuration
-       sudo ${getExe disko} --mode mount --flake "$CONFIG_DIR#$TARGET_HOST"
+       sudo ${disko'} --mode mount --flake "$CONFIG_DIR#$TARGET_HOST"
   fi
 
   echo "Copying key.txt to /mnt"
