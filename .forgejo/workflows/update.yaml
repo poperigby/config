@@ -13,7 +13,7 @@ jobs:
         - name: "Checkout repository"
           uses: "actions/checkout@v3"
         - name: "Setup Cachix"
-          uses: "PopeRigby/cachix-action@v16"
+          uses: "PopeRigby/cachix-action@4dc1a0db5f4702de4c4c6c8e348ad2c20cc62949"
           with:
             name: poperigby
             authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
