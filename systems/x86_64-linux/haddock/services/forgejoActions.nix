@@ -17,6 +17,8 @@ let
     tag = "latest";
     nixConf.experimental-features = "nix-command flakes";
     extraPkgs = with pkgs; [
+      jq
+      nix-update
       nodejs
     ];
   };
