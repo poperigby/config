@@ -27,6 +27,10 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix = {
+      url = "github:NixOS/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixcord.url = "github:kaylorben/nixcord";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";

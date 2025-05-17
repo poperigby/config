@@ -2,36 +2,23 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
 let
   inherit (lib) mkForce getExe;
 
-  actionsImage = pkgs.dockerTools.streamLayeredImage {
+  buildImageWithNix = import "${inputs.nix}/docker.nix";
+  actionsImage = buildImageWithNix {
+    inherit pkgs;
+
     name = "actions-image";
     tag = "latest";
-    contents = with pkgs; [
-      bash
-      cacert
-      coreutils
-      git
-      nix
+    nixConf.experimental-features = "nix-command flakes";
+    extraPkgs = with pkgs; [
       nodejs
-      openssl
-      gnugrep
-      less
-      # Provides the env utility at /usr/bin/env.
-      dockerTools.usrBinEnv
     ];
-    config = {
-      Cmd = [ "bash" ];
-      Env = [
-        "SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt"
-        "NIX_CONFIG=extra-experimental-features = nix-command flakes"
-        "NIX_PATH=nixpkgs=flake nixpkgs /nix/var/nix/profiles/per-user/root/channels"
-      ];
-    };
   };
 in
 {
@@ -51,7 +38,8 @@ in
   };
 
   systemd.services.gitea-runner-default = {
-    preStart = "${actionsImage} | ${getExe config.virtualisation.docker.package} load";
+    preStart = "${getExe config.virtualisation.docker.package} load < ${actionsImage}";
+    after = [ "docker.service" ];
     serviceConfig = {
       DynamicUser = mkForce false;
       User = mkForce "forgejo_actions";
