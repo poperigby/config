@@ -53,6 +53,8 @@ in
         # Minecraft
         prismlauncher
         gpu-screen-recorder-gtk
+        # Emulators
+        shadps4
       ]
       ++ optionals bethesda [
         limo
