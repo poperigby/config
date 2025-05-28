@@ -5,6 +5,7 @@
     # ./ocis.nix
     ./auditd.nix
     ./auth
+    ./binaryCache.nix
     ./caddy.nix
     ./clamav.nix
     ./crowdsec.nix
