@@ -6,12 +6,14 @@
 }:
 
 let
+  inherit (lib) mkEnableOption mkIf;
+
   cfg = config.custom.nix;
 in
 {
-  options.custom.nix.enable = lib.mkEnableOption "Nix tweaks";
+  options.custom.nix.enable = mkEnableOption "Nix tweaks";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     nix = {
       # Use Lix, for a better experience
       # https://lix.systems
@@ -27,9 +29,11 @@ in
         allowed-users = [ "@wheel" ];
         # Extra binary caches
         substituters = [
+          "https://cache.haddock.cc"
           "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
+          "cache.haddock.cc:N7t/3+4Ar7KjBdxiFzVJYTMBqDPWnTHrkPZ04WNXDlE="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
       };
