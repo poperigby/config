@@ -76,6 +76,7 @@ in
         ffmpeg
         file
         imagemagick
+        jq
         just
         lazygit
         nh
