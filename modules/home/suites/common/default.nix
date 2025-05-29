@@ -68,7 +68,6 @@ in
         asciinema
         binsider
         caligula
-        custom.nix-explore
         dmidecode
         dogdns
         dust
