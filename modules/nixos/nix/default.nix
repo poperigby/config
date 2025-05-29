@@ -33,7 +33,7 @@ in
           "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
-          "cache.haddock.cc:N7t/3+4Ar7KjBdxiFzVJYTMBqDPWnTHrkPZ04WNXDlE="
+          "cache.haddock.cc:jmMvVI/LPS/QPvXwUO0VM5deTAc9l+Dxk1e2r8iqAig="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
       };
