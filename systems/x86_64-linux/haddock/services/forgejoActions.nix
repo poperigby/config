@@ -17,6 +17,7 @@ let
     tag = "latest";
     nixConf.experimental-features = "nix-command flakes";
     extraPkgs = with pkgs; [
+      attic-client
       jq
       nix-update
       nodejs
