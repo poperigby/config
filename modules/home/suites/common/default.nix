@@ -53,7 +53,7 @@ in
       home-manager.enable = true;
       # Integrates nix-index with command-not-found helper
       nix-index.enable = true;
-      thefuck.enable = true;
+      pay-respects.enable = true;
       zoxide = {
         enable = true;
         options = [

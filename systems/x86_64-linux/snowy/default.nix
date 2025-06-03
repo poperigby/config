@@ -34,41 +34,6 @@
         };
       earlyoom.enable = true;
       geolocation.enable = true;
-      lact = {
-        enable = true;
-        gpuOverclock.enable = true;
-        settings = {
-          daemon = {
-            log_level = "info";
-            admin_groups = [
-              "wheel"
-              "sudo"
-            ];
-            disable_clocks_cleanup = false;
-          };
-          apply_settings_timer = 5;
-          gpus = {
-            "1002:73DF-148C:2310-0000:03:00.0" = {
-              fan_control_enabled = false;
-              performance_level = "manual";
-              power_profile_mode_index = 1;
-              power_states = {
-                core_clock = [
-                  0
-                  1
-                ];
-                memory_clock = [
-                  0
-                  1
-                  2
-                  3
-                ];
-              };
-            };
-          };
-        };
-
-      };
       virtualization.enable = true;
     };
     suites = {
@@ -85,6 +50,8 @@
   time.timeZone = "America/Los_Angeles";
 
   networking.networkmanager.enable = true;
+
+  services.lact.enable = true;
 
   # TODO: Allow key-only auth
   # Having SSHD enabled is pretty handy sometimes
