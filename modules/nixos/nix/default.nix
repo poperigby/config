@@ -22,8 +22,9 @@ in
       settings = {
         # Enable New CLI and Flakes
         experimental-features = [
-          "nix-command"
           "flakes"
+          "nix-command"
+          "repl-flake"
         ];
         # Only allow users in the `wheel` group to access Nix
         allowed-users = [ "@wheel" ];
