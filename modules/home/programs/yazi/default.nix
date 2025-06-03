@@ -31,7 +31,7 @@ in
       theme = fromTOML (readFile ./theme.toml);
       initLua = ./init.lua;
       settings = {
-        manager = {
+        mgr = {
           sort_by = "mtime";
           sort_reverse = true;
           sort_dir_first = false;
@@ -90,7 +90,7 @@ in
         };
       };
       keymap = {
-        manager.prepend_keymap =
+        mgr.prepend_keymap =
           [
             # Ouch archive manager
             {
