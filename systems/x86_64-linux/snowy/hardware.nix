@@ -30,6 +30,7 @@
   hardware = {
     enableRedistributableFirmware = true;
     xpadneo.enable = true;
+    amdgpu.overdrive.enable = true;
   };
 
   systemd.tmpfiles.rules = [
