@@ -69,6 +69,7 @@ in
       signal-desktop
       tenacity
       tor-browser
+      ungoogled-chromium
     ];
 
     # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
