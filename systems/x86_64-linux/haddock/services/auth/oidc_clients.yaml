@@ -17,6 +17,21 @@ identity_providers:
             - "openid"
             - "profile"
             - "email"
+      # https://docs.karakeep.app/configuration/#authentication--signup
+      - client_name: "Karakeep"
+        client_id: {{ secret "/run/secrets/karakeep-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+        client_secret: {{ secret "/run/secrets/haddock/karakeep/oidc_client_secret/authelia" | mindent 10 "|" | msquote }}
+        public: false
+        authorization_policy: "one_factor"
+        claims_policy: "karakeep"
+        redirect_uris:
+          - "https://keep.haddock.cc/api/auth/callback/custom"
+        scopes:
+          - "openid"
+          - "profile"
+          - "email"
+        userinfo_signed_response_alg: 'none'
+        token_endpoint_auth_method: 'client_secret_basic'
       # https://docs.mealie.io/documentation/getting-started/authentication/oidc
       - client_name: "Mealie"
         client_id: {{ secret "/run/secrets/mealie-oidc-client-id_authelia" | mindent 10 "|" | msquote }}

@@ -15,6 +15,7 @@
     ./games
     ./gatus.nix
     ./immich.nix
+    ./karakeep.nix
     ./mealie.nix
     ./media
     ./miniflux.nix

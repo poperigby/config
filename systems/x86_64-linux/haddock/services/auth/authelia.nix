@@ -58,6 +58,10 @@ in
         };
         log.level = "info";
         identity_providers.oidc = {
+          # https://www.authelia.com/integration/openid-connect/openid-connect-1.0-claims/#restore-functionality-prior-to-claims-parameter
+          claims_policies = {
+            karakeep.id_token = [ "email" ];
+          };
           cors = {
             endpoints = [ "token" ];
             allowed_origins_from_client_redirect_uris = true;
