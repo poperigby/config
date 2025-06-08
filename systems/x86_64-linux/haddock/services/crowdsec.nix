@@ -27,6 +27,10 @@
             filenames = [ "/var/log/audit/*.log" ];
           }
           {
+            labels.type = "caddy";
+            filenames = [ "/var/log/caddy-crowdsec/*.log" ];
+          }
+          {
             labels.type = "immich";
             source = "journalctl";
             journalctl_filter = [ "_SYSTEMD_UNIT=immich-server.service" ];
@@ -55,6 +59,50 @@
         inherit (pkgs) writeShellScriptBin;
       in
       [
+        # Install configurations from CrowdSec Hub
+        (getExe (
+          writeShellScriptBin "install-configurations" ''
+            set -euo pipefail
+
+            # Define collections to install: core system, app logs, etc.
+            collections=(
+                LePresidente/authelia            # Authelia brute force detection
+                crowdsecurity/auditd             # Post-exploit auditd monitoring
+                crowdsecurity/caddy              # Caddy brute force detection
+                crowdsecurity/linux              # Core Linux support (includes SSH)
+                gauth-fr/immich                  # Immich brute force detection
+            )
+
+            # Parsers for special cases
+            parsers=(
+                crowdsecurity/sshd-success-logs  # Detect successful SSH logins
+                crowdsecurity/whitelists         # Prevent banning self (e.g., private IPs)
+            )
+
+            # Postoverflow processors (refine or suppress alerts)
+            postoverflows=(
+                crowdsecurity/auditd-nix-wrappers-whitelist-process  # Ignore benign Nix wrapper execs
+            )
+
+            # Install a set of items of a given type (collection, parser, postoverflow)
+            install_all() {
+                local type=$1
+                shift
+                local items=($@)
+
+                for id in "''${items[@]}"; do
+                    local name="''${id##*/}"  # Extract name after last slash
+                    if ! cscli "$type" list | grep -q "$name"; then
+                        cscli "$type" install "$id"
+                    fi
+                done
+            }
+
+            install_all collections "''${collections[@]}"
+            install_all parsers "''${parsers[@]}"
+            install_all postoverflows "''${postoverflows[@]}"
+          ''
+        ))
         # Registers the firewall bouncer with the security engine, using the local API key
         (getExe (
           writeShellScriptBin "register-bouncer" ''
@@ -67,51 +115,6 @@
             fi
           ''
         ))
-        # Install configurations from CrowdSec Hub
-        (getExe (
-          writeShellScriptBin "install-configurations" ''
-            set -euo pipefail
-
-            ## Collections
-            # Core Linux support (includes SSH)
-            if ! cscli collections list | grep -q "linux"; then
-                cscli collections install crowdsecurity/linux
-            fi
-
-            # Parse Authelia log and detect brute forcing attempts
-            if ! cscli collections list | grep -q "authelia"; then
-                cscli collections install LePresidente/authelia
-            fi
-
-            # Parse auditd logs and detect post exploit behavior
-            if ! cscli collections list | grep -q "auditd"; then
-                cscli collections install crowdsecurity/auditd
-            fi
-
-            # Parse Immich logs and detect brute forcing attempts
-            if ! cscli collections list | grep -q "immich"; then
-                cscli collections install gauth-fr/immich
-            fi
-
-            ## Parsers
-            # Parse successful SSH logins
-            if ! cscli parsers list | grep -q "sshd-success-logs"; then
-                cscli parsers install crowdsecurity/sshd-success-logs
-            fi
-
-            # Whitelists private IPs, so I don't accidentally ban myself 😬
-            if ! cscli parsers list | grep -q "whitelists"; then
-                cscli parsers install crowdsecurity/whitelists
-            fi
-
-            ## Postoverflows
-            # Whitelist Nix wrappers
-            if ! cscli postoverflows list | grep -q "auditd-nix-wrappers-whitelist-process"; then
-                cscli postoverflows install crowdsecurity/auditd-nix-wrappers-whitelist-process
-            fi
-          ''
-        ))
-
       ];
     crowdsec-firewall-bouncer.serviceConfig.EnvironmentFile =
       config.sops.templates.crowdsec-firewall-bouncer-secrets.path;
