@@ -25,6 +25,14 @@ in
       import auth
       reverse_proxy :${port}
     '';
+    authelia.instances.haddock.settings.access_control.rules = [
+      {
+        # Required to use the Karakeep mobile app and browser extension
+        domain = "keep.haddock.cc";
+        policy = "bypass";
+        resources = [ "/api.*" ];
+      }
+    ];
     meilisearch.package = pkgs.meilisearch;
   };
 
