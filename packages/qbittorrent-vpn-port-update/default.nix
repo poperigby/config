@@ -24,7 +24,7 @@ in
 writeShellScriptBin "qbittorrent-vpn-port-update" ''
   trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
-  set -eou
+  set -euo pipefail
 
   echo "Starting qbittorent-vpn-port-update\n"
   echo "Config:"

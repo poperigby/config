@@ -17,12 +17,12 @@ let
     ;
 
   grim' = getExe grim;
-  notify = getExe' libnotify "notify-send";
+  notify = "${getExe' libnotify "notify-send"} -a Screenshot -u low -i camera-photo";
   swaymsg = getExe' sway "swaymsg";
   xdg-user-dir = getExe' xdg-user-dirs "xdg-user-dir";
 in
 writeShellScriptBin "screenshot" ''
-  set -eou
+  set -euo pipefail
 
   COMMAND="$1"
 
@@ -32,11 +32,11 @@ writeShellScriptBin "screenshot" ''
   case "$COMMAND" in
       fullscreen)
           ${grim'} $LOCATION
-          ${notify} "Screenshot saved 📸"
+          ${notify} "Screenshot saved"
           ;;
       region)
           ${grim'} -g "$(${getExe slurp})" $LOCATION
-          ${notify} "Screenshot saved 📸"
+          ${notify} "Screenshot saved"
           ;;
       focused)
           ${grim'} -g "$(
@@ -48,7 +48,7 @@ writeShellScriptBin "screenshot" ''
                   "\(.x),\(.y) \(.width)x\(.height)"
               '
           )" $LOCATION
-          ${notify} "Screenshot saved 📸"
+          ${notify} "Screenshot saved"
           ;;
       *)
           echo "Unknown command: $COMMAND"
