@@ -9,13 +9,15 @@ let
   inherit (lib)
     getExe
     getExe'
+    mkIf
+    mkOptionDefault
     ;
 
   cfg = config.custom.desktops.sway;
   sway = config.wayland.windowManager.sway;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     wayland.windowManager.sway.config.keybindings =
       let
         mod = sway.config.modifier;
@@ -27,14 +29,11 @@ in
         browser = getExe pkgs.firefox;
         term = sway.config.terminal;
 
-        # Screenshooting
-        grim = getExe pkgs.grim;
-        slurp = getExe pkgs.slurp;
-        screenshotLocation = "${config.xdg.userDirs.pictures}/Screenshots/$(date +'Screenshot_%Y-%m-%d_%H-%M-%S-%N.png')";
-        # Media
+        # Tools
+        screenshot = getExe pkgs.custom.screenshot;
         swayosd = getExe' pkgs.swayosd "swayosd-client";
       in
-      lib.mkOptionDefault {
+      mkOptionDefault {
         ## Basics
         # Quit the focused window
         "${mod}+q" = "kill";
@@ -78,29 +77,9 @@ in
         "${mod}+p" = "exec ${getExe config.programs.swaylock.package}";
 
         ## Screenshots
-        # Full screen
-        "Print" = "exec ${grim} ${screenshotLocation}";
-        # A region of the screen
-        "Control+Print" = # bash
-          ''
-            exec ${grim} -g \"$(${slurp})\" ${screenshotLocation}"
-          '';
-        # The focused window
-        "Shift+Print" =
-          let
-            script = pkgs.writeShellScriptBin "screenshot-focused-window" ''
-              ${grim} -g "$(
-                  ${swaymsg} -t get_tree |
-                  ${jq} -j '
-                      .. | 
-                      select(.type?) | 
-                      select(.focused).rect | 
-                      "\(.x),\(.y) \(.width)x\(.height)"
-                  '
-              )" ${screenshotLocation} 
-            '';
-          in
-          "exec ${getExe script}";
+        "Print" = "exec ${screenshot} fullscreen";
+        "Control+Print" = "exec ${screenshot} region";
+        "Shift+Print" = "exec ${screenshot} focused";
 
         ## Pickers
         # Emoji
