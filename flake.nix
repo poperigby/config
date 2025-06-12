@@ -6,7 +6,6 @@
     ## Official inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     ## Extra inputs
-    cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     crowdsec = {
       url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,10 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord.url = "github:kaylorben/nixcord";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-colors.url = "github:misterio77/nix-colors";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
