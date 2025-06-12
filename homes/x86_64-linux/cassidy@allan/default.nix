@@ -19,6 +19,8 @@
       # 15 minutes
       sleep = 900;
     };
+    programs.thunderbird.enable = true;
+    users.cassidy.enable = true;
   };
 
   home.packages = with pkgs; [ kdePackages.kdenlive ];

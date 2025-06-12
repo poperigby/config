@@ -17,10 +17,8 @@ in
 
   config = mkIf cfg.enable {
     services = {
-      xserver = {
-        displayManager.gdm.enable = true;
-        desktopManager.gnome.enable = true;
-      };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
       # For system tray icons
       udev.packages = [ pkgs.gnome-settings-daemon ];
     };

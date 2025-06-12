@@ -55,6 +55,8 @@ in
       backup.path = "~/.local/state/backups/ludusavi";
       restore.path = "~/.local/state/backups/ludusavi";
     };
+    programs.thunderbird.enable = true;
+    users.cassidy.enable = true;
   };
 
   # Controls Corsair hardware

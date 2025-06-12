@@ -22,10 +22,6 @@ in
 
   config = mkIf cfg.enable {
     custom = {
-      accounts = {
-        contacts.enable = true;
-        email.enable = true;
-      };
       fonts.enable = true;
       nix.enable = true;
       programs = {
