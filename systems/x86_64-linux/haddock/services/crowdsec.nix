@@ -29,11 +29,17 @@
           {
             labels.type = "caddy";
             filenames = [ "/var/log/caddy-crowdsec/*.log" ];
+            poll_without_inotify = true;
           }
           {
             labels.type = "immich";
             source = "journalctl";
             journalctl_filter = [ "_SYSTEMD_UNIT=immich-server.service" ];
+          }
+          {
+            labels.type = "jellyfin";
+            source = "journalctl";
+            journalctl_filter = [ "_SYSTEMD_UNIT=jellyfin.service" ];
           }
           {
             labels.type = "syslog";
@@ -67,6 +73,7 @@
             # Define collections to install: core system, app logs, etc.
             collections=(
                 LePresidente/authelia            # Authelia brute force detection
+                LePresidente/jellyfin            # Jellyfin parser and bruteforce detection
                 crowdsecurity/auditd             # Post-exploit auditd monitoring
                 crowdsecurity/caddy              # Caddy brute force detection
                 crowdsecurity/linux              # Core Linux support (includes SSH)
