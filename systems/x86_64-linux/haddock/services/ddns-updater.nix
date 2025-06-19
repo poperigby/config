@@ -1,5 +1,8 @@
 { config, lib, ... }:
 
+let
+  inherit (lib) mkForce;
+in
 {
   # Synchronizes Haddock's public IP with Porkbun
   services = {
@@ -16,9 +19,7 @@
     '';
   };
 
-  # DynamicUser screws up sops-nix ownership because
-  # the user doesn't exist outside of runtime.
-  systemd.services.ddns-updater.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.ddns-updater.serviceConfig.DynamicUser = mkForce false;
 
   users = {
     users.ddns_updater = {

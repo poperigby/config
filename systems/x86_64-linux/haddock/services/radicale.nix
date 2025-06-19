@@ -18,12 +18,14 @@ in
       };
     };
     caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
-      redir / /radicale/
-      handle_path /radicale/* {
-          reverse_proxy :5232 {
-              header_up X-Script-Name /radicale
-          }
+      @get-root {
+          method GET
+          path /.web
       }
+
+      redir @get-root /.web/
+
+      reverse_proxy :5232
     '';
   };
 
