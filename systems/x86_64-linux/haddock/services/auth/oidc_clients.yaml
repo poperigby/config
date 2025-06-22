@@ -3,6 +3,22 @@
 identity_providers:
   oidc:
     clients:
+      # https://github.com/gtsteffaniak/filebrowser/wiki/Configuration-And-Examples#openid-connect-configuration-oidc
+      - client_name: "FileBrowser"
+        client_id: {{ secret "/run/secrets/filebrowser-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+        client_secret: {{ secret "/run/secrets/haddock/filebrowser/oidc_client_secret/authelia" | mindent 10 "|" | msquote }}
+        public: false
+        authorization_policy: "one_factor"
+        scopes:
+          - "openid"
+          - "email"
+          - "profile"
+        grant_types:
+          - "authorization_code" # required
+        redirect_uris:
+          - "https://files.haddock.cc/api/auth/oidc/callback"
+        userinfo_signing_algorithm: "none"
+        token_endpoint_auth_method: "client_secret_basic"
       # https://immich.app/docs/administration/oauth/
       - client_name: "Immich"
         client_id: {{ secret "/run/secrets/immich-oidc-client-id_authelia" | mindent 10 "|" | msquote }}

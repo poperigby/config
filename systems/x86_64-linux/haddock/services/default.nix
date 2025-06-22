@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # ./ocis.nix
     ./auditd.nix
     ./auth
     ./binaryCache.nix
@@ -10,6 +9,7 @@
     ./clamav.nix
     ./crowdsec.nix
     ./ddns-updater.nix
+    ./filebrowser.nix
     ./findMyDeviceServer.nix
     ./forgejoActions.nix
     ./games

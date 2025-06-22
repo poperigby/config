@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "0.7.9-beta";
+  version = "0.7.10-beta";
 
   src = fetchFromGitHub {
     owner = "gtsteffaniak";
     repo = "filebrowser";
     rev = "v${version}";
-    hash = "sha256-o6UoYYULnVgkXN9fNnTTNxF+i9pA7FuV31xfZppXMBE=";
+    hash = "sha256-gxEXSsRc2gGgmpEol9Q9FOlLUJtVL0PdkrLXXhR+8mk=";
   };
 
   frontend = buildNpmPackage {
@@ -53,7 +53,7 @@ buildGoModule {
 
   sourceRoot = "${src.name}/backend";
 
-  vendorHash = "sha256-v7hYo2HIKonnNVGwOV8WiaWzo4FNSG5/8Ov3w/ivB+8=";
+  vendorHash = "sha256-XCXb52c097hkWM+ey20DjthHN4eHNkmQ9E8ZpUN5JZ8=";
 
   excludedPackages = [ "tools" ];
 
