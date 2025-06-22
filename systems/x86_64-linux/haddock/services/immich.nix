@@ -5,7 +5,12 @@ let
 in
 {
   services = {
-    immich.enable = true;
+    immich = {
+      enable = true;
+      environment = {
+        IMMICH_CONFIG_FILE = config.sops.templates.immich-config.path;
+      };
+    };
     caddy.virtualHosts."photos.haddock.cc".extraConfig = ''
       import auth
       reverse_proxy http://${cfg.host}:${toString cfg.port}
@@ -24,16 +29,56 @@ in
     ];
   };
 
-  sops.secrets = {
-    immich-oidc-client-id_immich = {
-      key = "haddock/immich/oidc_client_id";
-      owner = cfg.user;
+  sops = {
+    templates.immich-config = {
+      content = # json
+        ''
+          {
+            "backup": {
+              "database": {
+                "enabled": false,
+              }
+            },
+            "newVersionCheck": {
+              "enabled": false
+            },
+            "oauth": {
+              "enabled": true,
+              "clientId": "${config.sops.placeholder.immich-oidc-client-id_immich}",
+              "clientSecret": "${config.sops.placeholder."haddock/immich/oidc_client_secret/immich"}",
+              "issuerUrl": "https://auth.haddock.cc/.well-known/openid-configuration",
+              "scope": "openid profile email",
+              "tokenEndpointAuthMethod": "client_secret_post",
+              "autoLaunch": true,
+              "autoRegister": true,
+              "defaultStorageQuota": 0,
+              "mobileOverrideEnabled": false,
+              "mobileRedirectUri": "",
+              "profileSigningAlgorithm": "none",
+              "signingAlgorithm": "RS256",
+              "storageLabelClaim": "preferred_username",
+              "storageQuotaClaim": "immich_quota",
+              "timeout": 30000,
+              "buttonText": "Login with Authelia"
+            },
+            "passwordLogin": {
+              "enabled": false
+            },
+          }
+        '';
+      owner = "immich";
     };
-    immich-oidc-client-id_authelia = {
-      key = "haddock/immich/oidc_client_id";
-      owner = "authelia-haddock";
+    secrets = {
+      immich-oidc-client-id_immich = {
+        key = "haddock/immich/oidc_client_id";
+        owner = cfg.user;
+      };
+      immich-oidc-client-id_authelia = {
+        key = "haddock/immich/oidc_client_id";
+        owner = "authelia-haddock";
+      };
+      "haddock/immich/oidc_client_secret/immich".owner = cfg.user;
+      "haddock/immich/oidc_client_secret/authelia".owner = "authelia-haddock";
     };
-    "haddock/immich/oidc_client_secret/immich".owner = cfg.user;
-    "haddock/immich/oidc_client_secret/authelia".owner = "authelia-haddock";
   };
 }

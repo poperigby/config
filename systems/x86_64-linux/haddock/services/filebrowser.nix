@@ -25,7 +25,6 @@ in
           enabled = true;
           issuerUrl = "https://auth.haddock.cc";
           scopes = "email openid profile";
-          userIdentifier = "username";
           createUser = true;
           adminGroup = "lldap_admin";
         };
