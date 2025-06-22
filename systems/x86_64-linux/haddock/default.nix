@@ -17,6 +17,7 @@
           "/srv/minecraft/*/world"
           "/var/backup"
           "/var/lib/bazarr"
+          "/var/lib/filebrowser"
           "/var/lib/immich"
           "/var/lib/jellyfin"
           "/var/lib/karakeep"
