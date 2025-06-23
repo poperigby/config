@@ -1,18 +1,22 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.services.postfix;
   postfix = config.services.postfix;
 in
 {
-  options.custom.services.postfix.enable = lib.mkEnableOption "Enable postfix for sending email";
+  options.custom.services.postfix.enable = mkEnableOption "Postfix for sending email";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.postfix = {
       enable = true;
       relayHost = "smtp.sendgrid.net";
@@ -36,28 +40,6 @@ in
       };
       # Forward root email to my personal email address
       rootAlias = "poperigby@mailbox.org";
-    };
-
-    # A systemd template service for notifying via email when a service fails
-    systemd.services."notify-failure-email@" = {
-      unitConfig.Description = "Send an email to root notifying that %i failed";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart =
-          let
-            hostName = config.networking.hostName;
-            mail = "${pkgs.mailutils}/bin/mail";
-            mailScript = pkgs.writeShellScriptBin "notify-failure-email" ''
-              set -euo pipefail
-
-              SERVICE=$1
-
-              echo "The service '$SERVICE' has failed on host '${hostName}'" \
-                  | ${mail} -s "Service '$SERVICE' failed on '${hostName}'" root
-            '';
-          in
-          "${mailScript}/bin/notify-failure-email %i";
-      };
     };
 
     sops = {
