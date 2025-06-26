@@ -33,7 +33,10 @@ in
         resources = [ "/api.*" ];
       }
     ];
-    meilisearch.package = pkgs.meilisearch;
+    meilisearch = {
+      package = pkgs.meilisearch;
+      dumplessUpgrade = true;
+    };
   };
 
   sops = {

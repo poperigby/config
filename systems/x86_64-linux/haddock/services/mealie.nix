@@ -1,6 +1,8 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) mkForce;
+
   cfg = config.services.mealie;
 in
 {
@@ -43,7 +45,7 @@ in
       after = dependencies;
       requires = dependencies;
       # DynamicUser messes with sops-nix
-      serviceConfig.DynamicUser = lib.mkForce false;
+      serviceConfig.DynamicUser = mkForce false;
     };
 
   # Setup a user and group for Mealie

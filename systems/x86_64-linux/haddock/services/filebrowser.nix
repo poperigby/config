@@ -37,6 +37,8 @@ in
     reverse_proxy :${toString cfg.settings.server.port}
   '';
 
+  systemd.services.filebrowser.after = [ "authelia-haddock.service" ];
+
   sops = {
     templates.filebrowser-secrets = {
       content = # bash
