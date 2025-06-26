@@ -9,7 +9,7 @@
 let
   inherit (lib) mkForce getExe;
 
-  buildImageWithNix = import "${inputs.nix}/docker.nix";
+  buildImageWithNix = pkgs.callPackage "${inputs.nix}/docker.nix";
   actionsImage = buildImageWithNix {
     inherit pkgs;
 

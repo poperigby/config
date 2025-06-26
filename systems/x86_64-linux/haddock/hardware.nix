@@ -10,7 +10,7 @@
       "sd_mod"
     ];
     kernelModules = [
-      # "gasket"
+      "gasket"
       "k10temp"
       "nct6775"
     ];
