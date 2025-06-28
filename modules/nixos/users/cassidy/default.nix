@@ -10,6 +10,7 @@ let
   cfg = config.custom.users.cassidy;
   virtualization = config.custom.services.virtualization.enable;
   printing = config.custom.hardware.printing.enable;
+  gui = config.custom.suites.gui.enable;
 in
 {
   options.custom.users.cassidy.enable = mkEnableOption "Cassidy user";
@@ -31,6 +32,9 @@ in
         ++ optionals printing [
           # Rootless CUPS
           "lp"
+        ]
+        ++ optionals gui [
+          "wireshark"
         ];
     };
 
