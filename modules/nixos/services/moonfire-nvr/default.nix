@@ -28,7 +28,7 @@ in
 {
   options.custom.services.moonfire-nvr = {
     enable = mkEnableOption "Moonfire NVR service";
-    package = mkPackageOption pkgs "moonfire-nvr" { };
+    package = mkPackageOption pkgs.custom "moonfire-nvr" { };
     settings = mkOption {
       type = format.type;
       default = {

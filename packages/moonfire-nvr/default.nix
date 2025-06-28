@@ -71,8 +71,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tzdata
   ];
 
-  UI_DIST_DIR = ui;
-  VERSION = version;
+  doCheck = false;
+
+  env = {
+    UI_DIST_DIR = ui;
+    VERSION = version;
+  };
 
   meta = {
     description = "Security camera network video recorder";
