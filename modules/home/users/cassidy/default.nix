@@ -16,7 +16,7 @@ in
       contact.accounts.cassidy.remote = {
         passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/contacts/password".path}";
         type = "carddav";
-        url = "https://dav.haddock.cc/cassidy/63d95a61-80e1-63f6-7316-70de3b3e7904/";
+        url = "https://dav.haddock.cc/carddav/principal/cassidy/default";
         userName = "cassidy";
       };
       email.accounts.cassidy = rec {
