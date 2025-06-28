@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "0.7.10-beta";
+  version = "0.7.11-beta";
 
   src = fetchFromGitHub {
     owner = "gtsteffaniak";
     repo = "filebrowser";
     rev = "v${version}";
-    hash = "sha256-gxEXSsRc2gGgmpEol9Q9FOlLUJtVL0PdkrLXXhR+8mk=";
+    hash = "sha256-x6EoE6n1IGfWcQ9Y/jIZhysLG3vFDcjvW17iXBA7fOs=";
   };
 
   frontend = buildNpmPackage {
