@@ -20,6 +20,8 @@ in
       };
     };
 
+    programs.wireshark.enable = true;
+
     # Show desktop notifications for system bus
     services.systembus-notify.enable = true;
   };
