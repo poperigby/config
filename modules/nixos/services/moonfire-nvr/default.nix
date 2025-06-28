@@ -56,6 +56,14 @@ in
       default = { };
       description = "Additional environment variables for Moonfire NVR.";
     };
+    port = mkOption {
+      type = nullOr port;
+      default = 8080;
+      description = ''
+        The TCP port on which Moonfire NVR will listen.
+        This automatically creates a suitable [[binds]] entry in the settings file.
+      '';
+    };
     user = mkOption {
       type = str;
       default = "moonfire";
@@ -65,15 +73,6 @@ in
       type = str;
       default = "moonfire";
       description = "Group to run the Moonfire NVR service as.";
-    };
-
-    port = mkOption {
-      type = nullOr port;
-      default = 8080;
-      description = ''
-        The TCP port on which Moonfire NVR will listen.
-        This automatically creates a suitable [[binds]] entry in the settings file.
-      '';
     };
   };
 

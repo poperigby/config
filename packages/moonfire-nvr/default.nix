@@ -83,5 +83,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/scottlamb/moonfire-nvr";
     license = lib.licenses.gpl3;
     maintainers = [ ];
+    mainProgram = "moonfire-nvr";
   };
 })

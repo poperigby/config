@@ -23,7 +23,7 @@
     ./paperless.nix
     ./postgresql.nix
     ./prusalink.nix
-    ./radicale.nix
+    ./rustical.nix
     ./redis.nix
     ./scrutiny.nix
     ./silverbullet.nix

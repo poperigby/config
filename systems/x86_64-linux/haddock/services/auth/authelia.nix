@@ -52,8 +52,8 @@ in
           ];
         };
         notifier.smtp = {
-          address = "smtp://smtp.sendgrid.net:587";
-          username = "apikey";
+          address = "smtp://smtp.mailbox.org:587";
+          username = "poperigby@mailbox.org";
           sender = "admin@haddock.cc";
         };
         log.level = "info";
@@ -92,7 +92,7 @@ in
       environmentVariables = with config.sops; {
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
           secrets."haddock/authelia/lldap_authelia_password".path;
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.sendgrid-api-key-authelia.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.smtp-password.path;
       };
     };
     caddy = {
@@ -140,9 +140,9 @@ in
     "haddock/authelia/storage_encryption_key".owner = authelia;
     # The password for the `authelia` LLDAP user
     "haddock/authelia/lldap_authelia_password".owner = authelia;
-    sendgrid-api-key-authelia = {
+    smtp-password = {
       owner = authelia;
-      key = "common/sendgrid/api_key";
+      key = "common/users/cassidy/email/password";
     };
   };
 

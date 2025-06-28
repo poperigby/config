@@ -17,7 +17,7 @@ identity_providers:
           - "authorization_code" # required
         redirect_uris:
           - "https://files.haddock.cc/api/auth/oidc/callback"
-        userinfo_signing_algorithm: "none"
+        userinfo_signed_response_alg: "none"
         token_endpoint_auth_method: "client_secret_basic"
       # https://immich.app/docs/administration/oauth/
       - client_name: "Immich"
@@ -76,6 +76,17 @@ identity_providers:
         pkce_challenge_method: "S256"
         redirect_uris:
           - "https://paper.haddock.cc/accounts/oidc/authelia/login/callback/"
+      # https://lennart-k.github.io/rustical/setup/oidc
+      - client_name: "Rustical"
+        client_id: {{ secret "/run/secrets/rustical-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
+        client_secret: {{ secret "/run/secrets/haddock/rustical/oidc_client_secret/authelia" | mindent 10 "|" | msquote }}
+        public: false
+        authorization_policy: "one_factor"
+        consent_mode: "implicit"
+        scopes: ["openid", "profile", "groups"]
+        token_endpoint_auth_method: "client_secret_basic"
+        redirect_uris:
+          - "https://dav.haddock.cc/frontend/login/oidc/callback"
       # https://vikunja.io/docs/openid
       - client_name: "Vikunja"
         client_id: {{ secret "/run/secrets/vikunja-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
