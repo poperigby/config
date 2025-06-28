@@ -13,7 +13,6 @@
     ./findMyDeviceServer.nix
     ./forgejoActions.nix
     ./games
-    ./gatus.nix
     ./immich.nix
     ./karakeep.nix
     ./mealie.nix
