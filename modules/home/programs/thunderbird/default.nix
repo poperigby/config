@@ -15,7 +15,7 @@ let
   user = config.home.username;
 in
 {
-  options.custom.programs.thunderbird.enable = mkEnableOption "thunderbird";
+  options.custom.programs.thunderbird.enable = mkEnableOption "Thunderbird";
 
   config = mkIf cfg.enable {
     programs.thunderbird = {
@@ -25,8 +25,8 @@ in
         isDefault = true;
         settings =
           let
-            contactsAccount = config.accounts.contact.accounts.${user};
-            contactsAccountSafeName = builtins.replaceStrings [ "." ] [ "-" ] contactsAccount.name;
+            # contactsAccount = config.accounts.contact.accounts.Default;
+            # contactsAccountSafeName = builtins.replaceStrings [ "." ] [ "-" ] contactsAccount.name;
           in
           {
             # Use system emoji font
@@ -34,11 +34,11 @@ in
             # Automatically enable extensions
             "extensions.autoDisableScopes" = 0;
             # Contacts
-            "ldap_2.servers.${contactsAccountSafeName}.carddav.url" = contactsAccount.remote.url;
-            "ldap_2.servers.${contactsAccountSafeName}.carddav.username" = contactsAccount.remote.userName;
-            "ldap_2.servers.${contactsAccountSafeName}.description" = contactsAccount.name;
-            "ldap_2.servers.${contactsAccountSafeName}.dirType" = 102;
-            "ldap_2.servers.${contactsAccountSafeName}.filename" = "abook-${contactsAccountSafeName}.sqlite";
+            # "ldap_2.servers.${contactsAccountSafeName}.carddav.url" = contactsAccount.remote.url;
+            # "ldap_2.servers.${contactsAccountSafeName}.carddav.username" = contactsAccount.remote.userName;
+            # "ldap_2.servers.${contactsAccountSafeName}.description" = contactsAccount.name;
+            # "ldap_2.servers.${contactsAccountSafeName}.dirType" = 102;
+            # "ldap_2.servers.${contactsAccountSafeName}.filename" = "abook-${contactsAccountSafeName}.sqlite";
           };
       };
     };

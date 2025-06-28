@@ -13,11 +13,11 @@ in
 
   config = mkIf cfg.enable {
     accounts = {
-      contact.accounts.cassidy.remote = {
-        passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/contacts/password".path}";
+      contact.accounts.Default.remote = {
         type = "carddav";
-        url = "https://dav.haddock.cc/carddav/principal/cassidy/default";
+        url = "https://dav.haddock.cc/carddav/principal/cassidy/default/";
         userName = "cassidy";
+        passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/contacts/password".path}";
       };
       email.accounts.cassidy = rec {
         primary = true;
