@@ -1,8 +1,13 @@
+# This script is a modified version of:
+#   qbittorrent-gluetun-port-update by TechnoSam
+#   Original source: https://codeberg.org/TechnoSam/qbittorrent-gluetun-port-update
+#   Licensed under AGPLv3: https://www.gnu.org/licenses/agpl-3.0.html
+
 trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
 set -euo pipefail
 
-echo "Starting qbittorent-vpn-port-update\n"
+echo "Starting qbittorent-vpn-port-update"
 echo "Config:"
 echo "VPN_INTERFACE=$VPN_INTERFACE"
 echo "QBITTORRENT_WEBUI_HOST=$QBITTORRENT_WEBUI_HOST"
@@ -12,7 +17,7 @@ echo "QBITTORRENT_WEBUI_PASSWORD=$QBITTORRENT_WEBUI_PASSWORD"
 echo "INITIAL_DELAY_SEC=$INITIAL_DELAY_SEC"
 echo "CHECK_INTERVAL_SEC=$CHECK_INTERVAL_SEC"
 echo "ERROR_INTERVAL_SEC=$ERROR_INTERVAL_SEC"
-echo "ERROR_INTERVAL_COUNT=$ERROR_INTERVAL_COUNT\n"
+echo "ERROR_INTERVAL_COUNT=$ERROR_INTERVAL_COUNT"
 
 qbittorrent_base_url="http://$QBITTORRENT_WEBUI_HOST:$QBITTORRENT_WEBUI_PORT"
 
@@ -36,7 +41,7 @@ while true; do
     echo "Getting forwarded port"
     mapping_info=$(natpmpc -a 1 0 tcp 60 -g 10.2.0.1)
     if [[ $mapping_info =~ Mapped\ public\ port\ ([0-9]+) ]]; then
-        new_port=''${BASH_REMATCH[1]}
+        new_port=${BASH_REMATCH[1]}
         echo "Mapped public port: $new_port"
     else
         echo "Error: Failed to extract mapped public port from natpmpc output"
@@ -100,14 +105,35 @@ while true; do
 
     echo "Opening the new port on the firewall, and closing the old port"
 
-    # Add the new rule if it doesn't already exist
-    NEW_RULE="INPUT -p tcp --dport $new_port -j ACCEPT -i $VPN_INTERFACE"
-    iptables -C "$NEW_RULE" || iptables -A "$NEW_RULE"
-    # Delete the old rule if it exists
-    OLD_RULE="INPUT -p tcp --dport $current_port -j ACCEPT -i $VPN_INTERFACE"
-    if iptables -C "$OLD_RULE" 2> /dev/null; then
-        iptables -D "$OLD_RULE"
+    iptables_rule() {
+    local verb=$1
+    local port=$2
+    local action
+
+    case "$verb" in
+        check)   action="-C" ;;
+        append)  action="-A" ;;
+        delete)  action="-D" ;;
+        *)
+            echo "Error: Unknown action '$verb'" >&2
+            return 1
+            ;;
+    esac
+
+    iptables "$action" INPUT -i "$VPN_INTERFACE" -p tcp --dport "$port" -j ACCEPT
+}
+
+# Append the new rule if it doesn't already exist
+if ! iptables_rule check "$new_port" 2>/dev/null; then
+    iptables_rule append "$new_port"
+fi
+
+# Delete the old rule if it exists
+if [ -n "$current_port" ]; then
+    if iptables_rule check "$current_port" 2>/dev/null; then
+        iptables_rule delete "$current_port"
     fi
+fi
 
     echo "Successfully updated port"
 
