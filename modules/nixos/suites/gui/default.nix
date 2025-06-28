@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
@@ -21,6 +26,7 @@ in
     };
 
     programs.wireshark.enable = true;
+    environment.systemPackages = with pkgs; [ wireshark-qt ];
 
     # Show desktop notifications for system bus
     services.systembus-notify.enable = true;
