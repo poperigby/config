@@ -86,14 +86,13 @@ in
               "--keep-monthly 3"
               "--keep-yearly 1"
             ];
-            # backupPrepareCommand = # bash
-            #   ''
-            #     # Clean old snapshot if necessary
-            #     if ${btrfs} subvolume delete /.snapshots/@; then
-            #         echo "WARNING: Previous run did not cleanly finish, removing old snapshot"
-            #     fi
-            #
-            #   '';
+            backupPrepareCommand = # bash
+              ''
+                # TODO: Dump PostgreSQL databases
+
+                # TODO: Create snapshot of @home and @var_lib (if it exists)
+
+              '';
             paths = cfg.paths;
             exclude = cfg.exclude;
             timerConfig.OnCalendar = cfg.frequency;

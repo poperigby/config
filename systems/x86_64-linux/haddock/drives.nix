@@ -48,6 +48,13 @@
                   "noatime"
                 ];
               };
+              "@var_lib" = {
+                mountpoint = "/var/lib";
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
+              };
             };
           };
         };
