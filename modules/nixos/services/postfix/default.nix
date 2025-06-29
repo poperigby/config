@@ -39,6 +39,9 @@ in
         smtp_sasl_password_maps = "texthash:${config.sops.templates.postfix-sasl-credentials.path}";
         smtp_sasl_security_options = "noanonymous";
         smtp_sasl_tls_security_options = "noanonymous";
+
+        # Rewrite outgoing local mail to use a real address
+        sender_canonical_maps = "static:haddock@mailbox.org";
       };
       # Forward root email to my personal email address
       rootAlias = "poperigby@mailbox.org";
