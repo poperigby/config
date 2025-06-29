@@ -14,7 +14,6 @@
         # Backup to Tintin as well as BorgBase
         repositories.tintin = true;
         paths = [
-          "/srv/minecraft/*/world"
           "/var/backup"
           "/var/lib/bazarr"
           "/var/lib/filebrowser"
@@ -23,12 +22,13 @@
           "/var/lib/karakeep"
           "/var/lib/lldap"
           "/var/lib/mealie"
+          "/var/lib/minecraft/*/world"
           "/var/lib/moonfire-nvr"
           "/var/lib/paperless"
           "/var/lib/private/prowlarr"
           "/var/lib/radarr"
-          "/var/lib/rustical"
           "/var/lib/readarr"
+          "/var/lib/rustical"
           "/var/lib/silverbullet"
           "/var/lib/sonarr"
           "/var/lib/vikunja"
