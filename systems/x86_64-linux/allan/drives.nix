@@ -48,6 +48,13 @@
                     "noatime"
                   ];
                 };
+                "@snapshots" = {
+                  mountpoint = "/.snapshots";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
               };
             };
           };
