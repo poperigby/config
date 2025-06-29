@@ -1,6 +1,8 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) mkForce;
+
   cfg = config.services.scrutiny;
 in
 {
@@ -22,8 +24,7 @@ in
   };
 
   systemd.services.scrutiny.serviceConfig = {
-    # DynamicUser screws up sops-nix ownership
-    DynamicUser = lib.mkForce false;
+    DynamicUser = mkForce false;
     EnvironmentFile = config.sops.templates.scrutiny-secrets.path;
   };
 
@@ -39,13 +40,13 @@ in
   sops = {
     templates.scrutiny-secrets = {
       content = with config.sops.placeholder; ''
-        SCRUTINY_NOTIFY_URLS="smtp://apikey:${sendgrid-api-key_scrutiny}@smtp.sendgrid.net:587/?from=admin@haddock.cc&to=poperigby@mailbox.org"
+        SCRUTINY_NOTIFY_URLS="smtp://poperigby@mailbox.org:${smtp-password_scrutiny}@smtp.mailbox.org:587/?from=haddock@mailbox.org&to=poperigby@mailbox.org"
       '';
       owner = "scrutiny";
     };
     secrets = {
-      sendgrid-api-key_scrutiny = {
-        key = "common/sendgrid/api_key";
+      smtp-password_scrutiny = {
+        key = "common/users/cassidy/email/password";
         owner = "scrutiny";
       };
     };

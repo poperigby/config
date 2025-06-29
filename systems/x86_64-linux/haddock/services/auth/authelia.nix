@@ -54,7 +54,7 @@ in
         notifier.smtp = {
           address = "smtp://smtp.mailbox.org:587";
           username = "poperigby@mailbox.org";
-          sender = "admin@haddock.cc";
+          sender = "haddock@mailbox.org";
         };
         log.level = "info";
         identity_providers.oidc = {
@@ -92,7 +92,7 @@ in
       environmentVariables = with config.sops; {
         AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE =
           secrets."haddock/authelia/lldap_authelia_password".path;
-        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.smtp-password.path;
+        AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = secrets.smtp-password_authelia.path;
       };
     };
     caddy = {
@@ -140,7 +140,7 @@ in
     "haddock/authelia/storage_encryption_key".owner = authelia;
     # The password for the `authelia` LLDAP user
     "haddock/authelia/lldap_authelia_password".owner = authelia;
-    smtp-password = {
+    smtp-password_authelia = {
       owner = authelia;
       key = "common/users/cassidy/email/password";
     };

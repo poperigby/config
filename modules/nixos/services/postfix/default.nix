@@ -19,11 +19,12 @@ in
   config = mkIf cfg.enable {
     services.postfix = {
       enable = true;
-      relayHost = "smtp.sendgrid.net";
+      relayHost = "smtp.mailbox.org";
       relayPort = 587;
+      hostname = "haddock.cc";
       config = {
         # Don't expose software information in the banner
-        # smtpd_banner = "$myhostname ESMTP";
+        smtpd_banner = "$myhostname ESMTP";
 
         # Disable the VRFY command
         # https://linux-audit.com/postfix-hardening-guide-for-security-and-privacy/#disable-vrfy-verify
@@ -31,6 +32,7 @@ in
 
         header_size_limit = "4096000";
         smtp_tls_security_level = "encrypt";
+        smtp_address_preference = "ipv4";
 
         # SASL
         smtp_sasl_auth_enable = "yes";
@@ -48,17 +50,17 @@ in
           owner = postfix.user;
           content =
             let
-              apiKey = config.sops.placeholder.sendgrid-api-key_postfix;
+              smtpPassword = config.sops.placeholder.smtp-password_postfix;
             in
             ''
-              [${postfix.relayHost}]:${toString postfix.relayPort} apikey:${apiKey}
+              [${postfix.relayHost}]:${toString postfix.relayPort} poperigby@mailbox.org:${smtpPassword}
             '';
         };
       };
       secrets = {
-        sendgrid-api-key_postfix = {
+        smtp-password_postfix = {
           owner = postfix.user;
-          key = "common/sendgrid/api_key";
+          key = "common/users/cassidy/email/password";
         };
       };
     };

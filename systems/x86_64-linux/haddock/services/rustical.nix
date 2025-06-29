@@ -35,7 +35,6 @@ in
   };
 
   services.caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
-    import auth
     reverse_proxy :${toString cfg.port}
   '';
 
