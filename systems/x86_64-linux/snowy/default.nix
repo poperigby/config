@@ -25,8 +25,6 @@
             "/home/*/.local/state/backups"
             # Modding setups
             "${cassidy}/Games/Modding"
-            # Skyrim load order, custom LOOT rules, etc.
-            "${cassidy}/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition"
           ];
           exclude = [
             "${cassidy}/Games/Modding/Games/*/_download/"

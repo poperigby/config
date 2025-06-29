@@ -1,7 +1,14 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
+    getExe
+    getExe'
     mkEnableOption
     mkIf
     mkMerge
@@ -50,53 +57,66 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    services.restic.backups =
-      let
-        inherit (config.sops) secrets;
+  config =
+    let
+      systemdConfig = {
+        unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
 
-        pruneOpts = [
-          "--keep-daily 7"
-          "--keep-weekly 4"
-          "--keep-monthly 3"
-          "--keep-yearly 1"
-        ];
-      in
-      {
-        borgbase = mkIf cfg.repositories.borgbase {
-          repositoryFile = secrets."${hostName}/restic/borgbase/url".path;
-          passwordFile = secrets."${hostName}/restic/borgbase/password".path;
-          # Create the repository if it doesn't exist
-          initialize = true;
-          pruneOpts = pruneOpts;
-          paths = cfg.paths;
-          exclude = cfg.exclude;
-          timerConfig.OnCalendar = cfg.frequency;
-        };
-        tintin = mkIf cfg.repositories.tintin {
-          repositoryFile = secrets."${hostName}/restic/tintin/url".path;
-          passwordFile = secrets."${hostName}/restic/tintin/password".path;
-          initialize = true;
-          pruneOpts = pruneOpts;
-          paths = cfg.paths;
-          timerConfig.OnCalendar = cfg.frequency;
-        };
+        # Run backup in a separate mount namespace so we can mount
+        # a snapshot to the correct location
+        # serviceConfig.PrivateMounts = true;
       };
+    in
+    mkIf cfg.enable {
+      services.restic.backups =
+        let
+          inherit (config.sops) secrets;
 
-    # Notify via email when a backup fails
-    systemd.services.restic-backups-borgbase.unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
-    systemd.services.restic-backups-tintin.unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
+          btrfs = getExe pkgs.btrfs-progs;
+          mount = getExe' pkgs.util-linux "mount";
+          umount = getExe' pkgs.util-linux "umount";
 
-    # The correct secrets will automatically be used based on the hostname
-    sops.secrets = mkMerge [
-      (mkIf cfg.repositories.borgbase {
-        "${hostName}/restic/borgbase/url" = { };
-        "${hostName}/restic/borgbase/password" = { };
-      })
-      (mkIf cfg.repositories.tintin {
-        "${hostName}/restic/tintin/url" = { };
-        "${hostName}/restic/tintin/password" = { };
-      })
-    ];
-  };
+          mkRepoCfg = name: {
+            repositoryFile = secrets."${hostName}/restic/${name}/url".path;
+            passwordFile = secrets."${hostName}/restic/${name}/password".path;
+            initialize = true;
+            pruneOpts = [
+              "--keep-daily 7"
+              "--keep-weekly 4"
+              "--keep-monthly 3"
+              "--keep-yearly 1"
+            ];
+            # backupPrepareCommand = # bash
+            #   ''
+            #     # Clean old snapshot if necessary
+            #     if ${btrfs} subvolume delete /.snapshots/@; then
+            #         echo "WARNING: Previous run did not cleanly finish, removing old snapshot"
+            #     fi
+            #
+            #   '';
+            paths = cfg.paths;
+            exclude = cfg.exclude;
+            timerConfig.OnCalendar = cfg.frequency;
+          };
+        in
+        {
+          borgbase = mkIf cfg.repositories.borgbase (mkRepoCfg "borgbase");
+          tintin = mkIf cfg.repositories.tintin (mkRepoCfg "tintin");
+        };
+
+      systemd.services.restic-backups-borgbase = systemdConfig;
+      systemd.services.restic-backups-tintin = systemdConfig;
+
+      # The correct secrets will automatically be used based on the hostname
+      sops.secrets = mkMerge [
+        (mkIf cfg.repositories.borgbase {
+          "${hostName}/restic/borgbase/url" = { };
+          "${hostName}/restic/borgbase/password" = { };
+        })
+        (mkIf cfg.repositories.tintin {
+          "${hostName}/restic/tintin/url" = { };
+          "${hostName}/restic/tintin/password" = { };
+        })
+      ];
+    };
 }
