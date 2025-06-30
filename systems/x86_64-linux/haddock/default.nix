@@ -14,7 +14,6 @@
         # Backup to Tintin as well as BorgBase
         repositories.tintin = true;
         paths = [
-          # "/var/lib/backups"
           "/var/lib/bazarr"
           "/var/lib/filebrowser"
           "/var/lib/immich"

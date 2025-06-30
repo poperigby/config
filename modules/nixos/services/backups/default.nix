@@ -13,6 +13,8 @@ let
     mkIf
     mkMerge
     mkOption
+    optionalAttrs
+    optionals
     ;
 
   inherit (lib.types)
@@ -47,6 +49,11 @@ in
     paths = mkOption {
       type = listOf str;
     };
+    databases = mkOption {
+      type = bool;
+      default = config.services.postgresql.enable;
+      description = "Enable backup of PostgreSQL databases";
+    };
     exclude = mkOption {
       type = listOf str;
       default = [ ];
@@ -69,20 +76,31 @@ in
           repositoryFile = config.sops.secrets."${hostName}/restic/${name}/url".path;
           passwordFile = config.sops.secrets."${hostName}/restic/${name}/password".path;
           initialize = true;
-          pruneOpts = [
-            "--keep-daily 7"
-            "--keep-weekly 4"
-            "--keep-monthly 3"
-            "--keep-yearly 1"
-          ];
+          pruneOpts =
+            [
+              "--keep-daily 7"
+              "--keep-weekly 4"
+              "--keep-monthly 3"
+              "--keep-yearly 1"
+            ]
+            ++ optionals cfg.databases [
+              # The database backup is stored as a separate snapshot that's tagged with "database"
+              # Pruning operates on groups, so it will separately prune "system" and "database" snapshots
+              "--group-by tags"
+            ];
+          extraBackupArgs = [ "--tag system" ];
           backupPrepareCommand = # bash
             ''
-              # TODO: Dump PostgreSQL databases
+              set -euo pipefail
 
               # Clean up old snapshots if necessary
               deleted_any=false
-              if ${btrfs} subvolume delete /.snapshots/@restic-home 2>/dev/null; then deleted_any=true; fi
-              if ${btrfs} subvolume delete /.snapshots/@restic-var_lib 2> /dev/null; then deleted_any=true; fi
+              for subvol in "@restic-home" "@restic-var_lib"; do
+                  if ${btrfs} subvolume list /.snapshots | ${grep} -q "$subvol"; then
+                      ${btrfs} subvolume delete /.snapshots/$subvol
+                      deleted_any=true
+                  fi
+              done
               if $deleted_any; then
                   echo "WARNING: Previous run did not cleanly finish, removing old snapshot(s)"
               fi
@@ -98,24 +116,70 @@ in
                   ${umount} /var/lib
                   ${mount} --bind /.snapshots/@restic-var_lib /var/lib
               fi
-
             '';
           backupCleanupCommand = # bash
             ''
-              ${btrfs} subvolume delete /.snapshots/@restic-home || true
-              ${btrfs} subvolume delete /.snapshots/@restic-var_lib || true
+              set -euo pipefail
+
+              for subvol in "@restic-home" "@restic-var_lib"; do
+                  if ${btrfs} subvolume list /.snapshots | ${grep} -q "$subvol"; then
+                      ${btrfs} subvolume delete /.snapshots/$subvol
+                  fi
+              done
             '';
           paths = cfg.paths;
           exclude = cfg.exclude;
           timerConfig.OnCalendar = cfg.frequency;
         };
 
-        systemd.services."restic-backups-${name}" = {
-          unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
+        systemd.services = {
+          "restic-backups-${name}" =
+            {
+              unitConfig.OnFailure = mkIf mail "notify-failure-email@%i";
 
-          # Run backup in a separate mount namespace so we can mount
-          # a snapshot to the correct location
-          serviceConfig.PrivateMounts = true;
+              # Run backup in a separate mount namespace so we can mount
+              # a snapshot to the correct location
+              serviceConfig.PrivateMounts = true;
+
+            }
+            // optionalAttrs cfg.databases {
+              # Run our database dump first so pruning will apply to both snapshots
+              wants = [ "restic-backups-${name}-db.service" ];
+              after = [ "restic-backups-${name}-db.service" ];
+            };
+          "restic-backups-${name}-db" = mkIf cfg.databases {
+            description = "PostgreSQL Restic backup for ${name}";
+
+            environment =
+              let
+                backupEnv = config.systemd.services."restic-backups-${name}".environment;
+              in
+              {
+                RESTIC_CACHE_DIR = backupEnv.RESTIC_CACHE_DIR;
+                RESTIC_PASSWORD_FILE = backupEnv.RESTIC_PASSWORD_FILE;
+                RESTIC_REPOSITORY_FILE = backupEnv.RESTIC_REPOSITORY_FILE;
+              };
+
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart =
+                let
+                  pg_dumpall = getExe' config.services.postgresql.package "pg_dumpall";
+                  restic = getExe config.services.restic.backups.${name}.package;
+                in
+                getExe (
+                  pkgs.writeShellScriptBin "database-backup" ''
+                    set -euo pipefail
+
+                    ${restic} backup \
+                        --tag database \
+                        --stdin-filename all.sql \
+                        --stdin-from-command -- \
+                        ${pg_dumpall} --clean --if-exists
+                  ''
+                );
+            };
+          };
         };
 
         # The correct secrets will automatically be used based on the hostname
