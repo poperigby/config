@@ -81,8 +81,12 @@ in
 
               # Clean up old snapshots if necessary
               deleted_any=false
-              if ${btrfs} subvolume delete /.snapshots/@restic-home 2>/dev/null; then deleted_any=true; fi
-              if ${btrfs} subvolume delete /.snapshots/@restic-var_lib 2> /dev/null; then deleted_any=true; fi
+              for subvol in "@restic-home" "@restic-var_lib"; do
+                  if ${btrfs} subvolume list /.snapshots | ${grep} -q "$subvol"; then
+                      ${btrfs} subvolume delete /.snapshots/$subvol
+                      deleted_any=true
+                  fi
+              done
               if $deleted_any; then
                   echo "WARNING: Previous run did not cleanly finish, removing old snapshot(s)"
               fi
@@ -98,12 +102,14 @@ in
                   ${umount} /var/lib
                   ${mount} --bind /.snapshots/@restic-var_lib /var/lib
               fi
-
             '';
           backupCleanupCommand = # bash
             ''
-              ${btrfs} subvolume delete /.snapshots/@restic-home || true
-              ${btrfs} subvolume delete /.snapshots/@restic-var_lib || true
+              for subvol in "@restic-home" "@restic-var_lib"; do
+                  if ${btrfs} subvolume list /.snapshots | ${grep} -q "$subvol"; then
+                      ${btrfs} subvolume delete /.snapshots/$subvol
+                  fi
+              done
             '';
           paths = cfg.paths;
           exclude = cfg.exclude;
