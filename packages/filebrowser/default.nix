@@ -12,7 +12,13 @@ let
     owner = "gtsteffaniak";
     repo = "filebrowser";
     rev = "v${version}";
-    hash = "sha256-x6EoE6n1IGfWcQ9Y/jIZhysLG3vFDcjvW17iXBA7fOs=";
+    hash = "sha256-ZRnLrDVYmr6TMmi72G6YdqHlqJy29qoZu6GIJMA83GA=";
+    leaveDotGit = true;
+    postFetch = ''
+      cd "$out"
+      git rev-parse --short HEAD > $out/COMMIT
+      find "$out" -name .git -print0 | xargs -0 rm -rf
+    '';
   };
 
   frontend = buildNpmPackage {
@@ -45,7 +51,6 @@ let
     '';
 
   };
-
 in
 buildGoModule {
   pname = "filebrowser";
@@ -58,6 +63,7 @@ buildGoModule {
   excludedPackages = [ "tools" ];
 
   preBuild = ''
+    ldflags+=" -X github.com/gtsteffaniak/filebrowser/backend/common/version.CommitSHA=$(cat ../COMMIT)"
     cp -r ${frontend}/* http/embed/
   '';
 
@@ -67,10 +73,10 @@ buildGoModule {
   '';
 
   ldflags = [
-    "-X github.com/gtsteffaniak/filebrowser/v0/version.Version=v${version}"
+    "-s"
+    "-w"
+    "-X github.com/gtsteffaniak/filebrowser/backend/common/version.Version=v${version}"
   ];
-
-  passthru = { inherit frontend; };
 
   meta = with lib; {
     description = "Filebrowser is a web application for managing files and directories";
