@@ -23,7 +23,7 @@
           # Take up the rest of the space on the disk
           size = "100%";
           content = {
-            name = "root";
+            name = "cryptroot";
             type = "luks";
             # This will only be used during initial partitioning
             passwordFile = "/tmp/luks_password";
