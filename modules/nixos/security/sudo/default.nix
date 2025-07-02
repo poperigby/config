@@ -6,12 +6,17 @@
 }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.security.sudo;
 in
 {
-  options.custom.security.sudo.enable = lib.mkEnableOption "sudo tweaks";
+  options.custom.security.sudo.enable = mkEnableOption "sudo tweaks";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     security.sudo = {
       extraConfig = # bash
         ''
@@ -21,6 +26,8 @@ in
           Defaults pwfeedback
           # Keep our SYSTEMD_EDITOR variable
           Defaults env_keep += "SYSTEMD_EDITOR"
+          # No lectures >:(
+          Defaults lecture = never
         '';
       package = pkgs.sudo.override { withInsults = true; };
     };
