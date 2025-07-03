@@ -57,7 +57,6 @@
     ucodenix.url = "github:e-tho/ucodenix";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
-    lxml-html-clean.url = "github:taranarmo/nixpkgs/lxml-html-clean-disable-failing-tests";
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
   };
 

@@ -19,7 +19,6 @@
     ./media
     ./miniflux.nix
     ./moonfire.nix
-    ./paperless.nix
     ./postgresql.nix
     ./prusalink.nix
     ./rustical.nix
