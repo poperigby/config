@@ -1,19 +1,20 @@
 # Settings relevant to every home
 
-{ config, lib, ... }:
+{ config, ... }:
 
 {
-  options.custom.configDir = lib.mkOption {
-    type = lib.types.path;
-    description = "Location of my flake configuration repository";
-    default = "${config.home.homeDirectory}/Projects/nixos";
-    example = "${config.home.homeDirectory}/config";
-    apply = toString;
-  };
-
   config = {
-    # Make programs use XDG directories whenever supported
-    home.preferXdgDirectories = true;
+    home = {
+      # Make programs use XDG directories whenever supported
+      preferXdgDirectories = true;
+      # Explicitly set XDG variables
+      sessionVariables = {
+        XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
+        XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+        XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
+        XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
+      };
+    };
 
     # Nicely reload system units when changing configurations
     systemd.user.startServices = "sd-switch";
