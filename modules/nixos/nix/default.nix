@@ -41,11 +41,14 @@ in
       # and replaces them with hard links to a single copy.
       # See here for why this is done daily instead of constantly: https://github.com/NixOS/nix/issues/6033
       optimise.automatic = true;
-      # Perform garbage collection weekly to maintain low disk usage
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
+    };
+
+    # Perform garbage collection to maintain low disk usage
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 7d --keep 7";
       };
     };
   };

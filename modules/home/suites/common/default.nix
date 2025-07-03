@@ -74,7 +74,6 @@ in
         jq
         just
         lazygit
-        nh
         nix-init
         nixfmt-rfc-style
         nurl
