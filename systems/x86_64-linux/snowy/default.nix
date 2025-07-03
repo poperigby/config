@@ -8,6 +8,7 @@
 
   custom = {
     hardware = {
+      android.enable = true;
       audio.enable = true;
       bluetooth.enable = true;
       corsair.enable = true;
@@ -42,8 +43,6 @@
     desktops.sway.enable = true;
     users.cassidy.enable = true;
   };
-
-  programs.adb.enable = true;
 
   time.timeZone = "America/Los_Angeles";
 

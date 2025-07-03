@@ -7,7 +7,7 @@
 
 let
   inherit (lib)
-    getExe
+    getExe'
     mkEnableOption
     mkIf
     ;
@@ -23,7 +23,7 @@ in
     programs.adb.enable = true;
 
     environment = {
-      shellAliases.adb = "${getExe pkgs.adb} HOME=$XDG_DATA_HOME/android adb";
+      shellAliases.adb = "${getExe' pkgs.android-tools "adb"} HOME=$XDG_DATA_HOME/android adb";
       variables.ANDROID_USER_HOME = "$XDG_DATA_HOME/android";
     };
   };

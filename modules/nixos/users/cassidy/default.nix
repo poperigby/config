@@ -8,9 +8,11 @@ let
     ;
 
   cfg = config.custom.users.cassidy;
-  virtualization = config.custom.services.virtualization.enable;
-  printing = config.custom.hardware.printing.enable;
+
+  android = config.custom.hardware.android.enable;
   gui = config.custom.suites.gui.enable;
+  printing = config.custom.hardware.printing.enable;
+  virtualization = config.custom.services.virtualization.enable;
 in
 {
   options.custom.users.cassidy.enable = mkEnableOption "Cassidy user";
@@ -24,17 +26,19 @@ in
       extraGroups =
         [
           "wheel"
+        ]
+        ++ optionals android [
           "adbusers"
         ]
-        ++ optionals virtualization [
-          "libvirtd"
+        ++ optionals gui [
+          "wireshark"
         ]
         ++ optionals printing [
           # Rootless CUPS
           "lp"
         ]
-        ++ optionals gui [
-          "wireshark"
+        ++ optionals virtualization [
+          "libvirtd"
         ];
     };
 
