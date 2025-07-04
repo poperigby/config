@@ -1,17 +1,21 @@
 {
   fetchFromGitHub,
   lib,
+  ncurses,
   nodejs,
   pkg-config,
+  pkgs,
   pnpm,
   rustPlatform,
   sqlite,
   stdenv,
+  testers,
   tzdata,
   ...
 }:
 
 let
+  pname = "moonfire-nvr";
   version = "0.7.21";
 
   src = fetchFromGitHub {
@@ -22,7 +26,7 @@ let
   };
 
   ui = stdenv.mkDerivation (finalAttrs: {
-    pname = "moonfire-nvr-ui";
+    pname = "${pname}-ui";
     inherit version src;
 
     sourceRoot = "${finalAttrs.src.name}/ui";
@@ -57,8 +61,7 @@ let
   });
 in
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "moonfire-nvr";
-  inherit version src;
+  inherit pname version src;
 
   sourceRoot = "${finalAttrs.src.name}/server";
   cargoHash = "sha256-87iaOOMFpvWBP3Khjrey3pDBGnA7gY01et5xWGWoIlY=";
@@ -67,11 +70,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildsInputs = [ pkg-config ];
   buildInputs = [
+    ncurses
     sqlite
     tzdata
   ];
 
   doCheck = false;
+
+  passthru = {
+    inherit ui;
+    tests.version = testers.testVersion {
+      inherit version;
+      package = pkgs.custom.moonfire-nvr;
+      command = "moonfire-nvr --version";
+    };
+  };
 
   env = {
     UI_DIST_DIR = ui;
@@ -81,8 +94,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Security camera network video recorder";
     homepage = "https://github.com/scottlamb/moonfire-nvr";
+    changelog = "https://github.com/scottlamb/moonfire-nvr/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [
+      gaelreyrol
+      PopeRigby
+    ];
     mainProgram = "moonfire-nvr";
   };
 })
