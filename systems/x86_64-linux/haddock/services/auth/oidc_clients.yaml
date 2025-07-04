@@ -68,14 +68,6 @@ identity_providers:
         pkce_challenge_method: "S256"
         redirect_uris:
           - "https://news.haddock.cc/oauth2/oidc/callback"
-      - client_name: "Paperless"
-        client_id: {{ secret "/run/secrets/paperless-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
-        client_secret: {{ secret "/run/secrets/haddock/paperless/oidc_client_secret/authelia" | mindent 10 "|" | msquote }}
-        authorization_policy: "one_factor"
-        require_pkce: true
-        pkce_challenge_method: "S256"
-        redirect_uris:
-          - "https://paper.haddock.cc/accounts/oidc/authelia/login/callback/"
       # https://lennart-k.github.io/rustical/setup/oidc
       - client_name: "Rustical"
         client_id: {{ secret "/run/secrets/rustical-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
