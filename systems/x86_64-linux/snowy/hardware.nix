@@ -1,5 +1,8 @@
 { lib, ... }:
 
+let
+  inherit (lib) mkDefault;
+in
 {
   boot = {
     initrd.availableKernelModules = [
@@ -45,5 +48,5 @@
     cpuModelId = "00A60F12";
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = mkDefault "x86_64-linux";
 }
