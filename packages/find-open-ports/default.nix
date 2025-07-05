@@ -7,7 +7,7 @@
 lib.custom.createShellScript {
   inherit pkgs;
 
-  pname = "check-ports";
+  pname = "find-open-ports";
   src = ./script.sh;
   deps = with pkgs; [
     gawk

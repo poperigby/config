@@ -11,6 +11,6 @@
   programs.fish.shellAliases.cs = "sudo cscli";
 
   home.packages = with pkgs; [
-    custom.check-ports
+    custom.find-open-ports
   ];
 }
