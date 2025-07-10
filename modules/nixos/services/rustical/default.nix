@@ -8,7 +8,6 @@
 let
   inherit (lib)
     getExe
-    isString
     mkEnableOption
     mkIf
     mkOption
@@ -53,14 +52,7 @@ in
       '';
     };
     secretsFile = mkOption {
-      type = nullOr (
-        str
-        // {
-          # We don't want users to be able to pass a path literal here but
-          # it should look like a path.
-          check = it: isString it && path.check it;
-        }
-      );
+      type = nullOr path;
       default = null;
       example = "/run/secrets/rustical";
       description = ''
@@ -101,7 +93,6 @@ in
       description = "Rustical Service";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-
       serviceConfig = {
         Type = "simple";
         ExecStart = "${getExe cfg.package} --config-file ${format.generate "config.toml" cfg.settings}";
