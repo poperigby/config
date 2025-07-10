@@ -1,25 +1,25 @@
 {
   inputs,
+  lib,
   pkgs,
   system,
   ...
 }:
 
 {
-  imports = [ ./mods.nix ];
-
   services.minecraft-servers = {
     enable = true;
     eula = true;
     openFirewall = true;
     dataDir = "/var/lib/minecraft";
+    managementSystem.systemd-socket.enable = true;
     servers.fabric = {
       enable = true;
       package = inputs.nix-minecraft.legacyPackages.${system}.fabricServers.fabric-1_21_4;
       serverProperties = {
         server-name = "Haddock";
-        allow-cheats = true;
         difficulty = "normal";
+        allow-cheats = true;
       };
       symlinks = {
         "ops.json" = (pkgs.formats.json { }).generate "ops.json" [
@@ -36,6 +36,7 @@
             bypassesPlayerLimit = true;
           }
         ];
+        mods = import ./mods.nix { inherit pkgs lib; };
       };
     };
   };
