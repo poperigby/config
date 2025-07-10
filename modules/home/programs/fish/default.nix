@@ -6,12 +6,19 @@
 }:
 
 let
+  inherit (lib)
+    getExe
+    getExe'
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.fish;
 in
 {
-  options.custom.programs.fish.enable = lib.mkEnableOption "fish";
+  options.custom.programs.fish.enable = mkEnableOption "fish";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs = {
       fish = {
         enable = true;
@@ -25,8 +32,15 @@ in
             src = autopair;
           }
         ];
-        # Use fish for `nix shell` and `nix develop`
-        interactiveShellInit = "${lib.getExe pkgs.nix-your-shell} fish | source";
+        interactiveShellInit = # fish
+          ''
+            # Use fish for `nix shell` and `nix develop`
+            ${getExe pkgs.nix-your-shell} fish | source
+
+            # Keybinds
+            bind \ce 'yy &>/dev/null; commandline -f repaint'
+            bind \cg ${getExe pkgs.lazygit}
+          '';
       };
       # Setting fish as our default shell causes some issues. Instead, automatically launch fish
       # when we start an interactive bash shell, but only if we're not opening one from fish.
@@ -34,7 +48,7 @@ in
         enable = true;
         initExtra = # bash
           ''
-            if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+            if [[ $(${getExe' pkgs.procps "ps"} --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
                 shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
                 exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
             fi
