@@ -8,7 +8,7 @@
     ./caddy.nix
     ./clamav.nix
     ./crowdsec.nix
-    ./ddns-updater.nix
+    ./ddns.nix
     ./filebrowser.nix
     ./findMyDeviceServer.nix
     ./forgejoActions.nix

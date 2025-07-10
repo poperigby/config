@@ -22,11 +22,11 @@ in
   systemd.services.ddns-updater.serviceConfig.DynamicUser = mkForce false;
 
   users = {
-    users.ddns_updater = {
-      group = "ddns_updater";
+    users.ddns = {
+      group = "ddns";
       isSystemUser = true;
     };
-    groups.ddns_updater = { };
+    groups.ddns = { };
   };
 
   sops = {
@@ -38,17 +38,17 @@ in
               {
                 "provider": "porkbun",
                 "domain": "haddock.cc",
-                "api_key": "${config.sops.placeholder."haddock/ddns_updater/porkbun_api_key"}",
-                "secret_api_key": "${config.sops.placeholder."haddock/ddns_updater/porkbun_api_secret_key"}"
+                "api_key": "${config.sops.placeholder."haddock/ddns/porkbun_api_key"}",
+                "secret_api_key": "${config.sops.placeholder."haddock/ddns/porkbun_api_secret_key"}"
               }
             ]
           }
         '';
-      owner = "ddns_updater";
+      owner = "ddns";
     };
     secrets = {
-      "haddock/ddns_updater/porkbun_api_key".owner = "ddns_updater";
-      "haddock/ddns_updater/porkbun_api_secret_key".owner = "ddns_updater";
+      "haddock/ddns/porkbun_api_key".owner = "ddns";
+      "haddock/ddns/porkbun_api_secret_key".owner = "ddns";
     };
   };
 }
