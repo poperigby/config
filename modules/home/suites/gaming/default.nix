@@ -42,7 +42,7 @@ in
         # For GOG and Epic Games 🤢
         heroic
         # For managing compatibility tools
-        protonup-qt
+        protonplus
         # For limiting FPS
         libstrangle
         # Doom

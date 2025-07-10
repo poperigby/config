@@ -82,6 +82,7 @@ in
         pciutils
         ripgrep
         sops
+        systemctl-tui
         tree
         typst
         usbutils
