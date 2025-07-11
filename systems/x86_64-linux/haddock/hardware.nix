@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   boot = {
@@ -14,6 +14,7 @@
       "k10temp"
       "nct6775"
     ];
+    kernelParams = [ "microcode.amd_sha_check=off" ];
     blacklistedKernelModules = [
       # https://cisofy.com/lynis/controls/NETW-3200
       "dccp"
@@ -21,10 +22,10 @@
       "sctp"
       "tipc"
     ];
-    # extraModulePackages = with config.boot.kernelPackages; [
-    #   # Google Coral TPU driver
-    #   gasket
-    # ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      # Google Coral TPU driver
+      gasket
+    ];
   };
 
   hardware.enableRedistributableFirmware = true;
