@@ -1,42 +1,37 @@
-{ config, ... }:
+{
+  config,
+  inputs,
+  system,
+  ...
+}:
 
 let
-  cfg = config.custom.services.rustical;
+  cfg = config.services.rustical;
 in
 {
-  custom.services.rustical = {
-    enable = true;
-    settings = {
-      http = {
-        host = "0.0.0.0";
-        port = cfg.port;
+  services = {
+    rustical = {
+      enable = true;
+      package = inputs.rustical.legacyPackages.${system}.rustical;
+      settings = {
+        oidc = {
+          name = "Authelia";
+          issuer = "https://auth.haddock.cc";
+          claim_userid = "preferred_username";
+          scopes = [
+            "openid"
+            "profile"
+            "groups"
+          ];
+          allow_sign_up = true;
+        };
       };
-      oidc = {
-        name = "Authelia";
-        issuer = "https://auth.haddock.cc";
-        claim_userid = "preferred_username";
-        scopes = [
-          "openid"
-          "profile"
-          "groups"
-        ];
-        allow_sign_up = true;
-      };
-      frontend = {
-        enabled = true;
-        allow_password_login = false;
-      };
-      tracing.opentelemetry = false;
-      dav_push.enabled = true;
-      nextcloud_login.enabled = true;
-      data_store.sqlite.db_url = "/var/lib/rustical/db.sqlite3";
+      environmentFile = config.sops.templates.rustical-secrets.path;
     };
-    secretsFile = config.sops.templates.rustical-secrets.path;
+    caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
+      reverse_proxy :${toString cfg.settings.http.port}
+    '';
   };
-
-  services.caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
-    reverse_proxy :${toString cfg.port}
-  '';
 
   sops = {
     templates.rustical-secrets = {

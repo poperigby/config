@@ -884,6 +884,7 @@
         "nixpkgs": "nixpkgs_3",
         "openmw-nix": "openmw-nix",
         "qbittorrent": "qbittorrent",
+        "rustical": "rustical",
         "snowfall-lib": "snowfall-lib_2",
         "sops-nix": "sops-nix",
         "ucodenix": "ucodenix",
@@ -925,6 +926,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rustical": {
+      "locked": {
+        "lastModified": 1752194495,
+        "narHash": "sha256-rzPpg+lQpxm2iPy5lOao/Ai+VD5CJq7imlsrfhGPNQw=",
+        "owner": "poperigby",
+        "repo": "nixpkgs",
+        "rev": "268a2571d7e1e1717f6c57f8918a57d5c50e1035",
+        "type": "github"
+      },
+      "original": {
+        "owner": "poperigby",
+        "ref": "rustical-module",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },

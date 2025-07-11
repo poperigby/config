@@ -58,6 +58,7 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
     qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
+    rustical.url = "github:poperigby/nixpkgs/rustical-module";
   };
 
   # This function is run on `nixos-rebuild switch`, and generates NixOS systems
@@ -87,6 +88,7 @@
               nix-minecraft.nixosModules.minecraft-servers
               vpn-confinement.nixosModules.default
               "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
+              "${rustical}/nixos/modules/services/networking/rustical.nix"
             ];
           };
           # Desktop
