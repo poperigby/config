@@ -38,7 +38,7 @@ in
             ${getExe pkgs.nix-your-shell} fish | source
 
             # Keybinds
-            bind \ce 'yy &>/dev/null; commandline -f repaint'
+            bind \ce 'yy; commandline -f repaint'
             bind \cg ${getExe pkgs.lazygit}
           '';
       };
