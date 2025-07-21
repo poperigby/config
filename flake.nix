@@ -40,6 +40,7 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
     openmw-nix = {
@@ -79,53 +80,50 @@
       systems = {
         # Host specific options
         hosts = {
-          # Home server
-          haddock = {
-            modules = with inputs; [
-              crowdsec.nixosModules.crowdsec
-              crowdsec.nixosModules.crowdsec-firewall-bouncer
-              flux.nixosModules.default
-              nix-minecraft.nixosModules.minecraft-servers
-              vpn-confinement.nixosModules.default
-              "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
-              "${rustical}/nixos/modules/services/networking/rustical.nix"
-            ];
-          };
-          # Desktop
-          snowy = { };
           # Laptop
-          allan = {
-            modules = with inputs; [
-              nixos-hardware.nixosModules.framework-11th-gen-intel
-            ];
-          };
+          allan.modules = with inputs; [
+            disko.nixosModules.disko
+            nixos-hardware.nixosModules.framework-11th-gen-intel
+            ucodenix.nixosModules.ucodenix
+          ];
+          # Living room desktop
+          calculus.modules = with inputs; [
+            disko.nixosModules.disko
+            ucodenix.nixosModules.ucodenix
+          ];
+          # Home server
+          haddock.modules = with inputs; [
+            crowdsec.nixosModules.crowdsec
+            crowdsec.nixosModules.crowdsec-firewall-bouncer
+            disko.nixosModules.disko
+            flux.nixosModules.default
+            nix-minecraft.nixosModules.minecraft-servers
+            vpn-confinement.nixosModules.default
+            "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
+            "${rustical}/nixos/modules/services/networking/rustical.nix"
+            ucodenix.nixosModules.ucodenix
+          ];
+          # Desktop
+          snowy.modules = with inputs; [
+            disko.nixosModules.disko
+            ucodenix.nixosModules.ucodenix
+          ];
           # Installation/recovery ISO
-          skut = {
-            modules = with inputs; [
-              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            ];
-          };
+          skut.modules = with inputs; [
+            "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ];
           # 3D printer
-          # nestor = {
-          #   modules = with inputs; [
-          #     nixos-raspberrypi.lib.inject-overlays
-          #     nixos-raspberrypi.nixosModules.raspberry-pi-02.base
-          #     nixos-raspberrypi.nixosModules.trusted-nix-caches
-          #   ];
-          # };
+          # nestor.modules = with inputs; [
+          #   nixos-raspberrypi.lib.inject-overlays
+          #   nixos-raspberrypi.nixosModules.raspberry-pi-02.base
+          #   nixos-raspberrypi.nixosModules.trusted-nix-caches
+          # ];
         };
-        # Modules that get imported to every NixOS system
-        modules.nixos = with inputs; [
-          disko.nixosModules.disko
-          ucodenix.nixosModules.ucodenix
-        ];
       };
-      homes = {
-        # Modules that get imported to every home
-        modules = with inputs; [
-          nix-colors.homeManagerModules.default
-          nixcord.homeModules.nixcord
-        ];
-      };
+      # Modules that get imported to every home
+      homes.modules = with inputs; [
+        nix-colors.homeManagerModules.default
+        nixcord.homeModules.nixcord
+      ];
     };
 }

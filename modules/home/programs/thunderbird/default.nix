@@ -23,26 +23,18 @@ in
       package = pkgs.thunderbird-latest;
       profiles.cassidy = {
         isDefault = true;
-        settings =
-          let
-            # contactsAccount = config.accounts.contact.accounts.Default;
-            # contactsAccountSafeName = builtins.replaceStrings [ "." ] [ "-" ] contactsAccount.name;
-          in
-          {
-            # Use system emoji font
-            "font.name-list.emoji" = "emoji";
-            # Automatically enable extensions
-            "extensions.autoDisableScopes" = 0;
-            # Contacts
-            # "ldap_2.servers.${contactsAccountSafeName}.carddav.url" = contactsAccount.remote.url;
-            # "ldap_2.servers.${contactsAccountSafeName}.carddav.username" = contactsAccount.remote.userName;
-            # "ldap_2.servers.${contactsAccountSafeName}.description" = contactsAccount.name;
-            # "ldap_2.servers.${contactsAccountSafeName}.dirType" = 102;
-            # "ldap_2.servers.${contactsAccountSafeName}.filename" = "abook-${contactsAccountSafeName}.sqlite";
-          };
+        settings = {
+          # Use system emoji font
+          "font.name-list.emoji" = "emoji";
+          # Automatically enable extensions
+          "extensions.autoDisableScopes" = 0;
+        };
       };
     };
 
-    accounts.email.accounts.${user}.thunderbird.enable = true;
+    accounts = {
+      contact.accounts.${user}.thunderbird.enable = true;
+      email.accounts.${user}.thunderbird.enable = true;
+    };
   };
 }

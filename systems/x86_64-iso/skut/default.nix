@@ -27,11 +27,11 @@
   # Increase size of tmpfs on /run
   boot.runSize = "50%";
 
-  # Allows easy connection to Wi-Fi
-  networking.networkmanager.enable = true;
-
-  # wpa_supplicant sucks
-  networking.wireless.enable = lib.mkForce false;
+  # Allows easy connection to Wi-Fi (wpa_supplicant sucks)
+  networking = {
+    networkmanager.enable = true;
+    wireless.enable = lib.mkForce false;
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";
