@@ -1,6 +1,8 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) mkAfter;
+
   authelia = "authelia-haddock";
 in
 {
@@ -19,7 +21,7 @@ in
         access_control = {
           default_policy = "deny";
           # We want this rule to be low priority so it doesn't override the others
-          rules = lib.mkAfter [
+          rules = mkAfter [
             {
               domain = "*.haddock.cc";
               policy = "one_factor";
@@ -30,10 +32,6 @@ in
           address = "unix:///run/postgresql";
           database = authelia;
           username = authelia;
-          # I'm using peer authentication, so this doesn't actually matter, but Authelia
-          # complains if I don't have it.
-          # https://github.com/authelia/authelia/discussions/7646
-          password = authelia;
         };
         session = {
           redis.host = "/var/run/redis-haddock/redis.sock";
