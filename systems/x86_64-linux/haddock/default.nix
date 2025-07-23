@@ -15,7 +15,6 @@
         repositories.tintin = true;
         paths = [
           "/var/lib/bazarr"
-          "/var/lib/filebrowser"
           "/var/lib/immich"
           "/var/lib/jellyfin"
           "/var/lib/karakeep"
@@ -37,6 +36,23 @@
     };
     suites = {
       common.enable = true;
+    };
+    security.opkssh = {
+      enable = true;
+      providers = [
+        {
+          issuer = "https://auth.haddock.cc";
+          clientId = "opkssh";
+          expiration = "oidc";
+        }
+      ];
+      authorizedIdentities = [
+        {
+          user = "cassidy";
+          identity = "cb283dd6-3e06-459f-81ac-76afcf0cfa6b";
+          issuer = "https://auth.haddock.cc";
+        }
+      ];
     };
     users = {
       cassidy.enable = true;

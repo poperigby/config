@@ -9,7 +9,6 @@
     ./clamav.nix
     ./crowdsec.nix
     ./ddns.nix
-    ./filebrowser.nix
     ./findMyDeviceServer.nix
     ./forgejoActions.nix
     ./games

@@ -44,7 +44,7 @@ let
         sourceRoot
         ;
 
-      hash = "sha256-vUrVRFa+24nsxOu6h87fgyUSe8ZX2gnvLakpndm4OnQ=";
+      hash = "sha256-WY7PKVIk4ifFn6GCKYNoiCKhK1lUjwSLeC7yEDmiPWk=";
       fetcherVersion = 9;
     };
 
