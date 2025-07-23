@@ -1,7 +1,10 @@
 { lib, pkgs, ... }:
 
+let
+  inherit (lib) mkForce;
+in
 {
-  users.users.nixos.password = "nixos";
+  users.users.nixos.initialHashedPassword = mkForce "$y$j9T$w.lPI/qMkKd7GU.8pBU.L1$ykS3e6w4FX1MF6f12mfjNkXDBScP75/jNyEjNH68bS8";
 
   # Setup neovim
   programs.neovim = {
@@ -27,10 +30,10 @@
   # Increase size of tmpfs on /run
   boot.runSize = "50%";
 
-  # Allows easy connection to Wi-Fi (wpa_supplicant sucks)
+  # Allow easy connection to Wi-Fi (wpa_supplicant sucks)
   networking = {
     networkmanager.enable = true;
-    wireless.enable = lib.mkForce false;
+    wireless.enable = mkForce false;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
