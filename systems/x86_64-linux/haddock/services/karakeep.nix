@@ -35,7 +35,7 @@ in
     ];
     meilisearch = {
       package = pkgs.meilisearch;
-      dumplessUpgrade = true;
+      settings.experimental_dumpless_upgrade = true;
     };
   };
 

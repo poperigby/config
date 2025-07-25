@@ -45,7 +45,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi";
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     openmw-nix = {
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,7 +64,6 @@
     ucodenix.url = "github:e-tho/ucodenix";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
-    qbittorrent.url = "github:fsnkty/nixpkgs/init-nixos-qbittorrent";
     rustical.url = "github:poperigby/nixpkgs/rustical-module";
   };
 
@@ -102,7 +104,6 @@
             flux.nixosModules.default
             nix-minecraft.nixosModules.minecraft-servers
             vpn-confinement.nixosModules.default
-            "${qbittorrent}/nixos/modules/services/torrent/qbittorrent.nix"
             "${rustical}/nixos/modules/services/networking/rustical.nix"
             ucodenix.nixosModules.ucodenix
           ];
