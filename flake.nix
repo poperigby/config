@@ -124,10 +124,5 @@
           # ];
         };
       };
-      # Modules that get imported to every home
-      homes.modules = with inputs; [
-        nix-colors.homeManagerModules.default
-        nixcord.homeModules.nixcord
-      ];
     };
 }

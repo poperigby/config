@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib)
@@ -9,6 +14,8 @@ let
   cfg = config.custom.programs.discord;
 in
 {
+  imports = [ inputs.nixcord.homeModules.nixcord ];
+
   options.custom.programs.discord.enable = mkEnableOption "Discord";
 
   config = mkIf cfg.enable {

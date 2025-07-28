@@ -18,7 +18,10 @@ in
 {
   options.custom.suites.common.enable = mkEnableOption "settings that most homes will want enabled";
 
-  imports = [ inputs.nix-colors.homeManagerModules.default ];
+  imports = [
+    inputs.nix-colors.homeManagerModules.default
+    inputs.nix-index-database.homeModules.nix-index
+  ];
 
   config = mkIf cfg.enable {
     custom = {
@@ -72,6 +75,7 @@ in
       home-manager.enable = true;
       # Integrates nix-index with command-not-found helper
       nix-index.enable = true;
+      nix-index-database.comma.enable = true;
       pay-respects.enable = true;
       zoxide = {
         enable = true;
@@ -117,7 +121,6 @@ in
         find = "fd";
         grep = "rg";
         jrn = "sudo journalctl";
-        lg = "lazygit";
         license = getExe pkgs.license-generator;
         nps = "nix search nixpkgs";
         py = "python";

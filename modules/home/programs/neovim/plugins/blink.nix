@@ -35,12 +35,16 @@
                   },
               },
 
-              -- Don't automatically show completion menu in cmdline
               completion = {
                   list = {
                       selection = {
+                          -- Don't automatically show completion menu in cmdline
                           auto_insert = false
                       },
+                  },
+                  documentation = {
+                      auto_show = true,
+                      auto_show_delay_ms = 10,
                   },
               }
           })
