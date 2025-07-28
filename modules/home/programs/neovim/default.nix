@@ -45,6 +45,7 @@ in
           typescript
           vscode-langservers-extracted
           yaml-language-server
+          slint-lsp
         ];
         extraLuaConfig = # lua
           ''

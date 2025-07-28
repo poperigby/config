@@ -72,6 +72,7 @@
                       },
                   },
               },
+              slint_ls = {},
               teal_ls = {},
               tinymist = {},
               yamlls = {
@@ -94,7 +95,7 @@
               -- Setup format function
               config.on_attach = format
               -- Setup LSP servers
-              require("lspconfig")[server].setup(config)
+              vim.lsp.enable(server, config)
           end
         '';
     }
