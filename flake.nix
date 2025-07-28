@@ -53,6 +53,10 @@
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    piggyback = {
+      url = "git+https://codeberg.org/PopeRigby/piggyback.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";

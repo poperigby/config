@@ -168,6 +168,7 @@ in
             entry: "${entry.issuer} ${entry.clientId} ${entry.expiration}"
           ) cfg.providers;
           mode = "0640";
+          group = "opkssh";
         };
         "opk/auth_id" = {
           text = mkIf (cfg.authorizedIdentities != null) (
@@ -176,6 +177,7 @@ in
             ) cfg.authorizedIdentities
           );
           mode = "0640";
+          group = "opkssh";
         };
       };
     };
