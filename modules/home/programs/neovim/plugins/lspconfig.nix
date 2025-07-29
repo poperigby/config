@@ -100,7 +100,8 @@
               -- Setup format function
               config.on_attach = format
               -- Setup LSP servers
-              vim.lsp.enable(server, config)
+              vim.lsp.enable(server)
+              vim.lsp.config(server, config)
           end
         '';
     }
