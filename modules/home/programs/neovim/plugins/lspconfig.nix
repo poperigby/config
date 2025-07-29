@@ -8,16 +8,21 @@
       config = # lua
         ''
           -- Change diagnostic symbols in the sign column (gutter)
-          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-          for type, icon in pairs(signs) do
-              local hl = "DiagnosticSign" .. type
-              vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-          end
+          vim.diagnostic.config({
+              signs = {
+                  text = {
+                      [vim.diagnostic.severity.ERROR] = " ",
+                      [vim.diagnostic.severity.WARN] = " ",
+                      [vim.diagnostic.severity.INFO] = "󰋼 ",
+                      [vim.diagnostic.severity.HINT] = "󰌵 ",
+                  },
+              }
+          })
 
           -- Format on save function
           local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
           local format = function(client, bufnr)
-              if client.supports_method("textDocument/formatting") then
+              if client:supports_method("textDocument/formatting") then
                   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
                   vim.api.nvim_create_autocmd("BufWritePre", {
                       group = augroup,
