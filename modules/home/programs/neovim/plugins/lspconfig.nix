@@ -77,7 +77,7 @@
                       },
                   },
               },
-              slint_ls = {},
+              slint_lsp = {},
               teal_ls = {},
               tinymist = {},
               yamlls = {
