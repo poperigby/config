@@ -38,13 +38,11 @@ in
             description = "The issuer URI of the OpenID Provider.";
             example = "https://accounts.google.com";
           };
-
           clientId = mkOption {
             type = str;
             description = "The Client ID (audience) for the OIDC provider.";
             example = "206584157355-7cbe4s640tvm7naoludob4ut1emii7sf.apps.googleusercontent.com";
           };
-
           expiration = mkOption {
             type = enum [
               "12h"
@@ -66,12 +64,12 @@ in
         {
           issuer = "https://accounts.google.com";
           clientId = "206584157355-7cbe4s640tvm7naoludob4ut1emii7sf.apps.googleusercontent.com";
-          policy = "24h";
+          expiration = "24h";
         }
         {
           issuer = "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0";
           clientId = "096ce0a3-5e72-4da8-9c86-12924b294a01";
-          policy = "24h";
+          expiration = "24h";
         }
       ];
       description = ''
