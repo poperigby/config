@@ -11,8 +11,8 @@ map("n", "<Leader><S-Tab>", ":bp<CR>", { desc = "Move to previous buffer" })
 map("n", "Y", "y$", { desc = "Yank to the end of the line" })
 
 -- LSP
-map("n", "<Space>,", vim.diagnostic.goto_prev, { desc = "Move to previous diagnostic" })
-map("n", "<Space>;", vim.diagnostic.jump, { desc = "Move to next diagnostic" })
+map("n", "<Space>;", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Move to next diagnostic" })
+map("n", "<Space>,", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Move to previous diagnostic" })
 map("n", "<Space>a", vim.lsp.buf.code_action, { desc = "Open a code action menu" })
 map("n", "<Space>d", vim.lsp.buf.definition, { desc = "Jump to the definition of the symbol" })
 map("n", "<Space>r", vim.lsp.buf.rename, { desc = "Rename all references to the symbol" })

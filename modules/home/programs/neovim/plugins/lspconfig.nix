@@ -7,8 +7,8 @@
       type = "lua";
       config = # lua
         ''
-          -- Change diagnostic symbols in the sign column (gutter)
           vim.diagnostic.config({
+              -- Change diagnostic symbols in the sign column (gutter)
               signs = {
                   text = {
                       [vim.diagnostic.severity.ERROR] = " ",
@@ -16,7 +16,8 @@
                       [vim.diagnostic.severity.INFO] = "󰋼 ",
                       [vim.diagnostic.severity.HINT] = "󰌵 ",
                   },
-              }
+              },
+              jump = { float = true }
           })
 
           -- Format on save function
