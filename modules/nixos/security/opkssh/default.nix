@@ -130,22 +130,22 @@ in
 
   config = mkIf cfg.enable {
     users = {
-      users.opkssh = {
+      users.opksshuser = {
         isSystemUser = true;
-        group = "opkssh";
+        group = "opksshuser";
       };
-      groups.opkssh = { };
+      groups.opksshuser = { };
     };
 
     services.openssh = {
       authorizedKeysCommand = "/run/wrappers/bin/opkssh verify %u %k %t";
-      authorizedKeysCommandUser = "opkssh";
+      authorizedKeysCommandUser = "opksshuser";
     };
 
     security = {
       sudo.extraRules = mkIf cfg.homePolicy [
         {
-          users = [ "opkssh" ];
+          users = [ "opksshuser" ];
           commands = [
             {
               command = "${getExe cfg.package} readhome *";
@@ -168,7 +168,7 @@ in
             entry: "${entry.issuer} ${entry.clientId} ${entry.expiration}"
           ) cfg.providers;
           mode = "0640";
-          group = "opkssh";
+          group = "opksshuser";
         };
         "opk/auth_id" = {
           text = mkIf (cfg.authorizedIdentities != null) (
@@ -177,7 +177,7 @@ in
             ) cfg.authorizedIdentities
           );
           mode = "0640";
-          group = "opkssh";
+          group = "opksshuser";
         };
       };
     };
