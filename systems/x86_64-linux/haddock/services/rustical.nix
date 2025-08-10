@@ -1,7 +1,6 @@
 {
   config,
-  inputs,
-  system,
+  pkgs,
   ...
 }:
 
@@ -12,7 +11,7 @@ in
   services = {
     rustical = {
       enable = true;
-      package = inputs.rustical.legacyPackages.${system}.rustical;
+      package = pkgs.rustical;
       settings = {
         oidc = {
           name = "Authelia";

@@ -76,6 +76,9 @@ in
             ];
           };
         };
+        webauthn = {
+          enable_passkey_login = true;
+        };
         # Necessary for Caddy integration
         # See https://www.authelia.com/integration/proxies/caddy/#implementation
         server.endpoints.authz.forward-auth.implementation = "ForwardAuth";

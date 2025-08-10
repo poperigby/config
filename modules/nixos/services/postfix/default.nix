@@ -19,10 +19,10 @@ in
   config = mkIf cfg.enable {
     services.postfix = {
       enable = true;
-      relayHost = "smtp.mailbox.org";
-      relayPort = 587;
-      hostname = "haddock.cc";
-      config = {
+      settings.main = {
+        myhostname = "haddock.cc";
+        relayhost = [ "[smtp.mailbox.org]:587" ];
+
         # Don't expose software information in the banner
         smtpd_banner = "$myhostname ESMTP";
 
@@ -56,7 +56,7 @@ in
               smtpPassword = config.sops.placeholder.smtp-password_postfix;
             in
             ''
-              [${postfix.relayHost}]:${toString postfix.relayPort} poperigby@mailbox.org:${smtpPassword}
+              ${toString postfix.settings.main.relayhost} poperigby@mailbox.org:${smtpPassword}
             '';
         };
       };

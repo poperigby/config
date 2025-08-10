@@ -73,7 +73,7 @@ let
         ;
 
       hash = "sha256-HyHkfVgiryBGx5zr+REAJ0Z0aFT2vvQ0XYFdRnCHVQY=";
-      fetcherVersion = 9;
+      fetcherVersion = 1;
     };
 
     installPhase = ''

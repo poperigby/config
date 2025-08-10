@@ -17,7 +17,7 @@
     ./mealie.nix
     ./media
     ./miniflux.nix
-    ./moonfire.nix
+    # ./moonfire.nix
     ./postgresql.nix
     ./prusalink.nix
     ./rustical.nix
