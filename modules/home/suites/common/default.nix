@@ -91,6 +91,7 @@ in
         asciinema
         binsider
         caligula
+        delta
         dmidecode
         dogdns
         dust
@@ -114,6 +115,7 @@ in
         typst
         usbutils
         vimv-rs
+        xh
       ];
       # Handy aliases
       shellAliases = {
