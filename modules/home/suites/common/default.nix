@@ -108,9 +108,11 @@ in
         ouch
         parted
         pciutils
+        rename
         ripgrep
         sops
         systemctl-tui
+        trashy
         tree
         typst
         usbutils
