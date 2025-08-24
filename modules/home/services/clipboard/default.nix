@@ -6,12 +6,18 @@
 }:
 
 let
+  inherit (lib)
+    getExe
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.services.clipboard;
 in
 {
-  options.custom.services.clipboard.enable = lib.mkEnableOption "Enable clipboard manager";
+  options.custom.services.clipboard.enable = mkEnableOption "clipboard manager";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     # Stores clipboard items in a database and allows recalling them with a picker
     services.cliphist.enable = true;
     # Remembers clipboard contents when source exits
@@ -22,12 +28,10 @@ in
       };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular";
+        ExecStart = "${getExe pkgs.wl-clip-persist} --clipboard regular";
         Restart = "on-failure";
       };
-      Install = {
-        WantedBy = [ "graphical.target" ];
-      };
+      Install.WantedBy = [ "graphical.target" ];
     };
   };
 }

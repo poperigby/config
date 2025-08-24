@@ -31,6 +31,8 @@ in
       services = {
         # For backing up games
         ludusavi.enable = true;
+        # Keep screen from going to sleep when using gamepad
+        joystickwake.enable = true;
       };
     };
 
