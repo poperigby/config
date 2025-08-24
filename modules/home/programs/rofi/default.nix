@@ -6,12 +6,18 @@
 }:
 
 let
+  inherit (lib)
+    getExe
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.rofi;
 in
 {
-  options.custom.programs.rofi.enable = lib.mkEnableOption "Enable Rofi";
+  options.custom.programs.rofi.enable = mkEnableOption "Enable Rofi";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
@@ -41,20 +47,18 @@ in
         kb-mode-complete = "Control+i";
         kb-remove-char-back = "BackSpace";
       };
-      terminal = "${pkgs.wezterm}/bin/wezterm";
-      plugins = with pkgs; [
-        rofi-emoji-wayland
-      ];
+      terminal = "${getExe pkgs.wezterm}";
       font = "Noto Sans";
       theme = ./theme.rasi;
     };
 
     home.packages = with pkgs; [
-      # Needed for rofi-emoji
+      # Needed for rofimoji
       wtype
-      wl-clipboard
       # Needed for drun icons
       papirus-icon-theme
     ];
+
+    xdg.configFile."rofimoji.rc".source = ./rofimoji.rc;
   };
 }

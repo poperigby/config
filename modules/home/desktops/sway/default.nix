@@ -85,6 +85,7 @@ in
       nautilus
       pwvucontrol
       slurp
+      wl-clipboard
     ];
 
     custom = {

@@ -83,7 +83,7 @@ in
 
         ## Pickers
         # Emoji
-        "${mod}+period" = "exec ${menu} -modi emoji -show emoji";
+        "${mod}+period" = "exec ${getExe pkgs.rofimoji}";
         # Clipboard history
         "${mod}+slash" = # bash
           ''
