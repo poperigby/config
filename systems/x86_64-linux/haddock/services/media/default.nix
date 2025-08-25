@@ -1,5 +1,8 @@
 { config, ... }:
 
+let
+  qbittorrent = config.services.qbittorrent;
+in
 {
   imports = [
     ./arr.nix
@@ -24,38 +27,13 @@
     accessibleFrom = [
       "192.168.1.0/24"
     ];
-    portMappings =
-      let
-        qbittorrent = config.services.qbittorrent;
-      in
-      [
-        # Make web UIs accessible on the bridge interface
-        {
-          # qBittorrent
-          from = qbittorrent.webuiPort;
-          to = qbittorrent.webuiPort;
-        }
-        {
-          # Prowlarr
-          from = 9696;
-          to = 9696;
-        }
-        {
-          # Radarr
-          from = 7878;
-          to = 7878;
-        }
-        {
-          # Readarr
-          from = 8787;
-          to = 8787;
-        }
-        {
-          # Sonarr
-          from = 8989;
-          to = 8989;
-        }
-      ];
+    # Make qBittorrent web UI accessible on the bridge interface
+    portMappings = [
+      {
+        from = qbittorrent.webuiPort;
+        to = qbittorrent.webuiPort;
+      }
+    ];
   };
 
   sops = {

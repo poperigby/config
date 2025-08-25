@@ -2,6 +2,7 @@
 
 {
   imports = [
+    # ./moonfire.nix
     ./auditd.nix
     ./auth
     ./binaryCache.nix
@@ -17,13 +18,12 @@
     ./mealie.nix
     ./media
     ./miniflux.nix
-    # ./moonfire.nix
     ./postgresql.nix
     ./prusalink.nix
-    ./rustical.nix
     ./redis.nix
+    ./rustical.nix
     ./scrutiny.nix
-    ./silverbullet.nix
+    ./trilium.nix
     ./vikunja.nix
   ];
 

@@ -18,6 +18,7 @@
           "/var/lib/immich"
           "/var/lib/jellyfin"
           "/var/lib/karakeep"
+          "/var/lib/lidarr"
           "/var/lib/lldap"
           "/var/lib/mealie"
           "/var/lib/minecraft/*/world"
@@ -27,8 +28,8 @@
           "/var/lib/radarr"
           "/var/lib/readarr"
           "/var/lib/rustical"
-          "/var/lib/silverbullet"
           "/var/lib/sonarr"
+          "/var/lib/trilium"
           "/var/lib/vikunja"
         ];
       };

@@ -12,6 +12,12 @@ in
       group = "media";
     };
 
+    # Automatically grab music
+    lidarr = {
+      enable = true;
+      group = "media";
+    };
+
     # Manage indexers and sync them with *arr apps
     prowlarr.enable = true;
 
@@ -42,6 +48,10 @@ in
           import auth
           reverse_proxy :${toString config.services.bazarr.listenPort}
         '';
+        "music.haddock.cc".extraConfig = ''
+          import auth
+          reverse_proxy ${namespaceAddress}:8686
+        '';
         "indexers.haddock.cc".extraConfig = ''
           import auth
           reverse_proxy ${namespaceAddress}:9696
@@ -61,7 +71,48 @@ in
       };
   };
 
+  vpnNamespaces.proton = {
+    portMappings = [
+      # Make web UIs accessible on the bridge interface
+      {
+        # Lidarr
+        from = 8686;
+        to = 8686;
+      }
+      {
+        # Prowlarr
+        from = 9696;
+        to = 9696;
+      }
+      {
+        # Radarr
+        from = 7878;
+        to = 7878;
+      }
+      {
+        # Readarr
+        from = 8787;
+        to = 8787;
+      }
+      {
+        # Sonarr
+        from = 8989;
+        to = 8989;
+      }
+    ];
+  };
+
   systemd.services = {
+    lidarr = {
+      environment = {
+        LIDARR__AUTH__REQUIRED = "True";
+        LIDARR__AUTH__METHOD = "External";
+      };
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = netns;
+      };
+    };
     prowlarr = {
       environment = {
         PROWLARR__AUTH__REQUIRED = "True";
