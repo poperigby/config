@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   cfg = config.services.trilium-server;
@@ -8,7 +8,6 @@ in
   services = {
     trilium-server = {
       enable = true;
-      package = pkgs.trilium-next-server;
       instanceName = "Haddock";
     };
     caddy.virtualHosts.${domain}.extraConfig = ''

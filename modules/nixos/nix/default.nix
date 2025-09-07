@@ -24,7 +24,6 @@ in
         experimental-features = [
           "flakes"
           "nix-command"
-          "repl-flake"
         ];
         # Only allow users in the `wheel` group to access Nix
         allowed-users = [ "@wheel" ];

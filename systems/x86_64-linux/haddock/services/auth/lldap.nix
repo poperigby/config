@@ -14,12 +14,13 @@ in
       settings = {
         ldap_base_dn = "dc=haddock,dc=cc";
         ldap_user_email = "admin@haddock.cc";
+        ldap_user_pass_file = config.sops.secrets."haddock/lldap/admin_password".path;
+        force_ldap_user_pass_reset = "always";
         database_url = "postgresql://lldap@localhost/lldap?host=/run/postgresql";
       };
       environment = {
         LLDAP_JWT_SECRET_FILE = config.sops.secrets."haddock/lldap/jwt_secret".path;
         LLDAP_KEY_SEED_FILE = config.sops.secrets."haddock/lldap/key_seed".path;
-        LLDAP_LDAP_USER_PASS_FILE = config.sops.secrets."haddock/lldap/admin_password".path;
       };
     };
     caddy.virtualHosts."users.haddock.cc".extraConfig = ''
