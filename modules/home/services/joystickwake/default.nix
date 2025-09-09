@@ -28,7 +28,7 @@ in
         ExecStart = getExe pkgs.joystickwake;
         Restart = "on-failure";
       };
-      Install.WantedBy = [ "graphical.target" ];
+      Install.WantedBy = [ "graphical-session.target" ];
     };
   };
 }
