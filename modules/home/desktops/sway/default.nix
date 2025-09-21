@@ -51,6 +51,7 @@ in
             bg = mkIf (gui.wallpaper != null) "${gui.wallpaper} fill";
             adaptive_sync = mkIf gui.vrr "on";
             max_render_time = mkIf gui.vrr "1";
+            color_profile = mkIf (gui.colorProfileFile != null) "icc ${gui.colorProfileFile}";
           };
         };
         modifier = "Mod4";

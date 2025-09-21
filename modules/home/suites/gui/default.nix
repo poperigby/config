@@ -46,6 +46,11 @@ in
       default = null;
       description = "The path to a wallpaper you want to use.";
     };
+    colorProfileFile = mkOption {
+      type = nullOr path;
+      default = null;
+      description = "Path to an ICC file to use for color calibration.";
+    };
   };
 
   config = mkIf cfg.enable {

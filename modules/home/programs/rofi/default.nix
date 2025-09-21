@@ -20,7 +20,6 @@ in
   config = mkIf cfg.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
       extraConfig = {
         # Commands
         ssh-command = "{terminal} ssh {host}";

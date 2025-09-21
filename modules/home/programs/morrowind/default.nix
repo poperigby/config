@@ -26,7 +26,7 @@ in
       groundcoverify
       (openmw-dev.overrideAttrs { tweakedWaterShader = true; })
       openmw-validator
-      plox
+      # plox
     ];
 
     xdg.desktopEntries."org.openmw.launcher" = {

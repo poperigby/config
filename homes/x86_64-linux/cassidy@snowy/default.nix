@@ -19,6 +19,7 @@ in
         refreshRate = 165;
         vrr = true;
         wallpaper = ./wallpaper.jpg;
+        colorProfileFile = ./gigabyte_m27q.icc;
       };
     };
     services.ludusavi.settings = {
