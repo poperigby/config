@@ -6,6 +6,13 @@
     ## Official inputs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     ## Extra inputs
+    cosmic-manager = {
+      url = "github:HeitorAugustoLN/cosmic-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
     crowdsec = {
       url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
       inputs.nixpkgs.follows = "nixpkgs";

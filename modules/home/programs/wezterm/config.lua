@@ -1,4 +1,4 @@
--- Pull in the wezterm API
+-- Pull in the WezTerm API
 local wezterm = require("wezterm")
 
 -- This table will hold the configuration.

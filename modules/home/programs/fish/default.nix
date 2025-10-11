@@ -38,8 +38,8 @@ in
             ${getExe pkgs.nix-your-shell} fish | source
 
             # Keybinds
-            bind \ce 'yy; commandline -f repaint'
-            bind \cg ${getExe pkgs.lazygit}
+            bind ctrl-e 'yy; commandline -f repaint'
+            bind ctrl-g ${getExe pkgs.lazygit}
           '';
       };
       # Setting fish as our default shell causes some issues. Instead, automatically launch fish
