@@ -23,23 +23,23 @@ in
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
       description = "Cassidy Wilson";
-      extraGroups =
-        [
-          "wheel"
-        ]
-        ++ optionals android [
-          "adbusers"
-        ]
-        ++ optionals gui [
-          "wireshark"
-        ]
-        ++ optionals printing [
-          # Rootless CUPS
-          "lp"
-        ]
-        ++ optionals virtualization [
-          "libvirtd"
-        ];
+      extraGroups = [
+        "wheel"
+      ]
+      ++ optionals android [
+        "adbusers"
+      ]
+      ++ optionals gui [
+        "i2c"
+        "wireshark"
+      ]
+      ++ optionals printing [
+        # Rootless CUPS
+        "lp"
+      ]
+      ++ optionals virtualization [
+        "libvirtd"
+      ];
     };
 
     # Tell Home Manager information about the user

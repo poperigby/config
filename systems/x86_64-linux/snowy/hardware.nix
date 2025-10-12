@@ -31,9 +31,10 @@ in
   };
 
   hardware = {
-    enableRedistributableFirmware = true;
-    xpadneo.enable = true;
     amdgpu.overdrive.enable = true;
+    enableRedistributableFirmware = true;
+    i2c.enable = true;
+    xpadneo.enable = true;
   };
 
   systemd.tmpfiles.rules = [
