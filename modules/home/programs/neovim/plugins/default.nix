@@ -15,7 +15,7 @@
     ./lualine.nix
     ./luasnip.nix
     ./markview.nix
-    ./noice.nix
+    ./notify.nix
     ./otter.nix
     ./telescope.nix
     ./todo-comments.nix
