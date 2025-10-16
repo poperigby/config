@@ -8,12 +8,14 @@
     ./dap.nix
     ./fidget.nix
     ./gruvbox.nix
+    ./hardtime.nix
     ./highlight-colors.nix
     ./img-clip.nix
     ./lspconfig.nix
     ./lualine.nix
     ./luasnip.nix
     ./markview.nix
+    ./noice.nix
     ./otter.nix
     ./telescope.nix
     ./todo-comments.nix
