@@ -88,81 +88,81 @@ in
           rev = "v0.6.0";
           hash = "sha256-mtXl76a54Deg4cyrD0wr++sD/5b/kCsnJ+ngM6OokTc=";
         };
+        starship = pkgs.yaziPlugins.starship;
       };
       keymap = {
-        mgr.prepend_keymap =
-          [
-            # Ouch archive manager
-            {
-              on = [ "C" ];
-              run = "plugin ouch --args=zip";
-              desc = "Compress with ouch";
-            }
-            # Yamb bookmark manager
-            {
-              on = [
-                "u"
-                "a"
-              ];
-              run = "plugin yamb --args=save";
-              desc = "Add bookmark";
-            }
-            {
-              on = [
-                "u"
-                "g"
-              ];
-              run = "plugin yamb --args=jump_by_key";
-              desc = "Jump bookmark by key";
-            }
-            {
-              on = [
-                "u"
-                "G"
-              ];
-              run = "plugin yamb --args=jump_by_fzf";
-              desc = "Jump bookmark by fzf";
-            }
-            {
-              on = [
-                "u"
-                "d"
-              ];
-              run = "plugin yamb --args=delete_by_key";
-              desc = "Delete bookmark by key";
-            }
-            {
-              on = [
-                "u"
-                "D"
-              ];
-              run = "plugin yamb --args=delete_by_fzf";
-              desc = "Delete bookmark by fzf";
-            }
-            {
-              on = [
-                "u"
-                "A"
-              ];
-              run = "plugin yamb --args=delete_all";
-              desc = "Delete all bookmarks";
-            }
-            {
-              on = [
-                "u"
-                "r"
-              ];
-              run = "plug";
-            }
-          ]
-          ++ optionals gui [
-            # Enable mapping for ripdrag if GUI is enabled
-            {
-              on = [ "<C-n>" ];
-              run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
-              description = "Open ripdrag for dragging and dropping";
-            }
-          ];
+        mgr.prepend_keymap = [
+          # Ouch archive manager
+          {
+            on = [ "C" ];
+            run = "plugin ouch --args=zip";
+            desc = "Compress with ouch";
+          }
+          # Yamb bookmark manager
+          {
+            on = [
+              "u"
+              "a"
+            ];
+            run = "plugin yamb --args=save";
+            desc = "Add bookmark";
+          }
+          {
+            on = [
+              "u"
+              "g"
+            ];
+            run = "plugin yamb --args=jump_by_key";
+            desc = "Jump bookmark by key";
+          }
+          {
+            on = [
+              "u"
+              "G"
+            ];
+            run = "plugin yamb --args=jump_by_fzf";
+            desc = "Jump bookmark by fzf";
+          }
+          {
+            on = [
+              "u"
+              "d"
+            ];
+            run = "plugin yamb --args=delete_by_key";
+            desc = "Delete bookmark by key";
+          }
+          {
+            on = [
+              "u"
+              "D"
+            ];
+            run = "plugin yamb --args=delete_by_fzf";
+            desc = "Delete bookmark by fzf";
+          }
+          {
+            on = [
+              "u"
+              "A"
+            ];
+            run = "plugin yamb --args=delete_all";
+            desc = "Delete all bookmarks";
+          }
+          {
+            on = [
+              "u"
+              "r"
+            ];
+            run = "plug";
+          }
+        ]
+        ++ optionals gui [
+          # Enable mapping for ripdrag if GUI is enabled
+          {
+            on = [ "<C-n>" ];
+            run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
+            description = "Open ripdrag for dragging and dropping";
+          }
+        ];
       };
     };
 

@@ -35,3 +35,5 @@ require("yamb"):setup {
     path = (ya.target_family() == "windows" and os.getenv("APPDATA") .. "\\yazi\\config\\bookmark") or
         (os.getenv("HOME") .. "/.config/yazi/bookmark"),
 }
+
+require("starship"):setup()
