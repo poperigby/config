@@ -5,6 +5,8 @@ let
   inherit (pkgs) fetchFromGitHub;
 in
 {
+  imports = [ ./cosmic.nix ];
+
   custom = {
     # desktops.sway.enable = true;
     suites = {

@@ -21,13 +21,16 @@ in
   options.custom.programs.morrowind.enable = mkEnableOption "OpenMW and modding tools";
 
   config = mkIf cfg.enable {
-    home.packages = with inputs.openmw-nix.packages.${system}; [
-      delta-plugin
-      groundcoverify
-      (openmw-dev.overrideAttrs { tweakedWaterShader = true; })
-      openmw-validator
-      # plox
-    ];
+    home.packages =
+      (with inputs.openmw-nix.packages.${system}; [
+        delta-plugin
+        groundcoverify
+        openmw-validator
+        # plox
+      ])
+      ++ (with pkgs; [
+        openmw
+      ]);
 
     xdg.desktopEntries."org.openmw.launcher" = {
       name = "OpenMW Launcher";
@@ -39,9 +42,7 @@ in
           # https://modding-openmw.com/tips/performance/#os-gpu-specific-tips
           export OSG_VERTEX_BUFFER_HINT="VERTEX_BUFFER_OBJECT"
 
-          ${getExe' pkgs.mangohud "mangohud"} ${
-            getExe' inputs.openmw-nix.packages.${system}.openmw-dev "openmw-launcher"
-          }
+          ${getExe' pkgs.mangohud "mangohud"} ${getExe' pkgs.openmw "openmw-launcher"}
         ''
       );
       icon = "openmw";
