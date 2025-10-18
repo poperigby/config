@@ -51,7 +51,7 @@ in
         };
         notifier.smtp = {
           address = "smtp://smtp.mailbox.org:587";
-          username = "poperigby@mailbox.org";
+          username = config.privateInfo.poperigby.email;
           sender = "haddock@mailbox.org";
         };
         log.level = "info";

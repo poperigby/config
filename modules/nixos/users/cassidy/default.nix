@@ -22,7 +22,7 @@ in
     users.users.cassidy = {
       isNormalUser = true;
       hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
-      description = "Cassidy Wilson";
+      description = config.privateInfo.cassidy.name;
       extraGroups = [
         "wheel"
       ]

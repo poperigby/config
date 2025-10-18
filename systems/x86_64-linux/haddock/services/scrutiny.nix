@@ -39,9 +39,14 @@ in
 
   sops = {
     templates.scrutiny-secrets = {
-      content = with config.sops.placeholder; ''
-        SCRUTINY_NOTIFY_URLS="smtp://poperigby@mailbox.org:${smtp-password_scrutiny}@smtp.mailbox.org:587/?from=haddock@mailbox.org&to=poperigby@mailbox.org"
-      '';
+      content =
+        let
+          email = config.privateInfo.poperigby.email;
+        in
+        with config.sops.placeholder;
+        ''
+          SCRUTINY_NOTIFY_URLS="smtp://${email}:${smtp-password_scrutiny}@smtp.mailbox.org:587/?from=haddock@mailbox.org&to=${email}"
+        '';
       owner = "scrutiny";
     };
     secrets = {

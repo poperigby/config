@@ -16,7 +16,7 @@ in
       ];
       hash = "sha256-g/Nmi4X/qlqqjY/zoG90iyP5Y5fse6Akr8exG5Spf08=";
     };
-    email = "poperigby@mailbox.org";
+    email = config.privateInfo.poperigby.email;
     globalConfig = ''
       acme_dns porkbun {
           api_key {env.PORKBUN_API_KEY}

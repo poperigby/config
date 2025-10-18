@@ -11,6 +11,7 @@ let
     ;
 
   cfg = config.custom.services.postfix;
+  email = config.privateInfo.poperigby.email;
   postfix = config.services.postfix;
 in
 {
@@ -44,7 +45,7 @@ in
         sender_canonical_maps = "static:haddock@mailbox.org";
       };
       # Forward root email to my personal email address
-      rootAlias = "poperigby@mailbox.org";
+      rootAlias = email;
     };
 
     sops = {
@@ -56,7 +57,7 @@ in
               smtpPassword = config.sops.placeholder.smtp-password_postfix;
             in
             ''
-              ${toString postfix.settings.main.relayhost} poperigby@mailbox.org:${smtpPassword}
+              ${toString postfix.settings.main.relayhost} ${email}:${smtpPassword}
             '';
         };
       };

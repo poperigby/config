@@ -22,12 +22,12 @@ in
       email.accounts.cassidy = rec {
         primary = true;
 
-        realName = "PopeRigby";
-        address = "poperigby@mailbox.org";
+        realName = config.privateInfo.poperigby.name;
+        address = config.privateInfo.poperigby.email;
         aliases = [
           {
-            realName = "Cassidy Wilson";
-            address = "cassidyw@mailbox.org";
+            realName = config.privateInfo.cassidy.name;
+            address = config.privateInfo.cassidy.email;
           }
         ];
         passwordCommand = "cat ${config.sops.secrets."common/users/cassidy/email/password".path}";

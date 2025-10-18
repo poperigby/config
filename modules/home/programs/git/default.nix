@@ -10,7 +10,7 @@ in
     programs.git = {
       enable = true;
       userName = "PopeRigby";
-      userEmail = "poperigby@mailbox.org";
+      userEmail = config.privateInfo.poperigby.email;
       lfs.enable = true;
       # Makes diffs easier to read
       difftastic.enable = true;

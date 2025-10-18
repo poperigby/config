@@ -139,10 +139,13 @@
           # ];
         };
         modules.nixos = [
-          # inputs.private-config.nixosModules.privateCconfig
+          inputs.private-config.nixosModules.private-info
           inputs.private-config.nixosModules.secrets
         ];
       };
-      homes.modules = [ inputs.private-config.homeModules.secrets ];
+      homes.modules = [
+        inputs.private-config.homeModules.private-info
+        inputs.private-config.homeModules.secrets
+      ];
     };
 }
