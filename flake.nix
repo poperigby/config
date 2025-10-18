@@ -143,5 +143,6 @@
           inputs.private-config.nixosModules.secrets
         ];
       };
+      homes.modules = [ inputs.private-config.homeModules.secrets ];
     };
 }

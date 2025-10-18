@@ -44,7 +44,6 @@ in
         };
       };
       security = {
-        secrets.enable = true;
         opkssh = {
           enable = true;
           settings = {
