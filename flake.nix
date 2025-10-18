@@ -64,6 +64,10 @@
       url = "git+https://codeberg.org/PopeRigby/piggyback.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    private-config = {
+      url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -134,6 +138,10 @@
           #   nixos-raspberrypi.nixosModules.trusted-nix-caches
           # ];
         };
+        modules.nixos = [
+          # inputs.private-config.nixosModules.privateCconfig
+          inputs.private-config.nixosModules.secrets
+        ];
       };
     };
 }

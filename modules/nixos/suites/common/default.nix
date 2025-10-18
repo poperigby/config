@@ -35,7 +35,6 @@ in
         smartd.enable = true;
       };
       security = {
-        secrets.enable = true;
         sudo.enable = true;
       };
       system = {
