@@ -34,6 +34,7 @@ in
         fish.enable = true;
         git.enable = true;
         gpg.enable = true;
+        jujutsu.enable = true;
         neovim.enable = true;
         starship.enable = true;
         tealdeer.enable = true;

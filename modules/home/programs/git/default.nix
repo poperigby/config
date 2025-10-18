@@ -1,12 +1,17 @@
 { config, lib, ... }:
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.git;
 in
 {
-  options.custom.programs.git.enable = lib.mkEnableOption "Enable git";
+  options.custom.programs.git.enable = mkEnableOption "Enable git";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.git = {
       enable = true;
       userName = "PopeRigby";
