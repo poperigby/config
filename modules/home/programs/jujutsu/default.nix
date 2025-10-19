@@ -15,8 +15,10 @@ in
     programs.jujutsu = {
       enable = true;
       settings = {
-        name = config.privateInfo.poperigby.name;
-        email = config.privateInfo.poperigby.email;
+        user = {
+          name = config.privateInfo.poperigby.name;
+          email = config.privateInfo.poperigby.email;
+        };
       };
     };
   };
