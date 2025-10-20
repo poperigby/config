@@ -40,6 +40,7 @@ in
             # Keybinds
             bind ctrl-e 'yy; commandline -f repaint'
             bind ctrl-g ${getExe pkgs.lazygit}
+            bind ctrl-j ${getExe pkgs.lazyjj}
           '';
       };
       # Setting fish as our default shell causes some issues. Instead, automatically launch fish
