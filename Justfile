@@ -14,15 +14,14 @@ debug:
 check:
     nix flake check
 
-# Update the flake.lock, check if it still works, and add it to the git index
+# Update the flake.lock
 update +input="":
     nix flake update {{input}}
 
 # Update the flake.lock, and rebuild the system
 upgrade +input="":
     nix flake update {{input}}
-    # Only stage the flake if the switch succeeds
-    nh os switch . && git add flake.*
+    nh os switch
 
 # Pull from the repository remote and rebuild
 sync:
