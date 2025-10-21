@@ -19,6 +19,9 @@ in
           name = config.privateInfo.poperigby.name;
           email = config.privateInfo.poperigby.email;
         };
+        ui = {
+          default-command = [ "status" ];
+        };
         aliases = {
           tug = [
             "util"
