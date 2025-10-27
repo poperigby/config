@@ -2,6 +2,7 @@
 
 let
   inherit (lib)
+    getExe
     mkEnableOption
     mkIf
     ;
@@ -21,6 +22,11 @@ in
         };
         ui = {
           default-command = [ "status" ];
+          diff-editor = [
+            (getExe config.programs.neovim.finalPackage)
+            "-c"
+            "DiffEditor $left $right $output"
+          ];
         };
         aliases = {
           tug = [
