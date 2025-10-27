@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
@@ -33,16 +38,25 @@ in
             "util"
             "exec"
             "--"
-            "sh"
-            "-c"
-            ''
-              if [ "x$1" = "x" ]; then
-                jj bookmark move --from "closest_bookmark(@)" --to "closest_pushable(@)"
-              else
-                jj bookmark move --to "closest_pushable(@)" "$@"
-              fi
-            ''
-            ""
+            (getExe (
+              pkgs.writeShellScriptBin "tug" ''
+                if [ "x$1" = "x" ]; then
+                  jj bookmark move --from "closest_bookmark(@)" --to "closest_pushable(@)"
+                else
+                  jj bookmark move --to "closest_pushable(@)" "$@"
+                fi
+              ''
+            ))
+          ];
+          push = [
+            "util"
+            "exec"
+            "--"
+            (getExe (
+              pkgs.writeShellScriptBin "push" ''
+                jj tug && jj git push
+              ''
+            ))
           ];
         };
         revset-aliases = {
