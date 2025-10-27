@@ -1,12 +1,25 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
+  inherit (lib)
+    concatStrings
+    getExe
+    mkEnableOption
+    mkIf
+    ;
+
   cfg = config.custom.programs.starship;
+  tomlFormat = pkgs.formats.toml { };
 in
 {
-  options.custom.programs.starship.enable = lib.mkEnableOption "Enable Starship prompt";
+  options.custom.programs.starship.enable = mkEnableOption "Enable Starship prompt";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
       settings = {
@@ -14,13 +27,14 @@ in
         # Don't print a new line at the start of the prompt
         add_newline = false;
         # Left prompt
-        format = lib.concatStrings [
+        format = concatStrings [
           "$directory"
           "$shlvl"
           "$git_branch"
           "$git_commit"
           "$git_state"
           "$git_status"
+          "\${custom.jj}"
           "$jobs"
           "$status"
           "$container"
@@ -29,7 +43,7 @@ in
           "$character"
         ];
         # Right prompt
-        right_format = lib.concatStrings [
+        right_format = concatStrings [
           "$hostname"
         ];
 
@@ -59,6 +73,19 @@ in
           stashed = "*";
           style = "bold yellow";
         };
+        custom.jj = {
+          command = "prompt";
+          format = "$output";
+          ignore_timeout = true;
+          shell = [
+            (getExe pkgs.custom.starship-jj)
+            "--ignore-working-copy"
+            "starship"
+          ];
+          use_stdin = false;
+          when = true;
+
+        };
         nix_shell = {
           format = "[$symbol]($style)";
           symbol = "󱄅 ";
@@ -78,6 +105,89 @@ in
           style = "yellow";
         };
       };
+    };
+
+    xdg.configFile."starship-jj/starship-jj.toml".source = tomlFormat.generate "starship-jj.toml" {
+      "$schema" = "https://gitlab.com/Lanastara/lanastara_foss/-/raw/v0.3.0/schema.json?ref_type=tags";
+
+      # Text that will be printed between each Module.
+      module_separator = " ";
+
+      # Controls whether colors are reset at the end of output.
+      # Try this if your prompt displays a blank space at the end.
+      # reset_color = true;
+
+      # Timeout after which the process is terminated.
+      # timeout = 1000;
+
+      # Controls the behaviour of the bookmark finding algorithm.
+      bookmarks = {
+        # Controls how far we are looking back to find bookmarks.
+        exclude = [ ];
+        # search_depth = 0;
+      };
+
+      module = [
+        {
+          # Prints information about bookmarks in the working copies ancestors.
+          type = "Bookmarks";
+          separator = " ";
+          color = "Magenta";
+          behind_symbol = "⇡";
+          # max_bookmarks = 1;
+          # max_length = 10;
+          surround_with_quotes = false;
+        }
+
+        {
+          # Prints a warning if the working copy contains any conflicts, is divergent or hidden
+          type = "State";
+          separator = " ";
+
+          conflict = {
+            text = "(CONFLICT)";
+            color = "Red";
+            # bg_color = "Yellow";
+          };
+
+          divergent = {
+            text = "(DIVERGENT)";
+            color = "Cyan";
+            # bg_color = "Yellow";
+          };
+
+          hidden = {
+            text = "(HIDDEN)";
+            color = "Yellow";
+            # bg_color = "Yellow";
+          };
+
+          immutable = {
+            disabled = false;
+            text = "(IMMUTABLE)";
+            color = "Yellow";
+          };
+
+          empty = {
+            disabled = false;
+            text = "(EMPTY)";
+            color = "Yellow";
+          };
+        }
+        {
+          # Prints the amount of changes in the working copy
+          type = "Metrics";
+          color = "Yellow";
+          template = "[{changed}]";
+
+          changed_files = {
+            # suffix = "";
+            # prefix = "";
+            color = "Cyan";
+            # bg_color = "Yellow";
+          };
+        }
+      ];
     };
   };
 }
