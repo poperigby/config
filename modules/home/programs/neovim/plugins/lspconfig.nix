@@ -53,7 +53,12 @@
                       "--pch-storage=memory",
                   },
               },
-              harper_ls = {},
+              harper_ls = {
+                  linters = {
+                      SentenceCapitalization = false,
+                      SpellCheck = false
+                  }
+              },
               jsonls = {},
               lua_ls = {
                   settings = {
