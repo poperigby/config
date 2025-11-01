@@ -13,10 +13,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    crowdsec = {
-      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -80,6 +76,7 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     # Temporary inputs for unmerged PRs
     rustical.url = "github:poperigby/nixpkgs/rustical-module";
+    crowdsec-firewall-bouncer.url = "github:nicomem/nixpkgs/crowdsec-firewall-bouncer-module";
   };
 
   # This function is run on `nixos-rebuild switch`, and generates NixOS systems
@@ -113,14 +110,13 @@
           ];
           # Home server
           haddock.modules = with inputs; [
-            crowdsec.nixosModules.crowdsec
-            crowdsec.nixosModules.crowdsec-firewall-bouncer
+            "${crowdsec-firewall-bouncer}/nixos/modules/services/security/crowdsec-firewall-bouncer.nix"
+            "${rustical}/nixos/modules/services/networking/rustical.nix"
             disko.nixosModules.disko
             flux.nixosModules.default
             nix-minecraft.nixosModules.minecraft-servers
-            vpn-confinement.nixosModules.default
-            "${rustical}/nixos/modules/services/networking/rustical.nix"
             ucodenix.nixosModules.ucodenix
+            vpn-confinement.nixosModules.default
           ];
           # Desktop
           snowy.modules = with inputs; [
