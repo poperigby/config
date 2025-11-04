@@ -2,6 +2,7 @@ local map = vim.keymap.set
 
 -- Yank to system regular clipboard
 map("v", "<C-c>", '"+y', { desc = "Yank to system clipboard" })
+map("v", "<C-a>", '"+yG', { desc = "Yank file contents to system clipboard" })
 
 -- Quick buffer switching
 map("n", "<Leader><Tab>", ":bn<CR>", { desc = "Move to next buffer" })
