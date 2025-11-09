@@ -2,14 +2,14 @@
 
 {
     imports = [
-        ./autopairs.nix
         ./blink.nix
         ./comment.nix
         ./dap.nix
         ./fidget.nix
         ./gruvbox.nix
-        ./hunk.nix
+        ./hardtime.nix
         ./highlight-colors.nix
+        ./hunk.nix
         ./img-clip.nix
         ./lspconfig.nix
         ./lualine.nix
@@ -17,6 +17,7 @@
         ./markview.nix
         ./notify.nix
         ./otter.nix
+        ./pairs.nix
         ./telescope.nix
         ./todo-comments.nix
         ./toggleterm.nix
@@ -29,7 +30,6 @@
 
     # Plugins that require no configuration
     programs.neovim.plugins = with pkgs.vimPlugins; [
-        dressing-nvim
         helpview-nvim
         mkdir-nvim
         none-ls-nvim
