@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-    programs.neovim.plugins = [
+    programs.neovim.plugins = with pkgs.vimPlugins; [
         {
-            plugin = pkgs.vimPlugins.blink-cmp;
+            plugin = blink-cmp;
             type = "lua";
             config = # lua
                 ''

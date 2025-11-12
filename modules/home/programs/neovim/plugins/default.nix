@@ -2,7 +2,7 @@
 
 {
     imports = [
-        ./blink.nix
+        ./cmp.nix
         ./comment.nix
         ./dap.nix
         ./fidget.nix
@@ -11,6 +11,7 @@
         ./highlight-colors.nix
         ./hunk.nix
         ./img-clip.nix
+        ./indent.nix
         ./lspconfig.nix
         ./lualine.nix
         ./luasnip.nix
