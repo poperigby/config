@@ -25,21 +25,28 @@ in
                     "flakes"
                     "nix-command"
                 ];
+
                 # Only allow users in the `wheel` group to access Nix
                 allowed-users = [ "@wheel" ];
+
                 # Extra binary caches
                 substituters = [
-                    # "https://cache.haddock.cc"
                     "https://nix-community.cachix.org"
+                    "https://devenv.cachix.org"
                 ];
+
                 trusted-public-keys = [
                     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                    "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
                 ];
+
                 use-xdg-base-directories = true;
             };
+
             # Every day, detects files in the store that have identical contents,
             # and replaces them with hard links to a single copy.
-            # See here for why this is done daily instead of constantly: https://github.com/NixOS/nix/issues/6033
+            # See here for why this is done daily instead of constantly:
+            # https://github.com/NixOS/nix/issues/6033
             optimise.automatic = true;
         };
 
