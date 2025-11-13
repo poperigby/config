@@ -16,9 +16,9 @@
         ./lualine.nix
         ./luasnip.nix
         ./markview.nix
-        ./notify.nix
         ./otter.nix
         ./pairs.nix
+        ./snacks.nix
         ./telescope.nix
         ./todo-comments.nix
         ./toggleterm.nix
