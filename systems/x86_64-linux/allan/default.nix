@@ -14,12 +14,15 @@
             printing.enable = true;
             scanning.enable = true;
         };
+
         services = {
             backups = {
                 enable = true;
                 paths = [ ];
             };
+
             geolocation.enable = true;
+
             illuminanced = {
                 enable = true;
                 settings = {
@@ -64,10 +67,12 @@
                 };
             };
         };
+
         suites = {
             common.enable = true;
             gui.enable = true;
         };
+
         desktops.cosmic.enable = true;
         system.boot.secureBoot = true;
         users.cassidy.enable = true;
@@ -81,8 +86,6 @@
 
     # Automatically change timezone based on location
     services.automatic-timezoned.enable = true;
-
-    virtualisation.docker.enable = true;
 
     # Power saving
     services.thermald.enable = true;
@@ -109,6 +112,6 @@
 
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-    # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+    # System state version
     system.stateVersion = "23.11";
 }

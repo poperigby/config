@@ -2,7 +2,6 @@
 
 {
     custom = {
-        desktops.sway.enable = true;
         suites = {
             common.enable = true;
             gui = {
