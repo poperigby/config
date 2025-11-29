@@ -7,6 +7,7 @@
         ./dap.nix
         ./fidget.nix
         ./gruvbox.nix
+        ./hex.nix
         ./hardtime.nix
         ./highlight-colors.nix
         ./hunk.nix
