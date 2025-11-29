@@ -74,6 +74,7 @@ in
             tenacity
             tor-browser
             ungoogled-chromium
+            wl-clipboard-rs
         ];
 
         # Generate $XDG_CONFIG_HOME/mimeapps.list for setting default applications
