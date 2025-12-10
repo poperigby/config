@@ -58,9 +58,9 @@
                                 ["harper-ls"] = {
                                     linters = {
                                         SentenceCapitalization = false,
-                                        SpellCheck = false
-                                    }
-                                }
+                                        SpellCheck = false,
+                                    },
+                                },
                             },
                         },
                         jsonls = {},
@@ -103,9 +103,7 @@
                                 yaml = {
                                     schemaStore = {
                                         -- Must disable built-in schemaStore support to use SchemaStore.nvim
-                                        -- and its advanced options like `ignore`.
                                         enable = false,
-                                        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
                                         url = "",
                                     },
                                     schemas = require('schemastore').yaml.schemas(),

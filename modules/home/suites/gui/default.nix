@@ -69,7 +69,7 @@ in
             bottles
             gimp3
             inkscape
-            onlyoffice-desktopeditors
+            libreoffice
             signal-desktop
             tenacity
             tor-browser

@@ -47,13 +47,12 @@ in
                     yaml-language-server
                     slint-lsp
                 ];
-                extraLuaConfig = # lua
-                    ''
-                        require("options")
-                        require("misc")
-                        require("mappings")
-                        require("filetype")
-                    '';
+                extraLuaConfig = ''
+                    require("options")
+                    require("misc")
+                    require("mappings")
+                    require("filetype")
+                '';
             };
         };
 
@@ -65,8 +64,8 @@ in
         };
 
         xdg = {
-            # Symlink Neovim config to ~/.config/nvim/lua
-            configFile."nvim/lua" = {
+            # Symlink Neovim config to ~/.config/nvim
+            configFile."nvim" = {
                 source = ./config;
                 recursive = true;
             };
