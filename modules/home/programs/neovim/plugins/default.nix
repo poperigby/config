@@ -18,6 +18,7 @@
         ./markview.nix
         ./otter.nix
         ./pairs.nix
+        ./rustaceanvim.nix
         ./snacks.nix
         ./telescope.nix
         ./todo-comments.nix
@@ -27,6 +28,7 @@
         ./ufo.nix
         ./which-key.nix
         ./yazi.nix
+        ./notify.nix
     ];
 
     # Plugins that require no configuration

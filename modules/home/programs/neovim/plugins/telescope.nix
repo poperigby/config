@@ -5,35 +5,49 @@
         {
             plugin = telescope-nvim;
             type = "lua";
-            config = ''
-                require("telescope").setup()
-                require("telescope").load_extension("fzf")
-                require("telescope").load_extension("ui-select")
+            config = # lua
+                ''
+                    local telescope = require("telescope")
+                    local builtin = require("telescope.builtin")
 
-                local builtin = require("telescope.builtin")
-                require("which-key").add({
-                    {
-                        "<Leader>fb",
-                        builtin.buffers,
-                        desc = "Explore buffers",
-                    },
-                    {
-                        "<Leader>fd",
-                        builtin.diagnostics,
-                        desc = "Explore diagnostics",
-                    },
-                    {
-                        "<Leader>fg",
-                        builtin.live_grep,
-                        desc = "Search in files",
-                    },
-                    {
-                        "<Leader>fo",
-                        builtin.oldfiles,
-                        desc = "Explore previously opened files",
-                    },
-                })
-            '';
+                    telescope.setup()
+                    telescope.load_extension("fzf")
+                    telescope.load_extension("ui-select")
+                    telescope.load_extension("notify")
+
+                    require("which-key").add({
+                        {
+                            "<Leader>tt",
+                            ":Telescope<CR>",
+                            desc = "Launch Telescope"
+                        },
+                        {
+                            "<Leader>tb",
+                            builtin.buffers,
+                            desc = "Explore buffers"
+                        },
+                        {
+                            "<Leader>td",
+                            builtin.diagnostics,
+                            desc = "Explore diagnostics"
+                        },
+                        {
+                            "<Leader>tg",
+                            builtin.live_grep,
+                            desc = "Search in files"
+                        },
+                        {
+                            "<Leader>to",
+                            builtin.oldfiles,
+                            desc = "Explore previously opened files"
+                        },
+                        {
+                            "<Leader>tn",
+                            telescope.extensions.notify.notify,
+                            desc = "Explore notification history"
+                        },
+                    })
+                '';
         }
 
         nvim-web-devicons
