@@ -34,7 +34,8 @@
 
                     dap.adapters = {
                         codelldb = {
-                            executable = "${codelldb}",
+                            type = "executable",
+                            command = "${codelldb}",
                         },
                         coreclr = {
                             type = "executable",
