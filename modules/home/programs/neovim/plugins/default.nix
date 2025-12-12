@@ -18,7 +18,6 @@
         ./markview.nix
         ./otter.nix
         ./pairs.nix
-        ./rustaceanvim.nix
         ./snacks.nix
         ./telescope.nix
         ./todo-comments.nix

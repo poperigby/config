@@ -20,13 +20,16 @@
                         TEST = "cargo build --tests -q --message-format=json",
                         BIN = "cargo build -q --message-format=json"
                     }
+
                     local function runCargoBuild(type)
                         local lines = vim.fn.systemlist(type)
                         local output = table.concat(lines, "\n")
-                        local filename = output:match('^.*"executable":"(.*)",.*\n.*,"success":true}$')
+
+                        local filename = output:match('"executable":"(.-)"')
 
                         if filename == nil then
-                            return error("failed to build cargo project")
+                            vim.notify("Cargo build failed:\n" .. output, vim.log.levels.ERROR)
+                            error("Cargo build failed, see message above")
                         end
 
                         return filename

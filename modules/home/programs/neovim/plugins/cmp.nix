@@ -8,6 +8,12 @@
             config = # lua
                 ''
                     require("blink-cmp").setup({
+                        enabled = function()
+                            local exclude = {
+                                "dap-repl"
+                            }
+                            return not vim.tbl_contains(exclude, vim.bo.filetype)
+                        end,
                         keymap = {
                             preset = "enter",
                             ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
