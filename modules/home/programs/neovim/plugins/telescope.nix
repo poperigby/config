@@ -10,7 +10,16 @@
                     local telescope = require("telescope")
                     local builtin = require("telescope.builtin")
 
-                    telescope.setup()
+                    telescope.setup({
+                        defaults = {
+                            sorting_strategy = "ascending",
+                            prompt_prefix = "   ",
+                            selection_caret = " ",
+                            layout_config = {
+                                prompt_position = "top",
+                            },
+                        }
+                    })
                     telescope.load_extension("fzf")
                     telescope.load_extension("ui-select")
                     telescope.load_extension("notify")

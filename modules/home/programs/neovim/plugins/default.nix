@@ -12,7 +12,7 @@
         ./hunk.nix
         ./img-clip.nix
         ./indent.nix
-        ./lspconfig.nix
+        ./lsp.nix
         ./lualine.nix
         ./luasnip.nix
         ./markview.nix

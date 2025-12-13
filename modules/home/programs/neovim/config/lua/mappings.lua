@@ -1,3 +1,5 @@
+local telescope = require("telescope.builtin")
+
 require("which-key").add({
     {
         "<C-c>",
@@ -44,12 +46,22 @@ require("which-key").add({
     },
     {
         "<Space>m",
-        vim.lsp.buf.references,
+        telescope.lsp_references,
         desc = "List all the references to the symbol"
+    },
+    {
+        "<Space>e",
+        telescope.diagnostics,
+        desc = "Show diagnostics",
     },
     {
         "<Space>h",
         vim.lsp.buf.hover,
         desc = "Show hover information about the symbol"
     },
+    {
+        "<Space>s",
+        telescope.lsp_document_symbols,
+        desc = "Show document symbols"
+    }
 })

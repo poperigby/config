@@ -102,7 +102,6 @@
                             settings = {
                                 yaml = {
                                     schemaStore = {
-                                        -- Must disable built-in schemaStore support to use SchemaStore.nvim
                                         enable = false,
                                         url = "",
                                     },
