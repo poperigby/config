@@ -96,6 +96,10 @@
                                     check = {
                                         command = "clippy",
                                     },
+                                    cargo = {
+                                        -- Make rust-analyzer use the system target directory
+                                        targetDir = true,
+                                    }
                                 },
                             },
                         },

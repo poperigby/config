@@ -132,6 +132,9 @@ in
                 syu = "systemctl --user";
                 yt = getExe pkgs.yt-dlp;
             };
+            sessionVariables = {
+                CARGO_TARGET_DIR = "${config.xdg.cacheHome}/cargo/target";
+            };
         };
 
         colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-medium;
