@@ -23,7 +23,7 @@
                             } },
                             lualine_b = { "branch", { "diagnostics", sources = { "nvim_diagnostic" } } },
                             lualine_c = { "filename" },
-                            lualine_x = { "fileformat", "filetype" },
+                            lualine_x = { "searchcount", "fileformat", "filetype" },
                             lualine_y = { "progress" },
                             lualine_z = { "location" },
                         },
