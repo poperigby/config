@@ -87,6 +87,8 @@
     # Automatically change timezone based on location
     services.automatic-timezoned.enable = true;
 
+    virtualisation.docker.enable = true;
+
     # Power saving
     services.thermald.enable = true;
     # services.auto-cpufreq = {
