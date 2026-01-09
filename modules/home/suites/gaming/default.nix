@@ -1,72 +1,72 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
+    config,
+    lib,
+    pkgs,
+    ...
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    optionals
-    ;
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        optionals
+        ;
 
-  cfg = config.custom.suites.gaming;
-  bethesda = config.custom.suites.gaming.bethesda;
+    cfg = config.custom.suites.gaming;
+    bethesda = config.custom.suites.gaming.bethesda;
 in
 {
-  options.custom.suites.gaming = {
-    enable = mkEnableOption "various programs/tweaks for gaming";
-    bethesda = mkEnableOption "various programs for Bethesda games";
-  };
-
-  config = mkIf cfg.enable {
-    custom = {
-      programs = {
-        # MangoHUD, for monitoring hardware and software during gameplay
-        mangohud.enable = true;
-        morrowind.enable = bethesda;
-      };
-      services = {
-        # For backing up games
-        ludusavi.enable = true;
-        # Keep screen from going to sleep when using gamepad
-        joystickwake.enable = true;
-      };
+    options.custom.suites.gaming = {
+        enable = mkEnableOption "various programs/tweaks for gaming";
+        bethesda = mkEnableOption "various programs for Bethesda games";
     };
 
-    # Packages
-    home.packages =
-      with pkgs;
-      [
-        protontricks
-        # For GOG and Epic Games 🤢
-        heroic
-        # For managing compatibility tools
-        protonplus
-        # For limiting FPS
-        libstrangle
-        # Doom
-        doomrunner
-        gzdoom
-        # Quake
-        vkquake
-        # Minecraft
-        prismlauncher
-        gpu-screen-recorder-gtk
-        # Emulators
-        shadps4
-      ]
-      ++ optionals bethesda [
-        limo
-      ];
+    config = mkIf cfg.enable {
+        custom = {
+            programs = {
+                # MangoHUD, for monitoring hardware and software during gameplay
+                mangohud.enable = true;
+                morrowind.enable = bethesda;
+            };
+            services = {
+                # For backing up games
+                ludusavi.enable = true;
+                # Keep screen from going to sleep when using gamepad
+                joystickwake.enable = true;
+            };
+        };
 
-    home.sessionVariables = {
-      # Let GZDoom know where IWADs are
-      DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
+        # Packages
+        home.packages =
+            with pkgs;
+            [
+                protontricks
+                # For GOG and Epic Games 🤢
+                heroic
+                # For managing compatibility tools
+                protonplus
+                # For limiting FPS
+                libstrangle
+                # Doom
+                doomrunner
+                gzdoom
+                # Quake
+                vkquake
+                # Minecraft
+                prismlauncher
+                gpu-screen-recorder-gtk
+                # Emulators
+                shadps4
+            ]
+            ++ optionals bethesda [
+                limo
+            ];
+
+        home.sessionVariables = {
+            # Let GZDoom know where IWADs are
+            DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
+        };
+
+        xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
     };
-
-    xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
-  };
 }

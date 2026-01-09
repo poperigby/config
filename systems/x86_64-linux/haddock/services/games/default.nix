@@ -1,11 +1,11 @@
 { inputs, ... }:
 
 {
-  imports = [
-    # ./insurgency.nix
-    ./minecraft
-  ];
+    imports = [
+        # ./insurgency.nix
+        ./minecraft
+    ];
 
-  flux.enable = true;
-  nixpkgs.overlays = [ inputs.flux.overlays.default ];
+    flux.enable = true;
+    nixpkgs.overlays = [ inputs.flux.overlays.default ];
 }

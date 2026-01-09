@@ -1,14 +1,14 @@
 {
-  pkgs,
-  mkShell,
-  ...
+    pkgs,
+    mkShell,
+    ...
 }:
 
 mkShell {
-  packages = with pkgs; [
-    # Command runner
-    just
-    # Nix language server
-    nil
-  ];
+    packages = with pkgs; [
+        # Command runner
+        just
+        # Nix language server
+        nil
+    ];
 }

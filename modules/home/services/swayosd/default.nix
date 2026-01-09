@@ -1,19 +1,19 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    ;
+    inherit (lib)
+        mkEnableOption
+        mkIf
+        ;
 
-  cfg = config.custom.services.swayosd;
+    cfg = config.custom.services.swayosd;
 in
 {
-  options.custom.services.swayosd.enable = mkEnableOption "SwayOSD";
+    options.custom.services.swayosd.enable = mkEnableOption "SwayOSD";
 
-  config = mkIf cfg.enable {
-    services.swayosd = {
-      enable = true;
+    config = mkIf cfg.enable {
+        services.swayosd = {
+            enable = true;
+        };
     };
-  };
 }

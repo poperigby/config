@@ -1,6 +1,6 @@
 {
-  imports = [
-    ./authelia.nix
-    ./lldap.nix
-  ];
+    imports = [
+        ./authelia.nix
+        ./lldap.nix
+    ];
 }

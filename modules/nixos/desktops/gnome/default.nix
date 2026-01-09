@@ -1,32 +1,32 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
+    config,
+    lib,
+    pkgs,
+    ...
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+    inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.custom.desktops.gnome;
+    cfg = config.custom.desktops.gnome;
 in
 {
-  options.custom.desktops.gnome = {
-    enable = mkEnableOption "GNOME Desktop";
-  };
-
-  config = mkIf cfg.enable {
-    services = {
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      # For system tray icons
-      udev.packages = [ pkgs.gnome-settings-daemon ];
+    options.custom.desktops.gnome = {
+        enable = mkEnableOption "GNOME Desktop";
     };
 
-    # Extensions
-    environment.systemPackages = with pkgs.gnomeExtensions; [
-      # For system tray icons
-      appindicator
-    ];
-  };
+    config = mkIf cfg.enable {
+        services = {
+            displayManager.gdm.enable = true;
+            desktopManager.gnome.enable = true;
+            # For system tray icons
+            udev.packages = [ pkgs.gnome-settings-daemon ];
+        };
+
+        # Extensions
+        environment.systemPackages = with pkgs.gnomeExtensions; [
+            # For system tray icons
+            appindicator
+        ];
+    };
 }

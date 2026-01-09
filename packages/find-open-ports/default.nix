@@ -1,16 +1,16 @@
 {
-  lib,
-  pkgs,
-  ...
+    lib,
+    pkgs,
+    ...
 }:
 
 lib.custom.createShellScript {
-  inherit pkgs;
+    inherit pkgs;
 
-  pname = "find-open-ports";
-  src = ./script.sh;
-  deps = with pkgs; [
-    gawk
-    iproute2
-  ];
+    pname = "find-open-ports";
+    src = ./script.sh;
+    deps = with pkgs; [
+        gawk
+        iproute2
+    ];
 }

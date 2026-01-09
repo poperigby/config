@@ -1,16 +1,16 @@
 { pkgs, ... }:
 
 {
-  custom = {
-    suites = {
-      common.enable = true;
+    custom = {
+        suites = {
+            common.enable = true;
+        };
     };
-  };
 
-  # For CrowdSec
-  programs.fish.shellAliases.cs = "sudo cscli";
+    # For CrowdSec
+    programs.fish.shellAliases.cs = "sudo cscli";
 
-  home.packages = with pkgs; [
-    custom.find-open-ports
-  ];
+    home.packages = with pkgs; [
+        custom.find-open-ports
+    ];
 }

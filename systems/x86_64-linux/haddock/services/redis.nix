@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  services.redis.servers.haddock.enable = true;
+    services.redis.servers.haddock.enable = true;
 }

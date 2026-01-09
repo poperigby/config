@@ -1,16 +1,16 @@
 { inputs, ... }:
 
 {
-  imports = [
-    inputs.cosmic-manager.homeManagerModules.cosmic-manager
-  ];
+    imports = [
+        inputs.cosmic-manager.homeManagerModules.cosmic-manager
+    ];
 
-  wayland.desktopManager.cosmic = {
-    enable = true;
+    wayland.desktopManager.cosmic = {
+        enable = true;
 
-  };
+    };
 
-  programs = {
-    cosmic-ext-calculator.enable = true;
-  };
+    programs = {
+        cosmic-ext-calculator.enable = true;
+    };
 }

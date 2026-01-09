@@ -1,30 +1,30 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
+    config,
+    lib,
+    pkgs,
+    ...
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+    inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.custom.programs.gpg;
+    cfg = config.custom.programs.gpg;
 in
 {
-  options.custom.programs.gpg.enable = mkEnableOption "GnuPG";
+    options.custom.programs.gpg.enable = mkEnableOption "GnuPG";
 
-  config = mkIf cfg.enable {
-    programs.gpg = {
-      enable = true;
-      mutableKeys = false;
-      mutableTrust = false;
-    };
+    config = mkIf cfg.enable {
+        programs.gpg = {
+            enable = true;
+            mutableKeys = false;
+            mutableTrust = false;
+        };
 
-    services.gpg-agent = {
-      enable = true;
-      pinentry.package = pkgs.pinentry-gnome3;
-      # Cache for 1 year
-      maxCacheTtl = 31536000;
+        services.gpg-agent = {
+            enable = true;
+            pinentry.package = pkgs.pinentry-gnome3;
+            # Cache for 1 year
+            maxCacheTtl = 31536000;
+        };
     };
-  };
 }
