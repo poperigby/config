@@ -54,10 +54,14 @@
                             },
                         },
                         harper_ls = {
-                            linters = {
-                                SentenceCapitalization = false,
-                                SpellCheck = false
-                            }
+                            settings = {
+                                ["harper-ls"] = {
+                                    linters = {
+                                        SentenceCapitalization = false,
+                                        SpellCheck = false
+                                    }
+                                }
+                            },
                         },
                         jsonls = {},
                         lua_ls = {
@@ -72,7 +76,15 @@
                                 },
                             },
                         },
-                        nixd = {},
+                        nixd = {
+                            settings = {
+                                nixd = {
+                                    formatting = {
+                                        command = { "nixfmt", "--indent=4" },
+                                    }
+                                }
+                            }
+                        },
                         pyright = {},
                         rust_analyzer = {
                             settings = {

@@ -8,7 +8,6 @@
         ./dap.nix
         ./fidget.nix
         ./gruvbox.nix
-        ./hardtime.nix
         ./hunk.nix
         ./highlight-colors.nix
         ./img-clip.nix
