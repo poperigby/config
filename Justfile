@@ -21,7 +21,7 @@ update +input="":
 # Update the flake.lock, and rebuild the system
 upgrade +input="":
     nix flake update {{input}}
-    nh os switch
+    nh os switch .
 
 # Pull from the repository remote and rebuild
 sync:
