@@ -92,6 +92,7 @@ in
                 binsider
                 caligula
                 delta
+                devenv
                 dmidecode
                 doggo
                 dust
