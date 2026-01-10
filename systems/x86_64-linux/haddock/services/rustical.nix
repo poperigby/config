@@ -1,10 +1,13 @@
 {
     config,
+    lib,
     pkgs,
     ...
 }:
 
 let
+    inherit (lib) mkForce;
+
     cfg = config.services.rustical;
 in
 {
@@ -32,6 +35,16 @@ in
         '';
     };
 
+    users = {
+        users.rustical = {
+            isSystemUser = true;
+            group = "rustical";
+        };
+        groups.rustical = { };
+    };
+
+    systemd.services.rustical.serviceConfig.DynamicUser = mkForce false;
+
     sops = {
         templates.rustical-secrets = {
             content = # bash
@@ -41,7 +54,7 @@ in
                         config.sops.placeholder."haddock/rustical/oidc_client_secret/rustical"
                     }" 
                 '';
-            owner = cfg.user;
+            owner = "rustical";
         };
         secrets = {
             rustical-oidc-client-id_rustical = {
