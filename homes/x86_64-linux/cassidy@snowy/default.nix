@@ -70,8 +70,9 @@ in
     ];
 
     home.packages = with pkgs; [
-        pkgsRocm.blender
         er-patcher
+        graphite
+        pkgsRocm.blender
     ];
 
     home.file.morrowindBlenderPlugin = {

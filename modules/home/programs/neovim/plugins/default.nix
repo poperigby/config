@@ -31,24 +31,12 @@
     ];
 
     # Plugins that require no configuration
-    programs.neovim.plugins =
-        with pkgs.vimPlugins;
-        [
-            helpview-nvim
-            mkdir-nvim
-            none-ls-nvim
-            nvim-ts-autotag
-            vim-zscript
-        ]
-        ++ (with pkgs.vimUtils; [
-            (buildVimPlugin {
-                name = "fluent-vim";
-                src = pkgs.fetchFromGitHub {
-                    owner = "projectfluent";
-                    repo = "fluent.vim";
-                    rev = "master";
-                    hash = "sha256-tOYxOUKa6Zn2Yq5peqGDEdCkpl+b+VKkSmZx7+kHZJ0=";
-                };
-            })
-        ]);
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+        helpview-nvim
+        mkdir-nvim
+        none-ls-nvim
+        nvim-ts-autotag
+        vim-zscript
+        fluent-vim
+    ];
 }
