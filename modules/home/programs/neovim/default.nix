@@ -47,7 +47,7 @@ in
                     yaml-language-server
                     slint-lsp
                 ];
-                extraLuaConfig = ''
+                initLua = ''
                     require("options")
                     require("misc")
                     require("mappings")

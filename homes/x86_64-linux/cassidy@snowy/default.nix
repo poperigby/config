@@ -73,6 +73,7 @@ in
         er-patcher
         graphite
         pkgsRocm.blender
+        custom.hytale
     ];
 
     home.file.morrowindBlenderPlugin = {
