@@ -70,10 +70,11 @@ in
     ];
 
     home.packages = with pkgs; [
+        custom.hytale
         er-patcher
         graphite
         pkgsRocm.blender
-        custom.hytale
+        r2modman
     ];
 
     home.file.morrowindBlenderPlugin = {

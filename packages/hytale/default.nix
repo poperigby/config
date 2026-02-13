@@ -10,7 +10,7 @@
 }:
 
 let
-    version = "2026.02.03-6e80ea9";
+    version = "2026.02.06-b95ae53";
 
     # TODO: add icon once a stable versioned source is available
     desktopItem = makeDesktopItem {
@@ -23,16 +23,13 @@ let
         startupWMClass = "com.hypixel.HytaleLauncher";
     };
 
-    sources = {
-        x86_64-linux = {
-            url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-${version}.zip";
-            hash = "sha256-Fh7uE7o+7+OZRzjBpNTxpzAITHWlNmYonZiAhO5yfmk=";
-        };
+    src.x86_64-linux = {
+        url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-${version}.zip";
+        hash = "sha256-FaBmlLUkMIW252gaLP4ixoP3HNNVnXe4x0YP/2jUf6M=";
     };
 
     currentSource =
-        sources.${stdenv.hostPlatform.system}
-            or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+        src.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
     unwrapped = stdenv.mkDerivation {
         pname = "hytale-launcher-unwrapped";
