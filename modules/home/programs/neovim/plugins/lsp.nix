@@ -109,6 +109,9 @@
                         yamlls = {
                             settings = {
                                 yaml = {
+                                    format = {
+                                        enable = false,
+                                    },
                                     schemaStore = {
                                         -- Must disable built-in schemaStore support to use SchemaStore.nvim
                                         -- and its advanced options like `ignore`.

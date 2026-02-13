@@ -14,6 +14,34 @@ in
                 type = "postgres";
                 host = "127.0.0.1:5432";
             };
+            settings = {
+                service = {
+                    interface = ":${toString cfg.port}";
+                    publicurl = "${cfg.frontendScheme}://${cfg.frontendHostname}/";
+                    timezone = "America/Los_Angeles";
+                    # Increase time until user is logged out to 3 months
+                    jwtttl = 7889400;
+                };
+                files = {
+                    basepath = "/var/lib/vikunja/files";
+                };
+                auth = {
+                    # We only want to use OIDC
+                    local.enabled = false;
+                    openid = {
+                        enabled = true;
+                        # redirecturl = "https://${cfg.frontendHostname}/auth/openid/";
+                        providers = [
+                            {
+                                name = "Authelia";
+                                authurl = "https://auth.haddock.cc";
+                                clientid.file = config.sops.secrets.vikunja-oidc-client-id_vikunja.path;
+                                clientsecret.file = config.sops.secrets."haddock/vikunja/oidc_client_secret/vikunja".path;
+                            }
+                        ];
+                    };
+                };
+            };
         };
         caddy.virtualHosts.${domain}.extraConfig = ''
             import auth
@@ -27,40 +55,6 @@ in
                 resources = [ "/api.*" ];
             }
         ];
-    };
-
-    # We need to do this because Vikunja doesn't support setting OpenID secrets with environment variables
-    # https://kolaente.dev/vikunja/vikunja/issues/881
-    environment.etc."vikunja/config.yaml".source =
-        lib.mkForce config.sops.templates.vikunja-config.path;
-    sops.templates.vikunja-config = {
-        content = # yaml
-            ''
-                service:
-                    interface: ":${toString cfg.port}"
-                    frontendurl: "${cfg.frontendScheme}://${cfg.frontendHostname}/"
-                    timezone: "America/Los_Angeles"
-                    # Increase time until user is logged out to 3 months
-                    jwtttl: 7889400
-                database:
-                    type: "${cfg.database.type}"
-                    host: "${cfg.database.host}"
-                files:
-                    basepath: "/var/lib/vikunja/files"
-                auth:
-                    local:
-                        # We only want to use OIDC
-                        enabled: false
-                    openid:
-                        enabled: true
-                        redirecturl: "https://${cfg.frontendHostname}/auth/openid/"
-                        providers:
-                          - name: "Authelia"
-                            authurl: "https://auth.haddock.cc"
-                            clientid: "${config.sops.placeholder.vikunja-oidc-client-id_vikunja}"
-                            clientsecret: "${config.sops.placeholder."haddock/vikunja/oidc_client_secret/vikunja"}"
-            '';
-        owner = "vikunja";
     };
 
     systemd.services.vikunja =

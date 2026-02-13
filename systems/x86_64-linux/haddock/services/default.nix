@@ -8,7 +8,7 @@
         ./binaryCache.nix
         ./caddy.nix
         ./clamav.nix
-        ./crowdsec.nix
+        # ./crowdsec.nix
         ./ddns.nix
         ./findMyDeviceServer.nix
         ./forgejoActions.nix

@@ -92,3 +92,7 @@ identity_providers:
         authorization_policy: "one_factor"
         redirect_uris:
           - "https://tasks.haddock.cc/auth/openid/authelia"
+        scopes:
+          - "openid"
+          - "email"
+          - "profile"
