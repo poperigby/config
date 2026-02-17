@@ -28,6 +28,7 @@ in
         programs.yazi = {
             enable = true;
             enableFishIntegration = true;
+            shellWrapperName = "yy";
             theme = fromTOML (readFile ./theme.toml);
             initLua = ./init.lua;
             settings = {

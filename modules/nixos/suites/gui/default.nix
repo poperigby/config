@@ -26,7 +26,7 @@ in
         };
 
         programs.wireshark.enable = true;
-        environment.systemPackages = with pkgs; [ wireshark-qt ];
+        environment.systemPackages = with pkgs; [ wireshark ];
 
         # Show desktop notifications for system bus
         services.systembus-notify.enable = true;

@@ -33,7 +33,7 @@ in
                 # Shows thumbnails in timeline (integrates with UOSC)
                 thumbfast
                 # Keybinding cheat sheet
-                mpv-cheatsheet
+                mpv-cheatsheet-ng
                 # Allows controlling MPV through the MPRIS API
                 mpris
             ];

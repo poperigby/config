@@ -39,6 +39,7 @@
             url = "github:nix-community/nix-index-database";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
         nix-minecraft = {
             url = "github:Infinidoge/nix-minecraft";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -132,14 +133,16 @@
                     #   nixos-raspberrypi.nixosModules.trusted-nix-caches
                     # ];
                 };
-                modules.nixos = [
-                    inputs.private-config.nixosModules.private-info
-                    inputs.private-config.nixosModules.secrets
+                modules.nixos = with inputs; [
+                    nix-flatpak.nixosModules.nix-flatpak
+                    private-config.nixosModules.private-info
+                    private-config.nixosModules.secrets
                 ];
             };
-            homes.modules = [
-                inputs.private-config.homeModules.private-info
-                inputs.private-config.homeModules.secrets
+            homes.modules = with inputs; [
+                "${nix-flatpak}/modules/home-manager.nix"
+                private-config.homeModules.private-info
+                private-config.homeModules.secrets
             ];
         };
 }

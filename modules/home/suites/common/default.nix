@@ -44,6 +44,7 @@ in
                     default = true;
                 };
             };
+            services.lspmux.enable = true;
             security = {
                 opkssh = {
                     enable = true;
@@ -106,7 +107,7 @@ in
                 nix-init
                 nixfmt
                 nurl
-                ouch
+                (ouch.override { enableUnfree = true; })
                 parted
                 pciutils
                 rename
