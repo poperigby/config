@@ -38,23 +38,23 @@
         suites = {
             common.enable = true;
         };
-        security.opkssh = {
-            enable = true;
-            providers = [
-                {
-                    issuer = "https://auth.haddock.cc";
-                    clientId = "opkssh";
-                    expiration = "oidc";
-                }
-            ];
-            authorizedIdentities = [
-                {
-                    user = "cassidy";
-                    identity = "cb283dd6-3e06-459f-81ac-76afcf0cfa6b";
-                    issuer = "https://auth.haddock.cc";
-                }
-            ];
-        };
+        # security.opkssh = {
+        #     enable = true;
+        #     providers = [
+        #         {
+        #             issuer = "https://auth.haddock.cc";
+        #             clientId = "opkssh";
+        #             expiration = "oidc";
+        #         }
+        #     ];
+        #     authorizedIdentities = [
+        #         {
+        #             user = "cassidy";
+        #             identity = "cb283dd6-3e06-459f-81ac-76afcf0cfa6b";
+        #             issuer = "https://auth.haddock.cc";
+        #         }
+        #     ];
+        # };
         users = {
             cassidy.enable = true;
             julian.enable = true;
@@ -82,6 +82,10 @@
             AllowTcpForwarding = false;
             PermitTunnel = false;
         };
+        extraConfig = ''
+            Match Address 192.168.1.0/24
+                PasswordAuthentication yes  
+        '';
     };
 
     networking.useDHCP = true;
