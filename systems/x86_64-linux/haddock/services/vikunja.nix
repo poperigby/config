@@ -30,15 +30,13 @@ in
                     local.enabled = false;
                     openid = {
                         enabled = true;
-                        # redirecturl = "https://${cfg.frontendHostname}/auth/openid/";
-                        providers = [
-                            {
-                                name = "Authelia";
-                                authurl = "https://auth.haddock.cc";
-                                clientid.file = config.sops.secrets.vikunja-oidc-client-id_vikunja.path;
-                                clientsecret.file = config.sops.secrets."haddock/vikunja/oidc_client_secret/vikunja".path;
-                            }
-                        ];
+                        providers.authelia = {
+                            name = "Authelia";
+                            authurl = "https://auth.haddock.cc";
+                            clientid.file = config.sops.secrets.vikunja-oidc-client-id_vikunja.path;
+                            clientsecret.file = config.sops.secrets."haddock/vikunja/oidc_client_secret/vikunja".path;
+                            scope = "openid profile email";
+                        };
                     };
                 };
             };
