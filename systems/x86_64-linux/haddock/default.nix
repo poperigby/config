@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
     imports = [
@@ -38,23 +38,6 @@
         suites = {
             common.enable = true;
         };
-        # security.opkssh = {
-        #     enable = true;
-        #     providers = [
-        #         {
-        #             issuer = "https://auth.haddock.cc";
-        #             clientId = "opkssh";
-        #             expiration = "oidc";
-        #         }
-        #     ];
-        #     authorizedIdentities = [
-        #         {
-        #             user = "cassidy";
-        #             identity = "cb283dd6-3e06-459f-81ac-76afcf0cfa6b";
-        #             issuer = "https://auth.haddock.cc";
-        #         }
-        #     ];
-        # };
         users = {
             cassidy.enable = true;
             julian.enable = true;
@@ -87,6 +70,10 @@
                 PasswordAuthentication yes  
         '';
     };
+
+    # Required to allow local password authentication
+    # https://github.com/NixOS/nixpkgs/issues/12867
+    security.pam.services.sshd.unixAuth = lib.mkForce true;
 
     networking.useDHCP = true;
 
