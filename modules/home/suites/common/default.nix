@@ -45,29 +45,6 @@ in
                 };
             };
             services.lspmux.enable = true;
-            security = {
-                opkssh = {
-                    enable = true;
-                    settings = {
-                        default_provider = "authelia";
-                        providers = [
-                            {
-                                alias = "authelia";
-                                issuer = "https://auth.haddock.cc";
-                                client_id = "opkssh";
-                                scopes = "openid offline_access";
-                                access_type = "offline";
-                                prompt = "consent";
-                                redirect_uris = [
-                                    "http://localhost:3000/login-callback"
-                                    "http://localhost:10001/login-callback"
-                                    "http://localhost:11110/login-callback"
-                                ];
-                            }
-                        ];
-                    };
-                };
-            };
         };
         programs = {
             eza.enable = true;
