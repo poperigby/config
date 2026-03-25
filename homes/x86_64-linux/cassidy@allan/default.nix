@@ -22,5 +22,8 @@
         users.cassidy.enable = true;
     };
 
-    home.packages = with pkgs; [ kdePackages.kdenlive ];
+    home.packages = with pkgs; [
+        kdePackages.kdenlive
+        openmw
+    ];
 }

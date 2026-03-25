@@ -1,7 +1,9 @@
 {
     config,
+    inputs,
     lib,
     pkgs,
+    system,
     ...
 }:
 
@@ -73,19 +75,16 @@ in
                     stashed = "*";
                     style = "bold yellow";
                 };
-                custom.jj = {
-                    command = "prompt";
-                    format = "$output";
-                    ignore_timeout = true;
-                    shell = [
-                        (getExe pkgs.custom.starship-jj)
-                        "--ignore-working-copy"
-                        "starship"
-                    ];
-                    use_stdin = false;
-                    when = true;
+                custom.jj =
+                    let
+                        jj-starship = getExe inputs.jj-starship.packages.${system}.jj-starship;
+                    in
+                    {
+                        when = "${jj-starship} detect";
+                        format = "$output ";
+                        shell = [ jj-starship ];
 
-                };
+                    };
                 nix_shell = {
                     format = "[$symbol]($style)";
                     symbol = "󱄅 ";

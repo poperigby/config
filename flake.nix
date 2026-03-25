@@ -25,6 +25,7 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        jj-starship.url = "github:dmmulroy/jj-starship";
         lanzaboote = {
             url = "github:nix-community/lanzaboote";
             inputs.nixpkgs.follows = "nixpkgs";
