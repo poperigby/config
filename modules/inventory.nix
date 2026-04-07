@@ -7,6 +7,9 @@
             allan = {
                 users.cassidy = { };
             };
+            snowy = {
+                users.cassidy = { };
+            };
         };
     };
 }

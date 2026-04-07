@@ -5,8 +5,11 @@ let
 in
 {
     den.default = {
+        includes = [ inputs.private-config.den.aspects.secrets ];
+
         nixos.system.stateVersion = stateVersion;
         homeManager.home.stateVersion = stateVersion;
+
     };
 
     # Enable home-manager by default
