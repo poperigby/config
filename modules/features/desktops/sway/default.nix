@@ -1,9 +1,7 @@
 { den, ... }:
 {
-  den.aspects.desktops.provides.sway-hm =
-    {
-      gui,
-    }:
+  den.aspects.desktops.provides.sway =
+    { gui ? { } }:
     {
       includes = [
         den.aspects.programs._.imv
@@ -15,11 +13,23 @@
 
         den.aspects.services._.clipboard
         den.aspects.services._.gammastep
-        (den.aspects.services._.swayidle { timeouts = gui.swayidleTimeouts or { lock = 1800; sleep = 3600; }; })
+        (den.aspects.services._.swayidle {
+          timeouts = gui.swayidleTimeouts or { lock = 1800; sleep = 3600; };
+        })
         den.aspects.services._.swaync
         den.aspects.services._.swayosd
         den.aspects.services._.udiskie
       ];
+
+      nixos = {
+        security = {
+          polkit.enable = true;
+          pam.services.swaylock = { };
+        };
+
+        programs.dconf.enable = true;
+        hardware.graphics.enable = true;
+      };
 
       homeManager =
         { config, lib, pkgs, ... }:

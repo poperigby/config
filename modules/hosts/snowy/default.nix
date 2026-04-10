@@ -137,7 +137,7 @@
                     };
                 })
 
-                (den.aspects.desktops._.sway-hm {
+                (den.aspects.desktops._.sway {
                     gui = {
                         resolution = "2560x1440";
                         scale = 1.0;
