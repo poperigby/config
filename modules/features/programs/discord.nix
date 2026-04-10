@@ -1,5 +1,7 @@
 { den, inputs, ... }:
 {
+  flake-file.inputs.nixcord.url = "github:kaylorben/nixcord";
+
   den.aspects.programs.provides.discord.homeManager =
     { ... }:
     {

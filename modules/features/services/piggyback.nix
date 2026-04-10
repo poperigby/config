@@ -1,5 +1,10 @@
 { den, inputs, ... }:
 {
+  flake-file.inputs.piggyback = {
+    url = "git+https://codeberg.org/PopeRigby/piggyback.git";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   den.aspects.services.provides.piggyback =
     {
       environmentFile,

@@ -1,5 +1,10 @@
 { den, inputs, ... }:
 {
+  flake-file.inputs.openmw-nix = {
+    url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   den.aspects.programs.provides.morrowind.homeManager =
     { pkgs, ... }:
     {

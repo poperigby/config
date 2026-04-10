@@ -1,5 +1,10 @@
 { den, inputs, ... }:
 {
+  flake-file.inputs.lanzaboote = {
+    url = "github:nix-community/lanzaboote";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   den.aspects.system.provides.boot =
     { secureBoot ? false }:
     {

@@ -6,65 +6,27 @@
         (inputs.den.flakeModules.dendritic or { })
     ];
 
-    # Minimum necessary inputs. Other flake inputs should be defined
-    # in the aspect where they are needed.
+    # Minimum necessary flake inputs. Feature-specific inputs should be declared
+    # in the module that uses them (flake-file will merge them into flake.nix).
     #
-    # Run `nix run .#write-flake` to regenerate the flake.nix
+    # Run `nix run .#write-flake` to regenerate flake.nix after changing inputs.
     flake-file.inputs = {
-        cosmic-manager = {
-            url = "github:HeitorAugustoLN/cosmic-manager";
-            inputs = {
-                nixpkgs.follows = "nixpkgs";
-                home-manager.follows = "home-manager";
-            };
+        nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+        nixpkgs-lib.follows = "nixpkgs";
+
+        flake-parts = {
+            url = "github:hercules-ci/flake-parts";
+            inputs.nixpkgs-lib.follows = "nixpkgs-lib";
         };
-        den.url = "github:vic/den";
+
+        import-tree.url = "github:vic/import-tree";
+
         flake-file.url = "github:vic/flake-file";
-        flux = {
-            url = "github:IogaMaster/flux";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        den.url = "github:vic/den";
+
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        jj-starship.url = "github:dmmulroy/jj-starship";
-        lanzaboote = {
-            url = "github:nix-community/lanzaboote";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        nix = {
-            url = "github:NixOS/nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        nix-colors.url = "github:misterio77/nix-colors";
-        nix-index-database = {
-            url = "github:nix-community/nix-index-database";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        nix-minecraft = {
-            url = "github:Infinidoge/nix-minecraft";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        nixcord.url = "github:kaylorben/nixcord";
-        nix-flatpak.url = "github:gmodena/nix-flatpak";
-        openmw-nix = {
-            url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        piggyback = {
-            url = "git+https://codeberg.org/PopeRigby/piggyback.git";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
-        rustical.url = "github:poperigby/nixpkgs/rustical-module";
-        sops-nix = {
-            url = "github:Mic92/sops-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        ucodenix = {
-            url = "github:e-tho/ucodenix";
-        };
-        vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     };
 }

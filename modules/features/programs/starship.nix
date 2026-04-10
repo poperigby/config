@@ -1,5 +1,7 @@
 { den, inputs, ... }:
 {
+  flake-file.inputs.jj-starship.url = "github:dmmulroy/jj-starship";
+
   den.aspects.programs.provides.starship.homeManager =
     { lib, pkgs, ... }:
     let

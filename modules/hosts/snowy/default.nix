@@ -5,6 +5,15 @@
     ...
 }:
 {
+    flake-file.inputs.cosmic-manager = {
+        url = "github:HeitorAugustoLN/cosmic-manager";
+        inputs = {
+            nixpkgs.follows = "nixpkgs";
+            home-manager.follows = "home-manager";
+        };
+    };
+    flake-file.inputs.nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     den.aspects.snowy = {
         includes = [
             den.aspects.suites._.common
