@@ -1,75 +1,202 @@
-{ ... }:
-
 {
-    imports = [
-        ./drives.nix
-        ./hardware.nix
-    ];
+    den,
+    lib,
+    inputs,
+    ...
+}:
+{
+    den.aspects.snowy = {
+        includes = [
+            den.aspects.suites._.common
+            den.aspects.suites._.gui
+            (den.aspects.suites._.gaming { })
 
-    custom = {
-        hardware = {
-            android.enable = true;
-            audio.enable = true;
-            bluetooth.enable = true;
-            corsair.enable = true;
-            printing.enable = true;
-            scanning.enable = true;
-        };
-        services = {
-            backups =
-                let
-                    cassidy = "/home/cassidy";
-                in
-                {
-                    enable = true;
-                    paths = [
+            (den.aspects.system._.boot { })
+            den.aspects.desktops._.cosmic
+
+            den.aspects.hardware._.android
+            den.aspects.hardware._.audio
+            den.aspects.hardware._.bluetooth
+            den.aspects.hardware._.corsair
+            den.aspects.hardware._.printing
+            den.aspects.hardware._.scanning
+
+            (den.aspects.services._.backups {
+                paths =
+                    let
+                        cassidy = "/home/cassidy";
+                    in
+                    [
                         "/home/*/.local/state/backups"
                         # Modding setups
                         "${cassidy}/Games/Modding"
                     ];
-                    exclude = [
+                exclude =
+                    let
+                        cassidy = "/home/cassidy";
+                    in
+                    [
                         "${cassidy}/Games/Modding/Games/*/_download/"
                     ];
+            })
+            den.aspects.services._.earlyoom
+            den.aspects.services._.geolocation
+            den.aspects.services._.virtualization
+            den.aspects.services._.virt-manager
+        ];
+
+        _.to-users.includes = [ den._.define-user ];
+
+        nixos = {
+            imports = [
+                ./_nixos/drives.nix
+                ./_nixos/hardware.nix
+            ];
+
+            time.timeZone = "America/Los_Angeles";
+
+            networking.networkmanager.enable = true;
+
+            services.lact.enable = true;
+            services.flatpak.enable = true;
+
+            services.openssh = {
+                enable = true;
+                settings = {
+                    # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
+                    PermitRootLogin = "no";
+                    MaxAuthTries = 3;
+                    PasswordAuthentication = false;
+                    PermitEmptyPasswords = false;
+                    ChallengeResponseAuthentication = false;
+                    PermitUserEnvironment = false;
+                    AllowAgentForwarding = false;
+                    AllowTcpForwarding = false;
+                    PermitTunnel = false;
                 };
-            earlyoom.enable = true;
-            geolocation.enable = true;
-            virtualization.enable = true;
+            };
+
+            virtualisation.docker.enable = true;
+
+            # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+            system.stateVersion = "23.11";
         };
-        suites = {
-            common.enable = true;
-            gaming.enable = true;
-            gui.enable = true;
+
+        provides.cassidy = {
+            includes = [
+                den.aspects.suites._.common-user
+                den.aspects.suites._.gui-user
+                (den.aspects.suites._.gaming-user { bethesda = true; })
+
+                den.aspects.programs._.thunderbird
+
+                (den.aspects.home-services._.ludusavi-config {
+                    settings = {
+                        manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
+                        roots = [
+                            {
+                                path = "~/.local/share/Steam";
+                                store = "steam";
+                            }
+                            {
+                                path = "~/.config/heroic";
+                                store = "heroic";
+                            }
+                            {
+                                path = "/mnt/ssd0/SteamLibrary";
+                                store = "steam";
+                            }
+                            {
+                                path = "/mnt/hdd0/SteamLibrary";
+                                store = "steam";
+                            }
+                        ];
+                        customGames = [
+                            {
+                                name = "OpenMW";
+                                files = [ "~/.local/share/openmw/saves" ];
+                            }
+                            {
+                                name = "GZDoom";
+                                files = [ "~/.config/gzdoom/savegames" ];
+                            }
+                        ];
+                        backup.path = "~/.local/state/backups/ludusavi";
+                        restore.path = "~/.local/state/backups/ludusavi";
+                    };
+                })
+
+                (den.aspects.desktops._.sway-hm {
+                    gui = {
+                        resolution = "2560x1440";
+                        scale = 1.0;
+                        refreshRate = 165;
+                        vrr = true;
+                        wallpaper = ./wallpaper.jpg;
+                        colorProfileFile = ./gigabyte_m27q.icc;
+                        swayidleTimeouts = {
+                            lock = 1800;
+                            sleep = 3600;
+                        };
+                    };
+                })
+            ];
+
+            homeManager =
+                { pkgs, ... }:
+                let
+                    inherit (lib) getExe;
+                    inherit (pkgs) fetchFromGitHub;
+                in
+                    {
+                        imports = [
+                            inputs.cosmic-manager.homeManagerModules.cosmic-manager
+                            inputs.nix-flatpak.homeManagerModules.nix-flatpak
+                        ];
+
+                    wayland.desktopManager.cosmic.enable = true;
+                    programs.cosmic-ext-calculator.enable = true;
+
+                    services.flatpak = {
+                        enable = true;
+                        uninstallUnmanaged = true;
+                        packages = [
+                            rec {
+                                appId = "com.hypixel.HytaleLauncher";
+                                sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
+                                bundle = "${pkgs.fetchurl {
+                                    url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
+                                    inherit sha256;
+                                }}";
+                            }
+                        ];
+                    };
+
+                    # Controls Corsair hardware
+                    wayland.windowManager.sway.config.startup = [
+                        {
+                            command = "${getExe pkgs.ckb-next} --background";
+                        }
+                    ];
+
+                    home.packages = with pkgs; [
+                        er-patcher
+                        graphite
+                        pkgsRocm.blender
+                        r2modman
+                    ];
+
+                    home.file.morrowindBlenderPlugin = {
+                        source = fetchFromGitHub {
+                            owner = "Greatness7";
+                            repo = "io_scene_mw";
+                            rev = "0.8.103";
+                            hash = "sha256-f1PgjSs6jU99oqEJgOwb/wX8gVW+2DNgS+kkeka/Mo0=";
+                        };
+                        target = ".config/blender/4.3/scripts/addons/io_scene_mw";
+                        recursive = true;
+                    };
+                };
         };
-        desktops.cosmic.enable = true;
-        users.cassidy.enable = true;
     };
-
-    time.timeZone = "America/Los_Angeles";
-
-    networking.networkmanager.enable = true;
-
-    services.lact.enable = true;
-
-    services.flatpak.enable = true;
-
-    services.openssh = {
-        enable = true;
-        settings = {
-            # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
-            PermitRootLogin = "no";
-            MaxAuthTries = 3;
-            PasswordAuthentication = false;
-            PermitEmptyPasswords = false;
-            ChallengeResponseAuthentication = false;
-            PermitUserEnvironment = false;
-            AllowAgentForwarding = false;
-            AllowTcpForwarding = false;
-            PermitTunnel = false;
-        };
-    };
-
-    virtualisation.docker.enable = true;
-
-    # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-    system.stateVersion = "23.11";
 }

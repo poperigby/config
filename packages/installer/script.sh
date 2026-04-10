@@ -42,10 +42,15 @@ fi
 
 # Ask which system to install
 echo "Which system would you like to install?"
-TARGET_HOST=$(ls -1 "$CONFIG_DIR/systems/x86_64-linux" | gum choose)
+TARGET_HOST=$(ls -1 "$CONFIG_DIR/modules/hosts" | gum choose)
 
 # Put the host's LUKS password in /tmp/luks_password if it uses LUKS
-if grep -q "luks" "$CONFIG_DIR/systems/x86_64-linux/$TARGET_HOST/drives.nix"; then
+DRIVES_FILE="$CONFIG_DIR/modules/hosts/$TARGET_HOST/_nixos/drives.nix"
+if [ ! -f "$DRIVES_FILE" ]; then
+    DRIVES_FILE="$CONFIG_DIR/modules/hosts/$TARGET_HOST/drives.nix"
+fi
+
+if [ -f "$DRIVES_FILE" ] && grep -q "luks" "$DRIVES_FILE"; then
     echo "Copying LUKS password to /tmp/luks_password"
     export SOPS_AGE_KEY_FILE=$AGE_KEY_FILE
     sops --decrypt --extract "['$TARGET_HOST']['luks_password']" "$CONFIG_DIR/secrets.yaml" > /tmp/luks_password

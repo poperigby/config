@@ -7,8 +7,25 @@
             allan = {
                 users.cassidy = { };
             };
+            calculus = {
+                users.shane = { };
+            };
+            haddock = {
+                users = {
+                    cassidy = { };
+                    julian = { };
+                    shane = { };
+                };
+            };
             snowy = {
                 users.cassidy = { };
+            };
+        };
+        x86_64-iso = {
+            skut = {
+                # Keep the host grouped under "iso", but evaluate as a normal Linux system.
+                system = "x86_64-linux";
+                class = "nixos";
             };
         };
     };
