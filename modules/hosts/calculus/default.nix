@@ -2,9 +2,9 @@
 {
     den.aspects.calculus = {
         includes = [
-            den.aspects.suites._.common
-            den.aspects.suites._.gui
-            (den.aspects.suites._.gaming { })
+            den.aspects.common
+            den.aspects.gui
+            den.aspects.gaming
 
             (den.aspects.system._.boot { })
             den.aspects.desktops._.gnome
@@ -30,9 +30,9 @@
 
         provides.shane = {
             includes = [
-                den.aspects.suites._.common-user
-                den.aspects.suites._.gui-user
-                (den.aspects.suites._.gaming-user { })
+                den.aspects.common._.user
+                den.aspects.gui._.user
+                den.aspects.gaming._.user
             ];
 
             homeManager =

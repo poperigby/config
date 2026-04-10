@@ -18,9 +18,9 @@
 
     den.aspects.snowy = {
         includes = [
-            den.aspects.suites._.common
-            den.aspects.suites._.gui
-            (den.aspects.suites._.gaming { })
+            den.aspects.common
+            den.aspects.gui
+            den.aspects.gaming
 
             (den.aspects.system._.boot { })
             den.aspects.desktops._.cosmic
@@ -95,9 +95,9 @@
 
         provides.cassidy = {
             includes = [
-                den.aspects.suites._.common-user
-                den.aspects.suites._.gui-user
-                (den.aspects.suites._.gaming-user { bethesda = true; })
+                den.aspects.common._.user
+                den.aspects.gui._.user
+                den.aspects.gaming._.bethesda-user
 
                 den.aspects.programs._.thunderbird
 

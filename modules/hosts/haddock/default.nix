@@ -24,7 +24,7 @@
 
     den.aspects.haddock = {
         includes = [
-            den.aspects.suites._.common
+            den.aspects.common
             (den.aspects.system._.boot { })
 
             (den.aspects.services._.backups {
@@ -110,8 +110,8 @@
         };
 
         provides.cassidy = {
-            # Host already includes suites.common; keep host-specific user tweaks here.
-            includes = [ den.aspects.suites._.common-user ];
+            # Host already includes common; keep host-specific user tweaks here.
+            includes = [ den.aspects.common._.user ];
 
             # For CrowdSec
             programs.fish.shellAliases.cs = "sudo cscli";

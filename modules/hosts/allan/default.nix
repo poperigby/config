@@ -2,8 +2,8 @@
 {
     den.aspects.allan = {
         includes = [
-            den.aspects.suites._.common
-            den.aspects.suites._.gui
+            den.aspects.common
+            den.aspects.gui
 
             (den.aspects.system._.boot { secureBoot = true; })
             den.aspects.desktops._.cosmic
@@ -106,8 +106,8 @@
 
         provides.cassidy = {
             includes = [
-                den.aspects.suites._.common-user
-                den.aspects.suites._.gui-user
+                den.aspects.common._.user
+                den.aspects.gui._.user
                 den.aspects.programs._.thunderbird
             ];
 
