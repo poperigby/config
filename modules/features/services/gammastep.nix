@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.gammastep.homeManager.services.gammastep = {
+  den.aspects.services.provides.gammastep.homeManager.services.gammastep = {
     enable = true;
     temperature = {
       day = 6500;

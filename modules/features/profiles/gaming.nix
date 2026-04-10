@@ -19,8 +19,8 @@
     provides.user = {
       includes = [
         den.aspects.programs._.mangohud
-        den.aspects.home-services._.ludusavi
-        den.aspects.home-services._.joystickwake
+        den.aspects.services._.ludusavi
+        den.aspects.services._.joystickwake
       ];
 
       homeManager =

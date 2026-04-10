@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.swayidle =
+  den.aspects.services.provides.swayidle =
     { timeouts ? { lock = 1800; sleep = 3600; } }:
     {
       homeManager =

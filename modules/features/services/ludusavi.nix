@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.ludusavi.homeManager =
+  den.aspects.services.provides.ludusavi.homeManager =
     { lib, pkgs, ... }:
     let
       settingsFormat = pkgs.formats.yaml { };
@@ -33,7 +33,7 @@
       home.packages = [ pkgs.ludusavi ];
     };
 
-  den.aspects.home-services.provides.ludusavi-config =
+  den.aspects.services.provides.ludusavi-config =
     {
       configFile ? null,
       settings ? null,

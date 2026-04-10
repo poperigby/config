@@ -13,12 +13,12 @@
         den.aspects.programs._.waybar
         den.aspects.programs._.wlogout
 
-        den.aspects.home-services._.clipboard
-        den.aspects.home-services._.gammastep
-        (den.aspects.home-services._.swayidle { timeouts = gui.swayidleTimeouts or { lock = 1800; sleep = 3600; }; })
-        den.aspects.home-services._.swaync
-        den.aspects.home-services._.swayosd
-        den.aspects.home-services._.udiskie
+        den.aspects.services._.clipboard
+        den.aspects.services._.gammastep
+        (den.aspects.services._.swayidle { timeouts = gui.swayidleTimeouts or { lock = 1800; sleep = 3600; }; })
+        den.aspects.services._.swaync
+        den.aspects.services._.swayosd
+        den.aspects.services._.udiskie
       ];
 
       homeManager =

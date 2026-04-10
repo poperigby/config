@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.swaync.homeManager =
+  den.aspects.services.provides.swaync.homeManager =
     { pkgs, ... }:
     {
       services.swaync = {

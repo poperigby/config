@@ -101,7 +101,7 @@
 
                 den.aspects.programs._.thunderbird
 
-                (den.aspects.home-services._.ludusavi-config {
+                (den.aspects.services._.ludusavi-config {
                     settings = {
                         manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
                         roots = [

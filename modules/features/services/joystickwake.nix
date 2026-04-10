@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.joystickwake.homeManager =
+  den.aspects.services.provides.joystickwake.homeManager =
     { lib, pkgs, ... }:
     {
       systemd.user.services.joystickwake = {

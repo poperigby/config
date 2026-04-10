@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.lspmux.homeManager =
+  den.aspects.services.provides.lspmux.homeManager =
     { lib, pkgs, ... }:
     {
       home.packages = [ pkgs.lspmux ];

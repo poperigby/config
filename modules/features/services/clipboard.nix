@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.home-services.provides.clipboard.homeManager =
+  den.aspects.services.provides.clipboard.homeManager =
     { lib, pkgs, ... }:
     {
       services.cliphist.enable = true;

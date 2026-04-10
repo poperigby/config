@@ -54,7 +54,7 @@
         den.aspects.programs._.television
         den.aspects.programs._.yazi
 
-        den.aspects.home-services._.lspmux
+        den.aspects.services._.lspmux
       ];
 
       homeManager =
