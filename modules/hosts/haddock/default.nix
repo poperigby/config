@@ -5,19 +5,21 @@
     ...
 }:
 {
-    flake-file.inputs.flux = {
-        url = "github:IogaMaster/flux";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-file.inputs.nix-minecraft = {
-        url = "github:Infinidoge/nix-minecraft";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-file.inputs.rustical.url = "github:poperigby/nixpkgs/rustical-module";
-    flake-file.inputs.vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
-    flake-file.inputs.nix = {
-        url = "github:NixOS/nix";
-        inputs.nixpkgs.follows = "nixpkgs";
+    flake-file.inputs = {
+        flux = {
+            url = "github:IogaMaster/flux";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        nix-minecraft = {
+            url = "github:Infinidoge/nix-minecraft";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        rustical.url = "github:poperigby/nixpkgs/rustical-module";
+        vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
+        nix = {
+            url = "github:NixOS/nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     den.aspects.haddock = {

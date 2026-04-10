@@ -1,10 +1,12 @@
 # Opinionated bundles of aspects ("profiles")
 { den, inputs, ... }:
 {
-  flake-file.inputs.nix-colors.url = "github:misterio77/nix-colors";
-  flake-file.inputs.nix-index-database = {
-    url = "github:nix-community/nix-index-database";
-    inputs.nixpkgs.follows = "nixpkgs";
+  flake-file.inputs = {
+    nix-colors.url = "github:misterio77/nix-colors";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   den.aspects.suites = {

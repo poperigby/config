@@ -4,10 +4,12 @@ let
   privateInfo = (import (src + "/modules/private-info.nix") { }).den.aspects.privateInfo;
 in
 {
-  flake-file.inputs.private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
-  flake-file.inputs.sops-nix = {
-    url = "github:Mic92/sops-nix";
-    inputs.nixpkgs.follows = "nixpkgs";
+  flake-file.inputs = {
+    private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   imports = [
