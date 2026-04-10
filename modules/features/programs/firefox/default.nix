@@ -14,7 +14,7 @@
             privateDefault = "ddg";
             force = true;
           };
-          userChrome = readFile ../../assets/home/firefox/userChrome.css;
+          userChrome = readFile ./userChrome.css;
           settings = {
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             "font.name-list.emoji" = "emoji";
@@ -100,4 +100,3 @@
       };
     };
 }
-

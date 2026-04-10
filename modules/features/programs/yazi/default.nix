@@ -10,8 +10,8 @@
         enable = true;
         enableFishIntegration = true;
         shellWrapperName = "yy";
-        theme = builtins.fromTOML (readFile ../../assets/home/yazi/theme.toml);
-        initLua = ../../assets/home/yazi/init.lua;
+        theme = builtins.fromTOML (readFile ./theme.toml);
+        initLua = ./init.lua;
         settings = {
           mgr = {
             sort_by = "mtime";
@@ -144,7 +144,7 @@
         name = "Yazi";
         genericName = "File Browser";
         exec = "${getExe pkgs.yazi} %f";
-        icon = ../../assets/home/yazi/icon.png;
+        icon = ./icon.png;
         terminal = true;
         categories = [
           "System"
@@ -155,4 +155,3 @@
       };
     };
 }
-

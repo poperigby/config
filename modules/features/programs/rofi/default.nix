@@ -32,7 +32,7 @@
         };
         terminal = "${lib.getExe pkgs.wezterm}";
         font = "Noto Sans";
-        theme = ../../assets/home/rofi/theme.rasi;
+        theme = ./theme.rasi;
       };
 
       home.packages = with pkgs; [
@@ -40,7 +40,6 @@
         papirus-icon-theme
       ];
 
-      xdg.configFile."rofimoji.rc".source = ../../assets/home/rofi/rofimoji.rc;
+      xdg.configFile."rofimoji.rc".source = ./rofimoji.rc;
     };
 }
-

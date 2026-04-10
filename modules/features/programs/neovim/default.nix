@@ -42,7 +42,7 @@
       };
 
       xdg.configFile."nvim" = {
-        source = ../../assets/home/neovim/config;
+        source = ./config;
         recursive = true;
       };
     };

@@ -53,18 +53,17 @@
           }
 
           #logout {
-            background-image: image(url("${../../assets/home/wlogout/icons/logout.png}"));
+            background-image: image(url("${./icons/logout.png}"));
           }
 
           #shutdown {
-            background-image: image(url("${../../assets/home/wlogout/icons/shutdown.png}"));
+            background-image: image(url("${./icons/shutdown.png}"));
           }
 
           #reboot {
-            background-image: image(url("${../../assets/home/wlogout/icons/reboot.png}"));
+            background-image: image(url("${./icons/reboot.png}"));
           }
         '';
       };
     };
 }
-

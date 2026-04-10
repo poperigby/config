@@ -199,7 +199,7 @@
 
           gtk =
             let
-              css = readFile ../../assets/home/desktops/sway/gtk.css;
+              css = readFile ./gtk.css;
             in
             {
               enable = true;

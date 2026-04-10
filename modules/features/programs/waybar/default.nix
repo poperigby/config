@@ -128,7 +128,7 @@
             escape = true;
           };
         };
-        style = ../../assets/home/waybar/style.css;
+        style = ./style.css;
         systemd.enable = true;
       };
 
@@ -136,4 +136,3 @@
       home.packages = [ pkgs.noto-fonts ];
     };
 }
-
