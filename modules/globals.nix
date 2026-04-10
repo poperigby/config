@@ -2,19 +2,6 @@
 { inputs, lib, den, ... }:
 let
     stateVersion = "25.11";
-    allowUnfreePredicate =
-        pkg:
-        let
-            name = lib.getName pkg;
-        in
-        # Various parts of this config intentionally use unfree packages.
-        (builtins.elem name [
-            "epkowa"
-            "graphite"
-            "ouch"
-        ])
-        || lib.hasPrefix "iscan" name
-        || lib.hasPrefix "steam" name;
 in
 {
     den.default = {
@@ -28,8 +15,8 @@ in
         nixos._module.args.inputs = inputs;
         homeManager._module.args.inputs = inputs;
 
-        nixos.nixpkgs.config.allowUnfreePredicate = allowUnfreePredicate;
-        homeManager.nixpkgs.config.allowUnfreePredicate = allowUnfreePredicate;
+        nixos.nixpkgs.config.allowUnfree = true;
+        homeManager.nixpkgs.config.allowUnfree = true;
 
         nixos.system.stateVersion = lib.mkDefault stateVersion;
         homeManager.home.stateVersion = lib.mkDefault stateVersion;
