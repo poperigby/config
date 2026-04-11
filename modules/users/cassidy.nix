@@ -11,7 +11,6 @@
             {
                 config,
                 privateInfo,
-                lib,
                 ...
             }:
             {

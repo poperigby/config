@@ -1,8 +1,7 @@
-{ den, ... }:
+{ ... }:
 {
-    den.aspects.haddock.nixos = {
-        # Setup the primary disk
-        disko.devices.disk.primary = {
+    den.aspects.haddock = {
+        drives.primary = {
             device = "/dev/disk/by-id/nvme-WD_Blue_SN580_1TB_244432808685";
             type = "disk";
             content = {
@@ -63,9 +62,10 @@
                 };
             };
         };
+
         # This is defined here instead of in disko.devices because I don't want Disko formatting these
         # This is actually multiple drives combined into one filesystem
-        fileSystems."/mnt/media" = {
+        nixos.fileSystems."/mnt/media" = {
             device = "/dev/disk/by-id/ata-ST4000DM004-2CV104_ZFN35CMF";
             fsType = "btrfs";
         };

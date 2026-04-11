@@ -7,6 +7,26 @@
 }:
 let
     stateVersion = "25.11";
+
+    drivesForward =
+        { class, aspect-chain }:
+        den._.forward {
+            each = lib.singleton class;
+            fromClass = _: "drives";
+            intoClass = _: "nixos";
+            intoPath = _: [
+                "disko"
+                "devices"
+                "disk"
+            ];
+            fromAspect = _: lib.head aspect-chain;
+            adapterModule =
+                { lib, ... }:
+                {
+                    config._module.freeformType =
+                        lib.types.lazyAttrsOf lib.types.anything;
+                };
+        };
 in
 {
     flake-file.inputs = {
@@ -19,6 +39,7 @@ in
             den.aspects.sops
             den._.hostname
             den._.inputs'
+            drivesForward
         ];
 
         nixos =
