@@ -1,5 +1,10 @@
 # Global settings
-{ inputs, lib, den, ... }:
+{
+    inputs,
+    lib,
+    den,
+    ...
+}:
 let
     stateVersion = "25.11";
 in
@@ -11,15 +16,27 @@ in
             den._.inputs'
         ];
 
-        # Some legacy NixOS modules still expect the full `inputs` set.
-        nixos._module.args.inputs = inputs;
-        homeManager._module.args.inputs = inputs;
+        nixos =
+            { pkgs, ... }:
+            {
+                # Some legacy NixOS modules still expect the full `inputs` set.
+                _module.args.inputs = inputs;
+                _module.args.system = pkgs.stdenv.hostPlatform.system;
 
-        nixos.nixpkgs.config.allowUnfree = true;
-        homeManager.nixpkgs.config.allowUnfree = true;
+                nixpkgs.config.allowUnfree = true;
+                system.stateVersion = lib.mkDefault stateVersion;
+            };
 
-        nixos.system.stateVersion = lib.mkDefault stateVersion;
-        homeManager.home.stateVersion = lib.mkDefault stateVersion;
+        homeManager =
+            { pkgs, ... }:
+            {
+                # Some legacy HM modules still expect the full `inputs` set.
+                _module.args.inputs = inputs;
+                _module.args.system = pkgs.stdenv.hostPlatform.system;
+
+                nixpkgs.config.allowUnfree = true;
+                home.stateVersion = lib.mkDefault stateVersion;
+            };
 
     };
 

@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  system,
   ...
 }:
 let
@@ -24,7 +25,7 @@ in
       description = "Piggyback DDNS updater";
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = lib.getExe inputs.piggyback.defaultPackage.${pkgs.system};
+        ExecStart = lib.getExe inputs.piggyback.defaultPackage.${system};
         EnvironmentFile = config.sops.templates.ddns-config.path;
         User = user;
         Group = group;

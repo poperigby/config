@@ -2,6 +2,7 @@
     inputs,
     lib,
     pkgs,
+    system,
     ...
 }:
 
@@ -14,7 +15,7 @@
         managementSystem.systemd-socket.enable = true;
         servers.fabric = {
             enable = true;
-            package = inputs.nix-minecraft.legacyPackages.${pkgs.system}.fabricServers.fabric-1_21_4;
+            package = inputs.nix-minecraft.legacyPackages.${system}.fabricServers.fabric-1_21_4;
             serverProperties = {
                 server-name = "Haddock";
                 difficulty = "normal";
