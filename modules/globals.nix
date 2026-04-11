@@ -9,6 +9,11 @@ let
     stateVersion = "25.11";
 in
 {
+    flake-file.inputs = {
+        disko.url = "github:nix-community/disko";
+        ucodenix.url = "github:e-tho/ucodenix";
+    };
+
     den.default = {
         includes = [
             den.aspects.sops
@@ -19,6 +24,11 @@ in
         nixos =
             { pkgs, ... }:
             {
+                imports = [
+                    inputs.disko.nixosModules.disko
+                    inputs.ucodenix.nixosModules.default
+                ];
+
                 # Some legacy NixOS modules still expect the full `inputs` set.
                 _module.args.inputs = inputs;
                 _module.args.system = pkgs.stdenv.hostPlatform.system;
