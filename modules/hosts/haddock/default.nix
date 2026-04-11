@@ -66,9 +66,6 @@
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
                     inputs.vpn-confinement.nixosModules.default
-                    ./_nixos/drives.nix
-                    ./_nixos/hardware.nix
-                    ./_nixos/services
                 ];
 
                 nixpkgs.overlays = [ inputs.flux.overlays.default ];

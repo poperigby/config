@@ -59,11 +59,6 @@
         _.to-users.includes = [ den._.define-user ];
 
         nixos = {
-            imports = [
-                ./_nixos/drives.nix
-                ./_nixos/hardware.nix
-            ];
-
             time.timeZone = "America/Los_Angeles";
 
             networking.networkmanager.enable = true;

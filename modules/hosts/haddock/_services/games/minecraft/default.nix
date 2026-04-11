@@ -36,7 +36,7 @@
                         bypassesPlayerLimit = true;
                     }
                 ];
-                mods = import ./mods.nix { inherit pkgs lib; };
+                mods = import ./mods.nixlib { inherit pkgs lib; };
             };
         };
     };
