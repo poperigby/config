@@ -1,58 +1,60 @@
 { den, ... }:
 {
-  den.aspects.gaming = {
-    nixos =
-      { ... }:
-      {
-        programs.steam.enable = true;
-        programs.gamemode.enable = true;
-        programs.gamescope = {
-          enable = true;
+    den.aspects.gaming = {
+        nixos =
+            { ... }:
+            {
+                programs.steam.enable = true;
+                programs.gamemode.enable = true;
+                programs.gamescope = {
+                    enable = true;
+                };
+                boot.kernel.sysctl = {
+                    "vm.max_map_count" = 2147483642;
+                    "gpu_sched.sched_policy" = 0;
+                    "amdgpu.freesync_video" = 1;
+                };
+            };
+
+        provides.user = {
+            includes = [
+                den.aspects.programs._.mangohud
+                den.aspects.services._.ludusavi
+                den.aspects.services._.joystickwake
+            ];
+
+            homeManager =
+                { config, pkgs, ... }:
+                {
+                    home.packages = with pkgs; [
+                        protontricks
+                        heroic
+                        protonplus
+                        libstrangle
+                        doomrunner
+                        gzdoom
+                        vkquake
+                        prismlauncher
+                        gpu-screen-recorder-gtk
+                        shadps4
+                    ];
+
+                    home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
+                    xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
+                };
         };
-        boot.kernel.sysctl = {
-          "vm.max_map_count" = 2147483642;
-          "gpu_sched.sched_policy" = 0;
-          "amdgpu.freesync_video" = 1;
-        };
-      };
 
-    provides.user = {
-      includes = [
-        den.aspects.programs._.mangohud
-        den.aspects.services._.ludusavi
-        den.aspects.services._.joystickwake
-      ];
+        provides.bethesda-user = {
+            includes = [
+                den.aspects.gaming._.user
+                den.aspects.programs._.morrowind
+            ];
 
-      homeManager =
-        { config, pkgs, ... }:
-        {
-          home.packages = with pkgs; [
-            protontricks
-            heroic
-            protonplus
-            libstrangle
-            doomrunner
-            gzdoom
-            vkquake
-            prismlauncher
-            gpu-screen-recorder-gtk
-            shadps4
-          ];
-
-          home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
-          xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
+            homeManager =
+                { pkgs, ... }:
+                {
+                    home.packages = with pkgs; [ limo ];
+                };
         };
     };
-
-    provides.bethesda-user = {
-      includes = [
-        den.aspects.gaming._.user
-        den.aspects.programs._.morrowind
-      ];
-
-      homeManager = { pkgs, ... }: {
-        home.packages = with pkgs; [ limo ];
-      };
-    };
-  };
 }

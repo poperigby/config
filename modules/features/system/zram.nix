@@ -1,5 +1,4 @@
 { den, ... }:
 {
-  den.aspects.system.provides.zram.nixos.zramSwap.enable = true;
+    den.aspects.system.provides.zram.nixos.zramSwap.enable = true;
 }
-

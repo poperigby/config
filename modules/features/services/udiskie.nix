@@ -1,8 +1,7 @@
 { den, ... }:
 {
-  den.aspects.services.provides.udiskie.homeManager.services.udiskie = {
-    enable = true;
-    tray = "never";
-  };
+    den.aspects.services.provides.udiskie.homeManager.services.udiskie = {
+        enable = true;
+        tray = "never";
+    };
 }
-

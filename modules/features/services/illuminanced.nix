@@ -1,78 +1,78 @@
 { den, ... }:
 {
-  den.aspects.services.provides.illuminanced =
-    {
-      configFile ? null,
-      settings ? null,
-    }:
-    {
-      nixos =
-        { lib, pkgs, ... }:
-        let
-          settingsFormat = pkgs.formats.toml { };
-          defaultSettings = {
-            daemonize = {
-              log_to = "syslog";
-              pid_file = "/run/illuminanced.pid";
-              log_level = "ERROR";
-            };
-            general = {
-              check_period_in_seconds = 1;
-              light_steps = 10;
-              min_backlight = 70;
-              step_barrier = 0.1;
-              max_backlight_file = "/sys/class/backlight/intel_backlight/max_brightness";
-              backlight_file = "/sys/class/backlight/intel_backlight/brightness";
-              illuminance_file = "/sys/bus/acpi/devices/ACPI0008:00/iio:device0/in_illuminance_raw";
-              event_device_mask = "/dev/input/event*";
-              event_device_name = "Asus WMI hotkeys";
-              enable_max_brightness_mode = true;
-              filename_for_sensor_activation = "";
-            };
-            kalman = {
-              q = 1;
-              r = 20;
-              covariance = 10;
-            };
-            light = {
-              points_count = 6;
-              illuminance_0 = 0;
-              light_0 = 0;
-              illuminance_1 = 20;
-              light_1 = 1;
-              illuminance_2 = 300;
-              light_2 = 3;
-              illuminance_3 = 700;
-              light_3 = 4;
-              illuminance_4 = 1100;
-              light_4 = 5;
-              illuminance_5 = 7100;
-              light_5 = 10;
-            };
-          };
-
-          resolvedSettings = if settings == null then defaultSettings else settings;
-          resolvedConfigFile =
-            if configFile == null then
-              settingsFormat.generate "illuminanced.toml" resolvedSettings
-            else
-              configFile;
-        in
+    den.aspects.services.provides.illuminanced =
         {
-          services.syslogd.enable = true;
+            configFile ? null,
+            settings ? null,
+        }:
+        {
+            nixos =
+                { lib, pkgs, ... }:
+                let
+                    settingsFormat = pkgs.formats.toml { };
+                    defaultSettings = {
+                        daemonize = {
+                            log_to = "syslog";
+                            pid_file = "/run/illuminanced.pid";
+                            log_level = "ERROR";
+                        };
+                        general = {
+                            check_period_in_seconds = 1;
+                            light_steps = 10;
+                            min_backlight = 70;
+                            step_barrier = 0.1;
+                            max_backlight_file = "/sys/class/backlight/intel_backlight/max_brightness";
+                            backlight_file = "/sys/class/backlight/intel_backlight/brightness";
+                            illuminance_file = "/sys/bus/acpi/devices/ACPI0008:00/iio:device0/in_illuminance_raw";
+                            event_device_mask = "/dev/input/event*";
+                            event_device_name = "Asus WMI hotkeys";
+                            enable_max_brightness_mode = true;
+                            filename_for_sensor_activation = "";
+                        };
+                        kalman = {
+                            q = 1;
+                            r = 20;
+                            covariance = 10;
+                        };
+                        light = {
+                            points_count = 6;
+                            illuminance_0 = 0;
+                            light_0 = 0;
+                            illuminance_1 = 20;
+                            light_1 = 1;
+                            illuminance_2 = 300;
+                            light_2 = 3;
+                            illuminance_3 = 700;
+                            light_3 = 4;
+                            illuminance_4 = 1100;
+                            light_4 = 5;
+                            illuminance_5 = 7100;
+                            light_5 = 10;
+                        };
+                    };
 
-          systemd.services.illuminanced = {
-            description = "Ambient light monitoring Service";
-            requires = [ "syslog.socket" ];
-            documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
-            serviceConfig = {
-              Type = "forking";
-              ExecStart = "${lib.getExe pkgs.custom.illuminanced} -c ${resolvedConfigFile}";
-              PIDFile = "/run/illuminanced.pid";
-              Restart = "on-failure";
-            };
-            wantedBy = [ "multi-user.target" ];
-          };
+                    resolvedSettings = if settings == null then defaultSettings else settings;
+                    resolvedConfigFile =
+                        if configFile == null then
+                            settingsFormat.generate "illuminanced.toml" resolvedSettings
+                        else
+                            configFile;
+                in
+                {
+                    services.syslogd.enable = true;
+
+                    systemd.services.illuminanced = {
+                        description = "Ambient light monitoring Service";
+                        requires = [ "syslog.socket" ];
+                        documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
+                        serviceConfig = {
+                            Type = "forking";
+                            ExecStart = "${lib.getExe pkgs.custom.illuminanced} -c ${resolvedConfigFile}";
+                            PIDFile = "/run/illuminanced.pid";
+                            Restart = "on-failure";
+                        };
+                        wantedBy = [ "multi-user.target" ];
+                    };
+                };
         };
-    };
 }

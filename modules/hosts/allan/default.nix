@@ -111,12 +111,14 @@
                 den.aspects.programs._.thunderbird
             ];
 
-            homeManager = { pkgs, ... }: {
-                home.packages = with pkgs; [
-                    kdePackages.kdenlive
-                    openmw
-                ];
-            };
+            homeManager =
+                { pkgs, ... }:
+                {
+                    home.packages = with pkgs; [
+                        kdePackages.kdenlive
+                        openmw
+                    ];
+                };
         };
     };
 }

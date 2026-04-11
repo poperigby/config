@@ -1,5 +1,4 @@
 { den, ... }:
 {
-  den.aspects.services.provides.envfs.nixos.services.envfs.enable = true;
+    den.aspects.services.provides.envfs.nixos.services.envfs.enable = true;
 }
-

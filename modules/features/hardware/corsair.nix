@@ -1,5 +1,4 @@
 { den, ... }:
 {
-  den.aspects.hardware.provides.corsair.nixos.hardware.ckb-next.enable = true;
+    den.aspects.hardware.provides.corsair.nixos.hardware.ckb-next.enable = true;
 }
-

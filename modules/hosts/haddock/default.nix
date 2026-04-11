@@ -61,53 +61,53 @@
         nixos =
             { lib, pkgs, ... }:
             {
-            imports = [
-                inputs.flux.nixosModules.default
-                inputs.nix-minecraft.nixosModules.minecraft-servers
-                (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
-                inputs.vpn-confinement.nixosModules.default
-                ./_nixos/drives.nix
-                ./_nixos/hardware.nix
-                ./_nixos/services
-            ];
+                imports = [
+                    inputs.flux.nixosModules.default
+                    inputs.nix-minecraft.nixosModules.minecraft-servers
+                    (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
+                    inputs.vpn-confinement.nixosModules.default
+                    ./_nixos/drives.nix
+                    ./_nixos/hardware.nix
+                    ./_nixos/services
+                ];
 
-            nixpkgs.overlays = [ inputs.flux.overlays.default ];
+                nixpkgs.overlays = [ inputs.flux.overlays.default ];
 
-            environment.systemPackages = with pkgs; [
-                lynis
-            ];
+                environment.systemPackages = with pkgs; [
+                    lynis
+                ];
 
-            time.timeZone = "America/Los_Angeles";
+                time.timeZone = "America/Los_Angeles";
 
-            services.openssh = {
-                enable = true;
-                settings = {
-                    # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
-                    PermitRootLogin = "no";
-                    MaxAuthTries = 3;
-                    PasswordAuthentication = false;
-                    PermitEmptyPasswords = false;
-                    ChallengeResponseAuthentication = false;
-                    PermitUserEnvironment = false;
-                    AllowAgentForwarding = false;
-                    AllowTcpForwarding = false;
-                    PermitTunnel = false;
+                services.openssh = {
+                    enable = true;
+                    settings = {
+                        # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
+                        PermitRootLogin = "no";
+                        MaxAuthTries = 3;
+                        PasswordAuthentication = false;
+                        PermitEmptyPasswords = false;
+                        ChallengeResponseAuthentication = false;
+                        PermitUserEnvironment = false;
+                        AllowAgentForwarding = false;
+                        AllowTcpForwarding = false;
+                        PermitTunnel = false;
+                    };
+                    extraConfig = ''
+                        Match Address 192.168.1.0/24
+                            PasswordAuthentication yes  
+                    '';
                 };
-                extraConfig = ''
-                    Match Address 192.168.1.0/24
-                        PasswordAuthentication yes  
-                '';
+
+                # Required to allow local password authentication
+                # https://github.com/NixOS/nixpkgs/issues/12867
+                security.pam.services.sshd.unixAuth = lib.mkForce true;
+
+                networking.useDHCP = true;
+
+                # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+                system.stateVersion = "23.11";
             };
-
-            # Required to allow local password authentication
-            # https://github.com/NixOS/nixpkgs/issues/12867
-            security.pam.services.sshd.unixAuth = lib.mkForce true;
-
-            networking.useDHCP = true;
-
-            # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-            system.stateVersion = "23.11";
-        };
 
         provides.cassidy = {
             # Host already includes common; keep host-specific user tweaks here.
@@ -116,11 +116,13 @@
             # For CrowdSec
             programs.fish.shellAliases.cs = "sudo cscli";
 
-            homeManager = { pkgs, ... }: {
-                home.packages = [
-                    pkgs.custom.find-open-ports
-                ];
-            };
+            homeManager =
+                { pkgs, ... }:
+                {
+                    home.packages = [
+                        pkgs.custom.find-open-ports
+                    ];
+                };
         };
     };
 }

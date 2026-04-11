@@ -159,11 +159,11 @@
                     inherit (lib) getExe;
                     inherit (pkgs) fetchFromGitHub;
                 in
-                    {
-                        imports = [
-                            inputs.cosmic-manager.homeManagerModules.cosmic-manager
-                            inputs.nix-flatpak.homeManagerModules.nix-flatpak
-                        ];
+                {
+                    imports = [
+                        inputs.cosmic-manager.homeManagerModules.cosmic-manager
+                        inputs.nix-flatpak.homeManagerModules.nix-flatpak
+                    ];
 
                     wayland.desktopManager.cosmic.enable = true;
                     programs.cosmic-ext-calculator.enable = true;

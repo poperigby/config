@@ -20,11 +20,11 @@ let
                             # Strings must be quoted
                             ''"${value}"''
                         else if value == true then
-                            ''1''
+                            "1"
                         else if value == false then
-                            ''0''
+                            "0"
                         else
-                            ''${toString value}'';
+                            "${toString value}";
                 } " ";
             } config
         );
