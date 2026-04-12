@@ -45,9 +45,8 @@
                 };
         };
 
-        # GUI machines grant some extra groups to Cassidy.
+        # GUI machines grant packet capture access to Cassidy.
         provides.cassidy.user.extraGroups = [
-            "i2c"
             "wireshark"
         ];
     };
