@@ -50,6 +50,5 @@ in
             cpuModelId = "00A60F12";
         };
 
-        nixpkgs.hostPlatform = mkDefault "x86_64-linux";
     };
 }

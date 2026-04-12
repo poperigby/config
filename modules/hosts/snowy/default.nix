@@ -131,29 +131,10 @@
                         restore.path = "~/.local/state/backups/ludusavi";
                     };
                 })
-
-                (den.aspects.desktops._.sway {
-                    gui = {
-                        resolution = "2560x1440";
-                        scale = 1.0;
-                        refreshRate = 165;
-                        vrr = true;
-                        wallpaper = ./wallpaper.jpg;
-                        colorProfileFile = ./gigabyte_m27q.icc;
-                        swayidleTimeouts = {
-                            lock = 1800;
-                            sleep = 3600;
-                        };
-                    };
-                })
             ];
 
             homeManager =
                 { pkgs, ... }:
-                let
-                    inherit (lib) getExe;
-                    inherit (pkgs) fetchFromGitHub;
-                in
                 {
                     imports = [
                         inputs.cosmic-manager.homeManagerModules.cosmic-manager
@@ -178,13 +159,6 @@
                         ];
                     };
 
-                    # Controls Corsair hardware
-                    wayland.windowManager.sway.config.startup = [
-                        {
-                            command = "${getExe pkgs.ckb-next} --background";
-                        }
-                    ];
-
                     home.packages = with pkgs; [
                         er-patcher
                         graphite
@@ -193,7 +167,7 @@
                     ];
 
                     home.file.morrowindBlenderPlugin = {
-                        source = fetchFromGitHub {
+                        source = pkgs.fetchFromGitHub {
                             owner = "Greatness7";
                             repo = "io_scene_mw";
                             rev = "0.8.103";

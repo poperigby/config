@@ -11,6 +11,8 @@
             nvim = lib.getExe config.programs.neovim.finalPackage;
         in
         {
+            imports = [ ./plugins ];
+
             programs.neovim = {
                 enable = true;
                 defaultEditor = true;

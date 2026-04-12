@@ -124,7 +124,6 @@
                 ];
             };
 
-            home.packages = [ pkgs.ouch ];
         };
 
     den.aspects.programs.provides.yazi-gui.homeManager =

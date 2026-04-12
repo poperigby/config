@@ -10,23 +10,22 @@ let
 
     drivesForward =
         { class, aspect-chain }:
-        den._.forward {
-            each = lib.singleton class;
-            fromClass = _: "drives";
-            intoClass = _: "nixos";
-            intoPath = _: [
-                "disko"
-                "devices"
-                "disk"
-            ];
-            fromAspect = _: lib.head aspect-chain;
-            adapterModule =
-                { lib, ... }:
-                {
-                    config._module.freeformType =
-                        lib.types.lazyAttrsOf lib.types.anything;
-                };
-        };
+        lib.optionalAttrs (class == "nixos") (
+            den._.forward {
+                each = [ "nixos" ];
+                fromClass = _: "drives";
+                intoClass = _: "nixos";
+                intoPath =
+                    _:
+                    { ... }:
+                    [
+                        "disko"
+                        "devices"
+                        "disk"
+                    ];
+                fromAspect = _: lib.head aspect-chain;
+            }
+        );
 in
 {
     flake-file.inputs = {
