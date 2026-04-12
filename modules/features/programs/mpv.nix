@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.mpv.homeManager =
         { pkgs, ... }:

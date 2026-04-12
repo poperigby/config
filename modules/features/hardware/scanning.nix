@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.hardware.provides.scanning.nixos =
         { pkgs, ... }:

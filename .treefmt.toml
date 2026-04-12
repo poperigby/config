@@ -1,4 +1,0 @@
-[formatter.nix]
-command = "nixfmt"
-options = ["--indent=4"]
-includes = ["*.nix"]

@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.gpg.homeManager = {
         programs.gpg.enable = true;

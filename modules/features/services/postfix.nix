@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.services.provides.postfix.nixos =
         { config, privateInfo, ... }:

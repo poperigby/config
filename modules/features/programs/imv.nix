@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
     den.aspects.programs.provides.imv.homeManager =
         { config, ... }:

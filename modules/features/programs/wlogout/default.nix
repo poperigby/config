@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.wlogout.homeManager =
         { lib, pkgs, ... }:

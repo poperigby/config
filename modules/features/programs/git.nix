@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.git.homeManager =
         { privateInfo, ... }:

@@ -1,4 +1,4 @@
-{ den, inputs, ... }:
+{ inputs, ... }:
 {
     flake-file.inputs = {
         openmw-nix = {

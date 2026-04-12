@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.services.provides.clipboard.homeManager =
         { lib, pkgs, ... }:

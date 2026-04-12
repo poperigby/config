@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.services.provides.ludusavi.homeManager =
         { lib, pkgs, ... }:

@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.hardware.provides.android.nixos =
         { lib, pkgs, ... }:

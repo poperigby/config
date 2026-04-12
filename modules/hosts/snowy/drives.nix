@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.snowy.drives.primary = {
         device = "/dev/nvme0n1";

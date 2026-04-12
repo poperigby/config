@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.desktops.provides.gnome.nixos =
         { pkgs, ... }:

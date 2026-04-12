@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.hardware.provides.printing.nixos.services = {
         printing.enable = true;

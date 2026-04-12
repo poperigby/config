@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.services.provides.gammastep.homeManager.services.gammastep = {
         enable = true;

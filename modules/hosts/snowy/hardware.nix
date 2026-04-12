@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ lib, ... }:
 
 let
     inherit (lib) mkDefault;

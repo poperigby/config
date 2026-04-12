@@ -6,20 +6,28 @@ let
             custom = import ../lib/create-shell-script { lib = prev.lib; };
         };
 
-        custom = {
-            cliphist-rofi-img = final.callPackage ../packages/cliphist-rofi-img { };
-            find-my-device-server = final.callPackage ../packages/find-my-device-server { };
-            find-open-ports = final.callPackage ../packages/find-open-ports { };
-            grabweather = final.callPackage ../packages/grabweather { };
-            illuminanced = final.callPackage ../packages/illuminanced { };
-            installer = final.callPackage ../packages/installer { };
-            loot = final.callPackage ../packages/loot/package.nix { };
-            qbittorrent-vpn-port-update = final.callPackage ../packages/qbittorrent-vpn-port-update { };
-            reef = final.callPackage ../packages/reef { };
-            rofi-wifi = final.callPackage ../packages/rofi-wifi { };
-            screenshot = final.callPackage ../packages/screenshot { };
-            valve-file-vdf = final.callPackage ../packages/valve-file-vdf { };
-        };
+        custom =
+            let
+                packagesDir = ../packages;
+                packageEntries = builtins.readDir packagesDir;
+
+                packageFileFor =
+                    name:
+                    let
+                        dir = packagesDir + "/${name}";
+                    in
+                    if builtins.pathExists (dir + "/package.nix") then dir + "/package.nix" else dir;
+
+                packageNames = prev.lib.filter (
+                    name: packageEntries.${name} == "directory" && packageFileFor name != null
+                ) (builtins.attrNames packageEntries);
+            in
+            builtins.listToAttrs (
+                map (name: {
+                    inherit name;
+                    value = final.callPackage (packageFileFor name) { };
+                }) packageNames
+            );
     };
 in
 {

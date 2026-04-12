@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.allan.drives.primary = {
         device = "/dev/nvme0n1";

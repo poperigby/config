@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.hardware.provides.audio.nixos.services.pipewire = {
         enable = true;

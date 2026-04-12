@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.rofi.homeManager =
         { lib, pkgs, ... }:

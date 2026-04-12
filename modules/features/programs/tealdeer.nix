@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.tealdeer.homeManager.programs.tealdeer = {
         enable = true;
