@@ -10,22 +10,77 @@
             ...
         }:
         let
-            inherit (lib) getExe;
+            inherit (lib) concatStrings getExe;
         in
         {
             programs.starship = {
                 enable = true;
                 settings = {
-                    add_newline = true;
-                    format = "$all";
-                    right_format = "$cmd_duration";
-                    command_timeout = 1000;
+                    add_newline = false;
+                    format = concatStrings [
+                        "$directory"
+                        "$shlvl"
+                        "$git_branch"
+                        "$git_commit"
+                        "$git_state"
+                        "$git_status"
+                        "\${custom.jj}"
+                        "$jobs"
+                        "$status"
+                        "$container"
+                        "$nix_shell"
+                        "$shell"
+                        "$character"
+                    ];
+                    right_format = concatStrings [
+                        "$hostname"
+                    ];
+                    character = {
+                        success_symbol = "[❯](green)";
+                        error_symbol = "[❯](red)";
+                    };
+                    directory = {
+                        format = "[$path]($style) [$read_only]($read_only_style)";
+                        read_only = " ";
+                        fish_style_pwd_dir_length = 3;
+                        truncation_length = 3;
+                    };
+                    git_branch = {
+                        format = "[$branch(:$remote_branch)]($style) ";
+                        style = "green";
+                    };
+                    git_status = {
+                        format = "([$all_status$ahead_behind]($style) )";
+                        ahead = "⇡\${count}";
+                        behind = "⇣\${count}";
+                        diverged = "⇡\${ahead_count}⇣\${behind_count}";
+                        modified = "!\${count}";
+                        deleted = " ";
+                        stashed = "*";
+                        style = "bold yellow";
+                    };
                     custom.jj = {
-                        description = "Current jj status";
-                        command = "${getExe inputs.jj-starship.packages.${system}.jj-starship}";
-                        when = "jj root";
-                        format = "[$output]($style) ";
-                        style = "purple";
+                        when = "${getExe inputs.jj-starship.packages.${system}.jj-starship} detect";
+                        format = "$output ";
+                        shell = [ (getExe inputs.jj-starship.packages.${system}.jj-starship) ];
+                    };
+                    nix_shell = {
+                        format = "[$symbol]($style)";
+                        symbol = "󱄅 ";
+                        heuristic = true;
+                    };
+                    shell = {
+                        bash_indicator = "#";
+                        fish_indicator = "";
+                        nu_indicator = "";
+                        format = "[$indicator]($style)";
+                        style = "bold purple";
+                        disabled = false;
+                    };
+                    hostname = {
+                        format = "[$hostname $ssh_symbol]($style)";
+                        ssh_symbol = " ";
+                        style = "yellow";
                     };
                 };
             };
