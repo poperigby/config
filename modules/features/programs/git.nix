@@ -9,7 +9,7 @@
                     lfs.enable = true;
                     settings = {
                         user = {
-                            name = "PopeRigby";
+                            name = privateInfo.poperigby.name;
                             email = privateInfo.poperigby.email;
                         };
                         aliases = {
