@@ -11,7 +11,7 @@
             nvim = lib.getExe config.programs.neovim.finalPackage;
         in
         {
-            imports = [ ./plugins ];
+            imports = [ ./_plugins ];
 
             programs.neovim = {
                 enable = true;
