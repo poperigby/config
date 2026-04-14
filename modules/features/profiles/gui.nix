@@ -1,7 +1,48 @@
 { den, ... }:
 {
     den.aspects.gui = {
-        includes = [ den.aspects.services._.udisks2 ];
+        includes = [
+            den.aspects.services._.udisks2
+        ];
+
+        homeManager =
+            { pkgs, ... }:
+            {
+                fonts.fontconfig = {
+                    enable = true;
+                    defaultFonts = {
+                        sansSerif = [
+                            "Noto Sans"
+                            "Noto Sans CJK"
+                        ];
+                        serif = [
+                            "Noto Sans"
+                            "Noto Sans CJK"
+                        ];
+                        monospace = [ "JetBrainsMono Nerd Font" ];
+                        emoji = [ "Noto Color Emoji" ];
+                    };
+                };
+
+                home.packages = with pkgs; [
+                    noto-fonts
+                    noto-fonts-cjk-sans
+                    noto-fonts-color-emoji
+                    nerd-fonts.jetbrains-mono
+                    bottles
+                    gimp3
+                    inkscape
+                    libreoffice
+                    signal-desktop
+                    tenacity
+                    tor-browser
+                    ungoogled-chromium
+                    wl-clipboard-rs
+                ];
+
+                xdg.mimeApps.enable = true;
+                home.sessionVariables.NIXOS_OZONE_WL = 1;
+            };
 
         nixos =
             { pkgs, ... }:
@@ -11,39 +52,6 @@
                 environment.systemPackages = with pkgs; [ wireshark ];
                 services.systembus-notify.enable = true;
             };
-
-        provides.user = {
-            includes = [
-                den.aspects.programs._.discord
-                den.aspects.programs._.element-desktop
-                den.aspects.programs._.firefox
-                den.aspects.programs._.mpv
-                den.aspects.programs._.wezterm
-
-                den.aspects.programs._.bottom-gui
-                den.aspects.programs._.neovim-gui
-                den.aspects.programs._.yazi-gui
-            ];
-
-            homeManager =
-                { pkgs, ... }:
-                {
-                    home.packages = with pkgs; [
-                        bottles
-                        gimp3
-                        inkscape
-                        libreoffice
-                        signal-desktop
-                        tenacity
-                        tor-browser
-                        ungoogled-chromium
-                        wl-clipboard-rs
-                    ];
-
-                    xdg.mimeApps.enable = true;
-                    home.sessionVariables.NIXOS_OZONE_WL = 1;
-                };
-        };
 
         # GUI machines grant packet capture access to Cassidy.
         provides.cassidy.user.extraGroups = [

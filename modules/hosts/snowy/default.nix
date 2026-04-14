@@ -1,6 +1,5 @@
 {
     den,
-    lib,
     inputs,
     ...
 }:
@@ -56,8 +55,6 @@
             den.aspects.services._.virt-manager
         ];
 
-        _.to-users.includes = [ den._.define-user ];
-
         nixos = {
             time.timeZone = "America/Los_Angeles";
 
@@ -90,8 +87,35 @@
 
         provides.cassidy = {
             includes = [
-                den.aspects.common._.user
-                den.aspects.gui._.user
+                den.aspects.common
+                den.aspects.gui
+                den.aspects.gaming
+                den.aspects.programs._.atuin
+                den.aspects.programs._.bat
+                den.aspects.programs._.bottom
+                den.aspects.programs._.direnv
+                den.aspects.programs._.fish
+                den.aspects.programs._.git
+                den.aspects.programs._.gpg
+                den.aspects.programs._.jujutsu
+                den.aspects.programs._.neovim
+                den.aspects.programs._.starship
+                den.aspects.programs._.tealdeer
+                den.aspects.programs._.television
+                den.aspects.programs._.yazi
+                den.aspects.services._.lspmux
+                den.aspects.programs._.discord
+                den.aspects.programs._.element-desktop
+                den.aspects.programs._.firefox
+                den.aspects.programs._.mpv
+                den.aspects.programs._.wezterm
+                den.aspects.programs._.bottom-gui
+                den.aspects.programs._.neovim-gui
+                den.aspects.programs._.yazi-gui
+                den.aspects.programs._.mangohud
+                den.aspects.services._.ludusavi
+                den.aspects.services._.joystickwake
+
                 den.aspects.gaming._.bethesda-user
 
                 den.aspects.programs._.thunderbird

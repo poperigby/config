@@ -1,6 +1,26 @@
 { den, ... }:
 {
     den.aspects.gaming = {
+        homeManager =
+            { config, pkgs, ... }:
+            {
+                home.packages = with pkgs; [
+                    protontricks
+                    heroic
+                    protonplus
+                    libstrangle
+                    doomrunner
+                    gzdoom
+                    vkquake
+                    prismlauncher
+                    gpu-screen-recorder-gtk
+                    shadps4
+                ];
+
+                home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
+                xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
+            };
+
         nixos =
             { ... }:
             {
@@ -16,37 +36,8 @@
                 };
             };
 
-        provides.user = {
-            includes = [
-                den.aspects.programs._.mangohud
-                den.aspects.services._.ludusavi
-                den.aspects.services._.joystickwake
-            ];
-
-            homeManager =
-                { config, pkgs, ... }:
-                {
-                    home.packages = with pkgs; [
-                        protontricks
-                        heroic
-                        protonplus
-                        libstrangle
-                        doomrunner
-                        gzdoom
-                        vkquake
-                        prismlauncher
-                        gpu-screen-recorder-gtk
-                        shadps4
-                    ];
-
-                    home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
-                    xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
-                };
-        };
-
         provides.bethesda-user = {
             includes = [
-                den.aspects.gaming._.user
                 den.aspects.programs._.morrowind
             ];
 

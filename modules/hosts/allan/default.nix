@@ -61,7 +61,39 @@
         ];
 
         # Every host provides the base OS/HM user account wiring.
-        _.to-users.includes = [ den._.define-user ];
+        provides.to-users = {
+            includes = [
+                den._.define-user
+                den.aspects.programs._.atuin
+                den.aspects.programs._.bat
+                den.aspects.programs._.bottom
+                den.aspects.programs._.direnv
+                den.aspects.programs._.fish
+                den.aspects.programs._.git
+                den.aspects.programs._.gpg
+                den.aspects.programs._.jujutsu
+                den.aspects.programs._.neovim
+                den.aspects.programs._.starship
+                den.aspects.programs._.tealdeer
+                den.aspects.programs._.television
+                den.aspects.programs._.yazi
+                den.aspects.services._.lspmux
+                den.aspects.programs._.discord
+                den.aspects.programs._.element-desktop
+                den.aspects.programs._.firefox
+                den.aspects.programs._.mpv
+                den.aspects.programs._.wezterm
+                den.aspects.programs._.bottom-gui
+                den.aspects.programs._.neovim-gui
+                den.aspects.programs._.yazi-gui
+            ];
+            homeManager = {
+                imports = [
+                    den.aspects.common.homeManager
+                    den.aspects.gui.homeManager
+                ];
+            };
+        };
 
         nixos = {
             # Enable NetworkManager
@@ -105,11 +137,7 @@
         };
 
         provides.cassidy = {
-            includes = [
-                den.aspects.common._.user
-                den.aspects.gui._.user
-                den.aspects.programs._.thunderbird
-            ];
+            includes = [ den.aspects.programs._.thunderbird ];
 
             homeManager =
                 { pkgs, ... }:

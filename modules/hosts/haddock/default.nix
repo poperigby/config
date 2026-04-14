@@ -56,7 +56,28 @@
             den.aspects.services._.postfix
         ];
 
-        _.to-users.includes = [ den._.define-user ];
+        provides.to-users = {
+            includes = [
+                den._.define-user
+                den.aspects.programs._.atuin
+                den.aspects.programs._.bat
+                den.aspects.programs._.bottom
+                den.aspects.programs._.direnv
+                den.aspects.programs._.fish
+                den.aspects.programs._.git
+                den.aspects.programs._.gpg
+                den.aspects.programs._.jujutsu
+                den.aspects.programs._.neovim
+                den.aspects.programs._.starship
+                den.aspects.programs._.tealdeer
+                den.aspects.programs._.television
+                den.aspects.programs._.yazi
+                den.aspects.services._.lspmux
+            ];
+            homeManager = {
+                imports = [ den.aspects.common.homeManager ];
+            };
+        };
 
         nixos =
             { lib, pkgs, ... }:
@@ -107,9 +128,6 @@
             };
 
         provides.cassidy = {
-            # Host already includes common; keep host-specific user tweaks here.
-            includes = [ den.aspects.common._.user ];
-
             # For CrowdSec
             programs.fish.shellAliases.cs = "sudo cscli";
 
