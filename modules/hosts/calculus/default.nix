@@ -1,54 +1,57 @@
 { den, ... }:
 {
     den.aspects.calculus = {
-        includes = [
-            den.aspects.common
-            den.aspects.gui
-            den.aspects.gaming
+        provides.to-users.includes = with den.aspects; [
+            # Profiles
+            common
+            gui
+            gaming
 
-            (den.aspects.system._.boot { })
-            den.aspects.desktops._.gnome
-            den.aspects.hardware._.audio
-            den.aspects.services._.earlyoom
+            # Desktop
+            desktops._.gnome
+
+            # System
+            (system._.boot { })
+
+            # Hardware
+            hardware._.audio
+
+            # Services
+            services._.earlyoom
+
+            # CLI
+            programs._.atuin
+            programs._.bat
+            programs._.bottom
+            programs._.direnv
+            programs._.fish
+            programs._.git
+            programs._.gpg
+            programs._.jujutsu
+            programs._.neovim
+            programs._.starship
+            programs._.tealdeer
+            programs._.television
+            programs._.yazi
+
+            # Development services
+            services._.lspmux
+
+            # GUI apps
+            programs._.discord
+            programs._.element-desktop
+            programs._.firefox
+            programs._.mpv
+            programs._.wezterm
+            programs._.bottom-gui
+            programs._.neovim-gui
+            programs._.yazi-gui
+
+            # Gaming
+            programs._.mangohud
+            services._.ludusavi
+            services._.joystickwake
         ];
-
-        provides.to-users = {
-            includes = [
-                den._.define-user
-                den.aspects.programs._.atuin
-                den.aspects.programs._.bat
-                den.aspects.programs._.bottom
-                den.aspects.programs._.direnv
-                den.aspects.programs._.fish
-                den.aspects.programs._.git
-                den.aspects.programs._.gpg
-                den.aspects.programs._.jujutsu
-                den.aspects.programs._.neovim
-                den.aspects.programs._.starship
-                den.aspects.programs._.tealdeer
-                den.aspects.programs._.television
-                den.aspects.programs._.yazi
-                den.aspects.services._.lspmux
-                den.aspects.programs._.discord
-                den.aspects.programs._.element-desktop
-                den.aspects.programs._.firefox
-                den.aspects.programs._.mpv
-                den.aspects.programs._.wezterm
-                den.aspects.programs._.bottom-gui
-                den.aspects.programs._.neovim-gui
-                den.aspects.programs._.yazi-gui
-                den.aspects.programs._.mangohud
-                den.aspects.services._.ludusavi
-                den.aspects.services._.joystickwake
-            ];
-            homeManager = {
-                imports = [
-                    den.aspects.common.homeManager
-                    den.aspects.gui.homeManager
-                    den.aspects.gaming.homeManager
-                ];
-            };
-        };
 
         nixos = {
             services.openssh.enable = true;

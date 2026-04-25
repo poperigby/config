@@ -1,7 +1,6 @@
 {
     den,
     inputs,
-    lib,
     ...
 }:
 {
@@ -23,11 +22,13 @@
     };
 
     den.aspects.haddock = {
-        includes = [
-            den.aspects.common
-            (den.aspects.system._.boot { })
+        provides.to-users.includes = with den.aspects; [
+            # Profiles
+            common
 
-            (den.aspects.services._.backups {
+            # System
+            (system._.boot { })
+            (services._.backups {
                 # Backup to Tintin as well as BorgBase
                 repositories = {
                     borgbase = true;
@@ -53,31 +54,28 @@
                     "/var/lib/vikunja"
                 ];
             })
-            den.aspects.services._.postfix
-        ];
 
-        provides.to-users = {
-            includes = [
-                den._.define-user
-                den.aspects.programs._.atuin
-                den.aspects.programs._.bat
-                den.aspects.programs._.bottom
-                den.aspects.programs._.direnv
-                den.aspects.programs._.fish
-                den.aspects.programs._.git
-                den.aspects.programs._.gpg
-                den.aspects.programs._.jujutsu
-                den.aspects.programs._.neovim
-                den.aspects.programs._.starship
-                den.aspects.programs._.tealdeer
-                den.aspects.programs._.television
-                den.aspects.programs._.yazi
-                den.aspects.services._.lspmux
-            ];
-            homeManager = {
-                imports = [ den.aspects.common.homeManager ];
-            };
-        };
+            # Services
+            services._.postfix
+
+            # CLI
+            programs._.atuin
+            programs._.bat
+            programs._.bottom
+            programs._.direnv
+            programs._.fish
+            programs._.git
+            programs._.gpg
+            programs._.jujutsu
+            programs._.neovim
+            programs._.starship
+            programs._.tealdeer
+            programs._.television
+            programs._.yazi
+
+            # Development services
+            services._.lspmux
+        ];
 
         nixos =
             { lib, pkgs, ... }:
@@ -127,17 +125,12 @@
                 system.stateVersion = "23.11";
             };
 
-        provides.cassidy = {
-            # For CrowdSec
-            programs.fish.shellAliases.cs = "sudo cscli";
-
-            homeManager =
-                { pkgs, ... }:
-                {
-                    home.packages = [
-                        pkgs.custom.find-open-ports
-                    ];
-                };
-        };
+        provides.cassidy.homeManager =
+            { pkgs, ... }:
+            {
+                home.packages = [
+                    pkgs.custom.find-open-ports
+                ];
+            };
     };
 }

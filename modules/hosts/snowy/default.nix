@@ -17,7 +17,7 @@
 
     den.aspects.snowy = {
         provides.to-users.includes = with den.aspects; [
-            # Core
+            # Profiles
             common
             gui
             gaming
@@ -54,7 +54,7 @@
             hardware._.printing
             hardware._.scanning
 
-            # Core services
+            # Services
             services._.earlyoom
             services._.geolocation
 
