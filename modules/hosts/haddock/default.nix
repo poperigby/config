@@ -59,7 +59,6 @@
             services._.postfix
 
             # CLI
-            programs._.atuin
             programs._.bat
             programs._.bottom
             programs._.direnv
@@ -125,12 +124,16 @@
                 system.stateVersion = "23.11";
             };
 
-        provides.cassidy.homeManager =
-            { pkgs, ... }:
-            {
-                home.packages = [
-                    pkgs.custom.find-open-ports
-                ];
-            };
+        provides.cassidy = {
+            includes = [ den.aspects.programs._.atuin ];
+
+            homeManager =
+                { pkgs, ... }:
+                {
+                    home.packages = [
+                        pkgs.custom.find-open-ports
+                    ];
+                };
+        };
     };
 }
