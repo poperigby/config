@@ -6,7 +6,9 @@
 }:
 
 {
-    den.aspects.haddock.nixos = {
+    den.aspects.haddock.nixos =
+        { config, ... }:
+        {
         boot = {
             initrd.availableKernelModules = [
                 "xhci_pci"
