@@ -1,20 +1,20 @@
-# Wire local custom packages into `pkgs.custom.*` for both NixOS and Home Manager.
-{ den, ... }:
+# Wire local custom packages and overlays into both NixOS and Home Manager.
+{ ... }:
 let
-    overlay = final: prev: {
+    packageOverlay = final: prev: {
         lib = prev.lib // {
             custom = import ../lib/create-shell-script { lib = prev.lib; };
         };
 
         custom =
             let
-                packagesDir = ../packages;
-                packageEntries = builtins.readDir packagesDir;
+                pkgsDir = ../pkgs;
+                packageEntries = builtins.readDir pkgsDir;
 
                 packageFileFor =
                     name:
                     let
-                        dir = packagesDir + "/${name}";
+                        dir = pkgsDir + "/${name}";
                     in
                     if builtins.pathExists (dir + "/package.nix") then dir + "/package.nix" else dir;
 
@@ -29,10 +29,34 @@ let
                 }) packageNames
             );
     };
+
+    localOverlays =
+        let
+            overlaysDir = ../overlays;
+            overlayEntries = builtins.readDir overlaysDir;
+
+            overlayFileFor =
+                name:
+                let
+                    entryType = overlayEntries.${name};
+                    path = overlaysDir + "/${name}";
+                in
+                if entryType == "regular" && builtins.match ".*\\.nix" name != null then
+                    path
+                else if entryType == "directory" && builtins.pathExists (path + "/default.nix") then
+                    path + "/default.nix"
+                else
+                    null;
+
+            overlayNames = builtins.filter (name: overlayFileFor name != null) (
+                builtins.attrNames overlayEntries
+            );
+        in
+        map (name: import (overlayFileFor name)) overlayNames;
 in
 {
     den.default = {
-        nixos.nixpkgs.overlays = [ overlay ];
-        homeManager.nixpkgs.overlays = [ overlay ];
+        nixos.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
+        homeManager.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
     };
 }

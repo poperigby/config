@@ -1,5 +1,3 @@
-{ ... }:
-
 final: prev: {
     openmw = prev.openmw.overrideAttrs (old: {
         src = prev.fetchFromGitLab {

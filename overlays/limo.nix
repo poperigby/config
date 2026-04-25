@@ -1,5 +1,3 @@
-{ ... }:
-
 final: prev: {
     limo = (prev.limo.override { withUnrar = true; }).overrideAttrs (old: {
         src = prev.fetchFromGitHub {
