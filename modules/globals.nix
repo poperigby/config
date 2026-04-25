@@ -36,6 +36,7 @@ in
     den.default = {
         includes = [
             den.aspects.sops
+            den._.define-user
             den._.hostname
             den._.inputs'
             drivesForward
