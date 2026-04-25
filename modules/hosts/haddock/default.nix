@@ -80,6 +80,7 @@
             { lib, pkgs, ... }:
             {
                 imports = [
+                    ./_services
                     inputs.flux.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
