@@ -25,7 +25,7 @@ upgrade +input="":
 
 # Pull from the repository remote and rebuild
 sync:
-    git pull
+    jj pull
     nh os switch .
 
 # Garbage collect the Nix store
