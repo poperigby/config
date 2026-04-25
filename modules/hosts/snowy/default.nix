@@ -16,22 +16,18 @@
     };
 
     den.aspects.snowy = {
-        includes = [
-            den.aspects.common
-            den.aspects.gui
-            den.aspects.gaming
+        provides.to-users.includes = with den.aspects; [
+            # Core
+            common
+            gui
+            gaming
 
-            (den.aspects.system._.boot { })
-            den.aspects.desktops._.cosmic
+            # Desktop
+            desktops._.cosmic
 
-            den.aspects.hardware._.android
-            den.aspects.hardware._.audio
-            den.aspects.hardware._.bluetooth
-            den.aspects.hardware._.corsair
-            den.aspects.hardware._.printing
-            den.aspects.hardware._.scanning
-
-            (den.aspects.services._.backups {
+            # System
+            (system._.boot { })
+            (services._.backups {
                 paths =
                     let
                         cassidy = "/home/cassidy";
@@ -49,10 +45,92 @@
                         "${cassidy}/Games/Modding/Games/*/_download/"
                     ];
             })
-            den.aspects.services._.earlyoom
-            den.aspects.services._.geolocation
-            den.aspects.services._.virtualization
-            den.aspects.services._.virt-manager
+
+            # Hardware
+            hardware._.android
+            hardware._.audio
+            hardware._.bluetooth
+            hardware._.corsair
+            hardware._.printing
+            hardware._.scanning
+
+            # Core services
+            services._.earlyoom
+            services._.geolocation
+
+            # Virtualization
+            services._.virtualization
+            services._.virt-manager
+
+            # CLI
+            programs._.atuin
+            programs._.bat
+            programs._.bottom
+            programs._.direnv
+            programs._.fish
+            programs._.git
+            programs._.gpg
+            programs._.jujutsu
+            programs._.neovim
+            programs._.starship
+            programs._.tealdeer
+            programs._.television
+            programs._.yazi
+
+            # Development services
+            services._.lspmux
+
+            # GUI apps
+            programs._.discord
+            programs._.element-desktop
+            programs._.firefox
+            programs._.mpv
+            programs._.wezterm
+            programs._.bottom-gui
+            programs._.neovim-gui
+            programs._.yazi-gui
+            programs._.thunderbird
+
+            # Gaming
+            programs._.mangohud
+            gaming._.bethesda-user
+            services._.ludusavi
+            services._.joystickwake
+            (services._.ludusavi-config {
+                settings = {
+                    manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
+                    roots = [
+                        {
+                            path = "~/.local/share/Steam";
+                            store = "steam";
+                        }
+                        {
+                            path = "~/.config/heroic";
+                            store = "heroic";
+                        }
+                        {
+                            path = "/mnt/ssd0/SteamLibrary";
+                            store = "steam";
+                        }
+                        {
+                            path = "/mnt/hdd0/SteamLibrary";
+                            store = "steam";
+                        }
+                    ];
+                    customGames = [
+                        {
+                            name = "OpenMW";
+                            files = [ "~/.local/share/openmw/saves" ];
+                        }
+                        {
+                            name = "GZDoom";
+                            files = [ "~/.config/gzdoom/savegames" ];
+                        }
+                    ];
+                    backup.path = "~/.local/state/backups/ludusavi";
+                    restore.path = "~/.local/state/backups/ludusavi";
+                };
+            })
         ];
 
         nixos = {
@@ -85,122 +163,49 @@
             system.stateVersion = "23.11";
         };
 
-        provides.cassidy = {
-            includes = [
-                den.aspects.common
-                den.aspects.gui
-                den.aspects.gaming
-                den.aspects.programs._.atuin
-                den.aspects.programs._.bat
-                den.aspects.programs._.bottom
-                den.aspects.programs._.direnv
-                den.aspects.programs._.fish
-                den.aspects.programs._.git
-                den.aspects.programs._.gpg
-                den.aspects.programs._.jujutsu
-                den.aspects.programs._.neovim
-                den.aspects.programs._.starship
-                den.aspects.programs._.tealdeer
-                den.aspects.programs._.television
-                den.aspects.programs._.yazi
-                den.aspects.services._.lspmux
-                den.aspects.programs._.discord
-                den.aspects.programs._.element-desktop
-                den.aspects.programs._.firefox
-                den.aspects.programs._.mpv
-                den.aspects.programs._.wezterm
-                den.aspects.programs._.bottom-gui
-                den.aspects.programs._.neovim-gui
-                den.aspects.programs._.yazi-gui
-                den.aspects.programs._.mangohud
-                den.aspects.services._.ludusavi
-                den.aspects.services._.joystickwake
+        provides.cassidy.homeManager =
+            { pkgs, ... }:
+            {
+                imports = [
+                    inputs.cosmic-manager.homeManagerModules.cosmic-manager
+                    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+                ];
 
-                den.aspects.gaming._.bethesda-user
+                wayland.desktopManager.cosmic.enable = true;
+                programs.cosmic-ext-calculator.enable = true;
 
-                den.aspects.programs._.thunderbird
-
-                (den.aspects.services._.ludusavi-config {
-                    settings = {
-                        manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
-                        roots = [
-                            {
-                                path = "~/.local/share/Steam";
-                                store = "steam";
-                            }
-                            {
-                                path = "~/.config/heroic";
-                                store = "heroic";
-                            }
-                            {
-                                path = "/mnt/ssd0/SteamLibrary";
-                                store = "steam";
-                            }
-                            {
-                                path = "/mnt/hdd0/SteamLibrary";
-                                store = "steam";
-                            }
-                        ];
-                        customGames = [
-                            {
-                                name = "OpenMW";
-                                files = [ "~/.local/share/openmw/saves" ];
-                            }
-                            {
-                                name = "GZDoom";
-                                files = [ "~/.config/gzdoom/savegames" ];
-                            }
-                        ];
-                        backup.path = "~/.local/state/backups/ludusavi";
-                        restore.path = "~/.local/state/backups/ludusavi";
-                    };
-                })
-            ];
-
-            homeManager =
-                { pkgs, ... }:
-                {
-                    imports = [
-                        inputs.cosmic-manager.homeManagerModules.cosmic-manager
-                        inputs.nix-flatpak.homeManagerModules.nix-flatpak
+                services.flatpak = {
+                    enable = true;
+                    uninstallUnmanaged = true;
+                    packages = [
+                        rec {
+                            appId = "com.hypixel.HytaleLauncher";
+                            sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
+                            bundle = "${pkgs.fetchurl {
+                                url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
+                                inherit sha256;
+                            }}";
+                        }
                     ];
-
-                    wayland.desktopManager.cosmic.enable = true;
-                    programs.cosmic-ext-calculator.enable = true;
-
-                    services.flatpak = {
-                        enable = true;
-                        uninstallUnmanaged = true;
-                        packages = [
-                            rec {
-                                appId = "com.hypixel.HytaleLauncher";
-                                sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
-                                bundle = "${pkgs.fetchurl {
-                                    url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
-                                    inherit sha256;
-                                }}";
-                            }
-                        ];
-                    };
-
-                    home.packages = with pkgs; [
-                        er-patcher
-                        graphite
-                        pkgsRocm.blender
-                        r2modman
-                    ];
-
-                    home.file.morrowindBlenderPlugin = {
-                        source = pkgs.fetchFromGitHub {
-                            owner = "Greatness7";
-                            repo = "io_scene_mw";
-                            rev = "0.8.103";
-                            hash = "sha256-f1PgjSs6jU99oqEJgOwb/wX8gVW+2DNgS+kkeka/Mo0=";
-                        };
-                        target = ".config/blender/4.3/scripts/addons/io_scene_mw";
-                        recursive = true;
-                    };
                 };
-        };
+
+                home.packages = with pkgs; [
+                    er-patcher
+                    graphite
+                    pkgsRocm.blender
+                    r2modman
+                ];
+
+                home.file.morrowindBlenderPlugin = {
+                    source = pkgs.fetchFromGitHub {
+                        owner = "Greatness7";
+                        repo = "io_scene_mw";
+                        rev = "0.8.103";
+                        hash = "sha256-f1PgjSs6jU99oqEJgOwb/wX8gVW+2DNgS+kkeka/Mo0=";
+                    };
+                    target = ".config/blender/4.3/scripts/addons/io_scene_mw";
+                    recursive = true;
+                };
+            };
     };
 }
