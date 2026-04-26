@@ -1,13 +1,13 @@
-{ ... }:
 {
     den.aspects.programs.provides.firefox.homeManager =
-        { lib, ... }:
+        { config, lib, ... }:
         let
             inherit (lib) readFile;
         in
         {
             programs.firefox = {
                 enable = true;
+                configPath = "${config.xdg.configHome}/mozilla/firefox";
                 profiles.cassidy = {
                     search = {
                         default = "ddg";
