@@ -50,6 +50,10 @@ in
                     inputs.ucodenix.nixosModules.default
                 ];
 
+                # Some legacy NixOS modules still expect the full `inputs` set.
+                _module.args.inputs = inputs;
+                _module.args.system = pkgs.stdenv.hostPlatform.system;
+
                 nixpkgs.config.allowUnfree = true;
                 system.stateVersion = lib.mkDefault stateVersion;
             };

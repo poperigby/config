@@ -38,8 +38,8 @@ in
         };
 
         serviceConfig = {
-            ExecStartPre = "${lib.getExe pkgs.custom.moonfire-nvr} init";
-            ExecStart = "${lib.getExe pkgs.custom.moonfire-nvr} run --config ${format.generate "config.toml" settings}";
+            ExecStartPre = "${lib.getExe pkgs.moonfire-nvr} init";
+            ExecStart = "${lib.getExe pkgs.moonfire-nvr} run --config ${format.generate "config.toml" settings}";
             Type = "notify";
             TimeoutStartSec = 300;
             Restart = "on-failure";
@@ -52,7 +52,7 @@ in
         };
     };
 
-    environment.systemPackages = [ pkgs.custom.moonfire-nvr ];
+    environment.systemPackages = [ pkgs.moonfire-nvr ];
 
     services.caddy.virtualHosts."cctv.haddock.cc".extraConfig = ''
         import auth

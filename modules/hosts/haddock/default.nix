@@ -79,7 +79,6 @@
 
         nixos =
             {
-                inputs,
                 lib,
                 pkgs,
                 ...
