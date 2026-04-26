@@ -4,12 +4,6 @@ let
     qbittorrent = config.services.qbittorrent;
 in
 {
-    imports = [
-        ./arr.nix
-        ./jellyfin.nix
-        ./qbittorrent.nix
-    ];
-
     users = {
         # This user owns /mnt/media/data
         users.media = {

@@ -22,6 +22,7 @@
     };
 
     den.aspects.haddock = {
+
         provides.to-users.includes = with den.aspects; [
             # Profiles
             common
@@ -77,10 +78,15 @@
         ];
 
         nixos =
-            { lib, pkgs, ... }:
+            {
+                inputs,
+                lib,
+                pkgs,
+                ...
+            }:
             {
                 imports = [
-                    ./_services
+                    (inputs.import-tree ./_services)
                     inputs.flux.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
