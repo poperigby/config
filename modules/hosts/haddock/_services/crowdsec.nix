@@ -4,8 +4,10 @@
     services = {
         crowdsec = {
             enable = true;
+            user = "crowdsec";
+            group = "crowdsec";
             autoUpdateService = true;
-            localConfig = {
+            settings = {
                 acquisitions = [
                     {
                         labels.type = "authelia";
@@ -51,7 +53,7 @@
                     "crowdsecurity/sshd-success-logs" # Detect successful SSH logins
                     "crowdsecurity/whitelists" # Prevent banning self (e.g., private IPs)
                 ];
-                postOverflows = [
+                postoverflows = [
                     "crowdsecurity/auditd-nix-wrappers-whitelist-process" # Ignore benign Nix wrapper execs
                 ];
             };
@@ -60,7 +62,14 @@
     };
 
     # Give CrowdSec access to /var/log/audit
-    users.users.crowdsec.extraGroups = [ "audit" ];
+    users = {
+        users.crowdsec = {
+            isSystemUser = true;
+            group = "crowdsec";
+            extraGroups = [ "audit" ];
+        };
+        groups.crowdsec = { };
+    };
 
     sops = {
         secrets = {

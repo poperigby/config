@@ -1,3 +1,0 @@
-{
-    flux.enable = true;
-}

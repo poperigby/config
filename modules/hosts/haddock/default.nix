@@ -5,6 +5,7 @@
 }:
 {
     flake-file.inputs = {
+        crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
         flux = {
             url = "github:IogaMaster/flux";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +23,6 @@
     };
 
     den.aspects.haddock = {
-
         provides.to-users.includes = with den.aspects; [
             # Profiles
             common
@@ -86,13 +86,21 @@
             {
                 imports = [
                     (inputs.import-tree ./_services)
+                    (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec-firewall-bouncer.nix")
+                    (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec.nix")
+                    (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
                     inputs.flux.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
-                    (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
                     inputs.vpn-confinement.nixosModules.default
                 ];
 
+                disabledModules = [
+                    "services/security/crowdsec-firewall-bouncer.nix"
+                    "services/security/crowdsec.nix"
+                ];
+
                 nixpkgs.overlays = [ inputs.flux.overlays.default ];
+                flux.enable = true;
 
                 environment.systemPackages = with pkgs; [
                     lynis
