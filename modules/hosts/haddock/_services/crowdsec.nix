@@ -4,9 +4,9 @@
     services = {
         crowdsec = {
             enable = true;
-            user = "crowdsec";
-            group = "crowdsec";
             autoUpdateService = true;
+            # Give CrowdSec access to /var/log/audit
+            extraGroups = [ "audit" ];
             settings = {
                 acquisitions = [
                     {
@@ -59,21 +59,5 @@
             };
         };
         crowdsec-firewall-bouncer.enable = true;
-    };
-
-    # Give CrowdSec access to /var/log/audit
-    users = {
-        users.crowdsec = {
-            isSystemUser = true;
-            group = "crowdsec";
-            extraGroups = [ "audit" ];
-        };
-        groups.crowdsec = { };
-    };
-
-    sops = {
-        secrets = {
-            "haddock/crowdsec/enrollment_key".owner = "crowdsec";
-        };
     };
 }

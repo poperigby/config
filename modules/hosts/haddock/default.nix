@@ -36,6 +36,7 @@
                 };
                 paths = [
                     "/var/lib/bazarr"
+                    "/var/lib/continuwuity"
                     "/var/lib/immich"
                     "/var/lib/jellyfin"
                     "/var/lib/karakeep"
@@ -117,7 +118,7 @@
                         ChallengeResponseAuthentication = false;
                         PermitUserEnvironment = false;
                         AllowAgentForwarding = false;
-                        AllowTcpForwarding = false;
+                        # AllowTcpForwarding = false;
                         PermitTunnel = false;
                     };
                     extraConfig = ''
@@ -130,7 +131,7 @@
                 # https://github.com/NixOS/nixpkgs/issues/12867
                 security.pam.services.sshd.unixAuth = lib.mkForce true;
 
-                networking.useDHCP = true;
+                networking.useNetworkd = true;
 
                 # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
                 system.stateVersion = "23.11";
