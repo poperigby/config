@@ -157,6 +157,41 @@
                 };
             };
 
+            services.pipewire.wireplumber.extraConfig = {
+                "prefer-fifine-mic" = {
+                    "monitor.alsa.rules" = [
+                        {
+                            matches = [
+                                {
+                                    "node.name" = "alsa_input.usb-FIFINE_Microphones_fifine_Microphone_REV1.0-00.pro-input-0";
+                                }
+                            ];
+                            actions = {
+                                update-props = {
+                                    "priority.session" = 3000;
+                                };
+                            };
+                        }
+                    ];
+                };
+                "prefer-bluetooth-output" = {
+                    "monitor.bluez.rules" = [
+                        {
+                            matches = [
+                                {
+                                    "node.name" = "matches:bluez_output.*";
+                                }
+                            ];
+                            actions = {
+                                update-props = {
+                                    "priority.session" = 2000;
+                                };
+                            };
+                        }
+                    ];
+                };
+            };
+
             virtualisation.docker.enable = true;
 
             # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
