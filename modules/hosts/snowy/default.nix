@@ -201,13 +201,40 @@
         provides.cassidy.homeManager =
             { pkgs, ... }:
             {
-                imports = [
-                    inputs.cosmic-manager.homeManagerModules.cosmic-manager
-                    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+                imports = with inputs; [
+                    cosmic-manager.homeManagerModules.cosmic-manager
+                    nix-flatpak.homeManagerModules.nix-flatpak
                 ];
 
-                wayland.desktopManager.cosmic.enable = true;
+                wayland.desktopManager.cosmic = {
+                    enable = true;
+                    configFile = {
+                        "com.system76.CosmicSettings.WindowRules" = {
+                            entries = {
+                                tiling_exception_custom = [
+                                    # https://github.com/pop-os/cosmic-epoch/issues/1661
+                                    {
+                                        appid = "";
+                                        title = "Steam";
+                                        enabled = false;
+                                    }
+                                ];
+                            };
+                            version = 1;
+                        };
+                    };
+                };
+
                 programs.cosmic-ext-calculator.enable = true;
+
+                xdg.autostart = {
+                    enable = true;
+                    entries = with pkgs; [
+                        "${signal-desktop}/share/applications/signal.desktop"
+                        "${element-desktop}/share/applications/element-desktop.desktop"
+                        "${ckb-next}/share/applications/ckb-next.desktop"
+                    ];
+                };
 
                 services.flatpak = {
                     enable = true;

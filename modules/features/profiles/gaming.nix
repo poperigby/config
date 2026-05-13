@@ -22,13 +22,33 @@
             };
 
         nixos =
-            { ... }:
+            { pkgs, ... }:
             {
-                programs.steam.enable = true;
+                programs.steam = {
+                    enable = true;
+                    extraPackages = with pkgs; [
+                        # hidapi is required by Steam's controller firmware updater. Without it
+                        # Steam logs `ImportError: Unable to load ... libhidapi-hidraw.so` and
+                        # shows "Failed to update Steam Controller firmware" for the Steam Controller 2026.
+                        hidapi
+                    ];
+                    extraCompatPackages = with pkgs; [
+                        proton-ge-bin
+                    ];
+                    # Fixes right trackpad not controlling the mouse
+                    extest.enable = true;
+                };
+
+                # Installs Valve's udev rules (60-steam-input.rules etc.) so the
+                # Steam Controller's hidraw nodes are accessible without root.
+                hardware.steam-hardware.enable = true;
+
                 programs.gamemode.enable = true;
+
                 programs.gamescope = {
                     enable = true;
                 };
+
                 boot.kernel.sysctl = {
                     "vm.max_map_count" = 2147483642;
                     "gpu_sched.sched_policy" = 0;
