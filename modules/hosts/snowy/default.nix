@@ -230,9 +230,10 @@
                 xdg.autostart = {
                     enable = true;
                     entries = with pkgs; [
-                        "${signal-desktop}/share/applications/signal.desktop"
-                        "${element-desktop}/share/applications/element-desktop.desktop"
                         "${ckb-next}/share/applications/ckb-next.desktop"
+                        "${element-desktop}/share/applications/element-desktop.desktop"
+                        "${signal-desktop}/share/applications/signal.desktop"
+                        "${steam}/share/applications/steam.desktop"
                     ];
                 };
 
