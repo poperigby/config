@@ -256,7 +256,6 @@
                     er-patcher
                     graphite
                     pkgsRocm.blender
-                    r2modman
                 ];
 
                 home.file.morrowindBlenderPlugin = {

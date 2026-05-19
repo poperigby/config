@@ -64,7 +64,10 @@
             homeManager =
                 { pkgs, ... }:
                 {
-                    home.packages = with pkgs; [ limo ];
+                    home.packages = with pkgs; [
+                        limo
+                        r2modman
+                    ];
                 };
         };
     };
