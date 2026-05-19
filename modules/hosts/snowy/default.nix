@@ -70,7 +70,6 @@
             programs._.fish
             programs._.git
             programs._.gpg
-            programs._.jujutsu
             programs._.neovim
             programs._.starship
             programs._.tealdeer

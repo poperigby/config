@@ -11,12 +11,13 @@
     den.aspects.common = {
         includes = [
             den.aspects.nix
-            den.aspects.system._.locale
-            den.aspects.system._.zram
+            den.aspects.programs._.jujutsu
             den.aspects.security._.sudo
             den.aspects.services._.envfs
             den.aspects.services._.ld
             den.aspects.services._.smartd
+            den.aspects.system._.locale
+            den.aspects.system._.zram
         ];
 
         homeManager =
