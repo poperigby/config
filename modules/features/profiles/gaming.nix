@@ -5,16 +5,17 @@
             { config, pkgs, ... }:
             {
                 home.packages = with pkgs; [
-                    protontricks
-                    heroic
-                    protonplus
-                    libstrangle
                     doomrunner
-                    gzdoom
-                    vkquake
-                    prismlauncher
                     gpu-screen-recorder-gtk
+                    gzdoom
+                    heroic
+                    libstrangle
+                    prismlauncher
+                    protonplus
+                    protontricks
+                    r2modman
                     shadps4
+                    vkquake
                 ];
 
                 home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
@@ -66,7 +67,6 @@
                 {
                     home.packages = with pkgs; [
                         limo
-                        r2modman
                     ];
                 };
         };
