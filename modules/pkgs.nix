@@ -1,5 +1,9 @@
-# Wire local custom packages and overlays into both NixOS and Home Manager.
-{ ... }:
+# Wire local custom packages and overlays into NixOS, Home Manager, and flake outputs.
+{
+    inputs,
+    lib,
+    ...
+}:
 let
     packageOverlay = final: prev: {
         lib = prev.lib // {
@@ -59,4 +63,16 @@ in
         nixos.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
         homeManager.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
     };
+
+    flake.packages = lib.genAttrs lib.systems.flakeExposed (
+        system:
+        let
+            pkgs = import inputs.nixpkgs {
+                inherit system;
+                overlays = [ packageOverlay ] ++ localOverlays;
+                config.allowUnfree = true;
+            };
+        in
+        pkgs.custom
+    );
 }

@@ -63,6 +63,9 @@
         };
 
         provides.shane = {
+            nixos = {
+                services.gnome.gnome-remote-desktop.enable = true;
+            };
             homeManager =
                 { pkgs, ... }:
                 {

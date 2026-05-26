@@ -230,7 +230,6 @@
                     enable = true;
                     entries = with pkgs; [
                         "${ckb-next}/share/applications/ckb-next.desktop"
-                        "${element-desktop}/share/applications/element-desktop.desktop"
                         "${signal-desktop}/share/applications/signal.desktop"
                         "${steam}/share/applications/steam.desktop"
                     ];
