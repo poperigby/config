@@ -7,7 +7,6 @@
 }:
 let
     stateVersion = "25.11";
-
     drivesForward =
         { class, aspect-chain }:
         lib.optionalAttrs (class == "nixos") (
@@ -52,7 +51,6 @@ in
 
                 # Some legacy NixOS modules still expect the full `inputs` set.
                 _module.args.inputs = inputs;
-                _module.args.system = pkgs.stdenv.hostPlatform.system;
 
                 nixpkgs.config.allowUnfree = true;
                 system.stateVersion = lib.mkDefault stateVersion;
@@ -63,7 +61,6 @@ in
             {
                 # Some legacy HM modules still expect the full `inputs` set.
                 _module.args.inputs = inputs;
-                _module.args.system = pkgs.stdenv.hostPlatform.system;
 
                 nixpkgs.config.allowUnfree = true;
                 home.stateVersion = lib.mkDefault stateVersion;
@@ -75,5 +72,5 @@ in
     den.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
     # host<->user provides
-    den.ctx.user.includes = [ den._.mutual-provider ];
+    den.schema.user.includes = [ den._.mutual-provider ];
 }

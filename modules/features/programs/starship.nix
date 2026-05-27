@@ -5,12 +5,12 @@
     den.aspects.programs.provides.starship.homeManager =
         {
             lib,
-            pkgs,
-            system,
+            inputs',
             ...
         }:
         let
             inherit (lib) concatStrings getExe;
+            jj-starship = inputs'.jj-starship.packages.jj-starship;
         in
         {
             programs.starship = {
@@ -60,9 +60,9 @@
                         style = "bold yellow";
                     };
                     custom.jj = {
-                        when = "${getExe inputs.jj-starship.packages.${system}.jj-starship} detect";
+                        when = "${getExe jj-starship} detect";
                         format = "$output ";
-                        shell = [ (getExe inputs.jj-starship.packages.${system}.jj-starship) ];
+                        shell = [ (getExe jj-starship) ];
                     };
                     nix_shell = {
                         format = "[$symbol]($style)";

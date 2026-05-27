@@ -12,6 +12,7 @@
         includes = [
             den.aspects.nix
             den.aspects.programs._.jujutsu
+            den.aspects.security._.run0
             den.aspects.security._.sudo
             den.aspects.services._.envfs
             den.aspects.services._.ld

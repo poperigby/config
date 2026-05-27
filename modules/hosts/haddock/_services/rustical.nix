@@ -28,7 +28,7 @@ in
                     allow_sign_up = true;
                 };
             };
-            environmentFile = config.sops.templates.rustical-secrets.path;
+            environmentFiles = [ config.sops.templates.rustical-secrets.path ];
         };
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
             reverse_proxy :${toString cfg.settings.http.port}

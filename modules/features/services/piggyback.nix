@@ -16,9 +16,8 @@
         {
             nixos =
                 {
+                    inputs',
                     lib,
-                    pkgs,
-                    system,
                     ...
                 }:
                 {
@@ -35,7 +34,7 @@
                             description = "Piggyback DDNS updater";
                             serviceConfig = {
                                 Type = "oneshot";
-                                ExecStart = lib.getExe inputs.piggyback.defaultPackage.${system};
+                                ExecStart = lib.getExe inputs'.piggyback.defaultPackage;
                                 EnvironmentFile = environmentFile;
                                 User = user;
                                 Group = group;

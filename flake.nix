@@ -59,7 +59,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
-    rustical.url = "github:poperigby/nixpkgs/rustical-module";
     sops.url = "github:Mic92/sops-nix";
     sops-nix = {
       url = "github:Mic92/sops-nix";

@@ -3,12 +3,12 @@
     inputs,
     lib,
     pkgs,
-    system,
     ...
 }:
 let
     user = "piggyback";
     group = "piggyback";
+    system = pkgs.stdenv.hostPlatform.system;
 in
 {
     # Synchronizes Haddock's public IP with Porkbun

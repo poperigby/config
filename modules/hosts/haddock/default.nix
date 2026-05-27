@@ -14,7 +14,6 @@
             url = "github:Infinidoge/nix-minecraft";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        rustical.url = "github:poperigby/nixpkgs/rustical-module";
         vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
         nix = {
             url = "github:NixOS/nix";
@@ -88,7 +87,6 @@
                     (inputs.import-tree ./_services)
                     (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec-firewall-bouncer.nix")
                     (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec.nix")
-                    (inputs.rustical.outPath + "/nixos/modules/services/networking/rustical.nix")
                     inputs.flux.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     inputs.vpn-confinement.nixosModules.default
