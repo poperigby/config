@@ -10,7 +10,7 @@
                 enable = true;
                 enableFishIntegration = true;
                 shellWrapperName = "yy";
-                theme = builtins.fromTOML (readFile ./theme.toml);
+                theme = fromTOML (readFile ./theme.toml);
                 initLua = ./init.lua;
                 settings = {
                     mgr = {

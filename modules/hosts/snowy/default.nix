@@ -23,7 +23,7 @@
             gaming
 
             # Desktop
-            desktops._.cosmic
+            desktops._.niri
 
             # System
             (system._.boot { })
@@ -201,30 +201,8 @@
             { pkgs, ... }:
             {
                 imports = with inputs; [
-                    cosmic-manager.homeManagerModules.cosmic-manager
                     nix-flatpak.homeManagerModules.nix-flatpak
                 ];
-
-                wayland.desktopManager.cosmic = {
-                    enable = true;
-                    configFile = {
-                        "com.system76.CosmicSettings.WindowRules" = {
-                            entries = {
-                                tiling_exception_custom = [
-                                    # https://github.com/pop-os/cosmic-epoch/issues/1661
-                                    {
-                                        appid = "";
-                                        title = "Steam";
-                                        enabled = false;
-                                    }
-                                ];
-                            };
-                            version = 1;
-                        };
-                    };
-                };
-
-                programs.cosmic-ext-calculator.enable = true;
 
                 xdg.autostart = {
                     enable = true;
@@ -233,6 +211,15 @@
                         "${signal-desktop}/share/applications/signal.desktop"
                         "${steam}/share/applications/steam.desktop"
                     ];
+                };
+
+                programs.niri.settings.outputs.DP-3 = {
+                    mode = {
+                        width = 2560;
+                        height = 1440;
+                        refresh = 169.831;
+                    };
+                    variable-refresh-rate = true;
                 };
 
                 services.flatpak = {
