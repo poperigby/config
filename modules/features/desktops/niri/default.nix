@@ -1,9 +1,5 @@
-{ den, inputs, ... }:
+{ den, ... }:
 {
-    flake-file.inputs = {
-        niri.url = "github:sodiboo/niri-flake/very-refactor";
-    };
-
     den.aspects.desktops.provides.niri = {
         includes = [
             den.aspects.gui
@@ -33,6 +29,8 @@
                     enableClipboardPaste = true; # Pasting from the clipboard history (wtype)
                 };
 
+                programs.dsearch.enable = true;
+
                 environment.systemPackages = with pkgs; [
                     xwayland-satellite
                     papirus-icon-theme
@@ -45,33 +43,23 @@
             };
 
         homeManager =
-            { pkgs, ... }:
+            { lib, pkgs, ... }:
             {
-                imports = [
-                    inputs.niri.homeModules.niri
-                ];
-
-                programs.niri = {
-                    package = pkgs.niri;
-                    settings = {
-                        cursor = {
-                            theme = "Adwaita";
-                            size = 20;
-                        };
-                        # Rebind Caps Lock to Super key (Mod4)
-                        input.keyboard.xkb.options = "caps:super";
-                        # https://github.com/sodiboo/niri-flake/issues/1446
-                        # recent-windows = {
-                        #     highlight = {
-                        #         corner-radius = 8.0;
-                        #     };
-                        # };
-                    };
+                xdg.configFile = {
+                    "niri/config.kdl".text = lib.mkBefore (builtins.readFile ./config.kdl);
+                    "niri/binds.kdl".source = ./binds.kdl;
+                    "niri/rules.kdl".source = ./rules.kdl;
                 };
 
                 home.packages = with pkgs; [
                     adwaita-icon-theme
+                    oculante
                 ];
+
+                services.kdeconnect.enable = true;
+
+                # Fix Steam not using correct cursor theme
+                home.file.".icons/default".source = "${pkgs.adwaita-icon-theme}/share/icons/Adwaita";
             };
     };
 }

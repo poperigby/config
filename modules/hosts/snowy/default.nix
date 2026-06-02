@@ -198,7 +198,7 @@
         };
 
         provides.cassidy.homeManager =
-            { pkgs, ... }:
+            { lib, pkgs, ... }:
             {
                 imports = with inputs; [
                     nix-flatpak.homeManagerModules.nix-flatpak
@@ -213,13 +213,11 @@
                     ];
                 };
 
-                programs.niri.settings.outputs.DP-3 = {
-                    mode = {
-                        width = 2560;
-                        height = 1440;
-                        refresh = 169.831;
-                    };
-                    variable-refresh-rate = true;
+                xdg.configFile = {
+                    "niri/config.kdl".text = lib.mkAfter ''
+                        include "host.kdl"
+                    '';
+                    "niri/host.kdl".source = ./niri.kdl;
                 };
 
                 services.flatpak = {
