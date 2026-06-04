@@ -9,12 +9,17 @@ input {
             options "caps:super"
         }
     }
+    focus-follows-mouse
 }
 
 recent-windows {
     highlight {
         corner-radius 8
     }
+}
+
+hotkey-overlay {
+    skip-at-startup
 }
 
 include "binds.kdl"

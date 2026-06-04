@@ -32,11 +32,17 @@
             }:
             {
                 accounts = {
-                    contact.accounts.Default.remote = {
+                    calendar.accounts.cassidy.remote = {
+                        type = "caldav";
+                        url = "https://dav.haddock.cc/caldav/principal/cassidy/default";
+                        userName = "cassidy";
+                        passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/dav/password".path;
+                    };
+                    contact.accounts.cassidy.remote = {
                         type = "carddav";
                         url = "https://dav.haddock.cc/carddav/principal/cassidy/default/";
                         userName = "cassidy";
-                        passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/contacts/password".path;
+                        passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/dav/password".path;
                     };
                     email.accounts.cassidy = rec {
                         primary = true;
@@ -65,7 +71,7 @@
 
                 sops.secrets = {
                     "common/users/cassidy/email/password" = { };
-                    "common/users/cassidy/contacts/password" = { };
+                    "common/users/cassidy/dav/password" = { };
                 };
             };
     };

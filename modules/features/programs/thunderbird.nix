@@ -19,6 +19,7 @@
             };
 
             accounts = {
+                calendar.accounts.${user}.thunderbird.enable = true;
                 contact.accounts.${user}.thunderbird.enable = true;
                 email.accounts.${user}.thunderbird.enable = true;
             };

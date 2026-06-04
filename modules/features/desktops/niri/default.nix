@@ -56,8 +56,6 @@
                     oculante
                 ];
 
-                services.kdeconnect.enable = true;
-
                 # Fix Steam not using correct cursor theme
                 home.file.".icons/default".source = "${pkgs.adwaita-icon-theme}/share/icons/Adwaita";
             };
