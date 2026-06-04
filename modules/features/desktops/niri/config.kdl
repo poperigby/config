@@ -5,6 +5,7 @@ cursor {
 
 input {
     keyboard {
+        numlock
         xkb {
             options "caps:super"
         }

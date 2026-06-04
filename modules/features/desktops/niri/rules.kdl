@@ -7,10 +7,19 @@ window-rule {
 
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+
     default-floating-position x=10 y=10 relative-to="bottom-right"
+    open-focused false
 }
 
 layer-rule {
-    match namespace="^dms:blurwallpaper$"
+    match namespace="dms:blurwallpaper"
+
     place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="dms:notification-popup"
+
+    block-out-from "screencast"
 }

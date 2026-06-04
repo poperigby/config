@@ -10,28 +10,10 @@ let
             custom = import ../lib/create-shell-script { lib = prev.lib; };
         };
 
-        custom =
-            let
-                pkgsDir = ../pkgs;
-                packageEntries = builtins.readDir pkgsDir;
-
-                packageFileFor =
-                    name:
-                    let
-                        dir = pkgsDir + "/${name}";
-                    in
-                    if builtins.pathExists (dir + "/package.nix") then dir + "/package.nix" else dir;
-
-                packageNames = prev.lib.filter (
-                    name: packageEntries.${name} == "directory" && packageFileFor name != null
-                ) (builtins.attrNames packageEntries);
-            in
-            builtins.listToAttrs (
-                map (name: {
-                    inherit name;
-                    value = final.callPackage (packageFileFor name) { };
-                }) packageNames
-            );
+        custom = lib.filesystem.packagesFromDirectoryRecursive {
+            callPackage = prev.callPackage;
+            directory = ../pkgs;
+        };
     };
 
     localOverlays =
@@ -64,6 +46,7 @@ in
         homeManager.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
     };
 
+    # Expose custom packages in flake outputs
     flake.packages = lib.genAttrs lib.systems.flakeExposed (
         system:
         let
