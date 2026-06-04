@@ -9,7 +9,6 @@ input {
             options "caps:super"
         }
     }
-    focus-follows-mouse
 }
 
 recent-windows {
