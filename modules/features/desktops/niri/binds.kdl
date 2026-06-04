@@ -25,7 +25,8 @@ binds {
 
     // Window / overview.
     Mod+W repeat=false { toggle-overview; }
-    Mod+Q repeat=false { close-window; }
+    Mod+Q hotkey-overlay-title="Quit the focused window" repeat=false { close-window; }
+    Mod+Shift+Q hotkey-overlay-title="Force kill the focused window" repeat=false { spawn "wkill"; }
 
     // Focus (vim + arrows).
     Mod+Left { focus-column-left; }

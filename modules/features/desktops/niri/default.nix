@@ -54,6 +54,7 @@
                 home.packages = with pkgs; [
                     adwaita-icon-theme
                     oculante
+                    custom.wkill
                 ];
 
                 # Fix Steam not using correct cursor theme
