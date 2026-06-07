@@ -1,6 +1,6 @@
 { ... }:
 {
-    den.aspects.snowy.drives.primary = {
+    den.aspects.snowy.nixos.disko.devices.disk.primary = {
         device = "/dev/nvme0n1";
         type = "disk";
         content = {

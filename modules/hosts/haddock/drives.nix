@@ -1,7 +1,7 @@
 { ... }:
 {
     den.aspects.haddock = {
-        drives.primary = {
+        nixos.disko.devices.disk.primary = {
             device = "/dev/disk/by-id/nvme-WD_Blue_SN580_1TB_244432808685";
             type = "disk";
             content = {

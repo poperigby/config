@@ -1,6 +1,6 @@
 { ... }:
 {
-    den.aspects.allan.drives.primary = {
+    den.aspects.allan.nixos.disko.devices.disk.primary = {
         device = "/dev/nvme0n1";
         type = "disk";
         content = {

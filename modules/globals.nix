@@ -7,24 +7,6 @@
 }:
 let
     stateVersion = "25.11";
-    drivesForward =
-        { class, aspect-chain }:
-        lib.optionalAttrs (class == "nixos") (
-            den._.forward {
-                each = [ "nixos" ];
-                fromClass = _: "drives";
-                intoClass = _: "nixos";
-                intoPath =
-                    _:
-                    { ... }:
-                    [
-                        "disko"
-                        "devices"
-                        "disk"
-                    ];
-                fromAspect = _: lib.head aspect-chain;
-            }
-        );
 in
 {
     flake-file.inputs = {
@@ -38,7 +20,6 @@ in
             den._.define-user
             den._.hostname
             den._.inputs'
-            drivesForward
         ];
 
         nixos =

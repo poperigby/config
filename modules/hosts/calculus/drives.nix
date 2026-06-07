@@ -1,6 +1,6 @@
 { ... }:
 {
-    den.aspects.calculus.drives.primary = {
+    den.aspects.calculus.nixos.disko.devices.disk.primary = {
         device = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_2000GB_21469T446305";
         type = "disk";
         content = {
