@@ -3,6 +3,7 @@
     den.aspects.gui = {
         includes = [
             den.aspects.services._.udisks2
+            den.aspects.programs._.smile
         ];
 
         homeManager =
@@ -36,7 +37,6 @@
                     signal-desktop
                     tenacity
                     tor-browser
-                    ungoogled-chromium
                     wl-clipboard-rs
                 ];
 

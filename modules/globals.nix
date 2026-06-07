@@ -42,7 +42,7 @@ in
         ];
 
         nixos =
-            { pkgs, ... }:
+            { ... }:
             {
                 imports = [
                     inputs.disko.nixosModules.disko
@@ -57,7 +57,7 @@ in
             };
 
         homeManager =
-            { pkgs, ... }:
+            { ... }:
             {
                 # Some legacy HM modules still expect the full `inputs` set.
                 _module.args.inputs = inputs;

@@ -51,6 +51,12 @@
                     "niri/rules.kdl".source = ./rules.kdl;
                 };
 
+                xdg.mimeApps.defaultApplications = {
+                    "image/jpeg" = "oculante.desktop";
+                    "image/png" = "oculante.desktop";
+                    "image/webp" = "oculante.desktop";
+                };
+
                 home.packages = with pkgs; [
                     adwaita-icon-theme
                     oculante

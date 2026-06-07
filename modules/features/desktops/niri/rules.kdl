@@ -12,9 +12,9 @@ window-rule {
     open-focused false
 }
 
+// Make the wallpaper stationary, rather than moving with workspaces.
 layer-rule {
-    match namespace="dms:blurwallpaper"
-
+    match namespace="quickshell"
     place-within-backdrop true
 }
 
