@@ -1,14 +1,12 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
-lib.custom.createShellScript {
-    inherit pkgs;
-
-    pname = "installer";
-    src = ./script.sh;
-    deps = with pkgs; [
+pkgs.writeShellApplication {
+    name = "installer";
+    runtimeInputs = with pkgs; [
         disko
         git
         gum
         sops
     ];
+    text = builtins.readFile ./script.sh;
 }

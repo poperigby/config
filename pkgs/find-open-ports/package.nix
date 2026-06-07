@@ -1,16 +1,13 @@
 {
-    lib,
     pkgs,
     ...
 }:
 
-lib.custom.createShellScript {
-    inherit pkgs;
-
-    pname = "find-open-ports";
-    src = ./script.sh;
-    deps = with pkgs; [
+pkgs.writeShellApplication {
+    name = "find-open-ports";
+    runtimeInputs = with pkgs; [
         gawk
         iproute2
     ];
+    text = builtins.readFile ./script.sh;
 }

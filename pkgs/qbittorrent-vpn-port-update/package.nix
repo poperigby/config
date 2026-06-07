@@ -1,19 +1,16 @@
 {
-    lib,
     pkgs,
     ...
 }:
 
-lib.custom.createShellScript {
-    inherit pkgs;
-
-    pname = "qbittorrent-vpn-port-update";
-    src = ./script.sh;
-    deps = with pkgs; [
+pkgs.writeShellApplication {
+    name = "qbittorrent-vpn-port-update";
+    runtimeInputs = with pkgs; [
         curl
         gawk
         iptables
         jq
         libnatpmp
     ];
+    text = builtins.readFile ./script.sh;
 }

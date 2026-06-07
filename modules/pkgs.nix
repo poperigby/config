@@ -6,10 +6,6 @@
 }:
 let
     packageOverlay = final: prev: {
-        lib = prev.lib // {
-            custom = import ../lib/create-shell-script { lib = prev.lib; };
-        };
-
         custom = lib.filesystem.packagesFromDirectoryRecursive {
             callPackage = prev.callPackage;
             directory = ../pkgs;
