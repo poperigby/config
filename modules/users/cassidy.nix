@@ -40,7 +40,7 @@
                     };
                     contact.accounts.cassidy.remote = {
                         type = "carddav";
-                        url = "https://dav.haddock.cc/carddav/principal/cassidy/default/";
+                        url = "https://dav.haddock.cc/carddav/principal/cassidy/default";
                         userName = "cassidy";
                         passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/dav/password".path;
                     };

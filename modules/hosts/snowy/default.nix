@@ -80,15 +80,15 @@
             services._.lspmux
 
             # GUI apps
+            programs._.bottom-gui
             programs._.discord
             programs._.element-desktop
             programs._.firefox
             programs._.mpv
-            programs._.wezterm
-            programs._.bottom-gui
             programs._.neovim-gui
-            programs._.yazi-gui
+            programs._.wezterm
             programs._.thunderbird
+            programs._.yazi-gui
 
             # Gaming
             programs._.mangohud

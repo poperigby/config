@@ -1,5 +1,5 @@
 # Nix configuration (both NixOS + Home Manager)
-{ den, ... }:
+{ ... }:
 {
     den.aspects.nix = {
         nixos =

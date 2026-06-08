@@ -109,7 +109,11 @@
                         XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
                         XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
                         XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
+                        CARGO_HOME = "${config.xdg.dataHome}/cargo";
                         CARGO_TARGET_DIR = "${config.xdg.cacheHome}/cargo/target";
+                        DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
+                        PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
+                        WINEPREFIX = "${config.xdg.dataHome}/wine";
                     };
                 };
 

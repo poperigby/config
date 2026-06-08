@@ -20,13 +20,30 @@
                         restartIfChanged = true; # Auto-restart dms.service when dms-shell changes
                     };
 
-                    # Core features
-                    enableSystemMonitoring = true; # System monitoring widgets (dgop)
-                    enableVPN = true; # VPN management widget
-                    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-                    enableAudioWavelength = true; # Audio visualizer (cava)
-                    enableCalendarEvents = true; # Calendar integration (khal)
-                    enableClipboardPaste = true; # Pasting from the clipboard history (wtype)
+                    plugins = {
+                        calculator.src = pkgs.applyPatches {
+                            src = pkgs.fetchFromGitHub {
+                                owner = "rochacbruno";
+                                repo = "DankCalculator";
+                                rev = "main";
+                                hash = "sha256-hiqrO8WkzmWGVlUrzxmffUZBs4t1QM2mMTBUxZqCIyU=";
+                            };
+                            patches = [ ./dank-calculator-numbat-debounce.patch ];
+                        };
+                        emoji-unicode-picker.src = pkgs.fetchFromGitHub {
+                            owner = "devnullvoid";
+                            repo = "dms-emoji-launcher";
+                            rev = "main";
+                            hash = "sha256-NQ14YenDiNK2VqXQ3z7jAkatbSRtYJHhOhvv7AJlUD8=";
+                        };
+                    };
+
+                    enableSystemMonitoring = true;
+                    enableVPN = true;
+                    enableDynamicTheming = true;
+                    enableAudioWavelength = true;
+                    enableCalendarEvents = true;
+                    enableClipboardPaste = true;
                 };
 
                 programs.dsearch.enable = true;
@@ -34,6 +51,7 @@
                 environment.systemPackages = with pkgs; [
                     xwayland-satellite
                     papirus-icon-theme
+                    adw-gtk3
                 ];
 
                 services.displayManager.dms-greeter = {
@@ -43,7 +61,11 @@
             };
 
         homeManager =
-            { lib, pkgs, ... }:
+            {
+                lib,
+                pkgs,
+                ...
+            }:
             {
                 xdg.configFile = {
                     "niri/config.kdl".text = lib.mkBefore (builtins.readFile ./config.kdl);
@@ -59,8 +81,10 @@
 
                 home.packages = with pkgs; [
                     adwaita-icon-theme
-                    oculante
                     custom.wkill
+                    numbat
+                    oculante
+                    wl-freeze
                 ];
 
                 # Fix Steam not using correct cursor theme

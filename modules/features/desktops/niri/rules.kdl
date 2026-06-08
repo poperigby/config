@@ -2,6 +2,19 @@ window-rule {
     open-maximized true
     geometry-corner-radius 8.0
     clip-to-geometry true
+}
+
+window-rule {
+    match is-active=false
+
+    opacity 0.9
+}
+
+// Make sure transparency can actually be seen
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    match app-id=r#"^org\.gnome\."#
+
     draw-border-with-background false
 }
 
@@ -16,6 +29,22 @@ window-rule {
 layer-rule {
     match namespace="quickshell"
     place-within-backdrop true
+}
+
+// Make it so DMS layers don't show all the way to the background when transparent
+layer-rule {
+    match namespace=r#"^dms:.*"#
+
+    background-effect {
+        xray false
+    }
+}
+
+
+// Open DMS windows as floating by default
+window-rule {
+    match app-id=r#"org.quickshell$"#
+    open-floating true
 }
 
 layer-rule {

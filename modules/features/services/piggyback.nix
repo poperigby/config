@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 {
     flake-file.inputs = {
         piggyback = {

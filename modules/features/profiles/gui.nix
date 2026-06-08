@@ -3,7 +3,6 @@
     den.aspects.gui = {
         includes = [
             den.aspects.services._.udisks2
-            den.aspects.programs._.smile
         ];
 
         homeManager =
