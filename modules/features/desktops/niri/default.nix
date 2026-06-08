@@ -23,12 +23,11 @@
                     plugins = {
                         calculator.src = pkgs.applyPatches {
                             src = pkgs.fetchFromGitHub {
-                                owner = "rochacbruno";
+                                owner = "poperigby";
                                 repo = "DankCalculator";
-                                rev = "main";
-                                hash = "sha256-hiqrO8WkzmWGVlUrzxmffUZBs4t1QM2mMTBUxZqCIyU=";
+                                rev = "numbat-debounce";
+                                hash = "sha256-K/24VCf+IzNyck50Aco6kJfBE4Lji3ue3UCd5dBBRc8=";
                             };
-                            patches = [ ./dank-calculator-numbat-debounce.patch ];
                         };
                         emoji-unicode-picker.src = pkgs.fetchFromGitHub {
                             owner = "devnullvoid";
@@ -57,6 +56,8 @@
                 services.displayManager.dms-greeter = {
                     enable = true;
                     compositor.name = "niri";
+                    # Sync DankMaterialShell theme with the greeter
+                    configHome = "/home/cassidy";
                 };
             };
 

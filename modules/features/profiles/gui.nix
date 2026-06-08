@@ -3,6 +3,7 @@
     den.aspects.gui = {
         includes = [
             den.aspects.services._.udisks2
+            den.aspects.system._.plymouth
         ];
 
         homeManager =

@@ -5,8 +5,9 @@
     nix-update-script,
     makeWrapper,
     makeFontsConf,
-    runCommand,
-    python3,
+    makeDesktopItem,
+    copyDesktopItems,
+    python3Packages,
     gtk3,
     libarchive,
     p7zip,
@@ -18,7 +19,7 @@
 }:
 
 let
-    customtkinter' = python3.pkgs.customtkinter.overridePythonAttrs (old: {
+    customtkinter = python3Packages.customtkinter.overridePythonAttrs (old: {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace customtkinter/windows/widgets/font/font_manager.py \
                 --replace-fail \
@@ -27,37 +28,30 @@ let
         '';
     });
 
-    customtkinterFonts = runCommand "customtkinter-fonts" { } ''
-        fonts=${customtkinter'}/${python3.sitePackages}/customtkinter/assets/fonts
-        mkdir -p "$out/share/fonts/truetype"
-        cp "$fonts/Roboto/"*.ttf "$out/share/fonts/truetype/"
-        cp "$fonts/CustomTkinter_shapes_font.otf" "$out/share/fonts/truetype/"
-    '';
-
     fontsConf = makeFontsConf {
-        fontDirectories = [ customtkinterFonts ];
+        fontDirectories = [
+            "${customtkinter}/${python3Packages.python.sitePackages}/customtkinter/assets/fonts"
+        ];
     };
 
-    python = python3.withPackages (
-        ps: with ps; [
-            customtkinter'
-            py7zr
-            ps."libarchive-c"
-            pillow
-            lz4
-            zstandard
-            requests
-            websocket-client
-            keyring
-            jeepney
-            importlib-metadata
-            backports-tarfile
-            msgpack
-            bsdiff4
-            pygobject3
-            tkinter
-        ]
-    );
+    pythonInputs = with python3Packages; [
+        customtkinter
+        py7zr
+        python3Packages."libarchive-c"
+        pillow
+        lz4
+        zstandard
+        requests
+        websocket-client
+        keyring
+        jeepney
+        importlib-metadata
+        backports-tarfile
+        msgpack
+        bsdiff4
+        pygobject3
+        tkinter
+    ];
 in
 stdenv.mkDerivation (finalAttrs: {
     pname = "amethyst-mod-manager";
@@ -70,7 +64,27 @@ stdenv.mkDerivation (finalAttrs: {
         hash = "sha256-mRscWjvLOKF/A0ldRn8VAQIUdqywBTfjp2P6bVvkzUg=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [
+        copyDesktopItems
+        makeWrapper
+    ];
+
+    buildInputs = [
+        gtk3
+    ]
+    ++ pythonInputs;
+
+    desktopItems = [
+        (makeDesktopItem {
+            name = "amethyst-mod-manager";
+            desktopName = "Amethyst Mod Manager";
+            comment = "Game mod manager for Linux";
+            exec = "amethyst-mod-manager";
+            icon = "amethyst-mod-manager";
+            categories = [ "Game" ];
+            startupWMClass = "mod-manager";
+        })
+    ];
 
     dontBuild = true;
 
@@ -91,10 +105,10 @@ stdenv.mkDerivation (finalAttrs: {
 
         case "\''${1:-}" in
             deploy|restore|list-games|list-profiles|clear-credentials)
-                exec ${python}/bin/python "$appDir/cli.py" "\$@"
+                exec ${python3Packages.python.interpreter} "$appDir/cli.py" "\$@"
                 ;;
             *)
-                exec ${python}/bin/python "$appDir/gui.py" "\$@"
+                exec ${python3Packages.python.interpreter} "$appDir/gui.py" "\$@"
                 ;;
         esac
         EOF
@@ -102,6 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
 
         wrapProgram $out/bin/amethyst-mod-manager \
             --set FONTCONFIG_FILE ${fontsConf} \
+            --prefix PYTHONPATH : ${python3Packages.makePythonPath pythonInputs} \
             --prefix PATH : ${
                 lib.makeBinPath [
                     p7zip
@@ -119,11 +134,6 @@ stdenv.mkDerivation (finalAttrs: {
                     libarchive
                 ]
             }
-
-        substitute src/appimage/mod-manager.desktop \
-            "$out/share/applications/amethyst-mod-manager.desktop" \
-            --replace-fail "Exec=mod-manager" "Exec=amethyst-mod-manager" \
-            --replace-fail "Icon=mod-manager" "Icon=amethyst-mod-manager"
 
         install -Dm644 src/appimage/mod-manager.png \
             "$out/share/icons/hicolor/256x256/apps/amethyst-mod-manager.png"

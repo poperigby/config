@@ -13,12 +13,9 @@
             den.aspects.nix
             den.aspects.programs._.jujutsu
             den.aspects.security._.run0
-            den.aspects.security._.sudo
             den.aspects.services._.envfs
             den.aspects.services._.ld
             den.aspects.services._.smartd
-            den.aspects.system._.locale
-            den.aspects.system._.zram
         ];
 
         homeManager =
@@ -97,7 +94,6 @@
                         grep = "rg";
                         jrn = "sudo journalctl";
                         license = getExe pkgs.license-generator;
-                        nps = "nix search nixpkgs";
                         py = "python";
                         sys = "sudo systemctl";
                         syu = "systemctl --user";
@@ -133,7 +129,11 @@
                     ];
                 };
 
-                # Don't allow changing users with normal commands; Nix is the source of truth.
+                zramSwap.enable = true;
+
+                i18n.defaultLocale = "en_US.UTF-8";
+
+                # Don't allow changing users with normal commands. Nix is the source of truth.
                 users.mutableUsers = false;
             };
 

@@ -8,6 +8,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a terminal" { spawn "wezterm"; }
     Mod+E hotkey-overlay-title="Open file browser" { spawn "wezterm" "start" "yazi"; }
     Mod+N hotkey-overlay-title="Notification Center" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
+    Mod+V hotkey-overlay-title="Clipboard Manager" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
 
     // Volume (PipeWire / WirePlumber).
     XF86AudioRaiseVolume allow-when-locked=true { spawn "dms" "ipc" "call" "audio" "increment" "3"; }
