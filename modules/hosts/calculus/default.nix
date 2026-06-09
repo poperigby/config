@@ -89,7 +89,10 @@
                         { package = pkgs.gnomeExtensions.dash-to-dock; }
                     ];
 
-                    home.packages = with pkgs; [ dconf-editor ];
+                    home.packages = with pkgs; [
+                        dconf-editor
+                        custom.amethyst-mod-manager
+                    ];
                 };
         };
     };
