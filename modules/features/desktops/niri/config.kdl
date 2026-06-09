@@ -41,6 +41,12 @@ layout {
     }
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 hotkey-overlay {
     skip-at-startup
 }
