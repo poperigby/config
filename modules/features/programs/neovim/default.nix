@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 {
     den.aspects.programs.provides.neovim.homeManager =
         {
@@ -11,7 +11,9 @@
             nvim = lib.getExe config.programs.neovim.finalPackage;
         in
         {
-            imports = [ ./_plugins ];
+            imports = [
+                (inputs.import-tree ./_plugins)
+            ];
 
             programs.neovim = {
                 enable = true;
@@ -43,6 +45,15 @@
                     require("mappings")
                     require("filetype")
                 '';
+                # Plugins that require no configuration
+                plugins = with pkgs.vimPlugins; [
+                    helpview-nvim
+                    mkdir-nvim
+                    none-ls-nvim
+                    nvim-ts-autotag
+                    vim-zscript
+                    fluent-vim
+                ];
             };
 
             home.sessionVariables = {
@@ -50,7 +61,7 @@
                 SYSTEMD_EDITOR = "${nvim}";
             };
 
-            xdg.configFile."nvim" = {
+            xdg.configFile."nvim/lua" = {
                 source = ./config;
                 recursive = true;
             };

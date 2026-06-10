@@ -3,13 +3,9 @@
 {
     den.aspects.nix = {
         nixos =
-            { pkgs, ... }:
+            { ... }:
             {
                 nix = {
-                    # Use Lix, for a better experience
-                    # https://lix.systems
-                    package = pkgs.lix;
-
                     settings = {
                         experimental-features = [
                             "flakes"
