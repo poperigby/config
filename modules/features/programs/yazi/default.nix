@@ -139,18 +139,32 @@
                     description = "Open ripdrag for dragging and dropping";
                 }
             ];
-            xdg.desktopEntries.yazi = {
-                name = "Yazi";
-                genericName = "File Browser";
-                exec = "${getExe pkgs.yazi} %f";
-                icon = ./icon.png;
-                terminal = true;
-                categories = [
-                    "System"
-                    "FileTools"
-                    "FileManager"
-                ];
-                mimeType = [ "inode/directory" ];
+
+            xdg = {
+                portal = {
+                    enable = true;
+                    extraPortals = with pkgs; [ xdg-desktop-portal-termfilechooser ];
+                    config.common = {
+                        "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+                    };
+                };
+                configFile."xdg-desktop-portal-termfilechooser/config".text = ''
+                    [filechooser]
+                    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+                '';
+                desktopEntries.yazi = {
+                    name = "Yazi";
+                    genericName = "File Browser";
+                    exec = "${getExe pkgs.yazi} %f";
+                    icon = ./icon.png;
+                    terminal = true;
+                    categories = [
+                        "System"
+                        "FileTools"
+                        "FileManager"
+                    ];
+                    mimeType = [ "inode/directory" ];
+                };
             };
         };
 }

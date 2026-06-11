@@ -83,6 +83,7 @@
                 home.packages = with pkgs; [
                     adwaita-icon-theme
                     custom.wkill
+                    nautilus
                     numbat
                     oculante
                     wl-freeze
