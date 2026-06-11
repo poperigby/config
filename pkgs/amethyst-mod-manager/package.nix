@@ -79,9 +79,10 @@ stdenv.mkDerivation (finalAttrs: {
             name = "amethyst-mod-manager";
             desktopName = "Amethyst Mod Manager";
             comment = "Game mod manager for Linux";
-            exec = "amethyst-mod-manager";
+            exec = "amethyst-mod-manager --nxm %u";
             icon = "amethyst-mod-manager";
             categories = [ "Game" ];
+            mimeTypes = [ "x-scheme-handler/nxm" ];
             startupWMClass = "mod-manager";
         })
     ];
@@ -97,6 +98,11 @@ stdenv.mkDerivation (finalAttrs: {
 
         cp -r src/. "$appDir/"
         cp Changelog.txt "$appDir/"
+
+        substituteInPlace "$appDir/Nexus/nxm_handler.py" \
+            --replace-fail \
+                "return f'{cls._quote_if_needed(exe)} {cls._quote_if_needed(script)} --nxm %u'" \
+                "return '$out/bin/amethyst-mod-manager --nxm %u'"
 
         cat > "$out/bin/amethyst-mod-manager" <<EOF
         #!${stdenv.shell}

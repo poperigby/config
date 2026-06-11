@@ -91,7 +91,6 @@
 
                     home.packages = with pkgs; [
                         dconf-editor
-                        custom.amethyst-mod-manager
                     ];
                 };
         };

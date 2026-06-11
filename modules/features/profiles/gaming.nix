@@ -5,6 +5,7 @@
             { config, pkgs, ... }:
             {
                 home.packages = with pkgs; [
+                    custom.amethyst-mod-manager
                     doomrunner
                     gpu-screen-recorder-gtk
                     gzdoom
@@ -19,7 +20,10 @@
                 ];
 
                 home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
-                xdg.mimeApps.defaultApplications."application/vnd.adobe.flash.movie" = "ffdec.desktop";
+                xdg.mimeApps.defaultApplications = {
+                    "application/vnd.adobe.flash.movie" = "ffdec.desktop";
+                    "x-scheme-handler/nxm" = "amethyst-mod-manager.desktop";
+                };
             };
 
         nixos =
