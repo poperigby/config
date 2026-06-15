@@ -55,6 +55,7 @@
                 home = {
                     preferXdgDirectories = true;
                     packages = with pkgs; [
+                        (ouch.override { enableUnfree = true; })
                         asciinema
                         binsider
                         caligula
@@ -70,10 +71,10 @@
                         jq
                         just
                         lazygit
+                        net-tools
                         nix-init
                         nixfmt
                         nurl
-                        (ouch.override { enableUnfree = true; })
                         parted
                         pciutils
                         rename
