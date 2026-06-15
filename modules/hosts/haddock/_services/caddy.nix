@@ -15,21 +15,22 @@ in
             plugins = [
                 "github.com/caddy-dns/porkbun@v0.3.1"
             ];
-            hash = "sha256-pt4jyNcfacZKxzRH7zW7l2/+YfmVKWxGD4JTyWpvD1E=";
+            hash = "sha256-MlKX2obWac+jP4j9UHFMxsY/DRaqw9JCVAdI7erhFwo=";
         };
         email = privateInfo.poperigby.email;
-        globalConfig = ''
-            acme_dns porkbun {
-                api_key {env.PORKBUN_API_KEY}
-                api_secret_key {env.PORKBUN_API_SECRET_KEY}
-            }
-            # Make the main log more human readable
-            log stdout_logger {
-                output stdout
-                format console
-                exclude http.log.access
-            }
-        '';
+        globalConfig = # caddy
+            ''
+                acme_dns porkbun {
+                    api_key {env.PORKBUN_API_KEY}
+                    api_secret_key {env.PORKBUN_API_SECRET_KEY}
+                }
+                # Make the main log more human readable
+                log stdout_logger {
+                    output stdout
+                    format console
+                    exclude http.log.access
+                }
+            '';
     };
 
     # Allow HTTP/S
