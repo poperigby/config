@@ -8,7 +8,7 @@
 let
     inherit (lib) mkForce;
 
-    cfg = config.services.rustical;
+    rustical = config.services.rustical;
 in
 {
     services = {
@@ -16,6 +16,7 @@ in
             enable = true;
             package = pkgs.rustical;
             settings = {
+                http.bind = "localhost:4000";
                 oidc = {
                     name = "Authelia";
                     issuer = "https://auth.haddock.cc";
@@ -31,7 +32,7 @@ in
             environmentFiles = [ config.sops.templates.rustical-secrets.path ];
         };
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
-            reverse_proxy :${toString cfg.settings.http.port}
+            reverse_proxy ${rustical.settings.http.bind}
         '';
     };
 
