@@ -5,6 +5,9 @@ let
 
     matrixDomain = "matrix.haddock.cc";
     livekitDomain = "livekit.haddock.cc";
+
+    lk-jwt-service = config.services.lk-jwt-service;
+    livekit = config.services.livekit;
 in
 {
     services = {
@@ -14,7 +17,7 @@ in
                 global = {
                     server_name = "haddock.cc";
                     new_user_displayname_suffix = "";
-                    foci = [
+                    matrix_rtc.foci = [
                         {
                             type = "livekit";
                             livekit_service_url = "https://${livekitDomain}";
@@ -43,6 +46,13 @@ in
                     use_external_ip = true;
                     enable_loopback_candidate = false;
                 };
+                turn = {
+                    enabled = true;
+                    udp_port = 3478;
+                    relay_range_start = 50300;
+                    relay_range_end = 50400;
+                    domain = livekitDomain;
+                };
             };
         };
         caddy.virtualHosts = {
@@ -60,9 +70,36 @@ in
             "${matrixDomain}".extraConfig = ''
                 reverse_proxy :6167
             '';
-            # "${livekitDomain}".extraConfig = "";
+            "${livekitDomain}".extraConfig = ''
+                @lk-jwt-service path /sfu/get* /healthz* /get_token*
+                route @lk-jwt-service {
+                    reverse_proxy :${toString lk-jwt-service.port}
+                }
+
+                reverse_proxy :${toString livekit.settings.port}
+            '';
         };
     };
+
+    networking.firewall =
+        let
+            rtc = livekit.settings.rtc;
+            turn = livekit.settings.turn;
+        in
+        {
+            allowedTCPPorts = [ rtc.tcp_port ];
+            allowedUDPPorts = [ turn.udp_port ];
+            allowedUDPPortRanges = [
+                {
+                    from = rtc.port_range_start;
+                    to = rtc.port_range_end;
+                }
+                {
+                    from = turn.relay_range_start;
+                    to = turn.relay_range_end;
+                }
+            ];
+        };
 
     systemd.services = {
         livekit.serviceConfig.DynamicUser = mkForce false;
@@ -99,7 +136,7 @@ in
                 key = config.sops.placeholder."haddock/livekit/api_key";
                 secret = config.sops.placeholder."haddock/livekit/api_secret";
                 keyFile = ''
-                    ${key}:${secret}
+                    "${key}": "${secret}"
                 '';
             in
             {
