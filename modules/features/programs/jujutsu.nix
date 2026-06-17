@@ -56,6 +56,11 @@
                         pull = mkAlias "pull" ''
                             jj git fetch && jj new -r "trunk()"
                         '';
+                        clone = [
+                            "git"
+                            "clone"
+                            "--no-colocate"
+                        ];
                     };
                     revset-aliases = {
                         "closest_bookmark(to)" = "heads(::to & bookmarks())";

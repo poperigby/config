@@ -36,20 +36,24 @@ in
                 ''
                     [Interface]
                     # Key for Haddock
-                    # Bouncing = 20
+                    # Bouncing = 8
                     # NetShield = 1
                     # Moderate NAT = off
                     # NAT-PMP (Port Forwarding) = on
-                    # VPN Accelerator = on
+                    # VPN Accelerator = off
                     PrivateKey = ${config.sops.placeholder."haddock/protonvpn/private_key"}
-                    Address = 10.2.0.2/32
-                    DNS = 10.2.0.1
+                    Address = 10.2.0.2/32, 2a07:b944::2:2/128
+                    DNS = 10.2.0.1, 2a07:b944::2:1
 
                     [Peer]
-                    # US-WA#103
-                    PublicKey = mdgZ6wT7AXGznoYqxERZexx9aPEd/FhQ+P6fdXCBuVQ=
-                    AllowedIPs = 0.0.0.0/0
-                    Endpoint = 149.102.254.78:51820
+                    # US-WA#252
+                    PublicKey = 1kVqXoxxuSR3WrvykYTRxQD73oQvMtmJfQq7X+HlAQo=
+                    AllowedIPs = 0.0.0.0/0, ::/0
+                    Endpoint = 149.40.51.227:51820
+
+                    # Uncomment the following line (delete the # symbol) to connect to Proton VPN using IPv6.
+                    # Endpoint = [2a02:6ea0:d802:6228::10]:51820
+                    PersistentKeepalive = 25
                 '';
             owner = "qbittorrent";
         };

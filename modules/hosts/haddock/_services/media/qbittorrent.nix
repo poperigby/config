@@ -73,6 +73,9 @@ in
 
     systemd.services = {
         qbittorrent = {
+            serviceConfig.InaccessiblePaths = [
+                "/run/systemd/resolve"
+            ];
             vpnConfinement = {
                 enable = true;
                 vpnNamespace = netns;
