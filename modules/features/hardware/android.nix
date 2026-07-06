@@ -9,6 +9,5 @@
             };
         };
 
-    # Host -> all users on hosts that include this aspect, via mutual providers.
-    den.aspects.hardware.provides.android.provides.to-users.user.extraGroups = [ "adbusers" ];
+    den.aspects.hardware.provides.android.user.extraGroups = [ "adbusers" ];
 }

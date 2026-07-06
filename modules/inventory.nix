@@ -20,8 +20,6 @@
             snowy = {
                 users.cassidy = { };
             };
-        };
-        x86_64-iso = {
             skut = { };
         };
     };

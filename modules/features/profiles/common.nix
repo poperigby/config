@@ -121,14 +121,7 @@
         nixos =
             { pkgs, ... }:
             {
-                boot = {
-                    kernelPackages = pkgs.linuxPackages_latest;
-                    kernelParams = [
-                        # https://github.com/NixOS/nixpkgs/issues/312452
-                        "systemd.mask=systemd-vconsole-setup.service"
-                        "systemd.mask=dev-tpmrm0.device"
-                    ];
-                };
+                boot.kernelPackages = pkgs.linuxPackages_latest;
 
                 zramSwap.enable = true;
 

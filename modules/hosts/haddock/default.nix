@@ -39,7 +39,6 @@
                     "/var/lib/continuwuity"
                     "/var/lib/immich"
                     "/var/lib/jellyfin"
-                    "/var/lib/karakeep"
                     "/var/lib/lidarr"
                     "/var/lib/lldap"
                     "/var/lib/mealie"

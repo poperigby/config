@@ -9,5 +9,5 @@
         };
     };
 
-    den.aspects.hardware.provides.printing.provides.to-users.user.extraGroups = [ "lp" ];
+    den.aspects.hardware.provides.printing.user.extraGroups = [ "lp" ];
 }
