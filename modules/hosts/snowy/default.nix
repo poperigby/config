@@ -194,6 +194,13 @@
 
             virtualisation.docker.enable = true;
 
+            # For installing Nestor configuration to SD card
+            boot.binfmt = {
+                emulatedSystems = [ "aarch64-linux" ];
+                preferStaticEmulators = true;
+            };
+            nix.settings.extra-platforms = [ "aarch64-linux" ];
+
             # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
             system.stateVersion = "23.11";
         };
@@ -246,6 +253,7 @@
                             [
                                 er-patcher
                                 graphite
+                                winboat
                             ]
                             ++ [ blender ];
                         file.morrowindBlenderPlugin = {

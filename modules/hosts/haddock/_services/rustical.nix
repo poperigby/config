@@ -33,7 +33,6 @@ in
         };
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
             reverse_proxy ${rustical.settings.http.bind}
-            reverse_proxy :${toString cfg.settings.http.port}
         '';
     };
 
