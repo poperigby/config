@@ -64,6 +64,7 @@
 
             # Services
             services._.geolocation
+            services._.smartd
 
             # CLI
             programs._.atuin

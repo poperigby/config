@@ -7,7 +7,7 @@
         aarch64-linux = {
             # 3D printer
             nestor = {
-                instantiate = inputs.nixos-raspberrypi.lib.nixosSystemFull;
+                instantiate = inputs.nixos-raspberrypi.lib.nixosSystem;
                 users.cassidy = { };
             };
         };

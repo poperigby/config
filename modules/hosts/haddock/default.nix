@@ -57,6 +57,7 @@
 
             # Services
             services._.postfix
+            services._.smartd
 
             # CLI
             programs._.bat

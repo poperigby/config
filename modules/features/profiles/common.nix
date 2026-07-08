@@ -15,7 +15,6 @@
             den.aspects.security._.sudo
             den.aspects.services._.envfs
             den.aspects.services._.ld
-            den.aspects.services._.smartd
         ];
 
         homeManager =

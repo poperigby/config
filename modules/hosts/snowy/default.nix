@@ -58,6 +58,7 @@
             # Services
             services._.earlyoom
             services._.geolocation
+            services._.smartd
 
             # Virtualization
             services._.virtualization

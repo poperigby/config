@@ -35,3 +35,15 @@ clean:
 # Build my recovery/install ISO
 build-iso:
     nix build .#isoConfigurations.skut
+
+build-nestor:
+    nix --accept-flake-config build .#installerImages.nestor
+    sudo mkdir -p /mnt/sdroot
+    sudo mount /dev/sdc2 /mnt/sdroot
+
+    sudo install -D -m 0400 -o root -g root \
+        /var/lib/sops-nix/key.txt \
+        /mnt/sdroot/var/lib/sops-nix/key.txt
+
+    sync
+    sudo umount /mnt/sdroot
