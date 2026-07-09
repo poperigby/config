@@ -5,7 +5,7 @@
             { config, pkgs, ... }:
             {
                 home.packages = with pkgs; [
-                    custom.amethyst-mod-manager
+                    custom.jackify
                     doomrunner
                     gpu-screen-recorder-gtk
                     gzdoom
