@@ -19,6 +19,7 @@
     p7zip,
     procps,
     protontricks,
+    steam-run,
     unzip,
     wget,
     wineWow64Packages,
@@ -54,6 +55,7 @@ let
         p7zip
         procps
         protontricks
+        steam-run
         unzip
         wget
         wineWow64Packages.stable
@@ -85,6 +87,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ pythonInputs;
 
     dontBuild = true;
+
+    postPatch = ''
+        substituteInPlace jackify/backend/handlers/wine_wrapper.py \
+            --replace-fail \
+                'exec "''${PROTON_DIST_PATH}/bin/''${BINARY_NAME}" "$@"' \
+                'exec "${steam-run}/bin/steam-run" "''${PROTON_DIST_PATH}/bin/''${BINARY_NAME}" "$@"'
+    '';
 
     desktopItems = [
         (makeDesktopItem {
