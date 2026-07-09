@@ -36,7 +36,7 @@ clean:
 build-iso:
     nix build .#isoConfigurations.skut
 
-build-nestor:
+flash-nestor:
     nix --accept-flake-config build .#installerImages.nestor
     sudo mkdir -p /mnt/sdroot
     sudo mount /dev/sdc2 /mnt/sdroot

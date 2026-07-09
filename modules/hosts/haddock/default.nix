@@ -138,7 +138,10 @@
             };
 
         provides.cassidy = {
-            includes = [ den.aspects.programs._.atuin ];
+            includes = [
+                den.aspects.cassidy-accounts
+                den.aspects.programs._.atuin
+            ];
 
             homeManager =
                 { pkgs, ... }:

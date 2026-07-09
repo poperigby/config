@@ -206,6 +206,8 @@
             system.stateVersion = "23.11";
         };
 
+        provides.cassidy.includes = [ den.aspects.cassidy-accounts ];
+
         provides.cassidy.homeManager =
             { lib, pkgs, ... }:
             {

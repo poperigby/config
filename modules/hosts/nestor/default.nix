@@ -8,26 +8,18 @@
 
     den.aspects.nestor = {
         provides.to-users.includes = with den.aspects; [
-            common
+            nix
+            security._.sudo
 
-            programs._.atuin
-            programs._.bat
-            programs._.bottom
-            programs._.direnv
             programs._.fish
-            programs._.git
-            programs._.gpg
-            programs._.jujutsu
-            programs._.neovim
-            programs._.tealdeer
-            programs._.television
-            programs._.yazi
+            programs._.bottom
         ];
 
         nixos =
             {
                 config,
                 lib,
+                pkgs,
                 ...
             }:
             {
@@ -42,11 +34,16 @@
                         "loglevel=3"
                         "lsm=landlock,yama,bpf"
                     ];
+                    kernelPackages = pkgs.linuxPackages_latest;
                     loader.raspberry-pi.bootloader = "kernel";
                     tmp.useTmpfs = true;
                 };
 
                 time.timeZone = "America/Los_Angeles";
+
+                zramSwap.enable = true;
+                i18n.defaultLocale = "en_US.UTF-8";
+                users.mutableUsers = false;
 
                 networking.networkmanager.enable = true;
 
@@ -74,6 +71,17 @@
                 ];
 
                 system.stateVersion = "25.11";
+            };
+
+        homeManager =
+            { ... }:
+            {
+                programs.neovim = {
+                    enable = true;
+                    defaultEditor = true;
+                    viAlias = true;
+                    vimAlias = true;
+                };
             };
     };
 }

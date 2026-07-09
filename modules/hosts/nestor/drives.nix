@@ -1,6 +1,15 @@
-{ ... }:
+{ lib, ... }:
 {
     den.aspects.nestor.nixos = {
+        fileSystems = {
+            "/" = {
+                device = lib.mkForce "/dev/disk/by-label/NIXOS_SD";
+            };
+            "/boot/firmware" = {
+                device = lib.mkForce "/dev/disk/by-label/FIRMWARE";
+            };
+        };
+
         disko.devices.disk.primary = {
             device = "/dev/mmcblk0";
             type = "disk";
@@ -15,12 +24,7 @@
                             type = "filesystem";
                             format = "vfat";
                             mountpoint = "/boot/firmware";
-                            mountOptions = [
-                                "noatime"
-                                "noauto"
-                                "x-systemd.automount"
-                                "x-systemd.idle-timeout=1min"
-                            ];
+                            mountOptions = [ "noatime" ];
                         };
                     };
                     root = {

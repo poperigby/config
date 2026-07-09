@@ -23,7 +23,10 @@
 
         nixos.sops.secrets."common/users/cassidy/password".neededForUsers = true;
 
-        # User-specific Home Manager configuration shared across all hosts.
+    };
+
+    den.aspects.cassidy-accounts = {
+        # Mail, calendar, and contact account definitions for hosts that use them.
         homeManager =
             {
                 config,

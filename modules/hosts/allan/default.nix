@@ -137,7 +137,10 @@
         };
 
         provides.cassidy = {
-            includes = [ den.aspects.programs._.thunderbird ];
+            includes = [
+                den.aspects.cassidy-accounts
+                den.aspects.programs._.thunderbird
+            ];
 
             homeManager =
                 { pkgs, ... }:

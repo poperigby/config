@@ -2,7 +2,7 @@
 {
     den.aspects.gui = {
         includes = [
-            den.aspects.services._.udisks2
+            den.aspects.services._.xembed-sni-proxy
             den.aspects.system._.plymouth
         ];
 
@@ -53,8 +53,8 @@
                 services.systembus-notify.enable = true;
             };
 
-        # GUI machines grant packet capture access to Cassidy.
-        provides.cassidy.user.extraGroups = [
+        # GUI users get packet capture access for Wireshark.
+        provides.user.extraGroups = [
             "wireshark"
         ];
     };
