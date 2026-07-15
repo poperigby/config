@@ -4,13 +4,6 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    cosmic-manager = {
-      url = "github:HeitorAugustoLN/cosmic-manager";
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
     den.url = "github:vic/den";
     disko.url = "github:nix-community/disko";
@@ -27,6 +20,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hushmic.url = "github:crowquillx/hushmic-nix";
     import-tree.url = "github:vic/import-tree";
     jj-starship.url = "github:dmmulroy/jj-starship";
     lanzaboote = {

@@ -1,6 +1,4 @@
-{
-    ...
-}:
+{ ... }:
 
 {
     den.aspects.haddock.nixos =

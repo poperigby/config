@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 {
     flake-file.inputs.jj-starship.url = "github:dmmulroy/jj-starship";
 

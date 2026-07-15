@@ -1,17 +1,8 @@
-{
-    den,
-    inputs,
-    ...
-}:
+{ den, inputs, ... }:
+
 {
     flake-file.inputs = {
-        cosmic-manager = {
-            url = "github:HeitorAugustoLN/cosmic-manager";
-            inputs = {
-                nixpkgs.follows = "nixpkgs";
-                home-manager.follows = "home-manager";
-            };
-        };
+        hushmic.url = "github:crowquillx/hushmic-nix";
         nix-flatpak.url = "github:gmodena/nix-flatpak";
     };
 
@@ -209,11 +200,14 @@
         provides.cassidy.includes = [ den.aspects.cassidy-accounts ];
 
         provides.cassidy.homeManager =
-            { lib, pkgs, ... }:
             {
-                imports = with inputs; [
-                    nix-flatpak.homeManagerModules.nix-flatpak
-                ];
+                inputs',
+                lib,
+                pkgs,
+                ...
+            }:
+            {
+                imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
 
                 xdg.autostart = {
                     enable = true;
@@ -249,6 +243,7 @@
                 home =
                     let
                         blender = pkgs.pkgsRocm.blender;
+                        hushmic = inputs'.hushmic.packages.default;
                     in
                     {
                         packages =
@@ -258,7 +253,10 @@
                                 graphite
                                 winboat
                             ]
-                            ++ [ blender ];
+                            ++ [
+                                blender
+                                hushmic
+                            ];
                         file.morrowindBlenderPlugin = {
                             source = pkgs.fetchFromGitHub {
                                 owner = "Greatness7";

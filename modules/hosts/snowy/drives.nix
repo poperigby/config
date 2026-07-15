@@ -1,4 +1,5 @@
 { ... }:
+
 {
     den.aspects.snowy.nixos.disko.devices.disk.primary = {
         device = "/dev/nvme0n1";
