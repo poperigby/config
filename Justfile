@@ -36,10 +36,21 @@ clean:
 build-iso:
     nix build .#isoConfigurations.skut
 
-flash-nestor:
+flash-nestor disk="/dev/sdc":
     nix --accept-flake-config build .#installerImages.nestor
+
+    sudo dd \
+        if=result/sd-image/nixos-image-nestor-rpi02-kernel.img \
+        of={{disk}} \
+        bs=4M \
+        status=progress \
+        conv=fsync
+
+    sync
+
     sudo mkdir -p /mnt/sdroot
-    sudo mount /dev/sdc2 /mnt/sdroot
+    sudo partprobe {{disk}}
+    sudo mount {{disk}}2 /mnt/sdroot
 
     sudo install -D -m 0400 -o root -g root \
         /var/lib/sops-nix/key.txt \

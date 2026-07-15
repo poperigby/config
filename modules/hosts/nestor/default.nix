@@ -45,8 +45,14 @@
                 i18n.defaultLocale = "en_US.UTF-8";
                 users.mutableUsers = false;
 
-                networking.networkmanager.enable = true;
-
+                networking = {
+                    useDHCP = true;
+                    wireless = {
+                        enable = true;
+                        secretsFile = config.sops.templates.nestor-wireless-secrets.path;
+                        networks.dirk_diggler.pskRaw = "ext:nestor_wifi_passphrase";
+                    };
+                };
                 services = {
                     octoprint = {
                         enable = true;
@@ -71,6 +77,16 @@
                 ];
 
                 system.stateVersion = "25.11";
+
+                sops = {
+                    templates.nestor-wireless-secrets = {
+                        content = ''
+                            nestor_wifi_passphrase=${config.sops.placeholder."nestor/wifi/passphrase"}
+                        '';
+                        owner = "wpa_supplicant";
+                    };
+                    secrets."nestor/wifi/passphrase" = { };
+                };
             };
 
         homeManager =
