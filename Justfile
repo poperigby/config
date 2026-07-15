@@ -37,6 +37,7 @@ build-iso:
     nix build .#isoConfigurations.skut
 
 flash-nestor disk="/dev/sdc":
+    sudo -v
     nix --accept-flake-config build .#installerImages.nestor
 
     sudo dd \

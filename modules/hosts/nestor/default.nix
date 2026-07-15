@@ -23,7 +23,9 @@
                 ...
             }:
             {
-                imports = [ inputs.nixos-raspberrypi.nixosModules.raspberry-pi-02.base ];
+                imports = [
+                    inputs.nixos-raspberrypi.nixosModules.raspberry-pi-02.base
+                ];
 
                 boot = {
                     # We need to force this so we can remove "console=serial0,115200"
@@ -53,19 +55,7 @@
                         networks.dirk_diggler.pskRaw = "ext:nestor_wifi_passphrase";
                     };
                 };
-                services = {
-                    octoprint = {
-                        enable = true;
-                        openFirewall = true;
-                        plugins =
-                            plugins: with plugins; [
-                                navbartemp
-                                simpleemergencystop
-                                themeify
-                            ];
-                    };
-                    openssh.enable = true;
-                };
+                services.openssh.enable = true;
 
                 # https://help.prusa3d.com/article/octoprint-configuration-and-install_2182#using-ssh
                 hardware.raspberry-pi.config.all.dt-overlays.pi3-miniuart-bt.enable = true;
