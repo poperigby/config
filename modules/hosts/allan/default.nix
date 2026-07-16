@@ -7,7 +7,7 @@
             gui
 
             # Desktop
-            desktops._.cosmic
+            desktops._.niri
 
             # System
             (system._.boot { secureBoot = true; })

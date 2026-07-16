@@ -2,7 +2,11 @@
 
 {
     den.aspects.nestor.nixos =
-        { config, pkgs, ... }:
+        {
+            config,
+            pkgs,
+            ...
+        }:
         let
             printerProfile = pkgs.writeText "octoprint-default-printer.profile" (
                 builtins.toJSON {
@@ -99,11 +103,29 @@
                 };
                 openFirewall = true;
                 plugins =
-                    plugins: with plugins; [
+                    plugins:
+                    let
+                        # Compatibility dependencies for third-party plugins on Python 3.13.
+                        pythonFuture = plugins.future.overridePythonAttrs (_: {
+                            disabled = false;
+                            doCheck = false;
+                            pythonImportsCheck = [ ];
+                        });
+                        pluginDependencies = [
+                            plugins.pillow
+                            plugins.standard-imghdr
+                            pythonFuture
+                        ];
+                    in
+                    (with plugins; [
+                        bedlevelvisualizer
+                        displayprogress
                         navbartemp
+                        prusaslicerthumbnails
                         simpleemergencystop
                         themeify
-                    ];
+                    ])
+                    ++ pluginDependencies;
             };
 
             users.users.octoprint.extraGroups = [ "video" ];

@@ -38,7 +38,6 @@
                     ];
                     kernelPackages = pkgs.linuxPackages_latest;
                     loader.raspberry-pi.bootloader = "kernel";
-                    tmp.useTmpfs = true;
                 };
 
                 time.timeZone = "America/Los_Angeles";
@@ -66,8 +65,6 @@
                     config.boot.kernelPackages.kernel.version
                 ];
 
-                system.stateVersion = "25.11";
-
                 sops = {
                     templates.nestor-wireless-secrets = {
                         content = ''
@@ -77,6 +74,8 @@
                     };
                     secrets."nestor/wifi/passphrase" = { };
                 };
+
+                system.stateVersion = "25.11";
             };
 
         provides.cassidy.homeManager =
