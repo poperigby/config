@@ -7,7 +7,24 @@
             gui
 
             # Desktop
-            desktops._.niri
+            (desktops._.niri { hostConfig = ./niri.kdl; })
+            (dms {
+                settings = {
+                    activeDisplayProfile = { };
+                    displayProfiles = { };
+                    displayProfileAutoSelect = false;
+                    niriOutputSettings = { };
+                    screenPreferences.wallpaper = [ "all" ];
+                    showBattery = true;
+                    showGpuTemp = false;
+                    systemMonitorShowGpuTemp = false;
+                    systemMonitorGpuPciId = "";
+                    enabledGpuPciIds = [ ];
+                    selectedGpuIndex = 0;
+                    matugenTargetMonitor = "";
+                    lockScreenActiveMonitor = "all";
+                };
+            })
 
             # System
             (system._.boot { secureBoot = true; })
@@ -143,19 +160,12 @@
             ];
 
             homeManager =
-                { lib, pkgs, ... }:
+                { pkgs, ... }:
                 {
                     home.packages = with pkgs; [
                         kdePackages.kdenlive
                         prusa-slicer
                     ];
-
-                    xdg.configFile = {
-                        "niri/config.kdl".text = lib.mkAfter ''
-                            include "host.kdl"
-                        '';
-                        "niri/host.kdl".source = ./niri.kdl;
-                    };
                 };
         };
     };

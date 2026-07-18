@@ -24,31 +24,3 @@ window-rule {
     default-floating-position x=10 y=10 relative-to="bottom-right"
     open-focused false
 }
-
-// Make the wallpaper stationary, rather than moving with workspaces.
-layer-rule {
-    match namespace="quickshell"
-    place-within-backdrop true
-}
-
-// Make it so DMS layers don't show all the way to the background when transparent
-layer-rule {
-    match namespace=r#"^dms:.*"#
-
-    background-effect {
-        xray false
-    }
-}
-
-
-// Open DMS windows as floating by default
-window-rule {
-    match app-id=r#"org.quickshell$"#
-    open-floating true
-}
-
-layer-rule {
-    match namespace="dms:notification-popup"
-
-    block-out-from "screencast"
-}

@@ -1,0 +1,16 @@
+{
+    "emojiLauncher": {
+        "enabled": true,
+        "recentEmojis": "❤️,🤔,🙂,☺️,🦇,🤧",
+        "trigger": ":",
+        "pasteOnSelect": true
+    },
+    "calculator": {
+        "enabled": true,
+        "trigger": "=",
+        "noTrigger": false,
+        "persistHistoryOnFile": true,
+        "calcEngine": "numbat",
+        "numbatDebounceMs": "100000"
+    }
+}
