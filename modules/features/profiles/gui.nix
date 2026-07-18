@@ -20,7 +20,7 @@
                             "Noto Sans"
                             "Noto Sans CJK"
                         ];
-                        monospace = [ "JetBrainsMono Nerd Font" ];
+                        monospace = [ "JetBrainsMonoNL Nerd Font Mono" ];
                         emoji = [ "Noto Color Emoji" ];
                     };
                 };

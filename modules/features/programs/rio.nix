@@ -49,14 +49,8 @@
                     opacity = 0.1;
                 };
                 fonts = {
-                    family = "JetBrainsMono Nerd Font";
+                    family = "JetBrainsMonoNL Nerd Font Mono";
                     size = 15;
-                    # Disable ligatures
-                    features = [
-                        "calt=0"
-                        "clig=0"
-                        "liga=0"
-                    ];
                 };
             };
         };
