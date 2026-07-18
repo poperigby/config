@@ -143,12 +143,19 @@
             ];
 
             homeManager =
-                { pkgs, ... }:
+                { lib, pkgs, ... }:
                 {
                     home.packages = with pkgs; [
                         kdePackages.kdenlive
                         openmw
                     ];
+
+                    xdg.configFile = {
+                        "niri/config.kdl".text = lib.mkAfter ''
+                            include "host.kdl"
+                        '';
+                        "niri/host.kdl".source = ./niri.kdl;
+                    };
                 };
         };
     };
