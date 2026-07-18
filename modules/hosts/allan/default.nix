@@ -147,6 +147,7 @@
                 {
                     home.packages = with pkgs; [
                         kdePackages.kdenlive
+                        prusa-slicer
                     ];
 
                     xdg.configFile = {
