@@ -61,18 +61,10 @@
                 };
             };
 
-        provides.bethesda-user = {
+        provides.morrowind = {
             includes = [
                 den.aspects.programs._.morrowind
             ];
-
-            homeManager =
-                { pkgs, ... }:
-                {
-                    home.packages = with pkgs; [
-                        limo
-                    ];
-                };
         };
     };
 }

@@ -104,7 +104,7 @@
 
             # Gaming
             programs._.mangohud
-            gaming._.bethesda-user
+            gaming._.morrowind
             services._.joystickwake
             (services._.ludusavi {
                 settings = {
