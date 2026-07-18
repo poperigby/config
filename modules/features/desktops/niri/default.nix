@@ -33,7 +33,7 @@
                             owner = "devnullvoid";
                             repo = "dms-emoji-launcher";
                             rev = "main";
-                            hash = "sha256-NQ14YenDiNK2VqXQ3z7jAkatbSRtYJHhOhvv7AJlUD8=";
+                            hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
                         };
                     };
 

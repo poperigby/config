@@ -147,7 +147,6 @@
                 {
                     home.packages = with pkgs; [
                         kdePackages.kdenlive
-                        openmw
                     ];
 
                     xdg.configFile = {
