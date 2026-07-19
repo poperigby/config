@@ -7,7 +7,7 @@
 let
     packageOverlay = final: prev: {
         custom = lib.filesystem.packagesFromDirectoryRecursive {
-            callPackage = prev.callPackage;
+            callPackage = lib.callPackageWith (prev // { inherit inputs; });
             directory = ../pkgs;
         };
     };

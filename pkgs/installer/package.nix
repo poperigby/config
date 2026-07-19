@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+    inputs,
+    pkgs,
+    ...
+}:
 
 pkgs.writeShellApplication {
     name = "installer";
@@ -15,5 +19,8 @@ pkgs.writeShellApplication {
         sops
         sudo
     ];
-    text = builtins.readFile ./script.sh;
+    text = ''
+        PRIVATE_CONFIG_SECRETS_FILE=${pkgs.lib.escapeShellArg "${inputs.private-config.outPath}/secrets.yaml"}
+    ''
+    + builtins.readFile ./script.sh;
 }

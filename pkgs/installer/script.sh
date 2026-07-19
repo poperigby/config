@@ -2,6 +2,7 @@ set -euo pipefail
 
 CONFIG_DIR="$HOME/config"
 AGE_KEY_INSTALL_PATH="/mnt/var/lib/sops-nix/key.txt"
+PRIVATE_CONFIG_SECRETS_FILE="${PRIVATE_CONFIG_SECRETS_FILE:-}"
 
 # Bitwarden host items are expected to live in Hosts/<TitleCaseHost> and to
 # carry the private AGE key in a custom field named "AGE Key".
@@ -46,6 +47,21 @@ use_local_age_key() {
     fi
 
     echo "Cannot find a local key.txt fallback." >&2
+    return 1
+}
+
+sops_secrets_file() {
+    if [ -n "$PRIVATE_CONFIG_SECRETS_FILE" ] && [ -f "$PRIVATE_CONFIG_SECRETS_FILE" ]; then
+        printf "%s\n" "$PRIVATE_CONFIG_SECRETS_FILE"
+        return 0
+    fi
+
+    if [ -f "$CONFIG_DIR/secrets.yaml" ]; then
+        printf "%s\n" "$CONFIG_DIR/secrets.yaml"
+        return 0
+    fi
+
+    echo "Cannot find secrets.yaml from private-config or $CONFIG_DIR." >&2
     return 1
 }
 
@@ -215,6 +231,7 @@ target_drives_file() {
 decrypt_luks_password_if_needed() {
     local target_host=$1
     local drives_file
+    local secrets_file
 
     drives_file=$(target_drives_file "$target_host")
 
@@ -222,9 +239,11 @@ decrypt_luks_password_if_needed() {
         return 0
     fi
 
+    secrets_file=$(sops_secrets_file)
+
     echo "Copying LUKS password to /tmp/luks_password"
     export SOPS_AGE_KEY_FILE=$AGE_KEY_FILE
-    sops --decrypt --extract "['$target_host']['luks_password']" "$CONFIG_DIR/secrets.yaml" > /tmp/luks_password
+    sops --decrypt --extract "['$target_host']['luks_password']" "$secrets_file" > /tmp/luks_password
 }
 
 run_disko() {
