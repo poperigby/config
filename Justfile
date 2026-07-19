@@ -33,8 +33,8 @@ clean:
     nh clean all
 
 # Build my recovery/install ISO
-build-iso:
-    nix build .#isoConfigurations.skut
+build-skut:
+    nix build .#nixosConfigurations.skut.config.system.build.isoImage
 
 flash-nestor disk="/dev/sdc":
     sudo -v
