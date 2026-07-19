@@ -17,7 +17,6 @@ pkgs.writeShellApplication {
         gum
         jq
         sops
-        sudo
     ];
     text = ''
         PRIVATE_CONFIG_SECRETS_FILE=${pkgs.lib.escapeShellArg "${inputs.private-config.outPath}/secrets.yaml"}
