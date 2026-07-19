@@ -62,6 +62,7 @@
                         devenv
                         dmidecode
                         doggo
+                        dos2unix
                         dust
                         fd
                         ffmpeg
