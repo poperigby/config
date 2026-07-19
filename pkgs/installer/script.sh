@@ -3,6 +3,7 @@ set -euo pipefail
 CONFIG_DIR="$HOME/config"
 AGE_KEY_INSTALL_PATH="/mnt/var/lib/sops-nix/key.txt"
 BITWARDEN_EMAIL="${BITWARDEN_EMAIL:-}"
+INSTALLABLE_HOSTS="${INSTALLABLE_HOSTS:-}"
 PRIVATE_CONFIG_SECRETS_FILE="${PRIVATE_CONFIG_SECRETS_FILE:-}"
 
 # Bitwarden host items are expected to live in Hosts/<TitleCaseHost> and to
@@ -102,10 +103,11 @@ bitwarden_session() {
 
     case "$status" in
         unauthenticated)
-            echo "Log in to Bitwarden." >&2
             if [ -n "$BITWARDEN_EMAIL" ]; then
+                echo "Logging in to Bitwarden as $BITWARDEN_EMAIL." >&2
                 bw login "$BITWARDEN_EMAIL" --raw
             else
+                echo "Logging in to Bitwarden." >&2
                 bw login --raw
             fi
             ;;
@@ -134,15 +136,15 @@ bitwarden_folder_id() {
         '
 }
 
-bitwarden_host_item() {
+bitwarden_host_item_id() {
     local item_name=$1
     local folder_id=$2
     local session=$3
 
     bw list items --folderid "$folder_id" --search "$item_name" --session "$session" \
-        | jq -e --arg name "$item_name" '
+        | jq -r --arg name "$item_name" '
             map(select(.name == $name))
-            | .[0]
+            | .[0].id // empty
         '
 }
 
@@ -185,12 +187,13 @@ fetch_bitwarden_age_key() {
     local session=$2
     local item_name
     local folder_id
+    local item_id
     local item_json
     local age_key
 
     item_name=$(bitwarden_item_name "$target_host")
 
-    echo "Fetching AGE key from Bitwarden item '$item_name' in folder '$BITWARDEN_FOLDER'"
+    echo "Fetching AGE key from Bitwarden for host '$item_name'"
     folder_id=$(bitwarden_folder_id "$session")
 
     if [ -z "$folder_id" ]; then
@@ -198,11 +201,14 @@ fetch_bitwarden_age_key() {
         return 1
     fi
 
-    if ! item_json=$(bitwarden_host_item "$item_name" "$folder_id" "$session"); then
+    item_id=$(bitwarden_host_item_id "$item_name" "$folder_id" "$session")
+
+    if [ -z "$item_id" ]; then
         echo "Could not find Bitwarden item '$item_name' in folder '$BITWARDEN_FOLDER'." >&2
         return 1
     fi
 
+    item_json=$(bw get item "$item_id" --session "$session")
     age_key=$(extract_age_key "$item_json")
     write_temp_age_key "$age_key"
 }
@@ -287,7 +293,7 @@ if [ ! -d "$CONFIG_DIR" ]; then
 fi
 
 echo "Which system would you like to install?"
-TARGET_HOST=$(find "$CONFIG_DIR/modules/hosts" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort | gum choose)
+TARGET_HOST=$(printf "%s\n" "$INSTALLABLE_HOSTS" | tr " " "\n" | sort | gum choose)
 
 provision_age_key "$TARGET_HOST"
 decrypt_luks_password_if_needed "$TARGET_HOST"
