@@ -2,6 +2,7 @@ set -euo pipefail
 
 CONFIG_DIR="$HOME/config"
 AGE_KEY_INSTALL_PATH="/mnt/var/lib/sops-nix/key.txt"
+BITWARDEN_EMAIL="${BITWARDEN_EMAIL:-}"
 PRIVATE_CONFIG_SECRETS_FILE="${PRIVATE_CONFIG_SECRETS_FILE:-}"
 
 # Bitwarden host items are expected to live in Hosts/<TitleCaseHost> and to
@@ -102,7 +103,11 @@ bitwarden_session() {
     case "$status" in
         unauthenticated)
             echo "Log in to Bitwarden." >&2
-            bw login --raw
+            if [ -n "$BITWARDEN_EMAIL" ]; then
+                bw login "$BITWARDEN_EMAIL" --raw
+            else
+                bw login --raw
+            fi
             ;;
         locked)
             bw unlock --raw
