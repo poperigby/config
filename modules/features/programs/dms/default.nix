@@ -1,6 +1,6 @@
 { ... }:
 {
-    den.aspects.dms =
+    den.aspects.programs.provides.dms =
         {
             settings ? { },
             pluginSettings ? { },
@@ -57,7 +57,7 @@
                     jsonFormat = pkgs.formats.json { };
                     commonSettings = builtins.fromJSON (builtins.readFile ./settings.json);
                     commonPluginSettings = builtins.fromJSON (builtins.readFile ./plugin_settings.json);
-                    niriBinds = builtins.readFile ../desktops/niri/binds.kdl;
+                    niriBinds = builtins.readFile ../../desktops/niri/binds.kdl;
                     dmsNiriBinds = builtins.readFile ./niri-binds.kdl;
                 in
                 {

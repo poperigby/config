@@ -8,7 +8,7 @@
 
             # Desktop
             (desktops._.niri { hostConfig = ./niri.kdl; })
-            (dms {
+            (programs._.dms {
                 settings = {
                     activeDisplayProfile = { };
                     displayProfiles = { };

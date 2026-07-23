@@ -1,7 +1,7 @@
 { ... }:
 {
     den.aspects.programs.provides.television.homeManager =
-        { pkgs, ... }:
+        { ... }:
         {
             programs.television = {
                 enable = true;
@@ -31,6 +31,5 @@
                     };
                 };
             };
-            home.packages = [ pkgs.television ];
         };
 }

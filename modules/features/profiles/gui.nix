@@ -26,7 +26,6 @@
                 };
 
                 home.packages = with pkgs; [
-                    bottles
                     gimp3
                     inkscape
                     libreoffice

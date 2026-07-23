@@ -15,7 +15,7 @@
 
             # Desktop
             (desktops._.niri { hostConfig = ./niri.kdl; })
-            (dms {
+            (programs._.dms {
                 settings = {
                     activeDisplayProfile = { };
                     displayProfiles = { };
@@ -227,6 +227,7 @@
                         enable = true;
                         uninstallUnmanaged = true;
                         packages = [
+                            "com.usebottles.bottles"
                             rec {
                                 appId = "com.hypixel.HytaleLauncher";
                                 sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
@@ -241,7 +242,15 @@
                     home =
                         let
                             blender = pkgs.pkgsRocm.blender;
-                            hushmic = inputs'.hushmic.packages.default;
+                            hushmic = pkgs.callPackage "${inputs.hushmic}/package.nix" {
+                                xorg = {
+                                    libX11 = pkgs.libx11;
+                                    libXcursor = pkgs.libxcursor;
+                                    libXi = pkgs.libxi;
+                                    libXrandr = pkgs.libxrandr;
+                                    libxcb = pkgs.libxcb;
+                                };
+                            };
                         in
                         {
                             packages =
@@ -250,7 +259,6 @@
                                     er-patcher
                                     dbeaver-bin
                                     graphite
-                                    winboat
                                 ]
                                 ++ [
                                     blender

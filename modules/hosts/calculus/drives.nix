@@ -14,7 +14,7 @@
                         type = "filesystem";
                         format = "vfat";
                         mountpoint = "/boot";
-                        # https://github.com/NixOS/nixpkgs/issues/279362
+                        # Keep the ESP hidden from normal users.
                         mountOptions = [ "umask=007" ];
                     };
                 };
