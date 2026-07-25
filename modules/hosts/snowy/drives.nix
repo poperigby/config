@@ -15,6 +15,8 @@
                         type = "filesystem";
                         format = "vfat";
                         mountpoint = "/boot";
+                        # Keep the ESP hidden from normal users.
+                        mountOptions = [ "umask=007" ];
                     };
                 };
                 root = {
