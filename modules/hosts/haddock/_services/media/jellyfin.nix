@@ -6,7 +6,16 @@
             enable = true;
         };
         caddy.virtualHosts."media.haddock.cc".extraConfig = ''
-            import auth
+            # Jellyfin uses its own non-standard `MediaBrowser` Authorization
+            # scheme. Do not send that header to Authelia: recent Authelia
+            # versions reject unknown schemes instead of falling back to the
+            # session cookie. `forward_auth` operates on a cloned request, so
+            # the original Authorization header is still sent to Jellyfin.
+            forward_auth :9091 {
+                uri /api/authz/forward-auth
+                header_up -Authorization
+                copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+            }
             reverse_proxy :8096
         '';
     };
