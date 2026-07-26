@@ -1,8 +1,9 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
     services.postgresql = {
         enable = true;
+        package = pkgs.postgresql_18;
         ensureDatabases = [
             "authelia-haddock"
             "lldap"
