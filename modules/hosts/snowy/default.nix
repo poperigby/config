@@ -242,23 +242,16 @@
                     home =
                         let
                             blender = pkgs.pkgsRocm.blender;
-                            hushmic = pkgs.callPackage "${inputs.hushmic}/package.nix" {
-                                xorg = {
-                                    libX11 = pkgs.libx11;
-                                    libXcursor = pkgs.libxcursor;
-                                    libXi = pkgs.libxi;
-                                    libXrandr = pkgs.libxrandr;
-                                    libxcb = pkgs.libxcb;
-                                };
-                            };
+                            hushmic = inputs'.hushmic.packages.default;
                         in
                         {
                             packages =
                                 with pkgs;
                                 [
-                                    er-patcher
                                     dbeaver-bin
+                                    er-patcher
                                     graphite
+                                    prusa-slicer
                                 ]
                                 ++ [
                                     blender
