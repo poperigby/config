@@ -17,14 +17,12 @@ in
         '';
         authelia.instances.haddock.settings.access_control.rules = [
             {
-                # Required to use the Immich mobile app
+                # Immich handles authorization itself and uses Authelia via OIDC
+                # when authentication is required. Bypass forward auth for the
+                # whole domain so public shares can anonymously load the frontend
+                # assets and API endpoints they need.
                 domain = "photos.haddock.cc";
                 policy = "bypass";
-                resources = [
-                    "^/.well-known/immich"
-                    "^/api"
-                    "^/share"
-                ];
             }
         ];
     };
