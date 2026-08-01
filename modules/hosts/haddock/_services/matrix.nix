@@ -32,7 +32,7 @@ in
             enable = true;
             port = 1025;
             livekitUrl = "wss://${livekitDomain}";
-            keyFile = config.sops.templates.lk-jwt-service_keyfile.path;
+            keyFile = config.sops.templates.livekit_keyfile.path;
         };
         livekit = {
             enable = true;
@@ -65,7 +65,7 @@ in
                     # Client well-known — CORS required
                     header /.well-known/matrix/client Content-Type application/json
                     header /.well-known/matrix/client Access-Control-Allow-Origin *
-                    respond /.well-known/matrix/client `{ "m.homeserver": { "base_url": "https://${matrixDomain}" }}` 200
+                    respond /.well-known/matrix/client `{ "m.homeserver": { "base_url": "https://${matrixDomain}" }, "org.matrix.msc4143.rtc_foci": [{ "type": "livekit", "livekit_service_url": "https://${livekitDomain}" }] }` 200
                 '';
             "${matrixDomain}".extraConfig = ''
                 reverse_proxy :6167
@@ -136,17 +136,17 @@ in
                 key = config.sops.placeholder."haddock/livekit/api_key";
                 secret = config.sops.placeholder."haddock/livekit/api_secret";
                 keyFile = ''
-                    "${key}": "${secret}"
+                    ${key}: ${secret}
                 '';
             in
             {
                 livekit_keyfile = {
                     content = keyFile;
                     owner = "livekit";
-                };
-                lk-jwt-service_keyfile = {
-                    content = keyFile;
-                    owner = "lk-jwt-service";
+                    restartUnits = [
+                        "livekit.service"
+                        "lk-jwt-service.service"
+                    ];
                 };
             };
     };
