@@ -1,0 +1,26 @@
+--- a/sshConnections/sshConnections.qml
++++ b/sshConnections/sshConnections.qml
+@@ -140,11 +140,18 @@
+         }
+ 
+         // Build command array
+-        const termcmd = (" " + terminal + " ").includes(" -e ") ? terminal : terminal + " -e";
+-        const command = termcmd.split(' ').concat(
+-          "sh", "-c",
+-          ssh_command + " " + (options.length > 0 ? options + " " : "") + server
+-        );
++        const sshArgs = (options.length > 0 ? options.split(' ') : []).concat(server);
++        let command;
++
++        if (terminal.split('/').pop() === "wezterm" && ssh_command === "ssh") {
++            command = terminal.split(' ').concat("ssh", sshArgs);
++        } else {
++            const termcmd = (" " + terminal + " ").includes(" -e ") ? terminal : terminal + " -e";
++            command = termcmd.split(' ').concat(
++              "sh", "-c",
++              ssh_command + " " + (options.length > 0 ? options + " " : "") + server
++            );
++        }
+ 
+         console.info(plugin_name + ": Running '" + command.join(' ') + "'");
+         Quickshell.execDetached(command);

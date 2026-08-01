@@ -37,13 +37,13 @@
                 accounts = {
                     calendar.accounts.cassidy.remote = {
                         type = "caldav";
-                        url = "https://dav.haddock.cc/caldav/principal/cassidy/default";
+                        url = "https://dav.haddock.cc/caldav/principal/cassidy/default/";
                         userName = "cassidy";
                         passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/dav/password".path;
                     };
                     contact.accounts.cassidy.remote = {
                         type = "carddav";
-                        url = "https://dav.haddock.cc/carddav/principal/cassidy/default";
+                        url = "https://dav.haddock.cc/carddav/principal/cassidy/default/";
                         userName = "cassidy";
                         passwordCommand = "cat " + config.sops.secrets."common/users/cassidy/dav/password".path;
                     };

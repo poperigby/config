@@ -1,4 +1,22 @@
-{ ... }:
+{ self, lib, ... }:
+let
+    # Determines whether a host can be SSHed to
+    isSshTarget =
+        _: system:
+        let
+            cfg = system.config;
+        in
+        # Installer ISOs also enable SSH, but they are not persistent machines to connect
+        # to, so exclude image builds. We can see if a host is an image by checking if
+        # it has `image.fileName` set.
+        (cfg.services.openssh.enable or false) && !(cfg.image ? fileName);
+
+    # Builds a list of hosts that can be SSHed to.
+    sshHosts = builtins.attrNames (lib.filterAttrs isSshTarget self.nixosConfigurations);
+
+    # Builds a list of hosts that can be SSHed to, excluding the given host.
+    sshHostsFor = currentHost: builtins.filter (host: host != currentHost) sshHosts;
+in
 {
     den.aspects.programs.provides.dms =
         {
@@ -32,6 +50,17 @@
                                 rev = "main";
                                 hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
                             };
+                            sshConnections.src =
+                                pkgs.applyPatches {
+                                    src = pkgs.fetchFromGitHub {
+                                        owner = "merdely";
+                                        repo = "dms-plugins";
+                                        rev = "b45d16f30f56c16371d93ecf54c3d0b4c23a24a5";
+                                        hash = "sha256-OVecni81Qd3OonFRGASAg+tl1woXdiUIhovczWnh4Uc=";
+                                    };
+                                    patches = [ ./ssh-connections-wezterm-ssh.patch ];
+                                }
+                                + "/sshConnections";
                         };
 
                         enableSystemMonitoring = true;
@@ -52,11 +81,47 @@
                 };
 
             homeManager =
-                { pkgs, ... }:
+                {
+                    osConfig,
+                    lib,
+                    pkgs,
+                    ...
+                }:
                 let
                     jsonFormat = pkgs.formats.json { };
+
                     commonSettings = builtins.fromJSON (builtins.readFile ./settings.json);
-                    commonPluginSettings = builtins.fromJSON (builtins.readFile ./plugin_settings.json);
+
+                    sshConnectionHosts = sshHostsFor osConfig.networking.hostName;
+                    commonPluginSettings = {
+                        emojiLauncher = {
+                            enabled = true;
+                            recentEmojis = "👍,❤️,🙂,😂,😮,😢";
+                            trigger = ":";
+                            pasteOnSelect = true;
+                        };
+
+                        calculator = {
+                            enabled = true;
+                            trigger = "=";
+                            noTrigger = false;
+                            persistHistoryOnFile = true;
+                            calcEngine = "numbat";
+                            numbatDebounceMs = "100000";
+                        };
+
+                        sshConnections = {
+                            enabled = true;
+                            terminal = lib.getExe pkgs.wezterm;
+                            ssh_command = "ssh";
+                            # Build the launcher list from final host configs so hosts become SSH targets
+                            # automatically when OpenSSH is enabled.
+                            server_list = map (host: {
+                                server = host;
+                                options = "";
+                            }) sshConnectionHosts;
+                        };
+                    };
                 in
                 {
                     wayland.windowManager.niri.settings = {
