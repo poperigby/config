@@ -5,6 +5,7 @@ let
 
     matrixDomain = "matrix.haddock.cc";
     livekitDomain = "livekit.haddock.cc";
+    turnDomain = "turn.haddock.cc";
 
     lk-jwt-service = config.services.lk-jwt-service;
     livekit = config.services.livekit;
@@ -49,9 +50,11 @@ in
                 turn = {
                     enabled = true;
                     udp_port = 3478;
+                    tls_port = 5349;
+                    external_tls = true;
                     relay_range_start = 50300;
                     relay_range_end = 50400;
-                    domain = livekitDomain;
+                    domain = turnDomain;
                 };
             };
         };
@@ -77,6 +80,10 @@ in
                 }
 
                 reverse_proxy :${toString livekit.settings.port}
+            '';
+            # Provisions the certificate used by the Layer 4 TURN/TLS route.
+            "${turnDomain}".extraConfig = ''
+                respond 404
             '';
         };
     };

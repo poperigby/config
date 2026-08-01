@@ -14,8 +14,9 @@ in
         package = pkgs.caddy.withPlugins {
             plugins = [
                 "github.com/caddy-dns/porkbun@v0.3.1"
+                "github.com/mholt/caddy-l4@v0.1.0"
             ];
-            hash = "sha256-JtzeWz9GdW/+1Qft5nU9diPkFQvPGxQkgR8n8w+ryoI=";
+            hash = "sha256-SEF4YrD0VVnwQI89JPRMChgf/M3uuot7TXPptBBX3o4=";
         };
         email = privateInfo.poperigby.email;
         globalConfig = # caddy
@@ -23,6 +24,24 @@ in
                 acme_dns porkbun {
                     api_key {env.PORKBUN_API_KEY}
                     api_secret_key {env.PORKBUN_API_SECRET_KEY}
+                }
+
+                # Share TCP/443 between HTTPS and LiveKit's embedded TURN server.
+                # Connections for turn.haddock.cc are intercepted by their TLS SNI;
+                # all other connections continue to Caddy's normal HTTP TLS handler.
+                # Caddy terminates TLS and proxies TURN over loopback to port 5349,
+                # which is intentionally not opened in the NixOS firewall.
+                servers {
+                    listener_wrappers {
+                        layer4 {
+                            @turn tls sni turn.haddock.cc
+                            route @turn {
+                                tls
+                                proxy 127.0.0.1:5349
+                            }
+                        }
+                        tls
+                    }
                 }
                 # Make the main log more human readable
                 log stdout_logger {
