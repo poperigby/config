@@ -10,7 +10,8 @@ let
     installableHosts = builtins.filter (host: host != "skut") (
         builtins.attrNames inventory.${pkgs.stdenv.hostPlatform.system}
     );
-    privateInfo = (import "${inputs.private-config.outPath}/modules/private-info.nix" { }).den.aspects.privateInfo;
+    privateInfo =
+        (import "${inputs.private-config.outPath}/modules/private-info.nix" { }).den.aspects.privateInfo;
 in
 
 pkgs.writeShellApplication {

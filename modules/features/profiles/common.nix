@@ -83,6 +83,7 @@
                         systemctl-tui
                         trashy
                         tree
+                        treefmt
                         typst
                         usbutils
                         vimv-rs

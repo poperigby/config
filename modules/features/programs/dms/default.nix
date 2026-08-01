@@ -52,26 +52,153 @@
                 };
 
             homeManager =
-                { lib, pkgs, ... }:
+                { pkgs, ... }:
                 let
                     jsonFormat = pkgs.formats.json { };
                     commonSettings = builtins.fromJSON (builtins.readFile ./settings.json);
                     commonPluginSettings = builtins.fromJSON (builtins.readFile ./plugin_settings.json);
-                    niriBinds = builtins.readFile ../../desktops/niri/binds.kdl;
-                    dmsNiriBinds = builtins.readFile ./niri-binds.kdl;
                 in
                 {
-                    xdg.configFile = {
-                        "niri/binds.kdl".text = lib.mkForce ''
-                            binds {
-                            ${niriBinds}
-                            ${dmsNiriBinds}
+                    wayland.windowManager.niri.settings = {
+                        binds = {
+                            "Mod+Space" = {
+                                _props.hotkey-overlay-title = "Open the application launcher";
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "spotlight"
+                                    "toggle"
+                                ];
+                            };
+                            "Mod+N" = {
+                                _props.hotkey-overlay-title = "Notification Center";
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "notifications"
+                                    "toggle"
+                                ];
+                            };
+                            "Mod+V" = {
+                                _props.hotkey-overlay-title = "Clipboard Manager";
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "clipboard"
+                                    "toggle"
+                                ];
+                            };
+
+                            "XF86AudioRaiseVolume" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "audio"
+                                    "increment"
+                                    "3"
+                                ];
+                            };
+                            "XF86AudioLowerVolume" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "audio"
+                                    "decrement"
+                                    "3"
+                                ];
+                            };
+                            "XF86AudioMute" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "audio"
+                                    "mute"
+                                ];
+                            };
+                            "XF86AudioMicMute" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "audio"
+                                    "micmute"
+                                ];
+                            };
+
+                            "XF86MonBrightnessUp" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "brightness"
+                                    "increment"
+                                    "5"
+                                    ""
+                                ];
+                            };
+                            "XF86MonBrightnessDown" = {
+                                _props.allow-when-locked = true;
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "call"
+                                    "brightness"
+                                    "decrement"
+                                    "5"
+                                    ""
+                                ];
+                            };
+
+                            "Mod+Escape" = {
+                                _props.hotkey-overlay-title = "Lock the screen";
+                                spawn = [
+                                    "dms"
+                                    "ipc"
+                                    "lock"
+                                    "lock"
+                                ];
+                            };
+                        };
+
+                        _children = [
+                            {
+                                layer-rule._children = [
+                                    { match._props.namespace = "quickshell"; }
+                                    { place-within-backdrop = true; }
+                                ];
                             }
-                        '';
-                        "niri/config.kdl".text = lib.mkAfter ''
-                            include "dms.kdl"
-                        '';
-                        "niri/dms.kdl".source = ./niri-rules.kdl;
+                            {
+                                layer-rule._children = [
+                                    { match._props.namespace = "^dms:.*"; }
+                                    { background-effect.xray = false; }
+                                ];
+                            }
+                            {
+                                window-rule._children = [
+                                    { match._props.app-id = "org.quickshell$"; }
+                                    { open-floating = true; }
+                                ];
+                            }
+                            {
+                                layer-rule._children = [
+                                    { match._props.namespace = "dms:notification-popup"; }
+                                    { block-out-from = "screencast"; }
+                                ];
+                            }
+                        ];
+                    };
+
+                    xdg.configFile = {
                         "DankMaterialShell/settings.json".source = jsonFormat.generate "dms-settings.json" (
                             commonSettings // settings
                         );

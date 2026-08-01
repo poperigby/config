@@ -7,7 +7,7 @@
             gui
 
             # Desktop
-            (desktops._.niri { hostConfig = ./niri.kdl; })
+            desktops._.niri
             (programs._.dms {
                 settings = {
                     activeDisplayProfile = { };
@@ -162,6 +162,11 @@
             homeManager =
                 { pkgs, ... }:
                 {
+                    wayland.windowManager.niri.settings.input.touchpad = {
+                        tap = { };
+                        natural-scroll = { };
+                    };
+
                     home.packages = with pkgs; [
                         kdePackages.kdenlive
                         prusa-slicer
