@@ -58,33 +58,65 @@ in
                 };
             };
         };
-        caddy.virtualHosts = {
-            "haddock.cc".extraConfig = # caddy
+        caddy = {
+            globalConfig = # Caddy
                 ''
-                    # Federation well-known
-                    header /.well-known/matrix/server Content-Type application/json
-                    respond /.well-known/matrix/server `{ "m.server": "${matrixDomain}:443" }` 200
-
-                    # Client well-known — CORS required
-                    header /.well-known/matrix/client Content-Type application/json
-                    header /.well-known/matrix/client Access-Control-Allow-Origin *
-                    respond /.well-known/matrix/client `{ "m.homeserver": { "base_url": "https://${matrixDomain}" }, "org.matrix.msc4143.rtc_foci": [{ "type": "livekit", "livekit_service_url": "https://${livekitDomain}" }] }` 200
+                    # Share TCP/443 between HTTPS and LiveKit's embedded TURN server.
+                    # Connections for turn.haddock.cc are intercepted by their TLS SNI,
+                    # all other connections continue to Caddy's normal HTTP TLS handler.
+                    # Caddy terminates TLS and proxies TURN over loopback to port 5349,
+                    # which is intentionally not opened in the NixOS firewall.
+                    servers {
+                        listener_wrappers {
+                            layer4 {
+                                @turn tls sni turn.haddock.cc
+                                route @turn {
+                                    tls
+                                    proxy 127.0.0.1:5349
+                                }
+                            }
+                            tls
+                        }
+                    }
                 '';
-            "${matrixDomain}".extraConfig = ''
-                reverse_proxy :6167
-            '';
-            "${livekitDomain}".extraConfig = ''
-                @lk-jwt-service path /sfu/get* /healthz* /get_token*
-                route @lk-jwt-service {
-                    reverse_proxy :${toString lk-jwt-service.port}
-                }
+            virtualHosts = {
+                "haddock.cc".extraConfig = # caddy
+                    ''
+                        # Federation well-known
+                        header /.well-known/matrix/server Content-Type application/json
+                        respond /.well-known/matrix/server `{ "m.server": "${matrixDomain}:443" }` 200
 
-                reverse_proxy :${toString livekit.settings.port}
-            '';
-            # Provisions the certificate used by the Layer 4 TURN/TLS route.
-            "${turnDomain}".extraConfig = ''
-                respond 404
-            '';
+                        # Client well-known — CORS required
+                        header /.well-known/matrix/client Content-Type application/json
+                        header /.well-known/matrix/client Access-Control-Allow-Origin *
+                        respond /.well-known/matrix/client `{
+                            "m.homeserver": {
+                                "base_url": "https://${matrixDomain}"
+                            },
+                            "org.matrix.msc4143.rtc_foci": [
+                                {
+                                    "type": "livekit",
+                                    "livekit_service_url": "https://${livekitDomain}"
+                                }
+                            ]
+                        }` 200
+                    '';
+                "${matrixDomain}".extraConfig = ''
+                    reverse_proxy :6167
+                '';
+                "${livekitDomain}".extraConfig = ''
+                    @lk-jwt-service path /sfu/get* /healthz* /get_token*
+                    route @lk-jwt-service {
+                        reverse_proxy :${toString lk-jwt-service.port}
+                    }
+
+                    reverse_proxy :${toString livekit.settings.port}
+                '';
+                # Provisions the certificate used by the Layer 4 TURN/TLS route.
+                "${turnDomain}".extraConfig = ''
+                    respond 404
+                '';
+            };
         };
     };
 

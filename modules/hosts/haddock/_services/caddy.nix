@@ -26,23 +26,6 @@ in
                     api_secret_key {env.PORKBUN_API_SECRET_KEY}
                 }
 
-                # Share TCP/443 between HTTPS and LiveKit's embedded TURN server.
-                # Connections for turn.haddock.cc are intercepted by their TLS SNI;
-                # all other connections continue to Caddy's normal HTTP TLS handler.
-                # Caddy terminates TLS and proxies TURN over loopback to port 5349,
-                # which is intentionally not opened in the NixOS firewall.
-                servers {
-                    listener_wrappers {
-                        layer4 {
-                            @turn tls sni turn.haddock.cc
-                            route @turn {
-                                tls
-                                proxy 127.0.0.1:5349
-                            }
-                        }
-                        tls
-                    }
-                }
                 # Make the main log more human readable
                 log stdout_logger {
                     output stdout
