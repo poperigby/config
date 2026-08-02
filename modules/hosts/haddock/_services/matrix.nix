@@ -18,6 +18,20 @@ in
                 global = {
                     server_name = "haddock.cc";
                     new_user_displayname_suffix = "";
+                    oauth.oidc = {
+                        discovery_url = "https://auth.haddock.cc";
+                        client_id = "continuwuity";
+                        client_secret_file =
+                            config.sops.secrets."haddock/continuwuity/oidc_client_secret/continuwuity".path;
+                        additional_scopes = [
+                            "email"
+                            "profile"
+                        ];
+                    };
+                    well_known = {
+                        client = "https://${matrixDomain}";
+                        server = "${matrixDomain}:443";
+                    };
                     matrix_rtc.foci = [
                         {
                             type = "livekit";
@@ -82,24 +96,7 @@ in
             virtualHosts = {
                 "haddock.cc".extraConfig = # caddy
                     ''
-                        # Federation well-known
-                        header /.well-known/matrix/server Content-Type application/json
-                        respond /.well-known/matrix/server `{ "m.server": "${matrixDomain}:443" }` 200
-
-                        # Client well-known — CORS required
-                        header /.well-known/matrix/client Content-Type application/json
-                        header /.well-known/matrix/client Access-Control-Allow-Origin *
-                        respond /.well-known/matrix/client `{
-                            "m.homeserver": {
-                                "base_url": "https://${matrixDomain}"
-                            },
-                            "org.matrix.msc4143.rtc_foci": [
-                                {
-                                    "type": "livekit",
-                                    "livekit_service_url": "https://${livekitDomain}"
-                                }
-                            ]
-                        }` 200
+                        reverse_proxy /.well-known/matrix/* :6167
                     '';
                 "${matrixDomain}".extraConfig = ''
                     reverse_proxy :6167
@@ -167,6 +164,8 @@ in
 
     sops = {
         secrets = {
+            "haddock/continuwuity/oidc_client_secret/continuwuity".owner = "continuwuity";
+            "haddock/continuwuity/oidc_client_secret/authelia".owner = "authelia-haddock";
             "haddock/livekit/api_key" = { };
             "haddock/livekit/api_secret" = { };
         };

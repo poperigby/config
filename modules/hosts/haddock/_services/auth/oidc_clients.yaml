@@ -3,6 +3,17 @@
 identity_providers:
   oidc:
     clients:
+      # https://continuwuity.org/guides/oidc
+      - client_name: "Continuwuity"
+        client_id: "continuwuity"
+        client_secret: {{ secret "/run/secrets/haddock/continuwuity/oidc_client_secret/authelia" | mindent 10 "|" | msquote }}
+        authorization_policy: "one_factor"
+        redirect_uris:
+          - "https://matrix.haddock.cc/_continuwuity/oidc/complete"
+        scopes:
+          - "openid"
+          - "email"
+          - "profile"
       # https://immich.app/docs/administration/oauth/
       - client_name: "Immich"
         client_id: {{ secret "/run/secrets/immich-oidc-client-id_authelia" | mindent 10 "|" | msquote }}
