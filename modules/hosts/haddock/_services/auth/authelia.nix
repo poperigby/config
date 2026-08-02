@@ -80,11 +80,8 @@ in
                         ];
                     };
                 };
-                webauthn = {
-                    enable_passkey_login = true;
-                };
-                # Necessary for Caddy integration
-                # See https://www.authelia.com/integration/proxies/caddy/#implementation
+                webauthn.enable_passkey_login = true;
+                # https://www.authelia.com/integration/proxies/caddy/#implementation
                 server.endpoints.authz.forward-auth.implementation = "ForwardAuth";
             };
             # Templates don't work correctly when parsed from Nix, so our OIDC clients are defined here
@@ -106,8 +103,8 @@ in
             virtualHosts."auth.haddock.cc".extraConfig = ''
                 reverse_proxy :9091
             '';
-            # A Caddy snippet that can be imported to enable Authelia in front of a service
-            # Taken from https://www.authelia.com/integration/proxies/caddy/#subdomain
+            # A snippet that can be imported to enable Authelia in front of a service
+            # https://www.authelia.com/integration/proxies/caddy/#subdomain
             extraConfig = ''
                 (auth) {
                     forward_auth :9091 {
