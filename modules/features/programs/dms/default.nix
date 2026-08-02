@@ -58,7 +58,10 @@ in
                                         rev = "b45d16f30f56c16371d93ecf54c3d0b4c23a24a5";
                                         hash = "sha256-OVecni81Qd3OonFRGASAg+tl1woXdiUIhovczWnh4Uc=";
                                     };
-                                    patches = [ ./ssh-connections-wezterm-ssh.patch ];
+                                    patches = [
+                                        ./ssh-connections-wezterm-ssh.patch
+                                        ./ssh-connections-history-state.patch
+                                    ];
                                 }
                                 + "/sshConnections";
                         };

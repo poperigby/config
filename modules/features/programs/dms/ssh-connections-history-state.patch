@@ -1,0 +1,160 @@
+--- a/sshConnections/sshConnections.qml
++++ b/sshConnections/sshConnections.qml
+@@ -14,6 +14,7 @@
+     readonly property string default_terminal: Quickshell.env("TERMINAL") || "kitty"
+     readonly property string default_ssh_command: "ssh"
+     readonly property string default_max_history: "20"
++    readonly property string history_path: (Quickshell.env("XDG_STATE_HOME") || (Quickshell.env("HOME") + "/.local/state")) + "/DankMaterialShell/sshConnections_history.json"
+ 
+     property var pluginService: null
+     property string trigger: default_trigger
+@@ -23,6 +24,27 @@
+     property string max_history: default_max_history
+     property var history: []
+ 
++    property FileView historyFile: FileView {
++        id: historyFile
++        path: history_path
++        blockWrites: true
++        atomicWrites: true
++
++        onLoaded: {
++            try {
++                const data = JSON.parse(text());
++                if (Array.isArray(data))
++                    root.history = data;
++            } catch (e) {
++                console.warn(plugin_name + ": Failed to parse history file:", e);
++            }
++        }
++
++        onLoadFailed: {
++            console.info(plugin_name + ": No existing history file, starting fresh");
++        }
++    }
++
+     signal itemsChanged()
+ 
+     Component.onCompleted: {
+@@ -32,7 +54,6 @@
+             terminal = pluginService.loadPluginData(plugin_name, "terminal", default_terminal);
+             ssh_command = pluginService.loadPluginData(plugin_name, "ssh_command", default_ssh_command);
+             max_history = pluginService.loadPluginData(plugin_name, "max_history", default_max_history);
+-            history = pluginService.loadPluginData(plugin_name, "history", []);
+         }
+     }
+ 
+@@ -48,11 +69,38 @@
+         return item_list.filter(item => { return item.name.toLowerCase().includes(q) });
+     }
+ 
++    function historyIndex(server) {
++        const index = history.findIndex(host => host.toLowerCase() === server.toLowerCase());
++        return index === -1 ? 999999 : index;
++    }
++
++    function saveHistory() {
++        if (historyFile.path)
++            historyFile.setText(JSON.stringify(history, null, 2));
++    }
++
++    function recordHistory(server) {
++        history = [server].concat(history.filter(host => host.toLowerCase() !== server.toLowerCase()));
++
++        if (history.length > max_history) {
++            history = history.slice(0, max_history);
++        }
++
++        saveHistory();
++        itemsChanged();
++    }
++
+     // Borrowed some ideas from https://github.com/devnullvoid/dms-command-runner/blob/main/CommandRunner.qml
+     function getItems(query) {
+         const item_list = [];
+         let index = 0;
+-        for (let item of server_list) {
++        const sorted_server_list = server_list.slice().sort((a, b) => {
++            const historyDiff = historyIndex(a['server']) - historyIndex(b['server']);
++            if (historyDiff !== 0)
++                return historyDiff;
++            return a['server'].localeCompare(b['server']);
++        });
++        for (let item of sorted_server_list) {
+           let action_string = item['server'];
+           if (item['options'] && item['options'].length > 0) {
+               action_string = action_string + ":" + item['options']
+@@ -69,7 +117,9 @@
+         }
+ 
+         if (history.length > 0) {
+-            const filteredHistory = query ? history.filter(host => host.toLowerCase().includes(query.toLowerCase())) : history;
++            const configuredHosts = server_list.map(item => item['server'].toLowerCase());
++            const unconfiguredHistory = history.filter(host => !configuredHosts.includes(host.toLowerCase()));
++            const filteredHistory = query ? unconfiguredHistory.filter(host => host.toLowerCase().includes(query.toLowerCase())) : unconfiguredHistory;
+ 
+             for (let i = 0; i < Math.min(10, filteredHistory.length); i++) {
+                 const host = filteredHistory[i];
+@@ -117,27 +167,7 @@
+             options = action_items.slice(2).join(':');
+         }
+ 
+-        // Save to history
+-        const s = server.toLowerCase();
+-
+-        if (! server_list.some(item => item.server.toLowerCase() == s)) {
+-            const index = history.indexOf(server)
+-            if (index > -1) {
+-                history.splice(server, 1);
+-            }
+-
+-            history.unshift(server);
+-
+-            if (history.length > max_history) {
+-                history = history.slice(0, max_history);
+-            }
+-
+-            if (pluginService) {
+-                pluginService.savePluginData(plugin_name, "history", history);
+-            }
+-
+-            itemsChanged();
+-        }
++        recordHistory(server);
+ 
+         // Build command array
+         const sshArgs = (options.length > 0 ? options.split(' ') : []).concat(server);
+         let command;
+--- a/sshConnections/sshConnectionsSettings.qml
++++ b/sshConnections/sshConnectionsSettings.qml
+@@ -1,5 +1,6 @@
+ import QtQuick
+ import Quickshell
++import Quickshell.Io
+ import qs.Common
+ import qs.Modules.Plugins
+ import qs.Widgets
+@@ -15,6 +16,14 @@
+     readonly property string default_terminal: Quickshell.env("TERMINAL") || "kitty"
+     readonly property string default_ssh_command: "ssh"
+     readonly property string default_max_history: "20"
++    readonly property string history_path: (Quickshell.env("XDG_STATE_HOME") || (Quickshell.env("HOME") + "/.local/state")) + "/DankMaterialShell/sshConnections_history.json"
++
++    FileView {
++        id: historyFile
++        path: root.history_path
++        blockWrites: true
++        atomicWrites: true
++    }
+ 
+     StyledText {
+         width: parent.width
+@@ -145,7 +154,7 @@
+         backgroundColor: Theme.error
+         textColor: Theme.surface
+         onClicked: {
+-            root.saveValue("history", []);
++            historyFile.setText("[]");
+             ToastService?.showInfo("Host history cleared");
+         }
+     }
