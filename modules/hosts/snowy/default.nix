@@ -271,16 +271,6 @@
                                         blender
                                         hushmic
                                     ];
-                                file.morrowindBlenderPlugin = {
-                                    source = pkgs.fetchFromGitHub {
-                                        owner = "Greatness7";
-                                        repo = "io_scene_mw";
-                                        rev = "master";
-                                        hash = "sha256-P6xN9QPCsUl4xVAB57eI8Um0HAgPxwHQJiaYoKXKLQc=";
-                                    };
-                                    target = ".config/blender/${blender.version}/scripts/addons/io_scene_mw";
-                                    recursive = true;
-                                };
                             };
                     };
 
