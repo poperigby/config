@@ -44,11 +44,14 @@ in
                                     hash = "sha256-K/24VCf+IzNyck50Aco6kJfBE4Lji3ue3UCd5dBBRc8=";
                                 };
                             };
-                            emoji-unicode-picker.src = pkgs.fetchFromGitHub {
-                                owner = "devnullvoid";
-                                repo = "dms-emoji-launcher";
-                                rev = "main";
-                                hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
+                            emoji-unicode-picker.src = pkgs.applyPatches {
+                                src = pkgs.fetchFromGitHub {
+                                    owner = "devnullvoid";
+                                    repo = "dms-emoji-launcher";
+                                    rev = "main";
+                                    hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
+                                };
+                                patches = [ ./emoji-launcher-history-state.patch ];
                             };
                             sshConnections.src =
                                 pkgs.applyPatches {
@@ -99,7 +102,6 @@ in
                     commonPluginSettings = {
                         emojiLauncher = {
                             enabled = true;
-                            recentEmojis = "👍,❤️,🙂,😂,😮,😢";
                             trigger = ":";
                             pasteOnSelect = true;
                         };
@@ -273,7 +275,14 @@ in
                         "DankMaterialShell/plugin_settings.json".source = jsonFormat.generate "dms-plugin-settings.json" (
                             commonPluginSettings // pluginSettings
                         );
-                        "DankMaterialShell/themes/gruvboxMaterial.json".source = ./themes/gruvboxMaterial.json;
+                        "DankMaterialShell/themes/gruvboxMaterial.json".source =
+                            pkgs.fetchFromGitHub {
+                                owner = "AvengeMedia";
+                                repo = "dms-plugin-registry";
+                                rev = "bd0adca992b502178e70cc015f2a34f2b7031186";
+                                hash = "sha256-b2bNAN2mBCaSfYvn/ILpf23TVnVIIyvhMMYCE3QJ13U=";
+                            }
+                            + "/themes/gruvbox-material/theme.json";
                     };
                 };
         };
