@@ -32,6 +32,16 @@ in
                     format console
                     exclude http.log.access
                 }
+
+                # Duplicate access logs from every HTTP virtual host into a
+                # shared JSON file for CrowdSec to parse.
+                log crowdsec {
+                    include http.log.access
+                    output file /var/log/caddy/crowdsec.log {
+                        mode 0640
+                    }
+                    format json
+                }
             '';
     };
 
@@ -43,20 +53,6 @@ in
 
     # Read secrets into environment variables, that we can then reference with {env.<SECRET_NAME>}
     systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-secrets.path;
-
-    # Bind mount of the log directory that CrowdSec can read. Yes, this is horrific.
-    # fileSystems."/var/log/caddy-crowdsec" = {
-    #     device = "/var/log/caddy";
-    #     fsType = "fuse.bindfs";
-    #     options = [
-    #         "ro" # Read-only
-    #         "force-user=crowdsec" # All files appear owned by CrowdSec
-    #         "force-group=crowdsec"
-    #         "create-for-user=crowdsec"
-    #         "create-for-group=crowdsec"
-    #         "create-with-perms=0440"
-    #     ];
-    # };
 
     sops = {
         templates.caddy-secrets = {
