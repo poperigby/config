@@ -59,6 +59,33 @@
                         };
                     }
                 ];
+                scenarios = [
+                    {
+                        type = "leaky";
+                        name = "local/lldap-bf";
+                        description = "Detect brute-force attempts against the LLDAP web login";
+                        filter = ''
+                            evt.Meta.log_type == 'http_access-log' &&
+                            evt.Meta.target_fqdn == 'users.haddock.cc' &&
+                            evt.Meta.http_path == '/auth/opaque/login/finish' &&
+                            evt.Meta.http_status == '401'
+                        '';
+                        groupby = "evt.Meta.source_ip";
+                        leakspeed = "1m";
+                        capacity = 5;
+                        blackhole = "5m";
+                        reprocess = true;
+                        labels = {
+                            service = "lldap";
+                            behavior = "generic:bruteforce";
+                            classification = [ "attack.T1110" ];
+                            label = "LLDAP brute force";
+                            spoofable = 0;
+                            confidence = 3;
+                            remediation = true;
+                        };
+                    }
+                ];
             };
             hub = {
                 collections = [
