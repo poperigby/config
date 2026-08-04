@@ -59,6 +59,111 @@
                         };
                     }
                 ];
+                notifications = [
+                    {
+                        type = "email";
+                        name = "auditd_email";
+                        log_level = "info";
+                        # Nearby alerts are batched to avoid an email storm during one event.
+                        group_wait = "30s";
+                        group_threshold = 10;
+                        max_retry = 3;
+                        timeout = "20s";
+                        sender_name = "CrowdSec";
+                        sender_email = "haddock@mailbox.org";
+                        email_subject = "Auditd Detected Suspicious Activity";
+                        receiver_emails = [ "root@localhost" ];
+                        smtp_host = "127.0.0.1";
+                        smtp_port = 25;
+                        encryption_type = "none";
+                        auth_type = "none";
+                        # The email plugin renders this field as HTML. Each row
+                        # represents one alert and uses its first event for
+                        # context. The Events column shows the full event count.
+                        format = # html
+                            ''
+                                <html>
+                                <body style="font-family: sans-serif;">
+                                  <h2>Auditd Alerts</h2>
+                                  <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                      <tr>
+                                        <th style="text-align: left; padding: 6px; border-bottom: 1px solid #ccc;">Scenario</th>
+                                        <th style="text-align: left; padding: 6px; border-bottom: 1px solid #ccc;">Executable</th>
+                                        <th style="text-align: left; padding: 6px; border-bottom: 1px solid #ccc;">User</th>
+                                        <th style="text-align: left; padding: 6px; border-bottom: 1px solid #ccc;">PID</th>
+                                        <th style="text-align: right; padding: 6px; border-bottom: 1px solid #ccc;">Events</th>
+                                        <th style="text-align: left; padding: 6px; border-bottom: 1px solid #ccc;">Time</th>
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                  {{/* Sprig cannot sort alert objects directly. Invert and zero-pad the event count so alphabetically sorted keys produce descending counts. The sequence suffix keeps equal-sized alerts unique. */}}
+                                  {{ $alerts := dict }}
+                                  {{ $sequence := 0 }}
+                                  {{ range . }}
+                                  {{ $_ := set $alerts (printf "%09d-%09d" (sub 999999999 (len .Events)) $sequence) . }}
+                                  {{ $sequence = add1 $sequence }}
+                                  {{ end }}
+                                  {{ range keys $alerts | sortAlpha }}
+                                  {{ $alert := get $alerts . }}
+                                  {{ $event := index $alert.Events 0 }}
+                                  <tr>
+                                    <td style="padding: 6px; border-bottom: 1px solid #ccc;">{{ $alert.Scenario | HTMLEscape }}</td>
+                                    <td style="padding: 6px; border-bottom: 1px solid #ccc;"><code>{{ $event.GetMeta "exe" | HTMLEscape }}</code></td>
+                                    <td style="padding: 6px; border-bottom: 1px solid #ccc;">{{ $event.GetMeta "str_UID" | HTMLEscape }}</td>
+                                    <td style="padding: 6px; border-bottom: 1px solid #ccc;">{{ $event.GetMeta "pid" | HTMLEscape }}</td>
+                                    <td style="text-align: right; padding: 6px; border-bottom: 1px solid #ccc;">{{ len $alert.Events }}</td>
+                                    <td style="padding: 6px; border-bottom: 1px solid #ccc;">{{ $event.Timestamp }}</td>
+                                  </tr>
+                                      {{ end }}
+                                    </tbody>
+                                  </table>
+                                </body>
+                                </html>
+                            '';
+                    }
+                ];
+                # Email every auditd scenario, including local replacements for
+                # upstream rules that assume FHS executable paths.
+                profiles = [
+                    {
+                        name = "auditd_email_notification";
+                        filters = [
+                            "Alert.GetScenario() startsWith 'crowdsecurity/auditd-' || Alert.GetScenario() startsWith 'local/auditd-'"
+                        ];
+                        decisions = [ ];
+                        notifications = [ "auditd_email" ];
+                        on_success = "break";
+                    }
+                    # Keep the module's default remediation profiles: defining
+                    # a notification profile replaces the entire default list.
+                    {
+                        name = "default_ip_remediation";
+                        filters = [
+                            "Alert.Remediation == true && Alert.GetScope() == 'Ip'"
+                        ];
+                        decisions = [
+                            {
+                                type = "ban";
+                                duration = "4h";
+                            }
+                        ];
+                        on_success = "break";
+                    }
+                    {
+                        name = "default_range_remediation";
+                        filters = [
+                            "Alert.Remediation == true && Alert.GetScope() == 'Range'"
+                        ];
+                        decisions = [
+                            {
+                                type = "ban";
+                                duration = "4h";
+                            }
+                        ];
+                        on_success = "break";
+                    }
+                ];
                 scenarios = [
                     {
                         type = "leaky";
