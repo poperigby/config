@@ -1,4 +1,5 @@
 {
+    config,
     inputs,
     pkgs,
     ...
@@ -20,6 +21,11 @@
                 "systemd-journal"
             ];
             settings = {
+                # Persist CAPI credentials in CrowdSec's state directory and
+                # enroll this engine using a token kept outside the Nix store.
+                config.api.server.online_client.credentials_path =
+                    "/var/lib/crowdsec/data/online_api_credentials.yaml";
+                console.enrollKeyFile = config.sops.secrets."haddock/crowdsec/enroll_key".path;
                 acquisitions = [
                     {
                         labels.type = "authelia";
@@ -255,4 +261,16 @@
         };
         crowdsec-firewall-bouncer.enable = true;
     };
+
+    # Activation may restart registration while CrowdSec itself remains up.
+    # Wait for setup to create CAPI credentials before invoking cscli.
+    systemd.services.crowdsec-firewall-bouncer-register = {
+        after = [ "crowdsec-setup.service" ];
+        requires = [ "crowdsec-setup.service" ];
+    };
+
+    sops.secrets."haddock/crowdsec/enroll_key".restartUnits = [
+        "crowdsec-setup.service"
+    ];
+
 }
