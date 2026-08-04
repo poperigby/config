@@ -23,6 +23,17 @@
                         size = "100%";
                         content = {
                             type = "btrfs";
+                            postCreateHook = ''
+                                quota_mount=$(mktemp -d)
+                                mount "$device" "$quota_mount" -o subvol=/
+                                trap 'umount "$quota_mount"; rmdir "$quota_mount"' EXIT
+
+                                if ! btrfs qgroup show "$quota_mount" >/dev/null 2>&1; then
+                                    btrfs quota enable "$quota_mount"
+                                fi
+
+                                btrfs qgroup limit 5G "$quota_mount/@malware_quarantine"
+                            '';
                             subvolumes = {
                                 "@" = {
                                     mountpoint = "/";
@@ -54,6 +65,16 @@
                                     mountOptions = [
                                         "compress=zstd"
                                         "noatime"
+                                    ];
+                                };
+                                "@malware_quarantine" = {
+                                    mountpoint = "/var/lib/clamav/quarantine";
+                                    mountOptions = [
+                                        "compress=zstd"
+                                        "noatime"
+                                        "noexec"
+                                        "nodev"
+                                        "nosuid"
                                     ];
                                 };
                             };
