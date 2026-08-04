@@ -84,7 +84,6 @@
                             ''
                                 <html>
                                 <body style="font-family: sans-serif;">
-                                  <h2>Auditd Alerts</h2>
                                   <table style="width: 100%; border-collapse: collapse;">
                                     <thead>
                                       <tr>
