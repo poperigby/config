@@ -1,29 +1,10 @@
-{ lib, ... }:
+{ ... }:
 
-let
-    inherit (lib.generators)
-        mkKeyValueDefault
-        toKeyValue
-        ;
-in
 {
     security = {
-        auditd.enable = true;
-        audit = {
+        auditd = {
             enable = true;
-            rules = [
-                "-a exit,always -F arch=b64 -S execve"
-                "-a exit,always -F arch=b32 -S execve"
-            ];
-        };
-    };
-
-    # A group for users that can read audit logs
-    users.groups.audit = { };
-
-    environment.etc."audit/auditd.conf".text =
-        toKeyValue { mkKeyValue = mkKeyValueDefault { } " = "; }
-            {
+            settings = {
                 log_group = "audit";
                 # Maximum log file size in megabytes
                 max_log_file = 1000;
@@ -32,4 +13,17 @@ in
                 num_logs = 3;
                 space_left = 10000;
             };
+        };
+        audit = {
+            enable = true;
+            rules = [
+                # Log all 64/32-bit binary executions
+                "-a exit,always -F arch=b64 -S execve"
+                "-a exit,always -F arch=b32 -S execve"
+            ];
+        };
+    };
+
+    # A group for users that can read audit logs
+    users.groups.audit = { };
 }
