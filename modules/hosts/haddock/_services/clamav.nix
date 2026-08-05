@@ -6,6 +6,8 @@
 }:
 
 let
+    quarantineDir = "/var/lib/clamav/quarantine";
+
     notifyVirus = pkgs.writeShellApplication {
         name = "clamav-notify-virus";
         text = ''
@@ -23,6 +25,7 @@ let
             } | /run/wrappers/bin/sendmail -t
         '';
     };
+
 in
 
 {
@@ -33,7 +36,7 @@ in
                 VirusEvent = lib.getExe notifyVirus;
                 # Quarantined files are already known detections. Do not alert
                 # on them again during the general /var/lib scan.
-                ExcludePath = "^/var/lib/clamav/quarantine(/|$)";
+                ExcludePath = "^${quarantineDir}(/|$)";
             };
         };
         scanner = {
@@ -51,18 +54,29 @@ in
     };
 
     systemd.tmpfiles.rules = [
-        "d /var/lib/clamav/quarantine 0700 root root -"
+        # Keep detected files root-only after ClamAV moves them to quarantine.
+        "d ${quarantineDir} 0700 root root -"
     ];
 
     # The NixOS module does not expose clamdscan's quarantine flags, so extend
     # its existing daily scanner rather than creating a second scan job.
-    systemd.services.clamdscan.serviceConfig.ExecStart = lib.mkForce ''
-        ${lib.getExe' pkgs.clamav "clamdscan"} \
-            --multiscan \
-            --fdpass \
-            --infected \
-            --allmatch \
-            --move=/var/lib/clamav/quarantine \
-            ${lib.escapeShellArgs config.services.clamav.scanner.scanDirectories}
-    '';
+    systemd.services.clamdscan = {
+        # Let an in-progress scan finish instead of blocking activation while
+        # systemd stops and restarts this long-running oneshot service.
+        restartIfChanged = false;
+        # Require every filesystem used by the scan and quarantine pipeline so
+        # unavailable mounts fail the job instead of exposing bare mountpoints.
+        unitConfig.RequiresMountsFor = config.services.clamav.scanner.scanDirectories ++ [
+            quarantineDir
+        ];
+        serviceConfig.ExecStart = lib.mkForce ''
+            ${lib.getExe' pkgs.clamav "clamdscan"} \
+                --multiscan \
+                --fdpass \
+                --infected \
+                --allmatch \
+                --move=${quarantineDir} \
+                ${lib.escapeShellArgs config.services.clamav.scanner.scanDirectories}
+        '';
+    };
 }
