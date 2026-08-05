@@ -107,24 +107,31 @@
 
                 time.timeZone = "America/Los_Angeles";
 
-                services.openssh = {
-                    enable = true;
-                    settings = {
-                        # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
-                        PermitRootLogin = "no";
-                        MaxAuthTries = 3;
-                        PasswordAuthentication = false;
-                        PermitEmptyPasswords = false;
-                        ChallengeResponseAuthentication = false;
-                        PermitUserEnvironment = false;
-                        AllowAgentForwarding = false;
-                        # AllowTcpForwarding = false;
-                        PermitTunnel = false;
-                    };
-                    extraConfig = ''
-                        Match Address 192.168.1.0/24
-                            PasswordAuthentication yes  
+                services = {
+                    redis.servers.haddock.enable = true;
+                    caddy.virtualHosts."print.haddock.cc".extraConfig = ''
+                        import auth
+                        reverse_proxy http://192.168.1.27:5000
                     '';
+                    openssh = {
+                        enable = true;
+                        settings = {
+                            # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
+                            PermitRootLogin = "no";
+                            MaxAuthTries = 3;
+                            PasswordAuthentication = false;
+                            PermitEmptyPasswords = false;
+                            ChallengeResponseAuthentication = false;
+                            PermitUserEnvironment = false;
+                            AllowAgentForwarding = false;
+                            # AllowTcpForwarding = false;
+                            PermitTunnel = false;
+                        };
+                        extraConfig = ''
+                            Match Address 192.168.1.0/24
+                                PasswordAuthentication yes  
+                        '';
+                    };
                 };
 
                 # Required to allow local password authentication
