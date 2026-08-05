@@ -115,6 +115,21 @@ in
                 '';
             };
         };
+        # https://continuwuity.org/guides/oidc
+        authelia.oidcClients.haddock = [
+            {
+                client_name = "Continuwuity";
+                client_id = "continuwuity";
+                client_secret = config.sops.placeholder."haddock/continuwuity/oidc_client_secret/authelia";
+                authorization_policy = "two_factor";
+                redirect_uris = [ "https://${matrixDomain}/_continuwuity/oidc/complete" ];
+                scopes = [
+                    "openid"
+                    "email"
+                    "profile"
+                ];
+            }
+        ];
     };
 
     networking.firewall =

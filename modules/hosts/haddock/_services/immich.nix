@@ -15,16 +15,39 @@ in
             import auth
             reverse_proxy http://${cfg.host}:${toString cfg.port}
         '';
-        authelia.instances.haddock.settings.access_control.rules = [
-            {
-                # Immich handles authorization itself and uses Authelia via OIDC
-                # when authentication is required. Bypass forward auth for the
-                # whole domain so public shares can anonymously load the frontend
-                # assets and API endpoints they need.
-                domain = "photos.haddock.cc";
-                policy = "bypass";
-            }
-        ];
+        authelia = {
+            # https://immich.app/docs/administration/oauth/
+            oidcClients.haddock = [
+                {
+                    client_name = "Immich";
+                    client_id = config.sops.placeholder.immich-oidc-client-id_authelia;
+                    client_secret = config.sops.placeholder."haddock/immich/oidc_client_secret/authelia";
+                    public = false;
+                    authorization_policy = "one_factor";
+                    redirect_uris = [
+                        "app.immich:///oauth-callback"
+                        "https://photos.haddock.cc/auth/login"
+                        "https://photos.haddock.cc/user-settings"
+                    ];
+                    scopes = [
+                        "openid"
+                        "profile"
+                        "email"
+                    ];
+                    token_endpoint_auth_method = "client_secret_post";
+                }
+            ];
+            instances.haddock.settings.access_control.rules = [
+                {
+                    # Immich handles authorization itself and uses Authelia via OIDC
+                    # when authentication is required. Bypass forward auth for the
+                    # whole domain so public shares can anonymously load the frontend
+                    # assets and API endpoints they need.
+                    domain = "photos.haddock.cc";
+                    policy = "bypass";
+                }
+            ];
+        };
     };
 
     sops = {

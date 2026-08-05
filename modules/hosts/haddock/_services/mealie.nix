@@ -32,6 +32,19 @@ in
             import auth
             reverse_proxy :${toString cfg.port}
         '';
+        # https://docs.mealie.io/documentation/getting-started/authentication/oidc
+        authelia.oidcClients.haddock = [
+            {
+                client_name = "Mealie";
+                client_id = config.sops.placeholder.mealie-oidc-client-id_authelia;
+                client_secret = config.sops.placeholder."haddock/mealie/oidc_client_secret/authelia";
+                public = false;
+                authorization_policy = "one_factor";
+                require_pkce = true;
+                pkce_challenge_method = "S256";
+                redirect_uris = [ "https://food.haddock.cc/login" ];
+            }
+        ];
     };
 
     systemd.services.mealie =

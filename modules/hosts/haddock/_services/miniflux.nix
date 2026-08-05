@@ -25,6 +25,18 @@ in
             import auth
             reverse_proxy :${cfg.config.PORT}
         '';
+        # https://miniflux.app/docs/howto.html#oauth2
+        authelia.oidcClients.haddock = [
+            {
+                client_name = "Miniflux";
+                client_id = config.sops.placeholder.miniflux-oidc-client-id_authelia;
+                client_secret = config.sops.placeholder."haddock/miniflux/oidc_client_secret/authelia";
+                authorization_policy = "one_factor";
+                require_pkce = true;
+                pkce_challenge_method = "S256";
+                redirect_uris = [ "https://news.haddock.cc/oauth2/oidc/callback" ];
+            }
+        ];
     };
 
     systemd.services.miniflux =

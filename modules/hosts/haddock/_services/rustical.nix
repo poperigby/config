@@ -34,6 +34,24 @@ in
         caddy.virtualHosts."dav.haddock.cc".extraConfig = ''
             reverse_proxy ${rustical.settings.http.bind}
         '';
+        # https://lennart-k.github.io/rustical/setup/oidc
+        authelia.oidcClients.haddock = [
+            {
+                client_name = "Rustical";
+                client_id = config.sops.placeholder.rustical-oidc-client-id_authelia;
+                client_secret = config.sops.placeholder."haddock/rustical/oidc_client_secret/authelia";
+                public = false;
+                authorization_policy = "one_factor";
+                consent_mode = "implicit";
+                scopes = [
+                    "openid"
+                    "profile"
+                    "groups"
+                ];
+                token_endpoint_auth_method = "client_secret_basic";
+                redirect_uris = [ "https://dav.haddock.cc/frontend/login/oidc/callback" ];
+            }
+        ];
     };
 
     users = {

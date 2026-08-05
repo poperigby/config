@@ -45,14 +45,31 @@ in
             import auth
             reverse_proxy :3456
         '';
-        authelia.instances.haddock.settings.access_control.rules = [
-            {
-                # Required to use the Vikunja mobile app
-                domain = "tasks.haddock.cc";
-                policy = "bypass";
-                resources = [ "/api.*" ];
-            }
-        ];
+        authelia = {
+            # https://vikunja.io/docs/openid
+            oidcClients.haddock = [
+                {
+                    client_name = "Vikunja";
+                    client_id = config.sops.placeholder.vikunja-oidc-client-id_authelia;
+                    client_secret = config.sops.placeholder."haddock/vikunja/oidc_client_secret/authelia";
+                    authorization_policy = "one_factor";
+                    redirect_uris = [ "https://${domain}/auth/openid/authelia" ];
+                    scopes = [
+                        "openid"
+                        "email"
+                        "profile"
+                    ];
+                }
+            ];
+            instances.haddock.settings.access_control.rules = [
+                {
+                    # Required to use the Vikunja mobile app
+                    domain = "tasks.haddock.cc";
+                    policy = "bypass";
+                    resources = [ "/api.*" ];
+                }
+            ];
+        };
     };
 
     systemd.services.vikunja =
