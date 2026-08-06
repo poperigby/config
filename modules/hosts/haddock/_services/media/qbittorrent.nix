@@ -73,9 +73,6 @@ in
 
     systemd.services = {
         qbittorrent = {
-            serviceConfig.InaccessiblePaths = [
-                "/run/systemd/resolve"
-            ];
             vpnConfinement = {
                 enable = true;
                 vpnNamespace = netns;
@@ -111,20 +108,35 @@ in
         };
         # Update my MyAnonaMouse session IP
         update-mam-ip = {
-            enable = true;
             description = "Update my MyAnonaMouse session IP";
-            wantedBy = [ "multi-user.target" ];
             script = ''
                 set -euo pipefail
 
-                ${getExe pkgs.curl} \
-                    -b mam_id=$(cat ${config.sops.secrets."haddock/myanonamouse/id".path}) \
-                    https://t.myanonamouse.net/json/dynamicSeedbox.php
+                response=$(${getExe pkgs.curl} \
+                    --fail \
+                    --ipv4 \
+                    --show-error \
+                    --silent \
+                    --cookie "mam_id=$(<${config.sops.secrets."haddock/myanonamouse/id".path})" \
+                    https://t.myanonamouse.net/json/dynamicSeedbox.php)
+
+                printf '%s\n' "$response"
+                ${getExe pkgs.jq} --exit-status '.Success == true' <<< "$response" >/dev/null
             '';
             vpnConfinement = {
                 enable = true;
                 vpnNamespace = netns;
             };
+        };
+    };
+
+    systemd.timers.update-mam-ip = {
+        description = "Periodically update my MyAnonaMouse session IP";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+            OnBootSec = "5m";
+            OnUnitActiveSec = "1h";
+            Persistent = true;
         };
     };
 
