@@ -153,8 +153,9 @@
             homeManager =
                 { pkgs, ... }:
                 {
-                    home.packages = [
-                        pkgs.custom.find-open-ports
+                    home.packages = with pkgs; [
+                        custom.find-open-ports
+                        osc
                     ];
                 };
         };
