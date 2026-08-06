@@ -14,6 +14,18 @@ in
         groups.media = { };
     };
 
+    systemd.tmpfiles.rules = [
+        # Own the shared data root and make children inherit the media group.
+        "d /mnt/media/data 2775 media media -"
+        # Keep the organized media library owned by the shared media account.
+        "d /mnt/media/data/media 2775 media media -"
+        # Let qBittorrent own downloads while sharing them with media services.
+        "d /mnt/media/data/torrents 2775 qbittorrent media -"
+        # Give new files group read/write access. This ACL is inherited, avoiding
+        # an expensive recursive walk of the media library on every activation.
+        "a+ /mnt/media/data - - - - d:g::rwX"
+    ];
+
     # Define a network namespace with a VPN for qBittorrent and Prowlarr
     vpnNamespaces.proton = {
         enable = true;
