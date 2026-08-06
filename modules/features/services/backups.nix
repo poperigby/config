@@ -1,4 +1,4 @@
-{ ... }:
+{ den, ... }:
 {
     den.aspects.services.provides.backups =
         {
@@ -12,6 +12,8 @@
             frequency ? "daily",
         }:
         {
+            includes = [ den.aspects.services._.postfix ];
+
             nixos =
                 {
                     config,
@@ -23,11 +25,25 @@
                     btrfs = lib.getExe pkgs.btrfs-progs;
                     grep = lib.getExe pkgs.ripgrep;
                     mount = lib.getExe' pkgs.util-linux "mount";
-                    umount = lib.getExe' pkgs.util-linux "umount";
 
                     hostName = config.networking.hostName;
-                    mail = config.services.postfix.enable;
                     databases' = if databases == null then config.services.postgresql.enable else databases;
+
+                    notifyFailure = pkgs.writeShellApplication {
+                        name = "notify-backup-failure";
+                        text = ''
+                            unit="$1"
+
+                            {
+                              printf 'To: root\n'
+                              printf 'From: Restic <haddock@mailbox.org>\n'
+                              printf 'Subject: Backup failed on %s: %s\n' ${lib.escapeShellArg hostName} "$unit"
+                              printf 'Content-Type: text/plain; charset=UTF-8\n'
+                              printf '\n'
+                              ${lib.getExe' pkgs.systemd "journalctl"} --boot --unit "$unit" --lines 100 --no-pager
+                            } | /run/wrappers/bin/sendmail -t
+                        '';
+                    };
 
                     mkRepoCfg = name: {
                         services.restic.backups.${name} = {
@@ -59,12 +75,10 @@
                                 fi
 
                                 ${btrfs} subvolume snapshot -r /home /.snapshots/@restic-home
-                                ${umount} /home
                                 ${mount} --bind /.snapshots/@restic-home /home
 
                                 if ${btrfs} subvolume list / | ${grep} -q "@var_lib"; then
                                   ${btrfs} subvolume snapshot -r /var/lib /.snapshots/@restic-var_lib
-                                  ${umount} /var/lib
                                   ${mount} --bind /.snapshots/@restic-var_lib /var/lib
                                 fi
                             '';
@@ -83,7 +97,7 @@
 
                         systemd.services = {
                             "restic-backups-${name}" = {
-                                unitConfig.OnFailure = lib.mkIf mail "notify-failure-email@%i";
+                                unitConfig.OnFailure = "notify-backup-failure@%n.service";
                                 serviceConfig.PrivateMounts = true;
                             }
                             // lib.optionalAttrs databases' {
@@ -133,6 +147,15 @@
                     };
                 in
                 lib.mkMerge [
+                    {
+                        systemd.services."notify-backup-failure@" = {
+                            description = "Email notification for failed backup unit %I";
+                            serviceConfig = {
+                                Type = "oneshot";
+                                ExecStart = "${lib.getExe notifyFailure} %I";
+                            };
+                        };
+                    }
                     (lib.mkIf (repositories.borgbase or false) (mkRepoCfg "borgbase"))
                     (lib.mkIf (repositories.tintin or false) (mkRepoCfg "tintin"))
                 ];
