@@ -16,7 +16,7 @@ in
                 "github.com/caddy-dns/porkbun@v0.3.1"
                 "github.com/mholt/caddy-l4@v0.1.0"
             ];
-            hash = "sha256-SEF4YrD0VVnwQI89JPRMChgf/M3uuot7TXPptBBX3o4=";
+            hash = "sha256-Qbn2vdamLUr0eoXZ2oTq6Jedqni8fh2ZRxOHDi7rpC4=";
         };
         email = privateInfo.poperigby.email;
         globalConfig = # caddy
