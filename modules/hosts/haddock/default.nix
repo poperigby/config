@@ -22,19 +22,10 @@
     };
 
     den.aspects.haddock = {
-        provides.to-users.includes = with den.aspects; [
-            # Profiles
-            common
-
-            # System
-            (system._.boot { })
+        includes = with den.aspects; [
             (services._.backups {
-                # Backup to Tintin as well as BorgBase
-                repositories = {
-                    borgbase = true;
-                    tintin = true;
-                };
                 paths = [
+                    "/home"
                     "/var/lib/bazarr"
                     "/var/lib/continuwuity"
                     "/var/lib/immich"
@@ -46,6 +37,7 @@
                     "/var/lib/moonfire-nvr"
                     "/var/lib/paperless"
                     "/var/lib/private/prowlarr"
+                    "/var/lib/qBittorrent"
                     "/var/lib/radarr"
                     "/var/lib/readarr"
                     "/var/lib/rustical"
@@ -54,6 +46,14 @@
                     "/var/lib/vikunja"
                 ];
             })
+        ];
+
+        provides.to-users.includes = with den.aspects; [
+            # Profiles
+            common
+
+            # System
+            (system._.boot { })
 
             # Services
             services._.postfix
