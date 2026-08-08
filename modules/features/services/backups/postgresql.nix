@@ -90,9 +90,11 @@
 
                                                 cluster="$RUNTIME_DIRECTORY/cluster"
                                                 database_url=$(pg_tmp -d "$cluster" -w 0 ${preloadOptions} start)
+
                                                 cleanup() {
                                                   pg_tmp -d "$cluster" stop >/dev/null 2>&1 || true
                                                 }
+
                                                 trap cleanup EXIT
 
                                                 ${restic} dump latest all.sql \

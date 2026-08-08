@@ -51,10 +51,10 @@
                         passwordFile = config.sops.secrets."${hostName}/restic/${name}/password".path;
                         initialize = true;
                         pruneOpts = [
-                            "--keep-daily 7"
-                            "--keep-weekly 4"
-                            "--keep-monthly 3"
-                            "--keep-yearly 1"
+                            "--keep-daily 14"
+                            "--keep-weekly 8"
+                            "--keep-monthly 12"
+                            "--keep-yearly 3"
                         ]
                         ++ lib.optionals databases' [ "--group-by tags" ];
                         extraBackupArgs = [ "--tag system" ];
