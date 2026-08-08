@@ -68,6 +68,7 @@
                         fd
                         ffmpeg
                         file
+                        hydra-check
                         imagemagick
                         jq
                         just
