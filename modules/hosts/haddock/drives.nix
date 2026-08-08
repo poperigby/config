@@ -1,10 +1,7 @@
-{
-    lib,
-    ...
-}:
+{ ... }:
 {
     den.aspects.haddock.nixos =
-        { pkgs, ... }:
+        { ... }:
         {
             disko.devices.disk.primary = {
                 device = "/dev/disk/by-id/nvme-WD_Blue_SN580_1TB_244432808685";
@@ -96,49 +93,5 @@
                 fsType = "btrfs";
             };
 
-            services.btrfs.autoScrub = {
-                enable = true;
-                fileSystems = [
-                    "/"
-                    "/mnt/media"
-                ];
-            };
-
-            # Stagger the two filesystems so their scrubs do not compete for I/O.
-            systemd.timers = {
-                "btrfs-scrub--".timerConfig.OnCalendar = lib.mkForce "*-*-01 03:00:00";
-                "btrfs-scrub-mnt-media".timerConfig.OnCalendar = lib.mkForce "*-*-15 03:00:00";
-            };
-
-            systemd.services = {
-                "btrfs-scrub--".unitConfig.OnFailure = "notify-btrfs-scrub-failure@%n.service";
-                "btrfs-scrub-mnt-media".unitConfig.OnFailure = "notify-btrfs-scrub-failure@%n.service";
-
-                "notify-btrfs-scrub-failure@" = {
-                    description = "Email notification for failed Btrfs scrub unit %I";
-                    serviceConfig = {
-                        Type = "oneshot";
-                        ExecStart =
-                            lib.getExe (
-                                pkgs.writeShellApplication {
-                                    name = "notify-btrfs-scrub-failure";
-                                    text = ''
-                                        unit="$1"
-
-                                        {
-                                          printf 'To: root\n'
-                                          printf 'From: Btrfs <haddock@mailbox.org>\n'
-                                          printf 'Subject: Btrfs scrub failed on haddock: %s\n' "$unit"
-                                          printf 'Content-Type: text/plain; charset=UTF-8\n'
-                                          printf '\n'
-                                          ${lib.getExe' pkgs.systemd "journalctl"} --boot --unit "$unit" --lines 100 --no-pager
-                                        } | /run/wrappers/bin/sendmail -t
-                                    '';
-                                }
-                            )
-                            + " %I";
-                    };
-                };
-            };
         };
 }
