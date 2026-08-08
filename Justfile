@@ -59,3 +59,9 @@ flash-nestor disk="/dev/sdc":
 
     sync
     sudo umount /mnt/sdroot
+
+update-nestor:
+    nixos-rebuild switch \
+        --flake .#nestor \
+        --target-host cassidy@nestor \
+        --elevate=sudo
