@@ -70,6 +70,7 @@
                 hardware._.scanning
 
                 # Services
+                services._.cache
                 services._.earlyoom
                 services._.geolocation
                 services._.smartd

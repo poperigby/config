@@ -80,6 +80,7 @@
             hardware._.scanning
 
             # Services
+            services._.cache
             services._.geolocation
             services._.smartd
 

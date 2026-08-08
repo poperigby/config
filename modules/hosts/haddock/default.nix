@@ -26,6 +26,7 @@
             (services._.backups {
                 paths = [
                     "/home"
+                    "/var/lib/atticd/storage"
                     "/var/lib/bazarr"
                     "/var/lib/continuwuity"
                     "/var/lib/immich"
@@ -56,6 +57,7 @@
             (system._.boot { })
 
             # Services
+            services._.cache
             services._.postfix
             services._.smartd
 
