@@ -24,8 +24,6 @@
                     tes3cmd
                 ])
                 ++ (with inputs'.openmw-nix.packages; [
-                    delta-plugin
-                    groundcoverify
                     openmw-validator
                 ]);
 
