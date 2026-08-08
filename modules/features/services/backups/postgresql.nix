@@ -71,8 +71,8 @@
                                 ProtectSystem = "strict";
                                 ExecStart =
                                     let
-                                        preloadLibraries = config.services.postgresql.settings.shared_preload_libraries or "";
-                                        preloadOptions = optionalString (preloadLibraries != "") (
+                                        preloadLibraries = config.services.postgresql.settings.shared_preload_libraries or null;
+                                        preloadOptions = optionalString (preloadLibraries != null && preloadLibraries != "") (
                                             "-o " + escapeShellArg "-c shared_preload_libraries=${preloadLibraries}"
                                         );
                                     in
