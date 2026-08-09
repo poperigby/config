@@ -22,6 +22,7 @@ in
         {
             settings ? { },
             pluginSettings ? { },
+            wallpaper ? null,
         }:
         {
             nixos =
@@ -129,6 +130,37 @@ in
                     };
                 in
                 {
+                    systemd.user.services.dms-wallpaper = lib.mkIf (wallpaper != null) {
+                        Unit = {
+                            Description = "Set the DMS wallpaper";
+                            After = [ "dms.service" ];
+                            Requires = [ "dms.service" ];
+                        };
+                        Service = {
+                            Type = "oneshot";
+                            RemainAfterExit = true;
+                            ExecStart =
+                                let
+                                    setWallpaper = pkgs.writeShellApplication {
+                                        name = "set-dms-wallpaper";
+                                        text = ''
+                                            for _ in {1..30}; do
+                                              if ${lib.getExe osConfig.programs.dms-shell.package} ipc call wallpaper set ${lib.escapeShellArg (toString wallpaper)}; then
+                                                exit 0
+                                              fi
+                                              sleep 1
+                                            done
+
+                                            echo "DMS did not become ready to set the wallpaper" >&2
+                                            exit 1
+                                        '';
+                                    };
+                                in
+                                lib.getExe setWallpaper;
+                        };
+                        Install.WantedBy = [ "graphical-session.target" ];
+                    };
+
                     wayland.windowManager.niri.settings = {
                         binds = {
                             "Mod+Space" = {

@@ -9,6 +9,7 @@
             # Desktop
             desktops._.niri
             (programs._.dms {
+                wallpaper = ./wallpaper.jpg;
                 settings = {
                     activeDisplayProfile = { };
                     displayProfiles = { };
