@@ -1,6 +1,8 @@
-{ ... }:
+{ den, ... }:
 {
     den.aspects.shane = {
+        includes = [ den.aspects.programs._.atuin ];
+
         user =
             { config, ... }:
             {

@@ -17,11 +17,24 @@ in
             settings = {
                 global = {
                     server_name = "haddock.cc";
+
                     new_user_displayname_suffix = "";
+
                     # Unbound provides the cache for federation lookups.
                     dns_cache_entries = 0;
+                    # https://continuwuity.org/guides/performance.html#cache-capacities
+                    cache_capacity_modifier = 2.0;
                     # Don't wast time looking up IPv6 addresses.
                     ip_lookup_strategy = 1;
+                    # https://continuwuity.org/guides/performance.html#tuning-your-trusted-servers
+                    trusted_servers = [
+                        "codestorm.net"
+                        "starstruck.systems"
+                        "unredacted.org"
+                        "matrix.org"
+                    ];
+                    trusted_server_batch_size = 2048;
+
                     oauth.oidc = {
                         discovery_url = "https://auth.haddock.cc";
                         client_id = "continuwuity";
@@ -32,10 +45,12 @@ in
                             "profile"
                         ];
                     };
+
                     well_known = {
                         client = "https://${matrixDomain}";
                         server = "${matrixDomain}:443";
                     };
+
                     matrix_rtc.foci = [
                         {
                             type = "livekit";

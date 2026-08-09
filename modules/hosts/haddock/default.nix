@@ -5,12 +5,8 @@
 }:
 {
     flake-file.inputs = {
-        nixpkgs-patch-crowdsec-10-core = {
-            url = "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff";
-            flake = false;
-        };
-        nixpkgs-patch-crowdsec-20-default-text = {
-            url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
+        nixpkgs-patch-crowdsec = {
+            url = "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff";
             flake = false;
         };
         flux = {
@@ -46,7 +42,6 @@
                     "/var/lib/mealie"
                     "/var/lib/minecraft/*/world"
                     "/var/lib/moonfire-nvr"
-                    "/var/lib/paperless"
                     "/var/lib/phylum"
                     "/var/lib/private/prowlarr"
                     "/var/lib/qBittorrent"
@@ -54,7 +49,6 @@
                     "/var/lib/readarr"
                     "/var/lib/rustical"
                     "/var/lib/sonarr"
-                    "/var/lib/trilium"
                     "/var/lib/vikunja"
                 ];
                 excludeDatabases = [ "atticd" ];

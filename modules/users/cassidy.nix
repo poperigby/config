@@ -4,6 +4,7 @@
         includes = [
             den._.primary-user
             (den._.user-shell "fish")
+            den.aspects.programs._.atuin
         ];
 
         user =

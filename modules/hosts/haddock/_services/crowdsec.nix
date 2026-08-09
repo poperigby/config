@@ -270,10 +270,13 @@
         crowdsec-firewall-bouncer = {
             enable = true;
             # Docker-published ports traverse DOCKER-USER instead of INPUT.
-            settings.iptables_chains = [
-                "INPUT"
-                "DOCKER-USER"
-            ];
+            settings = {
+                api_url = "http://127.0.0.1:8080";
+                iptables_chains = [
+                    "INPUT"
+                    "DOCKER-USER"
+                ];
+            };
         };
     };
 

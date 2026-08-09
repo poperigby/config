@@ -34,7 +34,14 @@ in
 {
     flake-file.inputs = {
         disko.url = "github:nix-community/disko";
-        private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+        private-config = {
+            url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+            inputs.sops-nix.follows = "sops-nix";
+        };
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         ucodenix.url = "github:e-tho/ucodenix";
     };
 

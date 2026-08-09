@@ -28,11 +28,18 @@
 
             hardware.enableRedistributableFirmware = true;
 
+            # power.ups = {
+            #     enable = true;
+            #     mode = "netserver";
+            #     ups."UPS-1" = {
+            #         description = "";
+            #     };
+            # };
+
             # Keep microcode updated
             services.ucodenix = {
                 enable = true;
                 cpuModelId = "00870F10";
             };
-
         };
 }

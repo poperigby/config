@@ -10,7 +10,6 @@
 
     den.aspects.common = {
         includes = with den.aspects; [
-            programs._.atuin
             programs._.bottom
             programs._.codex
             programs._.direnv

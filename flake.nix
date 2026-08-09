@@ -1,4 +1,4 @@
-# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# DO-NOT-EDIT. This file was auto-generated using github:denful/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
@@ -48,12 +48,8 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
-    nixpkgs-patch-crowdsec-10-core = {
-      url = "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff";
-      flake = false;
-    };
-    nixpkgs-patch-crowdsec-20-default-text = {
-      url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
+    nixpkgs-patch-crowdsec = {
+      url = "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff";
       flake = false;
     };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
@@ -63,9 +59,16 @@
       url = "git+https://codeberg.org/PopeRigby/piggyback.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+    private-config = {
+      url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+      inputs.sops-nix.follows = "sops-nix";
+    };
     proton-cachyos = {
       url = "github:Daaboulex/proton-cachyos-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ucodenix.url = "github:e-tho/ucodenix";

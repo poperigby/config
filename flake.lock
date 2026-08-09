@@ -719,11 +719,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1790530226,
-        "narHash": "sha256-V9q2ADcBLo16KW/HK90Qfu2KoEEAZJ1IFSjUd+jWJ9I=",
+        "lastModified": 1790552402,
+        "narHash": "sha256-nwMnqmwuxJ+vX0rPz05x/hDiV3Hup7xpHfN+i90mbw0=",
         "owner": "kaylorben",
         "repo": "nixcord",
-        "rev": "163de914ce8542c1061ad392bccbb750a7b0077f",
+        "rev": "17a50bfc9e98d05456e3b8e19721123b95241c98",
         "type": "github"
       },
       "original": {
@@ -904,28 +904,16 @@
         "type": "github"
       }
     },
-    "nixpkgs-patch-crowdsec-10-core": {
+    "nixpkgs-patch-crowdsec": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-BWuAvZgMmE0DnlNUPIbJDUkViQxqFN3k00AY8D0HbRw=",
+        "narHash": "sha256-7WyuRt0CVrnkMAm2rPq2HoH2ih+1lEyazvuMgmeb3ug=",
         "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff"
+        "url": "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff"
-      }
-    },
-    "nixpkgs-patch-crowdsec-20-default-text": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-tILCpOUYeUtgrz0u0JWRrf4RK41/HvcWaz2bxw24pJU=",
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff"
+        "url": "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff"
       }
     },
     "nixpkgs-patcher": {
@@ -1190,7 +1178,9 @@
       "inputs": {
         "flake-parts": "flake-parts_4",
         "nixpkgs": "nixpkgs_11",
-        "sops-nix": "sops-nix"
+        "sops-nix": [
+          "sops-nix"
+        ]
       },
       "locked": {
         "lastModified": 1790539606,
@@ -1252,14 +1242,14 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-multiverse": "nixpkgs-multiverse",
-        "nixpkgs-patch-crowdsec-10-core": "nixpkgs-patch-crowdsec-10-core",
-        "nixpkgs-patch-crowdsec-20-default-text": "nixpkgs-patch-crowdsec-20-default-text",
+        "nixpkgs-patch-crowdsec": "nixpkgs-patch-crowdsec",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "piggyback": "piggyback",
         "private-config": "private-config",
         "proton-cachyos": "proton-cachyos",
+        "sops-nix": "sops-nix",
         "ucodenix": "ucodenix",
         "vpn-confinement": "vpn-confinement"
       }
@@ -1288,7 +1278,6 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "private-config",
           "nixpkgs"
         ]
       },
