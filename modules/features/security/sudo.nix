@@ -1,5 +1,5 @@
 # Sudo configuration.
-{ den, ... }:
+{ ... }:
 {
     den.aspects.security.provides.sudo.nixos =
         { pkgs, ... }:
