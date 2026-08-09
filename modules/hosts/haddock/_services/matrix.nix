@@ -18,6 +18,8 @@ in
                 global = {
                     server_name = "haddock.cc";
                     new_user_displayname_suffix = "";
+                    # Unbound provides the cache for federation lookups.
+                    dns_cache_entries = 0;
                     oauth.oidc = {
                         discovery_url = "https://auth.haddock.cc";
                         client_id = "continuwuity";
@@ -153,6 +155,10 @@ in
         };
 
     systemd.services = {
+        continuwuity = {
+            after = [ "unbound.service" ];
+            requires = [ "unbound.service" ];
+        };
         livekit.serviceConfig.DynamicUser = mkForce false;
         lk-jwt-service = {
             serviceConfig.DynamicUser = mkForce false;
