@@ -16,6 +16,8 @@
         };
         audit = {
             enable = true;
+            # Hold the early-boot execve burst until auditd starts draining events.
+            backlogLimit = 16384;
             rules = [
                 # Log all 64/32-bit binary executions
                 "-a exit,always -F arch=b64 -S execve"
