@@ -32,6 +32,8 @@
                     systemd = {
                         services.piggyback = {
                             description = "Piggyback DDNS updater";
+                            wants = [ "network-online.target" ];
+                            after = [ "network-online.target" ];
                             serviceConfig = {
                                 Type = "oneshot";
                                 ExecStart = lib.getExe inputs'.piggyback.defaultPackage;
