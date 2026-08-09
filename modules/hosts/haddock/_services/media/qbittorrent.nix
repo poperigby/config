@@ -57,9 +57,6 @@ in
                         AuthSubnetWhitelistEnabled = true;
                         HostHeaderValidation = false;
                         CSRFProtection = false;
-                        # Alternative web UI
-                        AlternativeUIEnabled = true;
-                        RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
                     };
                 };
             };
