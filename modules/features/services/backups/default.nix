@@ -5,6 +5,7 @@
         {
             paths,
             exclude ? [ ],
+            excludeDatabases ? [ ],
             databases ? null,
             frequency ? "daily",
         }@args:

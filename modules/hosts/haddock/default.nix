@@ -26,7 +26,6 @@
             (services._.backups {
                 paths = [
                     "/home"
-                    "/var/lib/atticd/storage"
                     "/var/lib/bazarr"
                     "/var/lib/continuwuity"
                     "/var/lib/immich"
@@ -46,6 +45,7 @@
                     "/var/lib/trilium"
                     "/var/lib/vikunja"
                 ];
+                excludeDatabases = [ "atticd" ];
             })
         ];
 

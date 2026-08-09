@@ -1137,11 +1137,11 @@
         "sops": "sops"
       },
       "locked": {
-        "lastModified": 1786242756,
-        "narHash": "sha256-Iu6tjzNycP0iIk3PnV7vtnHN1cKVwC0SgpO7/S3NXj0=",
+        "lastModified": 1786246560,
+        "narHash": "sha256-pahnAJPUbRbo1/OOyGZI/qxKYf7xwo42bwwZCKP/Cjo=",
         "ref": "trunk",
-        "rev": "c45f72b43fc6c7cb685d5f858bfc6ec3638602b1",
-        "revCount": 27,
+        "rev": "a079e71c0ddaed3b13d3e6521b35cec16d7a1b3b",
+        "revCount": 28,
         "type": "git",
         "url": "ssh://git@codeberg.org/PopeRigby/private-config.git"
       },

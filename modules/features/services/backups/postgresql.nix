@@ -4,6 +4,7 @@
     den.aspects.services.provides.backup.postgresql =
         {
             databases ? null,
+            excludeDatabases ? [ ],
             ...
         }:
         {
@@ -48,7 +49,11 @@
                                           --tag database \
                                           --stdin-filename all.sql \
                                           --stdin-from-command -- \
-                                          ${getExe' postgres "pg_dumpall"} --clean --if-exists
+                                          ${getExe' postgres "pg_dumpall"} --clean --if-exists ${
+                                              lib.concatMapStringsSep " " (
+                                                  database: escapeShellArg "--exclude-database=${database}"
+                                              ) excludeDatabases
+                                          }
                                     ''
                                 );
                             };
