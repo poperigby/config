@@ -1,10 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
     services.resolved.enable = false;
 
     services.unbound = {
         enable = true;
+        package = pkgs.unbound.override {
+            withSystemd = true;
+            withRedis = true;
+        };
         settings = {
             server = {
                 interface = [
@@ -21,17 +25,23 @@
                 rrset-cache-size = "64M";
                 msg-cache-size = "64M";
                 discard-timeout = "4800";
+                module-config = ''"validator cachedb iterator"'';
             };
-            forward-zone = [
-                {
-                    name = ".";
-                    forward-addr = [
-                        "192.168.1.1"
-                    ];
-                }
-            ];
+            cachedb = {
+                backend = "redis";
+                redis-server-path = "/run/redis-haddock/redis.sock";
+                redis-logical-db = 15;
+                redis-expire-records = true;
+            };
             remote-control.control-enable = true;
         };
+    };
+
+    users.users.unbound.extraGroups = [ "redis-haddock" ];
+
+    systemd.services.unbound = {
+        after = [ "redis-haddock.service" ];
+        wants = [ "redis-haddock.service" ];
     };
 
     networking.firewall.interfaces.docker0 = {
