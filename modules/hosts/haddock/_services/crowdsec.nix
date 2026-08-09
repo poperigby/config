@@ -1,6 +1,7 @@
 {
     config,
     inputs,
+    lib,
     pkgs,
     ...
 }:
@@ -61,6 +62,17 @@
                             reason = "Executable is in the Nix store";
                             expression = [
                                 "evt.Meta.exe startsWith '/nix/store/'"
+                            ];
+                        };
+                    }
+                    {
+                        name = "local/auditd-nixos-docker-runc-whitelist-process";
+                        description = "Whitelist NixOS Docker runc init processes";
+                        filter = "evt.Meta.log_type == 'execve'";
+                        whitelist = {
+                            reason = "Process is the container-side init stage of NixOS Docker runc";
+                            expression = [
+                                "evt.Meta.exe == '/.runc-wrapped' && evt.Meta.parent_progname matches '^/nix/store/[a-z0-9]{32}-docker-runc-[^/]+/bin/[.]runc-wrapped$'"
                             ];
                         };
                     }
@@ -281,6 +293,20 @@
     systemd.services.crowdsec-firewall-bouncer-register = {
         after = [ "crowdsec-setup.service" ];
         requires = [ "crowdsec-setup.service" ];
+    };
+
+    # The module's privileged pre-start cannot resolve a DynamicUser by name
+    # on the first boot. systemd has already assigned the configuration
+    # directory its numeric UID, so copy that ownership to its contents.
+    systemd.services.crowdsec-setup.serviceConfig = {
+        ExecStartPre = lib.mkForce [
+            "+${lib.getExe' pkgs.coreutils "chown"} --reference=/etc/crowdsec -R /etc/crowdsec"
+            "+${lib.getExe' pkgs.coreutils "chmod"} 750 -R /etc/crowdsec"
+        ];
+        # Hub updates can be temporarily rejected by the CDN. Retry with
+        # enough backoff to avoid turning a transient error into rate limiting.
+        Restart = "on-failure";
+        RestartSec = "15min";
     };
 
     sops.secrets."haddock/crowdsec/enroll_key".restartUnits = [
