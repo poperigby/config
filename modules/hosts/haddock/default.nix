@@ -36,6 +36,7 @@
                     "/var/lib/minecraft/*/world"
                     "/var/lib/moonfire-nvr"
                     "/var/lib/paperless"
+                    "/var/lib/phylum"
                     "/var/lib/private/prowlarr"
                     "/var/lib/qBittorrent"
                     "/var/lib/radarr"

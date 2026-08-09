@@ -1,0 +1,15 @@
+diff --git a/internal/db/migrations/007_search.sql b/internal/db/migrations/007_search.sql
+index 38a4329..62a6d26 100644
+--- a/internal/db/migrations/007_search.sql
++++ b/internal/db/migrations/007_search.sql
+@@ -3,8 +3,8 @@ CREATE EXTENSION pg_trgm;
+ 
+ CREATE OR REPLACE FUNCTION public.immutable_unaccent(regdictionary, text)
+   RETURNS text
+-  LANGUAGE c IMMUTABLE PARALLEL SAFE STRICT AS
+-'$libdir/unaccent', 'unaccent_dict';
++  LANGUAGE sql IMMUTABLE PARALLEL SAFE STRICT
++RETURN public.unaccent($1, $2);
+ 
+ CREATE OR REPLACE FUNCTION public.f_prepare_search(text)
+   RETURNS text
