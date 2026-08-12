@@ -8,11 +8,11 @@
 
     den.aspects.nestor = {
         provides.to-users.includes = with den.aspects; [
-            nix
             security._.sudo
 
             programs._.fish
             programs._.bottom
+            programs._.nix
         ];
 
         nixos =

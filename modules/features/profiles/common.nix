@@ -10,8 +10,8 @@
 
     den.aspects.common = {
         includes = [
-            den.aspects.nix
             den.aspects.programs._.jujutsu
+            den.aspects.programs._.nix
             den.aspects.security._.sudo
             den.aspects.services._.envfs
             den.aspects.services._.ld

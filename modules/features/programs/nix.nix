@@ -1,7 +1,7 @@
 # Nix configuration (both NixOS + Home Manager)
 { ... }:
 {
-    den.aspects.nix = {
+    den.aspects.programs.provides.nix = {
         nixos =
             { ... }:
             {
