@@ -158,7 +158,7 @@ in
                                 in
                                 lib.getExe setWallpaper;
                         };
-                        Install.WantedBy = [ "graphical-session.target" ];
+                        Install.WantedBy = [ "dms.service" ];
                     };
 
                     wayland.windowManager.niri.settings = {
