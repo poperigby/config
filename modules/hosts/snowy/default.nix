@@ -217,6 +217,9 @@
                         pkgs,
                         ...
                     }:
+                    let
+                        hushmic = inputs'.hushmic.packages.default;
+                    in
                     {
                         imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
 
@@ -236,6 +239,7 @@
                                 "${ckb-next}/share/applications/ckb-next.desktop"
                                 "${signal-desktop}/share/applications/signal.desktop"
                                 "${steam}/share/applications/steam.desktop"
+                                "${hushmic}/share/applications/hushmic.desktop"
                             ];
                         };
 
@@ -258,7 +262,6 @@
                         home =
                             let
                                 blender = pkgs.pkgsRocm.blender;
-                                hushmic = inputs'.hushmic.packages.default;
                             in
                             {
                                 packages =
