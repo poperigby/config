@@ -1,36 +1,5 @@
-# Wires together flake by importing Den modules and local packages and overlays.
-{ inputs, lib, ... }:
-let
-    packageOverlay = final: prev: {
-        local = lib.filesystem.packagesFromDirectoryRecursive {
-            callPackage = lib.callPackageWith (prev // { inherit inputs; });
-            directory = ../pkgs;
-        };
-    };
-    localOverlays =
-        let
-            overlaysDir = ../overlays;
-            overlayEntries = builtins.readDir overlaysDir;
-
-            overlayFileFor =
-                name:
-                let
-                    entryType = overlayEntries.${name};
-                    path = overlaysDir + "/${name}";
-                in
-                if entryType == "regular" && builtins.match ".*\\.nix" name != null then
-                    path
-                else if entryType == "directory" && builtins.pathExists (path + "/default.nix") then
-                    path + "/default.nix"
-                else
-                    null;
-
-            overlayNames = builtins.filter (name: overlayFileFor name != null) (
-                builtins.attrNames overlayEntries
-            );
-        in
-        map (name: import (overlayFileFor name)) overlayNames;
-in
+# Wires together flake-parts, flake-file, and Den.
+{ inputs, ... }:
 {
     imports = [
         (inputs.flake-file.flakeModules.dendritic or { })
@@ -60,23 +29,4 @@ in
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
-
-    den.default = {
-        nixos.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
-        homeManager.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
-    };
-
-    # Expose local packages in flake outputs
-    flake.packages = lib.genAttrs lib.systems.flakeExposed (
-        system:
-        let
-            pkgs = import inputs.nixpkgs {
-                inherit system;
-                overlays = [ packageOverlay ] ++ localOverlays;
-                config.allowUnfree = true;
-            };
-        in
-        lib.filterAttrs (_: lib.isDerivation) pkgs.local
-    );
-
 }
