@@ -2,7 +2,12 @@
 {
     den.aspects.gaming = {
         homeManager =
-            { config, pkgs, ... }:
+            {
+                config,
+                lib,
+                pkgs,
+                ...
+            }:
             {
                 home.packages = with pkgs; [
                     custom.jackify
@@ -20,10 +25,17 @@
                 ];
 
                 home.sessionVariables.DOOMWADDIR = "${config.home.homeDirectory}/Games/Doom/IWADs";
-                xdg.mimeApps.defaultApplications = {
-                    "application/vnd.adobe.flash.movie" = "ffdec.desktop";
-                    "x-scheme-handler/nxm" = "amethyst-mod-manager.desktop";
-                };
+
+                # Make Steam windows STAY on the workspace that I opened Steam on initially, while booting 😡
+                xdg.dataFile."applications/steam.desktop".source =
+                    let
+                        steamYeeterEntry = pkgs.custom.modify-desktop-entry {
+                            package = pkgs.steam;
+                            desktopFile = "steam.desktop";
+                            replace.Exec = "${lib.getExe pkgs.custom.steam-yeeter} %U";
+                        };
+                    in
+                    "${steamYeeterEntry}/share/applications/steam.desktop";
             };
 
         nixos =

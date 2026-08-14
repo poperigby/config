@@ -231,6 +231,12 @@
                             }
                             {
                                 window-rule._children = [
+                                    { match._props.app-id = "steam"; }
+                                    { open-focused = false; }
+                                ];
+                            }
+                            {
+                                window-rule._children = [
                                     {
                                         match._props = {
                                             app-id = "steam";
@@ -244,7 +250,6 @@
                                             relative-to = "bottom-right";
                                         };
                                     }
-                                    { open-focused = false; }
                                 ];
                             }
                         ];
