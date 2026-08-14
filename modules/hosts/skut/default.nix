@@ -37,7 +37,7 @@
                 curl
                 git
                 parted
-                custom.installer
+                local.installer
             ];
 
             # Increase size of tmpfs on /run

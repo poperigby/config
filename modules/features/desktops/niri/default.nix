@@ -264,7 +264,7 @@
 
                 home.packages = with pkgs; [
                     adwaita-icon-theme
-                    custom.wkill
+                    local.wkill
                     nautilus
                     numbat
                     oculante

@@ -27,7 +27,7 @@ in
             Group = user;
             StateDirectory = "phylum";
             WorkingDirectory = dataDir;
-            ExecStart = "${lib.getExe pkgs.custom.phylum} --config-file ${config.sops.templates.phylum-config.path} serve";
+            ExecStart = "${lib.getExe pkgs.local.phylum} --config-file ${config.sops.templates.phylum-config.path} serve";
             Restart = "on-failure";
             RestartSec = 5;
 
@@ -86,7 +86,7 @@ in
                 server = {
                     host = "127.0.0.1";
                     inherit port;
-                    webappsrc = "${pkgs.custom.phylum}/share/phylum/web";
+                    webappsrc = "${pkgs.local.phylum}/share/phylum/web";
                 };
                 db = {
                     host = "/run/postgresql";

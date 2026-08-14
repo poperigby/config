@@ -1,8 +1,8 @@
-# Wires together flake by importing Den modules and custom packages and overlays.
+# Wires together flake by importing Den modules and local packages and overlays.
 { inputs, lib, ... }:
 let
     packageOverlay = final: prev: {
-        custom = lib.filesystem.packagesFromDirectoryRecursive {
+        local = lib.filesystem.packagesFromDirectoryRecursive {
             callPackage = lib.callPackageWith (prev // { inherit inputs; });
             directory = ../pkgs;
         };
@@ -66,7 +66,7 @@ in
         homeManager.nixpkgs.overlays = [ packageOverlay ] ++ localOverlays;
     };
 
-    # Expose custom packages in flake outputs
+    # Expose local packages in flake outputs
     flake.packages = lib.genAttrs lib.systems.flakeExposed (
         system:
         let
@@ -76,7 +76,7 @@ in
                 config.allowUnfree = true;
             };
         in
-        lib.filterAttrs (_: lib.isDerivation) pkgs.custom
+        lib.filterAttrs (_: lib.isDerivation) pkgs.local
     );
 
 }

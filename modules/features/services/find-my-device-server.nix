@@ -51,9 +51,9 @@
                                 ExecStart =
                                     let
                                         db = "/var/lib/findmydeviceserver/db";
-                                        web = "${pkgs.custom.find-my-device-server}/share/findmydeviceserver";
+                                        web = "${pkgs.local.find-my-device-server}/share/findmydeviceserver";
                                     in
-                                    "${lib.getExe pkgs.custom.find-my-device-server} serve -c ${resolvedConfigFile} -d ${db} -w ${web}";
+                                    "${lib.getExe pkgs.local.find-my-device-server} serve -c ${resolvedConfigFile} -d ${db} -w ${web}";
                                 User = user;
                                 Group = group;
                             };

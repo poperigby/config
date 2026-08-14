@@ -157,7 +157,7 @@
                 { pkgs, ... }:
                 {
                     home.packages = with pkgs; [
-                        custom.find-open-ports
+                        local.find-open-ports
                         osc
                     ];
                 };

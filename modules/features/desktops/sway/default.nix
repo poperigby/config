@@ -163,7 +163,7 @@
                                     menu = getExe config.programs.rofi.finalPackage;
                                     browser = getExe pkgs.firefox;
                                     term = config.wayland.windowManager.sway.config.terminal;
-                                    screenshot = getExe pkgs.custom.screenshot;
+                                    screenshot = getExe pkgs.local.screenshot;
                                     swayosd = getExe' pkgs.swayosd "swayosd-client";
                                 in
                                 mkOptionDefault {
@@ -201,7 +201,7 @@
 
                                     "${mod}+period" = "exec ${getExe pkgs.rofimoji}";
                                     "${mod}+slash" = ''
-                                        exec ${menu} -modi clipboard:${getExe pkgs.custom.cliphist-rofi-img} -show clipboard -show-icons
+                                        exec ${menu} -modi clipboard:${getExe pkgs.local.cliphist-rofi-img} -show clipboard -show-icons
                                     '';
 
                                     "XF86AudioRaiseVolume" = "exec ${swayosd} --output-volume raise";

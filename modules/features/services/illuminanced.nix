@@ -67,7 +67,7 @@
                         documentation = [ "https://github.com/mikhail-m1/illuminanced" ];
                         serviceConfig = {
                             Type = "forking";
-                            ExecStart = "${lib.getExe pkgs.custom.illuminanced} -c ${resolvedConfigFile}";
+                            ExecStart = "${lib.getExe pkgs.local.illuminanced} -c ${resolvedConfigFile}";
                             PIDFile = "/run/illuminanced.pid";
                             Restart = "on-failure";
                         };

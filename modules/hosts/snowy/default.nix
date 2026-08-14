@@ -219,7 +219,7 @@
                     }:
                     let
                         hushmic = inputs'.hushmic.packages.default;
-                        steamAutostart = pkgs.custom.modify-desktop-entry {
+                        steamAutostart = pkgs.local.modify-desktop-entry {
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";
                             replace.Exec = "${pkgs.steam}/bin/steam -silent";

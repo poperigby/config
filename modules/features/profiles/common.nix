@@ -58,7 +58,7 @@
                         asciinema
                         binsider
                         caligula
-                        custom.yaml2nix
+                        local.yaml2nix
                         delta
                         devenv
                         dmidecode

@@ -108,7 +108,7 @@
                         on-click = "${getExe' pkgs.blueman "blueman-manager"}";
                     };
                     "custom/weather" = {
-                        exec = "${getExe pkgs.custom.grabweather}";
+                        exec = "${getExe pkgs.local.grabweather}";
                         format = " {} ";
                         interval = 900;
                         tooltip = false;

@@ -10,7 +10,7 @@
             }:
             {
                 home.packages = with pkgs; [
-                    custom.jackify
+                    local.jackify
                     doomrunner
                     gpu-screen-recorder-gtk
                     gzdoom
@@ -29,10 +29,10 @@
                 # Make Steam windows STAY on the workspace that I opened Steam on initially, while booting 😡
                 xdg.dataFile."applications/steam.desktop".source =
                     let
-                        steamYeeterEntry = pkgs.custom.modify-desktop-entry {
+                        steamYeeterEntry = pkgs.local.modify-desktop-entry {
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";
-                            replace.Exec = "${lib.getExe pkgs.custom.steam-yeeter} %U";
+                            replace.Exec = "${lib.getExe pkgs.local.steam-yeeter} %U";
                         };
                     in
                     "${steamYeeterEntry}/share/applications/steam.desktop";

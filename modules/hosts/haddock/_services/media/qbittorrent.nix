@@ -99,7 +99,7 @@ in
             };
             serviceConfig = {
                 Type = "simple";
-                ExecStart = getExe pkgs.custom.qbittorrent-vpn-port-update;
+                ExecStart = getExe pkgs.local.qbittorrent-vpn-port-update;
             };
             vpnConfinement = {
                 enable = true;

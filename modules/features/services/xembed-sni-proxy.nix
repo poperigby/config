@@ -8,7 +8,7 @@
             ...
         }:
         {
-            home.packages = [ pkgs.custom.xembed-sni-proxy ];
+            home.packages = [ pkgs.local.xembed-sni-proxy ];
 
             systemd.user.services.xembed-sni-proxy = {
                 Unit = {
@@ -17,7 +17,7 @@
                 };
                 Service = {
                     Type = "simple";
-                    ExecStart = lib.getExe pkgs.custom.xembed-sni-proxy;
+                    ExecStart = lib.getExe pkgs.local.xembed-sni-proxy;
                     Restart = "on-failure";
                 };
                 Install.WantedBy = [ "graphical-session.target" ];
