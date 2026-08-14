@@ -51,7 +51,4 @@ in
 
     # Enable home-manager by default
     den.schema.user.classes = lib.mkDefault [ "homeManager" ];
-
-    # host<->user provides
-    den.schema.user.includes = [ den._.mutual-provider ];
 }

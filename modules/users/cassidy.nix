@@ -6,7 +6,6 @@
             (den._.user-shell "fish")
         ];
 
-        # OS user attributes (forwarded via Den's built-in `user` class).
         user =
             {
                 config,
@@ -16,9 +15,6 @@
             {
                 hashedPasswordFile = config.sops.secrets."common/users/cassidy/password".path;
                 description = privateInfo.cassidy.name;
-                extraGroups = [
-                    # Additional groups are provided per-host via mutual providers.
-                ];
             };
 
         nixos.sops.secrets."common/users/cassidy/password".neededForUsers = true;
