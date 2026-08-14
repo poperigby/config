@@ -76,7 +76,7 @@ in
                 config.allowUnfree = true;
             };
         in
-        pkgs.custom
+        lib.filterAttrs (_: lib.isDerivation) pkgs.custom
     );
 
 }

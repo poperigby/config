@@ -219,6 +219,11 @@
                     }:
                     let
                         hushmic = inputs'.hushmic.packages.default;
+                        steamAutostart = pkgs.custom.modify-desktop-entry {
+                            package = pkgs.steam;
+                            desktopFile = "steam.desktop";
+                            replace.Exec = "${pkgs.steam}/bin/steam -silent";
+                        };
                     in
                     {
                         imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
@@ -238,7 +243,7 @@
                             entries = with pkgs; [
                                 "${ckb-next}/share/applications/ckb-next.desktop"
                                 "${signal-desktop}/share/applications/signal.desktop"
-                                "${steam}/share/applications/steam.desktop"
+                                "${steamAutostart}/share/applications/steam.desktop"
                                 "${hushmic}/share/applications/hushmic.desktop"
                             ];
                         };
