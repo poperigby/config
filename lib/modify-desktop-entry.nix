@@ -1,11 +1,7 @@
-{
-    desktop-file-utils,
-    lib,
-    runCommand,
-    ...
-}:
+{ lib, ... }:
 
 {
+    pkgs,
     package ? null,
     source ? null,
     desktopFile ? null,
@@ -43,14 +39,13 @@ let
         ]
     ) (attrNames replace);
 in
-runCommand (removeSuffix ".desktop" resolvedOutputFile)
-    { nativeBuildInputs = [ desktop-file-utils ]; }
+pkgs.runCommand (removeSuffix ".desktop" resolvedOutputFile)
+    { nativeBuildInputs = [ pkgs.desktop-file-utils ]; }
     ''
         entry="$out/share/applications/${resolvedOutputFile}"
 
         install -Dm644 ${lib.escapeShellArg resolvedSource} "$entry"
 
-        # desktop-file-edit leaves an annoying X-Desktop-File-Install-Version key
         ${lib.optionalString (replace != { }) ''
             desktop-file-edit ${editArgs} \
                 --remove-key=X-Desktop-File-Install-Version \

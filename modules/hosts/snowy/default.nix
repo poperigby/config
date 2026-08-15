@@ -214,12 +214,14 @@
                 homeManager =
                     {
                         inputs',
+                        lib,
                         pkgs,
                         ...
                     }:
                     let
                         hushmic = inputs'.hushmic.packages.default;
-                        steamAutostart = pkgs.local.modify-desktop-entry {
+                        steamAutostart = lib.local.modify-desktop-entry {
+                            inherit pkgs;
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";
                             replace.Exec = "${pkgs.steam}/bin/steam -silent";
