@@ -41,6 +41,13 @@
                 };
             };
 
-            home.sessionVariables.fish_greeting = "";
+            home = {
+                packages = with pkgs; [
+                    # Bash compatibility layer
+                    reef
+                ];
+                sessionVariables.fish_greeting = "";
+            };
         };
+
 }
