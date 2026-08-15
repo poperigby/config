@@ -1,6 +1,8 @@
 { config, lib, ... }:
 
 let
+    inherit (lib.local.caddy) authReverseProxy;
+
     cfg = config.services.miniflux;
 in
 {
@@ -21,10 +23,7 @@ in
                 OAUTH2_USER_CREATION = "1";
             };
         };
-        caddy.virtualHosts."news.haddock.cc".extraConfig = ''
-            import auth
-            reverse_proxy :${cfg.config.PORT}
-        '';
+        caddy.virtualHosts."news.haddock.cc".extraConfig = authReverseProxy cfg.config.PORT;
         # https://miniflux.app/docs/howto.html#oauth2
         authelia.oidcClients.haddock = [
             {

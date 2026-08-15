@@ -1,6 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
+    inherit (lib.local.caddy) authReverseProxy authReverseProxy';
+
     netns = "proton";
 in
 {
@@ -44,30 +46,12 @@ in
                 namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
             in
             {
-                "subtitles.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy :${toString config.services.bazarr.listenPort}
-                '';
-                "music.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy ${namespaceAddress}:8686
-                '';
-                "indexers.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy ${namespaceAddress}:9696
-                '';
-                "movies.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy ${namespaceAddress}:7878
-                '';
-                "books.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy ${namespaceAddress}:8787
-                '';
-                "tv.haddock.cc".extraConfig = ''
-                    import auth
-                    reverse_proxy ${namespaceAddress}:8989
-                '';
+                "subtitles.haddock.cc".extraConfig = authReverseProxy config.services.bazarr.listenPort;
+                "music.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 8686;
+                "indexers.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 9696;
+                "movies.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 7878;
+                "books.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 8787;
+                "tv.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 8989;
             };
     };
 

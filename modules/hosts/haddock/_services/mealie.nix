@@ -2,6 +2,7 @@
 
 let
     inherit (lib) mkForce;
+    inherit (lib.local.caddy) authReverseProxy;
 
     cfg = config.services.mealie;
 in
@@ -28,10 +29,7 @@ in
                 OIDC_ADMIN_GROUP = "lldap_admin";
             };
         };
-        caddy.virtualHosts."food.haddock.cc".extraConfig = ''
-            import auth
-            reverse_proxy :${toString cfg.port}
-        '';
+        caddy.virtualHosts."food.haddock.cc".extraConfig = authReverseProxy cfg.port;
         # https://docs.mealie.io/documentation/getting-started/authentication/oidc
         authelia.oidcClients.haddock = [
             {

@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
 let
+    inherit (lib.local.caddy) authReverseProxy;
+
     user = "moonfire";
     group = "moonfire";
     port = 1024;
@@ -54,8 +56,5 @@ in
 
     environment.systemPackages = [ pkgs.moonfire-nvr ];
 
-    services.caddy.virtualHosts."cctv.haddock.cc".extraConfig = ''
-        import auth
-        reverse_proxy :${toString port}
-    '';
+    services.caddy.virtualHosts."cctv.haddock.cc".extraConfig = authReverseProxy port;
 }

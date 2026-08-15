@@ -1,6 +1,8 @@
 { config, lib, ... }:
 
 let
+    inherit (lib.local.caddy) authReverseProxy;
+
     cfg = config.services.vikunja;
     domain = "tasks.haddock.cc";
 in
@@ -41,10 +43,7 @@ in
                 };
             };
         };
-        caddy.virtualHosts.${domain}.extraConfig = ''
-            import auth
-            reverse_proxy :3456
-        '';
+        caddy.virtualHosts.${domain}.extraConfig = authReverseProxy 3456;
         authelia = {
             # https://vikunja.io/docs/openid
             oidcClients.haddock = [

@@ -9,6 +9,7 @@
 
 let
     inherit (lib) getExe;
+    inherit (lib.local.caddy) authReverseProxy';
 
     cfg = config.services.qbittorrent;
     netns = "proton";
@@ -65,10 +66,7 @@ in
             let
                 namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
             in
-            ''
-                import auth
-                reverse_proxy ${namespaceAddress}:${toString cfg.webuiPort}
-            '';
+            authReverseProxy' namespaceAddress cfg.webuiPort;
     };
 
     systemd.services = {

@@ -1,6 +1,8 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
+    inherit (lib.local.caddy) authReverseProxy';
+
     cfg = config.services.immich;
 in
 {
@@ -11,10 +13,7 @@ in
                 IMMICH_CONFIG_FILE = config.sops.templates.immich-config.path;
             };
         };
-        caddy.virtualHosts."photos.haddock.cc".extraConfig = ''
-            import auth
-            reverse_proxy http://${cfg.host}:${toString cfg.port}
-        '';
+        caddy.virtualHosts."photos.haddock.cc".extraConfig = authReverseProxy' cfg.host cfg.port;
         authelia = {
             # https://immich.app/docs/administration/oauth/
             oidcClients.haddock = [

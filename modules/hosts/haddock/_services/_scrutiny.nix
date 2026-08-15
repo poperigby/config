@@ -7,6 +7,7 @@
 
 let
     inherit (lib) mkForce;
+    inherit (lib.local.caddy) authReverseProxy;
 
     cfg = config.services.scrutiny;
 in
@@ -22,10 +23,7 @@ in
                 enable = true;
             };
         };
-        caddy.virtualHosts."drives.haddock.cc".extraConfig = ''
-            import auth
-            reverse_proxy :${toString cfg.settings.web.listen.port}
-        '';
+        caddy.virtualHosts."drives.haddock.cc".extraConfig = authReverseProxy cfg.settings.web.listen.port;
     };
 
     systemd.services.scrutiny.serviceConfig = {
