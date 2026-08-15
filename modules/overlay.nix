@@ -45,6 +45,9 @@ in
         homeManager.nixpkgs.overlays = overlays;
     };
 
+    # pkgs.local can hold pkgs-scoped helpers alongside packages. Flake package
+    # outputs must stay derivations so `nix flake show` and `nix build` see a
+    # valid package set.
     flake.packages = lib.genAttrs lib.systems.flakeExposed (
         system:
         let
@@ -53,6 +56,6 @@ in
                 config.allowUnfree = true;
             };
         in
-        pkgs.local
+        lib.filterAttrs (_: lib.isDerivation) pkgs.local
     );
 }

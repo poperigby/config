@@ -220,11 +220,10 @@
                     }:
                     let
                         hushmic = inputs'.hushmic.packages.default;
-                        steamAutostart = lib.local.modifyDesktopEntry {
-                            inherit pkgs;
+                        steamAutostart = pkgs.local.modifyDesktopEntry {
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";
-                            replace.Exec = "${pkgs.steam}/bin/steam -silent";
+                            replace.Exec = "${lib.getExe pkgs.steam} -silent";
                         };
                     in
                     {
@@ -242,12 +241,16 @@
 
                         xdg.autostart = {
                             enable = true;
-                            entries = with pkgs; [
-                                "${ckb-next}/share/applications/ckb-next.desktop"
-                                "${signal-desktop}/share/applications/signal.desktop"
-                                "${steamAutostart}/share/applications/steam.desktop"
-                                "${hushmic}/share/applications/hushmic.desktop"
-                            ];
+                            entries =
+                                let
+                                    inherit (lib.local.desktop) filePath filePath';
+                                in
+                                (with pkgs; [
+                                    (filePath ckb-next)
+                                    (filePath hushmic)
+                                    (filePath' signal-desktop "signal")
+                                    (filePath' steamAutostart "steam")
+                                ]);
                         };
 
                         services.flatpak = {

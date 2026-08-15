@@ -1,7 +1,11 @@
-{ lib, ... }:
+{
+    desktop-file-utils,
+    lib,
+    runCommand,
+    ...
+}:
 
 {
-    pkgs,
     package ? null,
     source ? null,
     desktopFile ? null,
@@ -39,8 +43,8 @@ let
         ]
     ) (attrNames replace);
 in
-pkgs.runCommand (removeSuffix ".desktop" resolvedOutputFile)
-    { nativeBuildInputs = [ pkgs.desktop-file-utils ]; }
+runCommand (removeSuffix ".desktop" resolvedOutputFile)
+    { nativeBuildInputs = [ desktop-file-utils ]; }
     ''
         entry="$out/share/applications/${resolvedOutputFile}"
 
