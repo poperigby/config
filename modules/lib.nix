@@ -7,8 +7,8 @@
 let
     localLibDir = ../lib;
 
-    # Load lib/foo.nix and lib/foo/default.nix as lib.local.foo. Function
-    # helpers receive inputs, the extended lib, and sibling local helpers.
+    # Load lib/foo.nix as lib.local.foo. Function helpers receive inputs, the
+    # extended lib, and sibling local helpers.
     callLocalLib =
         localLib: path:
         let
@@ -30,33 +30,15 @@ let
     localLib =
         let
             entries = if builtins.pathExists localLibDir then builtins.readDir localLibDir else { };
+            localFiles = lib.filterAttrs (
+                name: type: type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix"
+            ) entries;
 
-            entryFor =
-                name:
-                let
-                    entryType = entries.${name};
-                    path = localLibDir + "/${name}";
-                in
-                if entryType == "regular" && lib.hasSuffix ".nix" name && name != "default.nix" then
-                    {
-                        name = lib.removeSuffix ".nix" name;
-                        value = callLocalLib localLib path;
-                    }
-                else if entryType == "directory" && builtins.pathExists (path + "/default.nix") then
-                    {
-                        inherit name;
-                        value = callLocalLib localLib (path + "/default.nix");
-                    }
-                else
-                    null;
-
-            entries' = builtins.filter (entry: entry != null) (map entryFor (builtins.attrNames entries));
-            names = map (entry: entry.name) entries';
+            callLocalFile =
+                name: _:
+                lib.nameValuePair (lib.removeSuffix ".nix" name) (callLocalLib localLib (localLibDir + "/${name}"));
         in
-        if builtins.length names != builtins.length (lib.unique names) then
-            throw "lib.local has duplicate entries; use either <name>.nix or <name>/default.nix"
-        else
-            builtins.listToAttrs entries';
+        lib.mapAttrs' callLocalFile localFiles;
 
     nixosLib = lib // {
         local = localLib;
