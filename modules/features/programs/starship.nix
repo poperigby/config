@@ -20,10 +20,6 @@
                     format = concatStrings [
                         "$directory"
                         "$shlvl"
-                        "$git_branch"
-                        "$git_commit"
-                        "$git_state"
-                        "$git_status"
                         "\${custom.jj}"
                         "$jobs"
                         "$status"
@@ -44,20 +40,6 @@
                         read_only = " ";
                         fish_style_pwd_dir_length = 3;
                         truncation_length = 3;
-                    };
-                    git_branch = {
-                        format = "[$branch(:$remote_branch)]($style) ";
-                        style = "green";
-                    };
-                    git_status = {
-                        format = "([$all_status$ahead_behind]($style) )";
-                        ahead = "⇡\${count}";
-                        behind = "⇣\${count}";
-                        diverged = "⇡\${ahead_count}⇣\${behind_count}";
-                        modified = "!\${count}";
-                        deleted = " ";
-                        stashed = "*";
-                        style = "bold yellow";
                     };
                     custom.jj = {
                         when = "${getExe jj-starship} detect";
