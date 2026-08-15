@@ -29,7 +29,7 @@
                 # Make Steam windows STAY on the workspace that I opened Steam on initially, while booting 😡
                 xdg.dataFile."applications/steam.desktop".source =
                     let
-                        steamYeeterEntry = lib.local.modify-desktop-entry {
+                        steamYeeterEntry = lib.local.modifyDesktopEntry {
                             inherit pkgs;
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";

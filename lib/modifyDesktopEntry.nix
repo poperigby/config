@@ -21,7 +21,7 @@ let
         else if package != null && desktopFile != null then
             "${package}/share/applications/${desktopFile}"
         else
-            throw "modify-desktop-entry requires source or both package and desktopFile";
+            throw "modifyDesktopEntry requires source or both package and desktopFile";
 
     resolvedOutputFile =
         if outputFile != null then
@@ -29,7 +29,7 @@ let
         else if desktopFile != null then
             desktopFile
         else
-            throw "modify-desktop-entry requires outputFile when desktopFile is unset";
+            throw "modifyDesktopEntry requires outputFile when desktopFile is unset";
 
     editArgs = concatMapStringsSep " " (
         key:

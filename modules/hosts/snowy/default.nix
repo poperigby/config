@@ -220,7 +220,7 @@
                     }:
                     let
                         hushmic = inputs'.hushmic.packages.default;
-                        steamAutostart = lib.local.modify-desktop-entry {
+                        steamAutostart = lib.local.modifyDesktopEntry {
                             inherit pkgs;
                             package = pkgs.steam;
                             desktopFile = "steam.desktop";
