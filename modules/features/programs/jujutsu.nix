@@ -59,7 +59,6 @@
                         clone = [
                             "git"
                             "clone"
-                            "--no-colocate"
                         ];
                     };
                     revset-aliases = {
