@@ -281,6 +281,7 @@
                                         er-patcher
                                         graphite
                                         prusa-slicer
+                                        qbittorrent
                                     ]
                                     ++ [
                                         blender
