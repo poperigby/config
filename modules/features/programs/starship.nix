@@ -43,8 +43,9 @@
                     };
                     custom.jj = {
                         when = "${getExe jj-starship} detect";
-                        format = "$output ";
-                        shell = [ (getExe jj-starship) ];
+                        command = "${getExe jj-starship} --no-jj-prefix";
+                        symbol = "󱗆 ";
+                        format = "[$symbol](blue)$output ";
                     };
                     nix_shell = {
                         format = "[$symbol]($style)";
