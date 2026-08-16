@@ -66,22 +66,4 @@
                 recursive = true;
             };
         };
-
-    den.aspects.programs.provides.neovim-gui.homeManager =
-        { lib, pkgs, ... }:
-        {
-            xdg.desktopEntries.nvim = {
-                name = "Neovim";
-                genericName = "Text Editor";
-                exec = "${lib.getExe pkgs.wezterm} start nvim %F";
-                terminal = false;
-                type = "Application";
-                icon = "nvim";
-                categories = [
-                    "Utility"
-                    "TextEditor"
-                ];
-                mimeType = [ "text/plain" ];
-            };
-        };
 }

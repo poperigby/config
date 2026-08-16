@@ -125,33 +125,4 @@
             };
 
         };
-
-    den.aspects.programs.provides.yazi-gui.homeManager =
-        { lib, pkgs, ... }:
-        let
-            inherit (lib) getExe;
-        in
-        {
-            programs.yazi.keymap.mgr.prepend_keymap = [
-                {
-                    on = [ "<C-n>" ];
-                    run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
-                    description = "Open ripdrag for dragging and dropping";
-                }
-            ];
-
-            xdg.desktopEntries.yazi = {
-                name = "Yazi";
-                genericName = "File Browser";
-                exec = "${getExe pkgs.yazi} %f";
-                icon = ./icon.png;
-                terminal = true;
-                categories = [
-                    "System"
-                    "FileTools"
-                    "FileManager"
-                ];
-                mimeType = [ "inode/directory" ];
-            };
-        };
 }

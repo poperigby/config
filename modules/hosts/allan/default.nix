@@ -109,9 +109,6 @@
             programs._.firefox
             programs._.mpv
             programs._.wezterm
-            programs._.bottom-gui
-            programs._.neovim-gui
-            programs._.yazi-gui
         ];
 
         nixos = {

@@ -19,6 +19,10 @@
             url = "github:NixOS/nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        piggyback = {
+            url = "git+https://codeberg.org/PopeRigby/piggyback.git";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     den.aspects.haddock = {

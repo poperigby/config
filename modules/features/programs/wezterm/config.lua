@@ -13,7 +13,6 @@ local settings = {
     window_background_opacity = 0.9,
     window_close_confirmation = "NeverPrompt",
     skip_close_confirmation_for_processes_named = {
-        "distrobox",
         "bash",
         "fish",
         "chezmoi",

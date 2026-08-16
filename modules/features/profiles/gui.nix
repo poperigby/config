@@ -8,7 +8,15 @@
         ];
 
         homeManager =
-            { pkgs, ... }:
+            {
+                config,
+                lib,
+                pkgs,
+                ...
+            }:
+            let
+                inherit (lib) getExe mkIf;
+            in
             {
                 fonts.fontconfig = {
                     enable = true;
@@ -42,6 +50,52 @@
 
                 xdg.mimeApps.enable = true;
                 home.sessionVariables.NIXOS_OZONE_WL = 1;
+
+                xdg.desktopEntries = {
+                    bottom = mkIf config.programs.bottom.enable {
+                        name = "Bottom";
+                        genericName = "System Monitor";
+                        icon = "utilities-system-monitor";
+                        exec = "btm";
+                        terminal = true;
+                        type = "Application";
+                        categories = [ "System" ];
+                    };
+                    nvim = mkIf config.programs.neovim.enable {
+                        name = "Neovim";
+                        genericName = "Text Editor";
+                        exec = "${getExe pkgs.wezterm} start nvim %F";
+                        terminal = false;
+                        type = "Application";
+                        icon = "nvim";
+                        categories = [
+                            "Utility"
+                            "TextEditor"
+                        ];
+                        mimeType = [ "text/plain" ];
+                    };
+                    yazi = mkIf config.programs.yazi.enable {
+                        name = "Yazi";
+                        genericName = "File Browser";
+                        exec = "${getExe pkgs.yazi} %f";
+                        icon = ../programs/yazi/icon.png;
+                        terminal = true;
+                        categories = [
+                            "System"
+                            "FileTools"
+                            "FileManager"
+                        ];
+                        mimeType = [ "inode/directory" ];
+                    };
+                };
+
+                programs.yazi.keymap.mgr.prepend_keymap = mkIf config.programs.yazi.enable [
+                    {
+                        on = [ "<C-n>" ];
+                        run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
+                        description = "Open ripdrag for dragging and dropping";
+                    }
+                ];
             };
 
         nixos =
