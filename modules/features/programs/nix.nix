@@ -28,6 +28,9 @@
                             "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
                         ];
 
+                        # Unreachable binary caches should not block local builds.
+                        fallback = true;
+                        connect-timeout = 2;
                         use-xdg-base-directories = true;
                     };
 
