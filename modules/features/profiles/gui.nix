@@ -2,6 +2,7 @@
 {
     den.aspects.gui = {
         includes = [
+            den.aspects.services._.udisks
             den.aspects.services._.xembed-sni-proxy
             den.aspects.system._.plymouth
         ];
@@ -46,7 +47,6 @@
         nixos =
             { pkgs, ... }:
             {
-                services.udisks2.enable = true;
                 programs.wireshark.enable = true;
                 environment.systemPackages = with pkgs; [ wireshark ];
                 services.systembus-notify.enable = true;
