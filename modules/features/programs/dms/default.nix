@@ -1,4 +1,9 @@
-{ self, lib, ... }:
+{
+    self,
+    inputs,
+    lib,
+    ...
+}:
 let
     # Determines whether a host can be SSHed to
     isSshTarget =
@@ -18,56 +23,36 @@ let
     sshHostsFor = currentHost: builtins.filter (host: host != currentHost) sshHosts;
 in
 {
+    flake-file.inputs = {
+        dank-material-shell = {
+            url = "github:AvengeMedia/DankMaterialShell";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        dms-plugin-registry = {
+            url = "github:AvengeMedia/dms-plugin-registry";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+    };
+
     den.aspects.programs.provides.dms =
         {
             settings ? { },
-            pluginSettings ? { },
             wallpaper ? null,
         }:
         {
             nixos =
-                { pkgs, ... }:
+                { config, pkgs, ... }:
                 {
-                    programs.dms-shell = {
+                    imports = [ inputs.dank-material-shell.nixosModules.dank-material-shell ];
+
+                    programs.dank-material-shell = {
                         enable = true;
+                        package = pkgs.dms-shell;
+                        quickshell.package = pkgs.quickshell;
 
                         systemd = {
                             enable = true;
                             restartIfChanged = true;
-                        };
-
-                        plugins = {
-                            calculator.src = pkgs.applyPatches {
-                                src = pkgs.fetchFromGitHub {
-                                    owner = "poperigby";
-                                    repo = "DankCalculator";
-                                    rev = "numbat-debounce";
-                                    hash = "sha256-K/24VCf+IzNyck50Aco6kJfBE4Lji3ue3UCd5dBBRc8=";
-                                };
-                            };
-                            emoji-unicode-picker.src = pkgs.applyPatches {
-                                src = pkgs.fetchFromGitHub {
-                                    owner = "devnullvoid";
-                                    repo = "dms-emoji-launcher";
-                                    rev = "main";
-                                    hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
-                                };
-                                patches = [ ./emoji-launcher-history-state.patch ];
-                            };
-                            sshConnections.src =
-                                pkgs.applyPatches {
-                                    src = pkgs.fetchFromGitHub {
-                                        owner = "merdely";
-                                        repo = "dms-plugins";
-                                        rev = "b45d16f30f56c16371d93ecf54c3d0b4c23a24a5";
-                                        hash = "sha256-OVecni81Qd3OonFRGASAg+tl1woXdiUIhovczWnh4Uc=";
-                                    };
-                                    patches = [
-                                        ./ssh-connections-wezterm-ssh.patch
-                                        ./ssh-connections-history-state.patch
-                                    ];
-                                }
-                                + "/sshConnections";
                         };
 
                         enableSystemMonitoring = true;
@@ -82,6 +67,8 @@ in
 
                     services.displayManager.dms-greeter = {
                         enable = true;
+                        package = config.programs.dank-material-shell.package;
+                        quickshell.package = config.programs.dank-material-shell.quickshell.package;
                         compositor.name = "niri";
                         configHome = "/home/cassidy";
                     };
@@ -89,77 +76,111 @@ in
 
             homeManager =
                 {
+                    config,
                     osConfig,
                     lib,
                     pkgs,
                     ...
                 }:
                 let
-                    jsonFormat = pkgs.formats.json { };
+                    sshConnectionHosts = sshHostsFor osConfig.networking.hostName;
 
                     commonSettings = builtins.fromJSON (builtins.readFile ./settings.json);
-
-                    sshConnectionHosts = sshHostsFor osConfig.networking.hostName;
-                    commonPluginSettings = {
-                        emojiLauncher = {
-                            enabled = true;
-                            trigger = ":";
-                            pasteOnSelect = true;
-                        };
-
-                        calculator = {
-                            enabled = true;
-                            trigger = "=";
-                            noTrigger = false;
-                            persistHistoryOnFile = true;
-                            calcEngine = "numbat";
-                            numbatDebounceMs = "100000";
-                        };
-
-                        sshConnections = {
-                            enabled = true;
-                            terminal = lib.getExe pkgs.wezterm;
-                            ssh_command = "ssh";
-                            # Build the launcher list from final host configs so hosts become SSH targets
-                            # automatically when OpenSSH is enabled.
-                            server_list = map (host: {
-                                server = host;
-                                options = "";
-                            }) sshConnectionHosts;
-                        };
-                    };
                 in
                 {
-                    systemd.user.services.dms-wallpaper = lib.mkIf (wallpaper != null) {
-                        Unit = {
-                            Description = "Set the DMS wallpaper";
-                            After = [ "dms.service" ];
-                            Requires = [ "dms.service" ];
-                        };
-                        Service = {
-                            Type = "oneshot";
-                            RemainAfterExit = true;
-                            ExecStart =
-                                let
-                                    setWallpaper = pkgs.writeShellApplication {
-                                        name = "set-dms-wallpaper";
-                                        text = ''
-                                            for _ in {1..30}; do
-                                              if ${lib.getExe osConfig.programs.dms-shell.package} ipc call wallpaper set ${lib.escapeShellArg (toString wallpaper)}; then
-                                                exit 0
-                                              fi
-                                              sleep 1
-                                            done
+                    imports = [ inputs.dank-material-shell.homeModules.dank-material-shell ];
 
-                                            echo "DMS did not become ready to set the wallpaper" >&2
-                                            exit 1
-                                        '';
+                    programs.dank-material-shell = {
+                        enable = true;
+                        package = osConfig.programs.dank-material-shell.package;
+
+                        plugins = {
+                            calculator = {
+                                src = pkgs.fetchFromGitHub {
+                                    owner = "poperigby";
+                                    repo = "DankCalculator";
+                                    rev = "numbat-debounce";
+                                    hash = "sha256-K/24VCf+IzNyck50Aco6kJfBE4Lji3ue3UCd5dBBRc8=";
+                                };
+                                settings = {
+                                    # enabled = true;
+                                    trigger = "=";
+                                    noTrigger = false;
+                                    persistHistoryOnFile = true;
+                                    calcEngine = "numbat";
+                                    numbatDebounceMs = "100000";
+                                };
+
+                            };
+                            emojiLauncher = {
+                                src = pkgs.applyPatches {
+                                    src = pkgs.fetchFromGitHub {
+                                        owner = "devnullvoid";
+                                        repo = "dms-emoji-launcher";
+                                        rev = "main";
+                                        hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
                                     };
-                                in
-                                lib.getExe setWallpaper;
+                                    patches = [ ./patches/emoji-launcher-history-state.patch ];
+                                };
+                                settings = {
+                                    # enabled = true;
+                                    terminal = lib.getExe pkgs.wezterm;
+                                    ssh_command = "ssh";
+                                    # Build the launcher list from final host configs so hosts become SSH targets
+                                    # automatically when OpenSSH is enabled.
+                                    server_list = map (host: {
+                                        server = host;
+                                        options = "";
+                                    }) sshConnectionHosts;
+                                };
+                            };
+                            sshConnections = {
+                                src =
+                                    pkgs.applyPatches {
+                                        src = pkgs.fetchFromGitHub {
+                                            owner = "merdely";
+                                            repo = "dms-plugins";
+                                            rev = "b45d16f30f56c16371d93ecf54c3d0b4c23a24a5";
+                                            hash = "sha256-OVecni81Qd3OonFRGASAg+tl1woXdiUIhovczWnh4Uc=";
+                                        };
+                                        patches = [
+                                            ./patches/ssh-connections-wezterm-ssh.patch
+                                            ./patches/ssh-connections-history-state.patch
+                                        ];
+                                    }
+                                    + "/sshConnections";
+                                settings = {
+                                    # enabled = true;
+                                    trigger = ":";
+                                    pasteOnSelect = true;
+                                };
+                            };
                         };
-                        Install.WantedBy = [ "dms.service" ];
+
+                        settings = commonSettings // settings;
                     };
+
+                    home.activation.dmsWallpaperPath = lib.mkIf (wallpaper != null) (
+                        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+                            sessionFile="${config.xdg.stateHome}/DankMaterialShell/session.json"
+                            ${pkgs.coreutils}/bin/mkdir -p "$(${pkgs.coreutils}/bin/dirname "$sessionFile")"
+
+                            tmp="$(${pkgs.coreutils}/bin/mktemp "$sessionFile.tmp.XXXXXX")"
+                            trap '${pkgs.coreutils}/bin/rm -f "$tmp"' EXIT
+
+                            if [ -s "$sessionFile" ]; then
+                                ${lib.getExe pkgs.jq} --arg wallpaperPath ${lib.escapeShellArg (toString wallpaper)} \
+                                    '. + { wallpaperPath: $wallpaperPath }' \
+                                    "$sessionFile" > "$tmp"
+                            else
+                                ${lib.getExe pkgs.jq} --null-input --arg wallpaperPath ${lib.escapeShellArg (toString wallpaper)} \
+                                    '{ wallpaperPath: $wallpaperPath }' > "$tmp"
+                            fi
+
+                            ${pkgs.coreutils}/bin/mv "$tmp" "$sessionFile"
+                            trap - EXIT
+                        ''
+                    );
 
                     wayland.windowManager.niri.settings = {
                         binds = {
@@ -301,12 +322,6 @@ in
                     };
 
                     xdg.configFile = {
-                        "DankMaterialShell/settings.json".source = jsonFormat.generate "dms-settings.json" (
-                            commonSettings // settings
-                        );
-                        "DankMaterialShell/plugin_settings.json".source = jsonFormat.generate "dms-plugin-settings.json" (
-                            commonPluginSettings // pluginSettings
-                        );
                         "DankMaterialShell/themes/gruvboxMaterial.json".source =
                             pkgs.fetchFromGitHub {
                                 owner = "AvengeMedia";

@@ -59,6 +59,7 @@
                         binsider
                         caligula
                         local.yaml2nix
+                        codex
                         delta
                         devenv
                         dmidecode
