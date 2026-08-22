@@ -46,8 +46,12 @@
             };
 
             home = {
-                # Bash compatibility layer
-                packages = [ pkgs.reef ];
+                packages = with pkgs; [
+                    # Bash compatibility layer
+                    reef
+                    # So done.fish can send notifications with different urgency
+                    libnotify
+                ];
                 sessionVariables.fish_greeting = "";
             };
         };
