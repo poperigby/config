@@ -20,6 +20,7 @@
                         "font.name-list.emoji" = "emoji";
                         "browser.aboutConfig.showWarning" = false;
                         "widget.use-xdg-desktop-portal.file-picker" = 1;
+                        "media.webrtc.camera.allow-pipewire" = true;
                         "devtools.chrome.enabled" = true;
                         "devtools.debugger.remote-enabled" = true;
                         "extensions.activeThemeID" = "{eb8c4a94-e603-49ef-8e81-73d3c4cc04ff}";
