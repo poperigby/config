@@ -11,12 +11,15 @@
                     enable = true;
                     plugins = with pkgs.fishPlugins; [
                         {
-                            name = "done";
-                            src = done;
+                            name = "autopair";
+                            src = autopair.src;
                         }
                         {
-                            name = "autopair";
-                            src = autopair;
+                            name = "done";
+                            src = pkgs.applyPatches {
+                                src = done.src;
+                                patches = [ ./done-wezterm-notify-send.patch ];
+                            };
                         }
                     ];
                     interactiveShellInit = ''
@@ -32,20 +35,19 @@
                 # Launch fish from interactive bash sessions (unless already in fish).
                 bash = {
                     enable = true;
-                    initExtra = ''
-                        if [[ $(${getExe' pkgs.procps "ps"} --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
-                          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-                          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-                        fi
-                    '';
+                    initExtra = # bash
+                        ''
+                            if [[ $(${getExe' pkgs.procps "ps"} --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+                              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+                              exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+                            fi
+                        '';
                 };
             };
 
             home = {
-                packages = with pkgs; [
-                    # Bash compatibility layer
-                    reef
-                ];
+                # Bash compatibility layer
+                packages = [ pkgs.reef ];
                 sessionVariables.fish_greeting = "";
             };
         };

@@ -1,0 +1,13 @@
+diff --git a/conf.d/done.fish b/conf.d/done.fish
+index e914bee..461d687 100644
+--- a/conf.d/done.fish
++++ b/conf.d/done.fish
+@@ -263,7 +263,7 @@ function __done_ended --on-event fish_postexec
+                 printf "\x1b]99;i=done:d=0;$title\x1b\\"
+                 printf "\x1b]99;i=done:d=1:p=body;$message\x1b\\"
+ 
+-            else if test "$TERM_PROGRAM" = ghostty; or test "$TERM_PROGRAM" = WezTerm
++            else if test "$TERM_PROGRAM" = ghostty; or test "$TERM_PROGRAM" = WezTerm; and not type -q notify-send
+                 printf "\x1b]777;notify;%s;%s\x1b\\" "$title" "$message"
+ 
+             else if test "$TERM_PROGRAM" = iTerm.app
