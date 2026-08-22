@@ -17,36 +17,55 @@
                 })
             ];
 
-            nixos = { pkgs, ... }: {
-                imports = [
-                    inputs.noctalia.nixosModules.default
-                    inputs.noctalia-greeter.nixosModules.default
-                ];
+            nixos =
+                {
+                    config,
+                    lib,
+                    pkgs,
+                    ...
+                }:
+                let
+                    inherit (builtins) attrValues getAttr hasAttr;
+                    inherit (lib) concatMap optional;
 
-                programs = {
-                    noctalia = {
-                        enable = true;
-                        systemd.enable = true;
-
-                        # Enables NetworkManager, Bluetooth, UPower, and a power profile service.
-                        recommendedServices.enable = true;
-                    };
-                    noctalia-greeter = {
-                        enable = true;
-                    };
-                };
-
-                environment.systemPackages = [ pkgs.ddcutil ];
-                hardware.i2c.enable = true;
-
-                nix.settings = {
-                    extra-substituters = [ "https://noctalia.cachix.org" ];
-                    extra-trusted-public-keys = [
-                        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+                    configFile = "noctalia/config.toml";
+                    noctaliaConfigTriggers = concatMap (
+                        userConfig:
+                        optional (hasAttr configFile userConfig.xdg.configFile) (getAttr configFile userConfig.xdg.configFile)
+                        .source
+                    ) (attrValues (config.home-manager.users or { }));
+                in
+                {
+                    imports = [
+                        inputs.noctalia.nixosModules.default
+                        inputs.noctalia-greeter.nixosModules.default
                     ];
-                };
 
-            };
+                    programs = {
+                        noctalia = {
+                            enable = true;
+                            systemd.enable = true;
+
+                            # Enables NetworkManager, Bluetooth, UPower, and a power profile service.
+                            recommendedServices.enable = true;
+                        };
+                        noctalia-greeter = {
+                            enable = true;
+                        };
+                    };
+
+                    environment.systemPackages = [ pkgs.ddcutil ];
+                    hardware.i2c.enable = true;
+                    systemd.user.services.noctalia.restartTriggers = noctaliaConfigTriggers;
+
+                    nix.settings = {
+                        extra-substituters = [ "https://noctalia.cachix.org" ];
+                        extra-trusted-public-keys = [
+                            "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+                        ];
+                    };
+
+                };
             homeManager = { ... }: {
                 wayland.windowManager.niri.settings = {
                     binds = {

@@ -27,45 +27,62 @@
                         settings = {
                             audio.enable_sounds = true;
                             bar.default = {
-                                contact_shadow = true;
-                                end = [
-                                    "tray"
-                                    "group:g1"
-                                    "notifications"
-                                ];
-                                margin_edge = 10;
-                                margin_ends = 8;
-                                radius = 15;
-                                scale = 1.0500000081956387;
                                 start = [
                                     "taskbar"
                                 ];
-                                thickness = 40;
-                                dead_zone.actions.right = "none";
+                                center = [
+                                    "clock"
+                                ];
+                                end = [
+                                    "tray"
+                                    "group:utilities"
+                                    "notifications"
+                                ];
                                 capsule_group = [
                                     {
-                                        accordion = false;
-                                        accordion_direction = "start";
-                                        enabled = true;
-                                        fill = "surface_variant";
-                                        id = "g1";
+                                        id = "utilities";
                                         members = [
+                                            "privacy"
                                             "clipboard"
+                                            "cpu"
                                             "network"
                                             "bluetooth"
-                                            "cpu"
                                             "volume"
-                                            "brightness"
                                             "battery"
                                         ];
-                                        opacity = 1.0;
-                                        padding = 6.0;
                                         widget_spacing = 10;
                                     }
                                 ];
+                                contact_shadow = true;
+                                margin_edge = 10;
+                                margin_ends = 8;
+                                radius = 15;
+                                scale = 1.05;
+                                thickness = 40;
+                                dead_zone.actions.right = "none";
                             };
-                            brightness.enable_ddcutil = true;
-                            calendar.enabled = true;
+                            widget = {
+                                privacy.hide_inactive = true;
+                                brightness.show_label = false;
+                                clock.actions.left = "panel-toggle control-center";
+                                cpu = {
+                                    show_value = false;
+                                    visualization = "none";
+                                    actions.right = "exec ${getExe pkgs.wezterm} start ${getExe pkgs.bottom}";
+                                };
+                                network.show_label = false;
+                                notifications.capsule = true;
+                                session.capsule = true;
+                                taskbar = {
+                                    group_by_workspace = true;
+                                    workspace_group_content = "icons";
+                                    group_single_icon_per_app = true;
+                                    hide_empty_workspaces = true;
+                                    show_workspace_label = false;
+                                };
+                                tray.capsule = true;
+                                volume.show_label = false;
+                            };
                             control_center = {
                                 hidden_tabs = [
                                     "audio"
@@ -78,6 +95,8 @@
                                 sidebar = "full";
                                 sidebar_section = "none";
                             };
+                            brightness.enable_ddcutil = true;
+                            calendar.enabled = true;
                             location.auto_locate = true;
                             lockscreen_widgets = {
                                 enabled = false;
@@ -189,6 +208,7 @@
                                         }
                                     ];
                                 };
+                                privacy.mic_filter_regex = "HushMic";
                             };
                             theme = {
                                 builtin = "Gruvbox";
@@ -197,27 +217,6 @@
                             };
                             wallpaper.default.path = wallpaper;
                             wallpaper.last.path = wallpaper;
-                            widget = {
-                                brightness.show_label = false;
-                                clock.actions.left = "panel-toggle control-center";
-                                cpu = {
-                                    show_value = false;
-                                    visualization = "none";
-                                    actions.right = "exec ${getExe pkgs.wezterm} start ${getExe pkgs.bottom}";
-                                };
-                                network.show_label = false;
-                                notifications.capsule = true;
-                                session.capsule = true;
-                                taskbar = {
-                                    group_by_workspace = true;
-                                    workspace_group_content = "icons";
-                                    group_single_icon_per_app = true;
-                                    hide_empty_workspaces = true;
-                                    show_workspace_label = false;
-                                };
-                                tray.capsule = true;
-                                volume.show_label = false;
-                            };
                             hooks = {
                                 session_locked = "sleep 60; ${niri} msg action power-off-monitors";
                             };
