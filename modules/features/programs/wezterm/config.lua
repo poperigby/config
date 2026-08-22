@@ -15,7 +15,6 @@ local settings = {
     skip_close_confirmation_for_processes_named = {
         "bash",
         "fish",
-        "chezmoi",
     },
     check_for_updates = false,
     window_padding = {
