@@ -13,11 +13,13 @@ if (( $# == 0 )); then
     cat > "$temporary_input"
     input_file="$temporary_input"
 elif (( $# == 1 )) && [[ -f "$1" ]]; then
-    input_file="$1"
+    temporary_input="$(mktemp)"
+    cp -- "$1" "$temporary_input"
+    input_file="$temporary_input"
 else
     temporary_input="$(mktemp)"
-    printf '%s\n' "$*" > "$temporary_input"
+    printf '%s\n' "$@" > "$temporary_input"
     input_file="$temporary_input"
 fi
 
-toml2nix < "$input_file" | nixfmt --indent 4 -
+nix eval --impure --expr "builtins.fromTOML (builtins.readFile $input_file)" | nixfmt --indent 4 -
