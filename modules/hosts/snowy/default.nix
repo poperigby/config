@@ -19,25 +19,8 @@
 
                 # Desktop
                 desktops._.niri
-                (programs._.dms {
+                (programs._.noctalia {
                     wallpaper = ./wallpaper.jpg;
-                    settings = {
-                        activeDisplayProfile = { };
-                        displayProfiles = { };
-                        displayProfileAutoSelect = false;
-                        niriOutputSettings = {
-                            "${niriOutput}" = { };
-                        };
-                        screenPreferences.wallpaper = [ "all" ];
-                        showBattery = true;
-                        showGpuTemp = true;
-                        systemMonitorShowGpuTemp = true;
-                        systemMonitorGpuPciId = "";
-                        enabledGpuPciIds = [ ];
-                        selectedGpuIndex = 0;
-                        matugenTargetMonitor = "";
-                        lockScreenActiveMonitor = "all";
-                    };
                 })
 
                 # System

@@ -53,6 +53,8 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-lib.follows = "nixpkgs";
+    noctalia.url = "github:noctalia-dev/noctalia";
+    noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     openmw-nix = {
       url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
