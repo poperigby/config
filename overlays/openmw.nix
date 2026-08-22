@@ -4,7 +4,7 @@ final: prev: {
             owner = "OpenMW";
             repo = "openmw";
             rev = "master";
-            hash = "sha256-9rptPfJbj9fcPaZADkKbzKwuXpz8dLElQP1J3Fqy2y0=";
+            hash = "sha256-jkidf6U6TbpQMkiJaxNE/ii8hgGnI5Cu7K2++/yXPg8=";
         };
     });
 }
