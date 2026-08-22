@@ -54,11 +54,9 @@
                 home = {
                     preferXdgDirectories = true;
                     packages = with pkgs; [
-                        (ouch.override { enableUnfree = true; })
                         asciinema
                         binsider
                         caligula
-                        local.yaml2nix
                         codex
                         delta
                         devenv
@@ -74,10 +72,13 @@
                         jq
                         just
                         lazygit
+                        local.toml2nix
+                        local.yaml2nix
                         net-tools
                         nix-init
                         nixfmt
                         nurl
+                        ouch
                         parted
                         pciutils
                         rename
