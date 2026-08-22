@@ -31,6 +31,7 @@
                         # Unreachable binary caches should not block local builds.
                         fallback = true;
                         connect-timeout = 2;
+                        download-attempts = 1;
                         use-xdg-base-directories = true;
                     };
 
