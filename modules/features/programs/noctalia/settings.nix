@@ -21,7 +21,7 @@
                     radius = 15;
                     scale = 1.0500000081956387;
                     start = [
-                        "workspaces"
+                        "taskbar"
                     ];
                     thickness = 40;
                     dead_zone.actions.right = "none";
@@ -190,16 +190,14 @@
                     network.show_label = false;
                     notifications.capsule = true;
                     session.capsule = true;
+                    taskbar = {
+                        group_by_workspace = true;
+                        workspace_group_content = "icons";
+                        group_single_icon_per_app = true;
+                        hide_empty_workspaces = true;
+                    };
                     tray.capsule = true;
                     volume.show_label = false;
-                    workspaces = {
-                        active_pill_size = 1.2000000000000002;
-                        capsule = true;
-                        hide_when_empty = true;
-                        scale = 1.2;
-                        empty_color = "on_tertiary";
-                        occupied_color = "outline";
-                    };
                 };
             };
         in

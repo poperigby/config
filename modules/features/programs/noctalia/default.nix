@@ -129,15 +129,15 @@
                                 "brightness-down"
                             ];
                         };
-                        # "Mod+Escape" = {
-                        #     _props.hotkey-overlay-title = "Lock the screen";
-                        #     spawn = [
-                        #         "noctalia"
-                        #         "msg"
-                        #         "lock"
-                        #         "lock"
-                        #     ];
-                        # };
+                        "Mod+Escape" = {
+                            _props.hotkey-overlay-title = "Lock the screen";
+                            spawn = [
+                                "noctalia"
+                                "msg"
+                                "session"
+                                "lock"
+                            ];
+                        };
                     };
 
                     _children = [
