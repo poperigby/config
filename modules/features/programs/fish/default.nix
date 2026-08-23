@@ -1,46 +1,71 @@
 { ... }:
 {
-    den.aspects.programs.provides.fish.homeManager =
-        {
-            lib,
-            pkgs,
-            user,
-            ...
-        }:
-        let
-            inherit (lib) getExe getExe';
-            hasGui = lib.local.aspects.hasGui user;
-        in
-        {
-            programs = {
-                fish = {
-                    enable = true;
-                    plugins =
-                        with pkgs.fishPlugins;
-                        [
+    den.aspects.programs.provides.fish = {
+        homeManager =
+            { lib, pkgs, ... }:
+            let
+                inherit (lib) getExe getExe';
+            in
+            {
+                programs = {
+                    fish = {
+                        enable = true;
+                        plugins = with pkgs.fishPlugins; [
                             {
                                 name = "autopair";
                                 src = autopair.src;
                             }
-                        ]
-                        ++ lib.optional hasGui {
+                        ];
+                        interactiveShellInit = # fish
+                            ''
+                                # Use fish for `nix shell` and `nix develop`
+                                ${getExe pkgs.nix-your-shell} fish | source
+
+                                # Keybinds
+                                bind ctrl-e 'yy; commandline -f repaint'
+                                bind ctrl-g ${getExe pkgs.lazygit}
+                                bind ctrl-j ${getExe pkgs.lazyjj}
+                            '';
+                    };
+                    # Launch fish from interactive bash sessions (unless already in fish).
+                    bash = {
+                        enable = true;
+                        initExtra = # bash
+                            ''
+                                if [[ $(${getExe' pkgs.procps "ps"} --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
+                                  shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+                                  exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+                                fi
+                            '';
+                    };
+                };
+
+                home = {
+                    packages = with pkgs; [
+                        # Bash compatibility layer
+                        reef
+                    ];
+                    sessionVariables.fish_greeting = "";
+                };
+            };
+
+        provides.gui.homeManager =
+            { lib, pkgs, ... }:
+            let
+                inherit (lib) getExe';
+            in
+            {
+                programs.fish = {
+                    plugins = with pkgs.fishPlugins; [
+                        {
                             name = "done";
                             src = pkgs.applyPatches {
                                 src = done.src;
                                 patches = [ ./done-wezterm-notify-send.patch ];
                             };
-                        };
-                    interactiveShellInit = # fish
-                        ''
-                            # Use fish for `nix shell` and `nix develop`
-                            ${getExe pkgs.nix-your-shell} fish | source
-
-                            # Keybinds
-                            bind ctrl-e 'yy; commandline -f repaint'
-                            bind ctrl-g ${getExe pkgs.lazygit}
-                            bind ctrl-j ${getExe pkgs.lazyjj}
-                        '';
-                    functions.sudo = lib.mkIf hasGui {
+                        }
+                    ];
+                    functions.sudo = {
                         wraps = "sudo";
                         description = "Run sudo and notify when authentication is required";
                         body = # fish
@@ -68,31 +93,11 @@
                             '';
                     };
                 };
-                # Launch fish from interactive bash sessions (unless already in fish).
-                bash = {
-                    enable = true;
-                    initExtra = # bash
-                        ''
-                            if [[ $(${getExe' pkgs.procps "ps"} --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]; then
-                              shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-                              exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-                            fi
-                        '';
-                };
-            };
 
-            home = {
-                packages =
-                    with pkgs;
-                    [
-                        # Bash compatibility layer
-                        reef
-                    ]
-                    ++ lib.optionals hasGui [
-                        # So done.fish can send notifications with different urgency
-                        libnotify
-                    ];
-                sessionVariables.fish_greeting = "";
+                home.packages = with pkgs; [
+                    # So done.fish can send notifications with different urgency
+                    libnotify
+                ];
             };
-        };
+    };
 }

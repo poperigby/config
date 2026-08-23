@@ -1,6 +1,5 @@
 # Exposes helpers from <root>/lib as lib.local in NixOS and Home Manager modules.
 {
-    den,
     inputs,
     lib,
     ...
@@ -18,7 +17,6 @@ let
         if builtins.isFunction value then
             lib.callPackageWith (
                 {
-                    inherit den;
                     inherit inputs;
                     lib = lib // {
                         local = localLib;

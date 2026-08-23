@@ -2,6 +2,10 @@
 {
     den.aspects.gui = {
         includes = [
+            den.aspects.programs._.bottom.gui
+            den.aspects.programs._.fish.gui
+            den.aspects.programs._.neovim.gui
+            den.aspects.programs._.yazi.gui
             den.aspects.services._.udisks
             den.aspects.services._.xembed-sni-proxy
             den.aspects.system._.plymouth
