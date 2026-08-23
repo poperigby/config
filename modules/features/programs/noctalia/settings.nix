@@ -54,6 +54,7 @@
                                     }
                                 ];
                                 contact_shadow = true;
+                                background_opacity = 0.9;
                                 margin_edge = 10;
                                 margin_ends = 8;
                                 radius = 15;
@@ -87,7 +88,6 @@
                                 hidden_tabs = [
                                     "audio"
                                     "system"
-                                    "power"
                                     "network"
                                     "bluetooth"
                                     "notifications"
@@ -140,7 +140,12 @@
                                 };
                             };
                             nightlight.enabled = true;
-                            osd.position = "bottom_center";
+                            osd = {
+                                position = "bottom_center";
+                                kinds = {
+                                    media = false;
+                                };
+                            };
                             shell = {
                                 font_family = "Noto Sans";
                                 launch_apps_as_systemd_services = true;
