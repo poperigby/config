@@ -10,6 +10,7 @@
 
     den.aspects.common = {
         includes = [
+            den.aspects.programs._.codex
             den.aspects.programs._.jujutsu
             den.aspects.programs._.nix
             den.aspects.security._.sudo
@@ -57,7 +58,6 @@
                         asciinema
                         binsider
                         caligula
-                        codex
                         delta
                         devenv
                         dmidecode

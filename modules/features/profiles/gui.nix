@@ -3,6 +3,7 @@
     den.aspects.gui = {
         includes = [
             den.aspects.programs._.bottom.gui
+            den.aspects.programs._.codex.gui
             den.aspects.programs._.fish.gui
             den.aspects.programs._.neovim.gui
             den.aspects.programs._.yazi.gui
