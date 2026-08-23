@@ -751,6 +751,22 @@
         "type": "github"
       }
     },
+    "millennium": {
+      "locked": {
+        "lastModified": 1786996545,
+        "narHash": "sha256-Tg5Afb8wa3T8qA4jbbQJR4pvLudR2SogBmdgsPkHjCU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "69b7dec4b171b0a0920b74fbfc34119322773704",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/538226/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "mygui": {
       "locked": {
         "lastModified": 1716480759,
@@ -1429,6 +1445,7 @@
         "import-tree": "import-tree",
         "jj-starship": "jj-starship",
         "lanzaboote": "lanzaboote",
+        "millennium": "millennium",
         "nix": "nix",
         "nix-colors": "nix-colors",
         "nix-flatpak": "nix-flatpak",

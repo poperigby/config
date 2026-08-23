@@ -188,16 +188,18 @@
                 {
                     inputs',
                     lib,
+                    osConfig,
                     pkgs,
                     ...
                 }:
                 let
                     hushmic = inputs'.hushmic.packages.default;
+                    steam = osConfig.programs.steam.package;
                     steamAutostart = pkgs.local.modifyDesktopEntry {
-                        package = pkgs.steam;
+                        package = steam;
                         desktopFile = "steam.desktop";
                         outputFile = "steam-silent-autostart.desktop";
-                        replace.Exec = "${lib.getExe pkgs.steam} -silent";
+                        replace.Exec = "${lib.getExe steam} -silent";
                     };
                 in
                 {

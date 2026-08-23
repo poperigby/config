@@ -39,9 +39,7 @@
                             };
                         };
 
-                        mcp_servers.nixos = {
-                            command = getExe pkgs.mcp-nixos;
-                        };
+                        mcp_servers.nixos.command = getExe pkgs.mcp-nixos;
                     };
                 };
             };
