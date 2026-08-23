@@ -303,6 +303,11 @@
                     };
                 };
 
+                home.sessionVariables = {
+                    XCURSOR_THEME = "Adwaita";
+                    XCURSOR_SIZE = 20;
+                };
+
                 xdg.mimeApps.defaultApplications = {
                     "image/jpeg" = "oculante.desktop";
                     "image/png" = "oculante.desktop";
