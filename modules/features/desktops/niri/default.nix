@@ -31,6 +31,7 @@
                 wayland.windowManager.niri = {
                     enable = true;
                     settings = {
+
                         cursor = {
                             xcursor-theme = "Adwaita";
                             xcursor-size = 20;
@@ -206,6 +207,52 @@
                             "Print".screenshot-screen = { };
                             "Ctrl+Print".screenshot = { };
                             "Alt+Print".screenshot-window = { };
+                        };
+
+                        animations = {
+                            workspace-switch.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 700;
+                                epsilon = 0.0001;
+                            };
+                            window-open.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 850;
+                                epsilon = 0.0001;
+                            };
+                            window-close = {
+                                duration-ms = 150;
+                                curve = "ease-out-quad";
+                            };
+                            horizontal-view-movement.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 700;
+                                epsilon = 0.0001;
+                            };
+                            window-movement.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 700;
+                                epsilon = 0.0001;
+                            };
+                            window-resize.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 700;
+                                epsilon = 0.0001;
+                            };
+                            config-notification-open-close.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 900;
+                                epsilon = 0.001;
+                            };
+                            screenshot-ui-open = {
+                                duration-ms = 200;
+                                curve = "ease-out-quad";
+                            };
+                            overview-open-close.spring._props = {
+                                damping-ratio = 0.825;
+                                stiffness = 560;
+                                epsilon = 0.0003;
+                            };
                         };
 
                         _children = [
