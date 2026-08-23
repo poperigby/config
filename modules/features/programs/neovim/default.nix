@@ -5,10 +5,12 @@
             lib,
             pkgs,
             config,
+            user,
             ...
         }:
         let
             nvim = lib.getExe config.programs.neovim.finalPackage;
+            hasGui = lib.local.aspects.hasGui user;
         in
         {
             imports = [
@@ -64,6 +66,20 @@
             xdg.configFile."nvim/lua" = {
                 source = ./config;
                 recursive = true;
+            };
+
+            xdg.desktopEntries.nvim = lib.mkIf hasGui {
+                name = "Neovim";
+                genericName = "Text Editor";
+                exec = "${lib.getExe pkgs.wezterm} start nvim %F";
+                terminal = false;
+                type = "Application";
+                icon = "nvim";
+                categories = [
+                    "Utility"
+                    "TextEditor"
+                ];
+                mimeType = [ "text/plain" ];
             };
         };
 }

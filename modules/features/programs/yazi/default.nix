@@ -1,9 +1,15 @@
 { ... }:
 {
     den.aspects.programs.provides.yazi.homeManager =
-        { lib, pkgs, ... }:
+        {
+            lib,
+            pkgs,
+            user,
+            ...
+        }:
         let
-            inherit (lib) readFile;
+            inherit (lib) getExe readFile;
+            hasGui = lib.local.aspects.hasGui user;
         in
         {
             programs.yazi = {
@@ -121,8 +127,27 @@
                         run = "plugin yamb --args=delete_all";
                         desc = "Delete all bookmarks";
                     }
+                    (lib.mkIf hasGui {
+                        on = [ "<C-n>" ];
+                        run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
+                        description = "Open ripdrag for dragging and dropping";
+                    })
                 ];
             };
 
+            xdg.desktopEntries.yazi = lib.mkIf hasGui {
+                name = "Yazi";
+                genericName = "File Browser";
+                exec = "${getExe pkgs.yazi} %f";
+                icon = ./icon.png;
+                terminal = true;
+                type = "Application";
+                categories = [
+                    "System"
+                    "FileTools"
+                    "FileManager"
+                ];
+                mimeType = [ "inode/directory" ];
+            };
         };
 }

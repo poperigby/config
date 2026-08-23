@@ -1,4 +1,4 @@
-{ den, ... }:
+{ ... }:
 {
     den.aspects.programs.provides.fish.homeManager =
         {
@@ -9,7 +9,7 @@
         }:
         let
             inherit (lib) getExe getExe';
-            hasGui = user.hasAspect.forAnyClass den.aspects.gui;
+            hasGui = lib.local.aspects.hasGui user;
         in
         {
             programs = {
