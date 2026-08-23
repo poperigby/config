@@ -64,6 +64,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+    proton-cachyos = {
+      url = "github:Daaboulex/proton-cachyos-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops.url = "github:Mic92/sops-nix";
     sops-nix = {
       url = "github:Mic92/sops-nix";
