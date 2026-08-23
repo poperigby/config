@@ -6,270 +6,265 @@
         nix-flatpak.url = "github:gmodena/nix-flatpak";
     };
 
-    den.aspects.snowy =
-        let
-            niriOutput = "DP-1";
-        in
-        {
-            provides.to-users.includes = with den.aspects; [
-                # Profiles
-                common
-                gui
-                gaming
+    den.aspects.snowy = {
+        provides.to-users.includes = with den.aspects; [
+            # Profiles
+            common
+            gui
+            gaming
 
-                # Desktop
-                desktops._.niri
-                (programs._.noctalia {
-                    wallpaper = ./wallpaper.jpg;
-                })
+            # Desktop
+            desktops._.niri
+            (programs._.noctalia {
+                wallpaper = ./wallpaper.jpg;
+            })
 
-                # System
-                (system._.boot { })
-                (services._.backups {
-                    paths =
-                        let
-                            cassidy = "/home/cassidy";
-                        in
-                        [
-                            "/home/*/.local/state/backups"
-                            # Modding setups
-                            "${cassidy}/Games/Modding"
-                        ];
-                    exclude =
-                        let
-                            cassidy = "/home/cassidy";
-                        in
-                        [
-                            "${cassidy}/Games/Modding/Games/*/_download/"
-                        ];
-                })
+            # System
+            (system._.boot { })
+            (services._.backups {
+                paths =
+                    let
+                        cassidy = "/home/cassidy";
+                    in
+                    [
+                        "/home/*/.local/state/backups"
+                        # Modding setups
+                        "${cassidy}/Games/Modding"
+                    ];
+                exclude =
+                    let
+                        cassidy = "/home/cassidy";
+                    in
+                    [
+                        "${cassidy}/Games/Modding/Games/*/_download/"
+                    ];
+            })
 
-                # Hardware
-                hardware._.android
-                hardware._.iphone
-                hardware._.audio
-                hardware._.bluetooth
-                hardware._.corsair
-                hardware._.printing
-                hardware._.scanning
+            # Hardware
+            hardware._.android
+            hardware._.iphone
+            hardware._.audio
+            hardware._.bluetooth
+            hardware._.corsair
+            hardware._.printing
+            hardware._.scanning
 
-                # Services
-                services._.cache
-                services._.earlyoom
-                services._.geolocation
-                services._.smartd
+            # Services
+            services._.cache
+            services._.earlyoom
+            services._.geolocation
+            services._.smartd
 
-                # Virtualization
-                services._.virtualization
-                services._.virt-manager
+            # Virtualization
+            services._.virtualization
+            services._.virt-manager
 
-                # CLI
-                programs._.atuin
-                programs._.bat
-                programs._.bottom
-                programs._.direnv
-                programs._.fish
-                programs._.git
-                programs._.gpg
-                programs._.neovim
-                programs._.starship
-                programs._.tealdeer
-                programs._.television
-                programs._.yazi
+            # CLI
+            programs._.atuin
+            programs._.bat
+            programs._.bottom
+            programs._.direnv
+            programs._.fish
+            programs._.git
+            programs._.gpg
+            programs._.neovim
+            programs._.starship
+            programs._.tealdeer
+            programs._.television
+            programs._.yazi
 
-                # Development services
-                services._.lspmux
+            # Development services
+            services._.lspmux
 
-                # GUI apps
-                programs._.discord
-                programs._.element-desktop
-                programs._.firefox
-                programs._.mpv
-                programs._.wezterm
-                programs._.thunderbird
+            # GUI apps
+            programs._.discord
+            programs._.element-desktop
+            programs._.firefox
+            programs._.mpv
+            programs._.wezterm
+            programs._.thunderbird
 
-                # Gaming
-                programs._.mangohud
-                gaming._.morrowind
-                services._.joystickwake
-                (services._.ludusavi {
+            # Gaming
+            gaming._.morrowind
+            (services._.ludusavi {
+                settings = {
+                    manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
+                    roots = [
+                        {
+                            path = "~/.local/share/Steam";
+                            store = "steam";
+                        }
+                        {
+                            path = "~/.config/heroic";
+                            store = "heroic";
+                        }
+                        {
+                            path = "/mnt/ssd0/SteamLibrary";
+                            store = "steam";
+                        }
+                        {
+                            path = "/mnt/hdd0/SteamLibrary";
+                            store = "steam";
+                        }
+                    ];
+                    customGames = [
+                        {
+                            name = "OpenMW";
+                            files = [ "~/.local/share/openmw/saves" ];
+                        }
+                        {
+                            name = "GZDoom";
+                            files = [ "~/.config/gzdoom/savegames" ];
+                        }
+                    ];
+                    backup.path = "~/.local/state/backups/ludusavi";
+                    restore.path = "~/.local/state/backups/ludusavi";
+                };
+            })
+        ];
+
+        nixos =
+            { lib, ... }:
+            {
+                time.timeZone = "America/Los_Angeles";
+
+                networking.networkmanager.enable = true;
+
+                services.flatpak.enable = true;
+
+                services.openssh = {
+                    enable = true;
                     settings = {
-                        manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
-                        roots = [
-                            {
-                                path = "~/.local/share/Steam";
-                                store = "steam";
-                            }
-                            {
-                                path = "~/.config/heroic";
-                                store = "heroic";
-                            }
-                            {
-                                path = "/mnt/ssd0/SteamLibrary";
-                                store = "steam";
-                            }
-                            {
-                                path = "/mnt/hdd0/SteamLibrary";
-                                store = "steam";
-                            }
-                        ];
-                        customGames = [
-                            {
-                                name = "OpenMW";
-                                files = [ "~/.local/share/openmw/saves" ];
-                            }
-                            {
-                                name = "GZDoom";
-                                files = [ "~/.config/gzdoom/savegames" ];
-                            }
-                        ];
-                        backup.path = "~/.local/state/backups/ludusavi";
-                        restore.path = "~/.local/state/backups/ludusavi";
+                        # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
+                        PermitRootLogin = "no";
+                        MaxAuthTries = 3;
+                        PasswordAuthentication = false;
+                        PermitEmptyPasswords = false;
+                        ChallengeResponseAuthentication = false;
+                        PermitUserEnvironment = false;
+                        AllowAgentForwarding = false;
+                        AllowTcpForwarding = false;
+                        PermitTunnel = false;
                     };
-                })
-            ];
-
-            nixos =
-                { lib, ... }:
-                {
-                    time.timeZone = "America/Los_Angeles";
-
-                    networking.networkmanager.enable = true;
-
-                    services.lact.enable = true;
-                    services.flatpak.enable = true;
-
-                    services.openssh = {
-                        enable = true;
-                        settings = {
-                            # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
-                            PermitRootLogin = "no";
-                            MaxAuthTries = 3;
-                            PasswordAuthentication = false;
-                            PermitEmptyPasswords = false;
-                            ChallengeResponseAuthentication = false;
-                            PermitUserEnvironment = false;
-                            AllowAgentForwarding = false;
-                            AllowTcpForwarding = false;
-                            PermitTunnel = false;
-                        };
-                    };
-
-                    virtualisation.docker.enable = true;
-
-                    services.postgresql = {
-                        enable = true;
-                        ensureUsers = [
-                            {
-                                name = "cassidy";
-                                ensureClauses.superuser = true;
-                            }
-                            {
-                                name = "root";
-                                ensureClauses.superuser = true;
-                            }
-                        ];
-                        authentication = lib.mkForce ''
-                            # TYPE  DATABASE        USER            ADDRESS                 METHOD
-                            local   all             all                                     peer
-                            host    all             all             127.0.0.1/32            trust
-                            host    all             all             ::1/128                 trust
-                        '';
-                    };
-
-                    # For installing Nestor configuration to SD card
-                    boot.binfmt = {
-                        emulatedSystems = [ "aarch64-linux" ];
-                        preferStaticEmulators = true;
-                    };
-                    nix.settings.extra-platforms = [ "aarch64-linux" ];
-
-                    # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-                    system.stateVersion = "23.11";
                 };
 
-            provides.cassidy = {
-                includes = [ den.aspects.cassidy-accounts ];
+                virtualisation.docker.enable = true;
 
-                homeManager =
-                    {
-                        inputs',
-                        lib,
-                        pkgs,
-                        ...
-                    }:
-                    let
-                        hushmic = inputs'.hushmic.packages.default;
-                        steamAutostart = pkgs.local.modifyDesktopEntry {
-                            package = pkgs.steam;
-                            desktopFile = "steam.desktop";
-                            replace.Exec = "${lib.getExe pkgs.steam} -silent";
-                        };
-                    in
-                    {
-                        imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
+                services.postgresql = {
+                    enable = true;
+                    ensureUsers = [
+                        {
+                            name = "cassidy";
+                            ensureClauses.superuser = true;
+                        }
+                        {
+                            name = "root";
+                            ensureClauses.superuser = true;
+                        }
+                    ];
+                    authentication = lib.mkForce ''
+                        # TYPE  DATABASE        USER            ADDRESS                 METHOD
+                        local   all             all                                     peer
+                        host    all             all             127.0.0.1/32            trust
+                        host    all             all             ::1/128                 trust
+                    '';
+                };
 
-                        wayland.windowManager.niri.settings._children = [
-                            {
-                                output = {
-                                    _args = [ niriOutput ];
-                                    mode = "2560x1440@164.834";
-                                    variable-refresh-rate = { };
-                                };
-                            }
-                        ];
+                # For installing Nestor configuration to SD card
+                boot.binfmt = {
+                    emulatedSystems = [ "aarch64-linux" ];
+                    preferStaticEmulators = true;
+                };
+                nix.settings.extra-platforms = [ "aarch64-linux" ];
 
-                        xdg.autostart = {
-                            enable = true;
-                            entries =
-                                let
-                                    inherit (lib.local.desktop) filePath filePath';
-                                in
-                                (with pkgs; [
-                                    (filePath ckb-next)
-                                    (filePath hushmic)
-                                    (filePath' signal-desktop "signal")
-                                    (filePath' steamAutostart "steam")
-                                ]);
-                        };
+                # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
+                system.stateVersion = "23.11";
+            };
 
-                        services.flatpak = {
-                            enable = true;
-                            uninstallUnmanaged = true;
-                            packages = [
-                                "com.usebottles.bottles"
-                                rec {
-                                    appId = "com.hypixel.HytaleLauncher";
-                                    sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
-                                    bundle = "${pkgs.fetchurl {
-                                        url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
-                                        inherit sha256;
-                                    }}";
-                                }
-                            ];
-                        };
+        provides.cassidy = {
+            includes = [ den.aspects.cassidy-accounts ];
 
-                        home =
-                            let
-                                blender = pkgs.pkgsRocm.blender;
-                            in
-                            {
-                                packages =
-                                    with pkgs;
-                                    [
-                                        dbeaver-bin
-                                        er-patcher
-                                        graphite
-                                        prusa-slicer
-                                        qbittorrent
-                                    ]
-                                    ++ [
-                                        blender
-                                        hushmic
-                                    ];
+            homeManager =
+                {
+                    inputs',
+                    lib,
+                    pkgs,
+                    ...
+                }:
+                let
+                    hushmic = inputs'.hushmic.packages.default;
+                    steamAutostart = pkgs.local.modifyDesktopEntry {
+                        package = pkgs.steam;
+                        desktopFile = "steam.desktop";
+                        outputFile = "steam-silent-autostart.desktop";
+                        replace.Exec = "${lib.getExe pkgs.steam} -silent";
+                    };
+                in
+                {
+                    imports = [ inputs.nix-flatpak.homeManagerModules.nix-flatpak ];
+
+                    wayland.windowManager.niri.settings._children = [
+                        {
+                            output = {
+                                _args = [ "DP-1" ];
+                                mode = "2560x1440@164.834";
+                                variable-refresh-rate = { };
                             };
+                        }
+                    ];
+
+                    xdg.autostart = {
+                        enable = true;
+                        entries =
+                            let
+                                inherit (lib.local.desktop) filePath filePath';
+                            in
+                            (with pkgs; [
+                                (filePath ckb-next)
+                                (filePath hushmic)
+                                (filePath' local.android-messages-desktop "pw.kmr.amd")
+                                (filePath' signal-desktop "signal")
+                                (filePath' steamAutostart "steam-silent-autostart")
+                            ]);
                     };
 
-            };
+                    services.flatpak = {
+                        enable = true;
+                        uninstallUnmanaged = true;
+                        packages = [
+                            "com.usebottles.bottles"
+                            rec {
+                                appId = "com.hypixel.HytaleLauncher";
+                                sha256 = "sha256-pMZyFtwlGTvCcClvK/dr42+Kvv6ZPhRCgH3iGTgxxHI=";
+                                bundle = "${pkgs.fetchurl {
+                                    url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
+                                    inherit sha256;
+                                }}";
+                            }
+                        ];
+                    };
+
+                    home =
+                        let
+                            blender = pkgs.pkgsRocm.blender;
+                        in
+                        {
+                            packages =
+                                with pkgs;
+                                [
+                                    dbeaver-bin
+                                    er-patcher
+                                    graphite
+                                    prusa-slicer
+                                    qbittorrent
+                                ]
+                                ++ [
+                                    blender
+                                    hushmic
+                                ];
+                        };
+                };
+
         };
+    };
 }

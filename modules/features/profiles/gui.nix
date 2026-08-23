@@ -38,6 +38,7 @@
                     gimp3
                     inkscape
                     libreoffice
+                    local.android-messages-desktop
                     nerd-fonts.jetbrains-mono
                     noto-fonts
                     noto-fonts-cjk-sans
