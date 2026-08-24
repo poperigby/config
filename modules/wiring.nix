@@ -12,6 +12,7 @@
     # Run `nix run .#write-flake` to regenerate flake.nix after changing inputs.
     flake-file.inputs = {
         nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+        nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
         nixpkgs-lib.follows = "nixpkgs";
 
         flake-parts = {

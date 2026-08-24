@@ -43,6 +43,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixcord.url = "github:kaylorben/nixcord";
+    nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-lib.follows = "nixpkgs";

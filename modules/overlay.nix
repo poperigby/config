@@ -1,17 +1,48 @@
 # Provides pkgs.local and applies repository overlays.
 { inputs, lib, ... }:
 let
+    inherit (lib)
+        callPackageWith
+        composeManyExtensions
+        filterAttrs
+        filterAttrsRecursive
+        filesystem
+        genAttrs
+        isDerivation
+        systems
+        ;
+
     # Expose every package under <root>/pkgs as pkgs.local.<name>.
     packageOverlay = final: prev: {
-        local = lib.filesystem.packagesFromDirectoryRecursive {
-            callPackage = lib.callPackageWith (prev // { inherit inputs; });
+        local = filesystem.packagesFromDirectoryRecursive {
+            callPackage = callPackageWith (prev // { inherit inputs; });
             directory = ../pkgs;
         };
     };
 
+    # Attach historical versions from nixpkgs-multiverse to matching current
+    # derivations. `pkgs.foo` remains the package from the active nixpkgs, and
+    # `pkgs.foo."<version>"` resolves that version from the multiverse index.
+    multiverseOverlay =
+        final: prev:
+        let
+            multiverse = inputs.nixpkgs-multiverse.lib.mkMultiverse {
+                config = filterAttrsRecursive (_: value: value != null) final.config;
+                system = final.stdenv.hostPlatform.system;
+            };
+
+            attachVersions =
+                name: versions:
+                let
+                    package = prev.${name};
+                in
+                if isDerivation package then package // versions else package;
+        in
+        builtins.mapAttrs attachVersions (builtins.intersectAttrs prev multiverse.versions);
+
     # Repository overlays live under <root>/overlays as either foo.nix or
     # foo/default.nix. Each file must evaluate to a normal Nixpkgs overlay.
-    localOverlays =
+    localOverlay =
         let
             overlaysDir = ../overlays;
             overlayEntries = builtins.readDir overlaysDir;
@@ -33,9 +64,15 @@ let
                 builtins.attrNames overlayEntries
             );
         in
-        map (name: import (overlayFileFor name)) overlayNames;
+        composeManyExtensions (map (name: import (overlayFileFor name)) overlayNames);
 
-    overlays = [ packageOverlay ] ++ localOverlays;
+    # Multiverse decorates the package values produced by earlier overlays, so
+    # it runs last and attaches versions to the same `pkgs.foo` modules see.
+    overlays = [
+        packageOverlay
+        localOverlay
+        multiverseOverlay
+    ];
 in
 {
     den.default = {
@@ -48,7 +85,7 @@ in
     # pkgs.local can hold pkgs-scoped helpers alongside packages. Flake package
     # outputs must stay derivations so `nix flake show` and `nix build` see a
     # valid package set.
-    flake.packages = lib.genAttrs lib.systems.flakeExposed (
+    flake.packages = genAttrs systems.flakeExposed (
         system:
         let
             pkgs = import inputs.nixpkgs {
@@ -56,6 +93,6 @@ in
                 config.allowUnfree = true;
             };
         in
-        lib.filterAttrs (_: lib.isDerivation) pkgs.local
+        filterAttrs (_: isDerivation) pkgs.local
     );
 }
