@@ -22,6 +22,8 @@
             nixos =
                 { pkgs, ... }:
                 {
+                    programs.dconf.enable = true;
+
                     programs.niri = {
                         enable = true;
                     };
@@ -149,6 +151,8 @@
                             size = 11;
                         };
                     };
+
+                    dconf.settings."org/gnome/desktop/interface".accent-color = "yellow";
 
                     xdg.mimeApps.defaultApplications = {
                         "image/jpeg" = "oculante.desktop";
