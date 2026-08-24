@@ -1,0 +1,38 @@
+diff --git a/Sources/Dialogs/EngineDialog.cpp b/Sources/Dialogs/EngineDialog.cpp
+index 7b2c966..19eb1ed 100644
+--- a/Sources/Dialogs/EngineDialog.cpp
++++ b/Sources/Dialogs/EngineDialog.cpp
+@@ -128,17 +128,9 @@ void EngineDialog::onWindowShown()
+ 
+ 	if (engine.id.isEmpty())  // adding a new engine
+ 	{
+-		bool confirmed = selectExecutable();
+-		if (confirmed)
+-		{
+-			// We need a unique engine ID, independent from name and path, that can be referenced from a preset,
+-			// so that the user can edit the engine name and path without breaking the selected engines.
+-			engine.id = generateUniqueID();
+-		}
+-		else  // user closed the selectExecutable dialog
+-		{
+-			this->reject();
+-		}
++		// We need a unique engine ID, independent from name and path, that can be referenced from a preset,
++		// so that the user can edit the engine name and path without breaking the selected engines.
++		engine.id = generateUniqueID();
+ 	}
+ }
+ 
+diff --git a/Sources/Dialogs/OwnFileDialog.cpp b/Sources/Dialogs/OwnFileDialog.cpp
+index 048fe76..b4bed13 100644
+--- a/Sources/Dialogs/OwnFileDialog.cpp
++++ b/Sources/Dialogs/OwnFileDialog.cpp
+@@ -24,7 +24,7 @@ static const QFileDialog::Options disableNativeDialogOnLinux( QFileDialog::Optio
+  #else
+ 	// initialize once on first call and then re-use.
+ 	static const QFileDialog::Options DontUseNativeDialogOnLinux =
+-		os::getLinuxDesktopEnv() == "KDE" ? QFileDialog::Options() : QFileDialog::Option::DontUseNativeDialog;
++		QFileDialog::Options();
+ 	return options | DontUseNativeDialogOnLinux;
+  #endif
+ }
