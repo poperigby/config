@@ -5,16 +5,8 @@
 
   inputs = {
     crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
-    dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     den.url = "github:vic/den";
     disko.url = "github:nix-community/disko";
-    dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
