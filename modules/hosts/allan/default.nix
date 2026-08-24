@@ -1,5 +1,6 @@
 { den, ... }:
 {
+
     den.aspects.allan = {
         provides.to-users.includes = with den.aspects; [
             # Profiles
@@ -99,7 +100,10 @@
             networking.networkmanager.enable = true;
 
             # Roaming friendly time synchronization daemon
-            services.ntpd-rs.enable = true;
+            services.ntpd-rs = {
+                enable = true;
+                settings.source-defaults.initial-poll-interval = 0;
+            };
 
             # Automatically change timezone based on location
             services.automatic-timezoned.enable = true;
