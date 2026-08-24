@@ -2,14 +2,22 @@
 {
     den.aspects.programs.provides.codex = {
         homeManager =
-            { lib, pkgs, ... }:
+            {
+                config,
+                lib,
+                pkgs,
+                ...
+            }:
             let
                 inherit (lib) getExe;
+
+                codex = getExe config.programs.codex.package;
             in
             {
                 programs.codex = {
                     enable = true;
-                    settings = {
+                    # Keep config.toml unmanaged so Codex can persist local trust decisions there.
+                    profiles.default = {
                         approval_policy = "on-request";
                         sandbox_mode = "workspace-write";
                         model = "gpt-5.5";
@@ -18,13 +26,6 @@
                         approvals_reviewer = "auto_review";
 
                         sandbox_workspace_write.network_access = true;
-
-                        projects = {
-                            "/home/cassidy/Projects".trust_level = "trusted";
-                            "/home/cassidy/config".trust_level = "trusted";
-                        };
-
-                        plugins."canva@openai-curated".enabled = true;
 
                         notice.model_migrations = {
                             "gpt-5.2-codex" = "gpt-5.4";
@@ -42,6 +43,15 @@
                         mcp_servers.nixos.command = getExe pkgs.mcp-nixos;
                     };
                 };
+
+                programs.fish.functions.codex = {
+                    wraps = "codex";
+                    description = "Run Codex with the default profile";
+                    body = # fish
+                        ''
+                            ${codex} --profile default $argv
+                        '';
+                };
             };
 
         provides.gui.homeManager =
@@ -54,11 +64,19 @@
                     runtimeInputs = with pkgs; [
                         jq
                         libnotify
+                        niri
                     ];
                     text = # bash
                         ''
                             if [[ -z "''${DBUS_SESSION_BUS_ADDRESS:-}" || ( -z "''${DISPLAY:-}" && -z "''${WAYLAND_DISPLAY:-}" ) ]]; then
                               exit 0
+                            fi
+
+                            if focused_window="$(niri msg --json focused-window 2>/dev/null)"; then
+                              focused_app_id="$(jq -r '.app_id // empty' <<<"$focused_window")"
+                              if [[ "$focused_app_id" == "org.wezfurlong.wezterm" ]]; then
+                                exit 0
+                              fi
                             fi
 
                             if [[ $# -gt 0 ]]; then
@@ -81,6 +99,22 @@
                                   >/dev/null 2>&1 || true
                                 ;;
                               PermissionRequest)
+                                if ! jq -e '
+                                  [
+                                    .manual_approval_required,
+                                    .requires_manual_approval,
+                                    .requires_user_approval,
+                                    (.approval_kind == "manual"),
+                                    (.approval.kind == "manual"),
+                                    (.approval.mode == "manual"),
+                                    (.review.requires_manual_approval),
+                                    (.review.outcome == "manual_approval_required"),
+                                    (.review_result == "manual_approval_required")
+                                  ] | any
+                                ' <<<"$payload" >/dev/null; then
+                                  exit 0
+                                fi
+
                                 tool="$(jq -r '.tool_name // "tool"' <<<"$payload")"
                                 detail="$(jq -r '.tool_input.description // .tool_input.command // "Approval required"' <<<"$payload")"
                                 notify-send \
@@ -97,21 +131,7 @@
             in
             {
                 programs.codex = {
-                    settings.notify = [ (getExe codexNotify) ];
-
-                    hooks.PermissionRequest = [
-                        {
-                            matcher = ".*";
-                            hooks = [
-                                {
-                                    type = "command";
-                                    command = getExe codexNotify;
-                                    async = true;
-                                    timeout = 3;
-                                }
-                            ];
-                        }
-                    ];
+                    profiles.default.notify = [ (getExe codexNotify) ];
                 };
             };
     };
