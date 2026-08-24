@@ -152,6 +152,19 @@
                         };
                     };
 
+                    qt = {
+                        enable = true;
+                        style = {
+                            name = "kvantum";
+                            package = pkgs.kdePackages.qtstyleplugin-kvantum;
+                        };
+                        kvantum = {
+                            enable = true;
+                            themes = [ pkgs.local.kvlibadwaita ];
+                            settings.General.theme = "KvLibadwaitaDark";
+                        };
+                    };
+
                     dconf.settings."org/gnome/desktop/interface".accent-color = "yellow";
 
                     xdg.mimeApps.defaultApplications = {
