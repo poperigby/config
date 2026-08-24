@@ -4,27 +4,10 @@
         provides.to-users.includes = with den.aspects; [
             # Profiles
             common
-            gui
 
             # Desktop
-            desktops._.niri
-            (programs._.dms {
+            (desktops._.niri {
                 wallpaper = ./wallpaper.jpg;
-                settings = {
-                    activeDisplayProfile = { };
-                    displayProfiles = { };
-                    displayProfileAutoSelect = false;
-                    niriOutputSettings = { };
-                    screenPreferences.wallpaper = [ "all" ];
-                    showBattery = true;
-                    showGpuTemp = false;
-                    systemMonitorShowGpuTemp = false;
-                    systemMonitorGpuPciId = "";
-                    enabledGpuPciIds = [ ];
-                    selectedGpuIndex = 0;
-                    matugenTargetMonitor = "";
-                    lockScreenActiveMonitor = "all";
-                };
             })
 
             # System

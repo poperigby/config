@@ -10,12 +10,10 @@
         provides.to-users.includes = with den.aspects; [
             # Profiles
             common
-            gui
             gaming
 
             # Desktop
-            desktops._.niri
-            (programs._.noctalia {
+            (desktops._.niri {
                 wallpaper = ./wallpaper.jpg;
             })
 
@@ -194,6 +192,12 @@
                 }:
                 let
                     hushmic = inputs'.hushmic.packages.default;
+                    signalAutostart = pkgs.local.modifyDesktopEntry {
+                        package = pkgs.signal-desktop;
+                        desktopFile = "signal.desktop";
+                        outputFile = "signal-start-in-tray.desktop";
+                        replace.Exec = "${lib.getExe pkgs.signal-desktop} --start-in-tray %U";
+                    };
                     steam = osConfig.programs.steam.package;
                     steamAutostart = pkgs.local.modifyDesktopEntry {
                         package = steam;
@@ -222,10 +226,9 @@
                                 inherit (lib.local.desktop) filePath filePath';
                             in
                             (with pkgs; [
-                                (filePath ckb-next)
                                 (filePath hushmic)
                                 (filePath' local.android-messages-desktop "pw.kmr.amd")
-                                (filePath' signal-desktop "signal")
+                                (filePath' signalAutostart "signal-start-in-tray")
                                 (filePath' steamAutostart "steam-silent-autostart")
                             ]);
                     };
