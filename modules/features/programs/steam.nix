@@ -1,29 +1,25 @@
-{ inputs, ... }:
+{ ... }:
+
 {
     flake-file.inputs = {
         proton-cachyos = {
             url = "github:Daaboulex/proton-cachyos-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        millennium.url = "github:NixOS/nixpkgs/pull/538226/head";
+        nixpkgs-patch-millenium = {
+            url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
+            flake = false;
+        };
     };
 
     den.aspects.programs.provides.steam = {
         nixos =
             { inputs', pkgs, ... }:
-            let
-                millennium = pkgs.callPackage (inputs.millennium + "/pkgs/by-name/mi/millennium/package.nix") { };
-                steamWithMillennium =
-                    pkgs.callPackage (inputs.millennium + "/pkgs/by-name/st/steamWithMillennium/package.nix")
-                        {
-                            inherit millennium;
-                        };
-            in
             {
                 programs = {
                     steam = {
                         enable = true;
-                        package = steamWithMillennium;
+                        package = pkgs.steamWithMillennium;
                         extraCompatPackages = with pkgs; [
                             inputs'.proton-cachyos.packages.default
                             proton-ge-bin

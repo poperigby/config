@@ -27,7 +27,6 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    millennium.url = "github:NixOS/nixpkgs/pull/538226/head";
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +45,11 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
+    nixpkgs-patch-millenium = {
+      url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
+      flake = false;
+    };
+    nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     openmw-nix = {

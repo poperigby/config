@@ -677,22 +677,6 @@
         "type": "github"
       }
     },
-    "millennium": {
-      "locked": {
-        "lastModified": 1786996545,
-        "narHash": "sha256-Tg5Afb8wa3T8qA4jbbQJR4pvLudR2SogBmdgsPkHjCU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "69b7dec4b171b0a0920b74fbfc34119322773704",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "pull/538226/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "mygui": {
       "locked": {
         "lastModified": 1716480759,
@@ -1018,6 +1002,33 @@
         "owner": "NixOS",
         "ref": "nixos-26.05",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-patch-millenium": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-mUbcdVJUTdgZZxsmdGB5MtNmLp8qAil/vCAaL9/8wSg=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/538226.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/538226.diff"
+      }
+    },
+    "nixpkgs-patcher": {
+      "locked": {
+        "lastModified": 1787266535,
+        "narHash": "sha256-uvnBghsG8XzMEwW8PH2GnPQRBOxQEyHi6OEMmkx5GSY=",
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
+        "rev": "5f1edc3a7b554c2ddef7e2a79af97dec707c825a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gepbird",
+        "repo": "nixpkgs-patcher",
         "type": "github"
       }
     },
@@ -1384,7 +1395,6 @@
         "import-tree": "import-tree",
         "jj-starship": "jj-starship",
         "lanzaboote": "lanzaboote",
-        "millennium": "millennium",
         "nix": "nix",
         "nix-colors": "nix-colors",
         "nix-flatpak": "nix-flatpak",
@@ -1394,6 +1404,8 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-multiverse": "nixpkgs-multiverse",
+        "nixpkgs-patch-millenium": "nixpkgs-patch-millenium",
+        "nixpkgs-patcher": "nixpkgs-patcher",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "openmw-nix": "openmw-nix",
