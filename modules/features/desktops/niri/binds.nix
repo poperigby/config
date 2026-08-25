@@ -133,8 +133,8 @@
             "Mod+R".switch-preset-column-width = { };
             "Mod+Shift+R".switch-preset-column-width-back = { };
 
-            "Mod+BracketLeft".consume-or-expel-window-left = { };
-            "Mod+BracketRight".consume-or-expel-window-right = { };
+            "Mod+Shift+H".consume-or-expel-window-left = { };
+            "Mod+Shift+L".consume-or-expel-window-right = { };
 
             "Mod+D".toggle-window-floating = { };
             "Mod+Shift+D".switch-focus-between-floating-and-tiling = { };
