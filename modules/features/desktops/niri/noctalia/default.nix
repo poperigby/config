@@ -11,7 +11,6 @@
         }:
         {
             includes = [
-                den.aspects.compositors._.niri
                 (den.aspects.shells._.noctalia.settings {
                     inherit wallpaper;
                 })

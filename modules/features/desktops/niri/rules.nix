@@ -1,6 +1,6 @@
-{ den, ... }:
+{ ... }:
 {
-    den.aspects.compositors.provides.niri.rules.homeManager = {
+    den.aspects.desktops.provides.niri.rules.homeManager = {
         wayland.windowManager.niri.settings._children = [
             {
                 window-rule._children = [
