@@ -10,7 +10,7 @@
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     flux = {
       url = "github:IogaMaster/flux";
@@ -45,7 +45,6 @@
     nixcord.url = "github:kaylorben/nixcord";
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-    nixpkgs-lib.follows = "nixpkgs";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";

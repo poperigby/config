@@ -13,21 +13,21 @@
     flake-file.inputs = {
         nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
         nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
-        nixpkgs-lib.follows = "nixpkgs";
-
-        flake-parts = {
-            url = "github:hercules-ci/flake-parts";
-            inputs.nixpkgs-lib.follows = "nixpkgs-lib";
-        };
-
-        import-tree.url = "github:vic/import-tree";
-
-        flake-file.url = "github:vic/flake-file";
-        den.url = "github:vic/den";
 
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        den.url = "github:vic/den";
+
+        flake-parts = {
+            url = "github:hercules-ci/flake-parts";
+            inputs.nixpkgs-lib.follows = "nixpkgs";
+        };
+
+        flake-file.url = "github:vic/flake-file";
+
+        import-tree.url = "github:vic/import-tree";
     };
 }

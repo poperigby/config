@@ -292,7 +292,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "nixpkgs-lib"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -1393,9 +1393,6 @@
         "nixcord": "nixcord",
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_7",
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ],
         "nixpkgs-multiverse": "nixpkgs-multiverse",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
