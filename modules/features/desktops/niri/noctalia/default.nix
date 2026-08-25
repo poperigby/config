@@ -78,26 +78,25 @@
                                 "launcher"
                             ];
                         };
-                        # "Mod+N" = {
-                        #     _props.hotkey-overlay-title = "Notification Center";
-                        #     spawn = [
-                        #         "noctalia"
-                        #         "msg"
-                        #         "call"
-                        #         "notifications"
-                        #         "toggle"
-                        #     ];
-                        # };
-                        # "Mod+V" = {
-                        #     _props.hotkey-overlay-title = "Clipboard Manager";
-                        #     spawn = [
-                        #         "noctalia"
-                        #         "msg"
-                        #         "call"
-                        #         "clipboard"
-                        #         "toggle"
-                        #     ];
-                        # };
+                        "Mod+N" = {
+                            _props.hotkey-overlay-title = "Notification Center";
+                            spawn = [
+                                "noctalia"
+                                "msg"
+                                "panel-toggle"
+                                "control-center"
+                                "notifications"
+                            ];
+                        };
+                        "Mod+V" = {
+                            _props.hotkey-overlay-title = "Clipboard Manager";
+                            spawn = [
+                                "noctalia"
+                                "msg"
+                                "panel-toggle"
+                                "clipboard"
+                            ];
+                        };
                         "XF86AudioRaiseVolume" = {
                             _props.allow-when-locked = true;
                             spawn = [
