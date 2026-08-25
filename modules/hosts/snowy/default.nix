@@ -191,19 +191,28 @@
                     ...
                 }:
                 let
+                    inherit (lib) getExe;
+
                     hushmic = inputs'.hushmic.packages.default;
+                    steam = osConfig.programs.steam.package;
+
+                    hushmicAutostart = pkgs.local.modifyDesktopEntry {
+                        package = hushmic;
+                        desktopFile = "hushmic.desktop";
+                        outputFile = "hushmic-autostart-tray.desktop";
+                        replace.Exec = "${getExe hushmic} --tray";
+                    };
                     signalAutostart = pkgs.local.modifyDesktopEntry {
                         package = pkgs.signal-desktop;
                         desktopFile = "signal.desktop";
                         outputFile = "signal-start-in-tray.desktop";
-                        replace.Exec = "${lib.getExe pkgs.signal-desktop} --start-in-tray %U";
+                        replace.Exec = "${getExe pkgs.signal-desktop} --start-in-tray %U";
                     };
-                    steam = osConfig.programs.steam.package;
                     steamAutostart = pkgs.local.modifyDesktopEntry {
                         package = steam;
                         desktopFile = "steam.desktop";
                         outputFile = "steam-silent-autostart.desktop";
-                        replace.Exec = "${lib.getExe steam} -silent";
+                        replace.Exec = "${getExe steam} -silent";
                     };
                 in
                 {
@@ -223,10 +232,10 @@
                         enable = true;
                         entries =
                             let
-                                inherit (lib.local.desktop) filePath filePath';
+                                inherit (lib.local.desktop) filePath';
                             in
                             (with pkgs; [
-                                (filePath hushmic)
+                                (filePath' hushmicAutostart "hushmic-autostart-tray")
                                 (filePath' local.android-messages-desktop "pw.kmr.amd")
                                 (filePath' signalAutostart "signal-start-in-tray")
                                 (filePath' steamAutostart "steam-silent-autostart")
