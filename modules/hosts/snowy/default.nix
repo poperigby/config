@@ -13,7 +13,7 @@
             gaming
 
             # Desktop
-            (desktops._.niri {
+            (shells._.noctalia {
                 wallpaper = ./wallpaper.jpg;
             })
 

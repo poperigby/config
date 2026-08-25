@@ -1,8 +1,7 @@
 { inputs, ... }:
 {
-    den.aspects.programs.provides.noctalia.settings =
+    den.aspects.shells.provides.noctalia.settings =
         {
-            settings ? { },
             wallpaper ? null,
         }:
         {
@@ -236,8 +235,7 @@
                                 };
                                 behavior_order = [ "lock-and-turn-off-screen" ];
                             };
-                        }
-                        // settings;
+                        };
                     };
                 };
         };

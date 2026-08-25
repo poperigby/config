@@ -1,6 +1,6 @@
 { den, ... }:
 {
-    den.aspects.desktops.provides.niri.binds.homeManager = {
+    den.aspects.compositors.provides.niri.binds.homeManager = {
         wayland.windowManager.niri.settings.binds = {
             "Mod+Shift+Slash".show-hotkey-overlay = { };
 

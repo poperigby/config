@@ -5,15 +5,15 @@
         noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
     };
 
-    den.aspects.programs.provides.noctalia =
+    den.aspects.shells.provides.noctalia =
         {
-            settings ? { },
             wallpaper ? null,
         }:
         {
             includes = [
-                (den.aspects.programs._.noctalia.settings {
-                    inherit settings wallpaper;
+                den.aspects.compositors._.niri
+                (den.aspects.shells._.noctalia.settings {
+                    inherit wallpaper;
                 })
             ];
 
