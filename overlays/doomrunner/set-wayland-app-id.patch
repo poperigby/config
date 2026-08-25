@@ -1,0 +1,15 @@
+diff --git a/Sources/MainWindow.cpp b/Sources/MainWindow.cpp
+index 468239c..2cbff97 100644
+--- a/Sources/MainWindow.cpp
++++ b/Sources/MainWindow.cpp
+@@ -875,9 +875,7 @@ MainWindow::MainWindow( QWidget * parent ) :
+ 
+ 	this->setWindowTitle( windowTitle() + ' ' + appVersion );
+ 
+- #if IS_FLATPAK_BUILD
+-	QGuiApplication::setDesktopFileName("io.github.Youda008.DoomRunner");
+- #endif
++	QGuiApplication::setDesktopFileName("DoomRunner");
+ 
+  #if !IS_WINDOWS
+ 	// On Windows the application icon is already set using the Windows resource system, so loading this resource
