@@ -33,6 +33,7 @@
 
             homeManager =
                 {
+                    lib,
                     pkgs,
                     ...
                 }:
@@ -162,6 +163,20 @@
                     };
 
                     dconf.settings."org/gnome/desktop/interface".accent-color = "yellow";
+
+                    systemd.user.services.niri-maximize-if-alone = {
+                        Unit = {
+                            Description = "Maximize new niri windows when they are alone on a workspace";
+                            PartOf = [ "graphical-session.target" ];
+                            After = [ "graphical-session.target" ];
+                        };
+                        Service = {
+                            Type = "simple";
+                            ExecStart = lib.getExe pkgs.local.niri-maximize-if-alone;
+                            Restart = "on-failure";
+                        };
+                        Install.WantedBy = [ "graphical-session.target" ];
+                    };
 
                     xdg.mimeApps.defaultApplications = {
                         "image/jpeg" = "oculante.desktop";

@@ -4,7 +4,6 @@
         wayland.windowManager.niri.settings._children = [
             {
                 window-rule._children = [
-                    { open-maximized = true; }
                     { geometry-corner-radius = 8.0; }
                     { clip-to-geometry = true; }
                 ];
