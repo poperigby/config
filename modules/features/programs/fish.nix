@@ -59,10 +59,7 @@
                     plugins = with pkgs.fishPlugins; [
                         {
                             name = "done";
-                            src = pkgs.applyPatches {
-                                src = done.src;
-                                patches = [ ./done-wezterm-notify-send.patch ];
-                            };
+                            src = done.src;
                         }
                     ];
                     functions.sudo = {
