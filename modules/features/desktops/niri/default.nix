@@ -24,6 +24,9 @@
                         dconf.enable = true;
                     };
 
+                    # Polkit agent
+                    security.soteria.enable = true;
+
                     environment.systemPackages = with pkgs; [
                         adw-gtk3
                         papirus-icon-theme
@@ -41,7 +44,6 @@
                     wayland.windowManager.niri = {
                         enable = true;
                         settings = {
-
                             cursor = {
                                 xcursor-theme = "Adwaita";
                                 xcursor-size = 20;

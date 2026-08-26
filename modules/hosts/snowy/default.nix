@@ -222,7 +222,7 @@
                     wayland.windowManager.niri.settings._children = [
                         {
                             output = {
-                                _args = [ "DP-1" ];
+                                _args = [ "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868" ];
                                 mode = "2560x1440@164.834";
                                 variable-refresh-rate = { };
                             };
