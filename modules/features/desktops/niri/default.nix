@@ -164,15 +164,15 @@
 
                     dconf.settings."org/gnome/desktop/interface".accent-color = "yellow";
 
-                    systemd.user.services.niri-maximize-if-alone = {
+                    systemd.user.services.oniri = {
                         Unit = {
-                            Description = "Maximize new niri windows when they are alone on a workspace";
+                            Description = "Maximize the only niri window on a workspace";
                             PartOf = [ "graphical-session.target" ];
                             After = [ "graphical-session.target" ];
                         };
                         Service = {
                             Type = "simple";
-                            ExecStart = lib.getExe pkgs.local.niri-maximize-if-alone;
+                            ExecStart = lib.getExe pkgs.local.oniri;
                             Restart = "on-failure";
                         };
                         Install.WantedBy = [ "graphical-session.target" ];
