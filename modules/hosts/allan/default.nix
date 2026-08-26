@@ -96,46 +96,24 @@
         ];
 
         nixos = {
-            # Enable NetworkManager
             networking.networkmanager.enable = true;
 
-            # Roaming friendly time synchronization daemon
-            services.ntpd-rs = {
-                enable = true;
-                settings.source-defaults.initial-poll-interval = 0;
+            services = {
+                # Roaming friendly time synchronization daemon
+                ntpd-rs = {
+                    enable = true;
+                    settings.source-defaults.initial-poll-interval = 0;
+                };
+                automatic-timezoned.enable = true;
+                fprintd.enable = true;
+                thermald.enable = true;
+                fwupd = {
+                    enable = true;
+                    # Required to get firmware updates for Intel CPUs
+                    extraRemotes = [ "lvfs-testing" ];
+                };
             };
 
-            # Automatically change timezone based on location
-            services.automatic-timezoned.enable = true;
-
-            virtualisation.docker.enable = true;
-
-            # Power saving
-            services.thermald.enable = true;
-            # services.auto-cpufreq = {
-            #   enable = true;
-            #   settings = {
-            #     battery = {
-            #       governor = "powersave";
-            #       turbo = "never";
-            #     };
-            #     charger = {
-            #       governor = "performance";
-            #       turbo = "auto";
-            #     };
-            #   };
-            # };
-
-            # Firmware updating
-            services.fwupd = {
-                enable = true;
-                # Required to get firmware updates for Intel CPUs
-                extraRemotes = [ "lvfs-testing" ];
-            };
-
-            boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-            # System state version
             system.stateVersion = "23.11";
         };
 
