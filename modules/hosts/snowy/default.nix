@@ -84,6 +84,7 @@
 
             # Gaming
             gaming._.morrowind
+            programs._.gpu-screen-recorder.niri
             (services._.ludusavi {
                 settings = {
                     manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";

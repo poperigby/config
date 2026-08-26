@@ -2,6 +2,7 @@
 {
     den.aspects.gaming = {
         includes = with den.aspects; [
+            programs._.gpu-screen-recorder
             programs._.mangohud
             programs._.steam
             services._.joystickwake
@@ -16,7 +17,6 @@
             {
                 home.packages = with pkgs; [
                     doomrunner
-                    gpu-screen-recorder-gtk
                     heroic
                     libstrangle
                     local.jackify
