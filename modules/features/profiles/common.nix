@@ -72,6 +72,7 @@
                         jq
                         just
                         lazygit
+                        local.new-project
                         local.toml2nix
                         local.yaml2nix
                         net-tools
