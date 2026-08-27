@@ -41,10 +41,6 @@
                 };
 
                 home = {
-                    packages = with pkgs; [
-                        # Bash compatibility layer
-                        reef
-                    ];
                     sessionVariables.fish_greeting = "";
                 };
             };
