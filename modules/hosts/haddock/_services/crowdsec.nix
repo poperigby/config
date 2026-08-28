@@ -1,6 +1,5 @@
 {
     config,
-    inputs,
     lib,
     pkgs,
     ...
@@ -10,10 +9,6 @@
     services = {
         crowdsec = {
             enable = true;
-            # Keep the package and rewritten module from the same PR revision;
-            # the setup service relies on notification plugins added by that
-            # package derivation.
-            package = inputs.crowdsec.legacyPackages.${pkgs.stdenv.hostPlatform.system}.crowdsec;
             autoUpdateService = true;
             # Give CrowdSec access to audit logs and systemd journal sources.
             extraGroups = [

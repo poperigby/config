@@ -5,8 +5,12 @@
 }:
 {
     flake-file.inputs = {
-        nixpkgs-patch-crowdsec = {
-            url = "https://github.com/NixOS/nixpkgs/pull/535319.diff";
+        nixpkgs-patch-crowdsec-10-core = {
+            url = "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff";
+            flake = false;
+        };
+        nixpkgs-patch-crowdsec-20-default-text = {
+            url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
             flake = false;
         };
         flux = {
@@ -96,8 +100,6 @@
             {
                 imports = [
                     (inputs.import-tree ./_services)
-                    (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec-firewall-bouncer.nix")
-                    (inputs.crowdsec.outPath + "/nixos/modules/services/security/crowdsec.nix")
                     inputs.flux.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     inputs.vpn-confinement.nixosModules.default

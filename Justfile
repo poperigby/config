@@ -6,6 +6,10 @@ switch:
 test:
    nh os test .
 
+# Write the flake.nix based on flake-file inputs
+write-flake:
+    nix run .#write-flake
+
 # Switch to the current configuration, and show the trace
 debug:
     nh os switch . -- --show-trace
@@ -27,10 +31,6 @@ upgrade +input="":
 sync:
     jj pull
     nh os switch .
-
-# Garbage collect the Nix store
-clean:
-    nh clean all
 
 # Build my recovery/install ISO
 build-skut:

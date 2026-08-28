@@ -78,22 +78,6 @@
         "type": "github"
       }
     },
-    "crowdsec": {
-      "locked": {
-        "lastModified": 1781346399,
-        "narHash": "sha256-iEQ6kf7Pzxq9jyEgEDP9MB2fayckqJTcNtMDLVpkREg=",
-        "owner": "TornaxO7",
-        "repo": "nixpkgs",
-        "rev": "72de654bfafff415d5d9faabd29276310b70d349",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TornaxO7",
-        "ref": "crowdsec",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "den": {
       "locked": {
         "lastModified": 1786475005,
@@ -1005,7 +989,31 @@
         "type": "github"
       }
     },
-    "nixpkgs-patch-millenium": {
+    "nixpkgs-patch-crowdsec-10-core": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-BWuAvZgMmE0DnlNUPIbJDUkViQxqFN3k00AY8D0HbRw=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff"
+      }
+    },
+    "nixpkgs-patch-crowdsec-20-default-text": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-tILCpOUYeUtgrz0u0JWRrf4RK41/HvcWaz2bxw24pJU=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff"
+      }
+    },
+    "nixpkgs-patch-millennium": {
       "flake": false,
       "locked": {
         "narHash": "sha256-mUbcdVJUTdgZZxsmdGB5MtNmLp8qAil/vCAaL9/8wSg=",
@@ -1384,7 +1392,6 @@
     },
     "root": {
       "inputs": {
-        "crowdsec": "crowdsec",
         "den": "den",
         "disko": "disko",
         "flake-file": "flake-file",
@@ -1404,7 +1411,9 @@
         "nixos-raspberrypi": "nixos-raspberrypi",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-multiverse": "nixpkgs-multiverse",
-        "nixpkgs-patch-millenium": "nixpkgs-patch-millenium",
+        "nixpkgs-patch-crowdsec-10-core": "nixpkgs-patch-crowdsec-10-core",
+        "nixpkgs-patch-crowdsec-20-default-text": "nixpkgs-patch-crowdsec-20-default-text",
+        "nixpkgs-patch-millennium": "nixpkgs-patch-millennium",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",

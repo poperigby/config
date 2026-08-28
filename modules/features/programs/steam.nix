@@ -6,7 +6,7 @@
             url = "github:Daaboulex/proton-cachyos-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        nixpkgs-patch-millenium = {
+        nixpkgs-patch-millennium = {
             url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
             flake = false;
         };

@@ -4,7 +4,6 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    crowdsec.url = "github:TornaxO7/nixpkgs/crowdsec";
     den.url = "github:vic/den";
     disko.url = "github:nix-community/disko";
     flake-file.url = "github:vic/flake-file";
@@ -45,7 +44,15 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
-    nixpkgs-patch-millenium = {
+    nixpkgs-patch-crowdsec-10-core = {
+      url = "https://github.com/NixOS/nixpkgs/compare/10b3b48b25f0e71e900acfce5892014029bc6bfb...382c503f7237dad92d3be8cf966c695141c92ed0.diff";
+      flake = false;
+    };
+    nixpkgs-patch-crowdsec-20-default-text = {
+      url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
+      flake = false;
+    };
+    nixpkgs-patch-millennium = {
       url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
       flake = false;
     };
