@@ -25,6 +25,7 @@
                     protontricks
                     r2modman
                     shadps4
+                    slade-unstable
                     uzdoom
                     vkquake
                 ];
