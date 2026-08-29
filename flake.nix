@@ -72,11 +72,6 @@
       url = "github:Daaboulex/proton-cachyos-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops.url = "github:Mic92/sops-nix";
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ucodenix.url = "github:e-tho/ucodenix";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
   };

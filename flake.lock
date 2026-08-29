@@ -93,21 +93,6 @@
         "type": "github"
       }
     },
-    "den_2": {
-      "locked": {
-        "lastModified": 1774597022,
-        "narHash": "sha256-QEYG3SBlX35TDVV/wyBonrEDEK4Mr3dtXSfnzvM0lII=",
-        "owner": "vic",
-        "repo": "den",
-        "rev": "b7f910ab47260c91a0ae8d55fa72cd2178ba2458",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "repo": "den",
-        "type": "github"
-      }
-    },
     "disko": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -258,21 +243,6 @@
         "type": "github"
       }
     },
-    "flake-file_2": {
-      "locked": {
-        "lastModified": 1773637821,
-        "narHash": "sha256-Cp1x/5/97iNjXOI5hLCA51BwR6hc1dWJiZp4VPogkTw=",
-        "owner": "vic",
-        "repo": "flake-file",
-        "rev": "bb9fbe00ba6a1945fbdd6973c2585ab770f404b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "repo": "flake-file",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -336,7 +306,7 @@
       "inputs": {
         "nixpkgs-lib": [
           "private-config",
-          "nixpkgs-lib"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -531,27 +501,6 @@
         "type": "github"
       }
     },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
-          "private-config",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1774647770,
-        "narHash": "sha256-UNNi14XiqRWWjO8ykbFwA5wRwx7EscsC+GItOVpuGjc=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "02371c05a04a2876cf92e2d67a259e8f87399068",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "hushmic": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -577,21 +526,6 @@
         "owner": "vic",
         "repo": "import-tree",
         "rev": "4ebb10ae17d5f1ad366e7aef5b92cb8eecf24f69",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vic",
-        "repo": "import-tree",
-        "type": "github"
-      }
-    },
-    "import-tree_2": {
-      "locked": {
-        "lastModified": 1773693634,
-        "narHash": "sha256-BtZ2dtkBdSUnFPPFc+n0kcMbgaTxzFNPv2iaO326Ffg=",
-        "owner": "vic",
-        "repo": "import-tree",
-        "rev": "c41e7d58045f9057880b0d85e1152d6a4430dbf1",
         "type": "github"
       },
       "original": {
@@ -1085,38 +1019,6 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_12": {
-      "locked": {
-        "lastModified": 1773840656,
-        "narHash": "sha256-9tpvMGFteZnd3gRQZFlRCohVpqooygFuy9yjuyRL2C0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9cf7092bdd603554bd8b63c216e8943cf9b12512",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_13": {
-      "locked": {
-        "lastModified": 1782175435,
-        "narHash": "sha256-EMzXKmnOtBQ2MnvpiNOm7E+kOMvdPrIKaeg52Tip2Uk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "89570f24e97e614aa34aa9ab1c927b6578a43775",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1757347588,
@@ -1340,24 +1242,16 @@
     },
     "private-config": {
       "inputs": {
-        "den": "den_2",
-        "flake-file": "flake-file_2",
         "flake-parts": "flake-parts_4",
-        "home-manager": "home-manager_2",
-        "import-tree": "import-tree_2",
         "nixpkgs": "nixpkgs_11",
-        "nixpkgs-lib": [
-          "private-config",
-          "nixpkgs"
-        ],
-        "sops": "sops"
+        "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1786308347,
-        "narHash": "sha256-7ix1P1sy9iccDvKiFH2JBZL5b2+w5UaHr/niYnuGdnY=",
+        "lastModified": 1788040821,
+        "narHash": "sha256-gZuH37/Jf+SBky4S+PG8bAi3RZuNMdy4ETKFl/6nxE4=",
         "ref": "trunk",
-        "rev": "68aa4161cced8fef2e832d50140594852b1e2dcc",
-        "revCount": 31,
+        "rev": "3fa75f1580903a58dd9532575aed3c47c9dcc082",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://git@codeberg.org/PopeRigby/private-config.git"
       },
@@ -1421,8 +1315,6 @@
         "piggyback": "piggyback",
         "private-config": "private-config",
         "proton-cachyos": "proton-cachyos",
-        "sops": "sops_2",
-        "sops-nix": "sops-nix",
         "ucodenix": "ucodenix",
         "vpn-confinement": "vpn-confinement"
       }
@@ -1488,47 +1380,12 @@
         "type": "github"
       }
     },
-    "sops": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_12"
-      },
-      "locked": {
-        "lastModified": 1774303811,
-        "narHash": "sha256-fhG4JAcLgjKwt+XHbjs8brpWnyKUfU4LikLm3s0Q/ic=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "614e256310e0a4f8a9ccae3fa80c11844fba7042",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
-      }
-    },
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
+          "private-config",
           "nixpkgs"
         ]
-      },
-      "locked": {
-        "lastModified": 1786629091,
-        "narHash": "sha256-gkig4nPi1CWc4Z50GBsjE4ygSE7hMpl/TwID2an2Cck=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "a8627b21b9107c5711c96b84f32a9a4b3d45295f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "sops_2": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_13"
       },
       "locked": {
         "lastModified": 1786629091,

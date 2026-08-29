@@ -12,39 +12,27 @@ let
 
     stateVersion = "25.11";
 
+    privateInfo = inputs.private-config.privateInfo;
+
+    # Local library definitions
     localLib = config.flake.lib.local;
     nixosLib = lib // {
         local = localLib;
     };
-    homeManagerLib = (import (inputs.home-manager + "/modules/lib/stdlib-extended.nix") nixosLib) // {
+    homeLib = (import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" nixosLib) // {
         local = localLib;
     };
-
-    localNixosSystem =
-        args:
-        let
-            # Den provides host-specific nixosSystem arguments. Preserve any extra
-            # specialArgs, then add the repo-wide inputs and extended lib.
-            specialArgs =
-                (args.specialArgs or { })
-                // inputs
-                // {
-                    lib = nixosLib;
-                };
-        in
-        inputs.nixpkgs-patcher.lib.nixosSystem (args // { inherit specialArgs; });
 in
 {
     flake-file.inputs = {
         disko.url = "github:nix-community/disko";
+        private-config.url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
         ucodenix.url = "github:e-tho/ucodenix";
     };
 
     den = {
         default = {
             includes = [
-                den.aspects.sops
-
                 # Batteries: https://den.denful.dev/guides/batteries
                 den.batteries.define-user
                 den.batteries.hostname
@@ -59,11 +47,13 @@ in
                 {
                     imports = [
                         inputs.disko.nixosModules.disko
+                        inputs.private-config.nixosModules.default
                         inputs.ucodenix.nixosModules.default
                     ];
 
-                    # Some legacy NixOS modules still expect the full `inputs` set.
-                    _module.args.inputs = inputs;
+                    _module.args = {
+                        inherit inputs privateInfo;
+                    };
 
                     nixpkgs.config.allowUnfree = true;
 
@@ -72,14 +62,19 @@ in
                 # Wire in local library to home-manager through an argument.
                 # Only applies to hosts that have home-manager enabled.
                 // optionalAttrs (host."home-manager".enable or false) {
-                    home-manager.extraSpecialArgs.lib = homeManagerLib;
+                    home-manager.extraSpecialArgs.lib = homeLib;
                 };
 
             homeManager =
                 { ... }:
                 {
-                    # Some legacy HM modules still expect the full `inputs` set.
-                    _module.args.inputs = inputs;
+                    imports = [
+                        inputs.private-config.homeModules.default
+                    ];
+
+                    _module.args = {
+                        inherit inputs privateInfo;
+                    };
 
                     nixpkgs.config.allowUnfree = true;
 
@@ -92,12 +87,26 @@ in
                 (
                     { config, ... }:
                     mkIf (config.class == "nixos") {
-                        instantiate = mkDefault localNixosSystem;
+                        instantiate = mkDefault (
+                            args:
+                            let
+                                # Den provides host-specific nixosSystem arguments. Preserve any extra
+                                # specialArgs, then add the repo-wide inputs and extended lib.
+                                specialArgs =
+                                    (args.specialArgs or { })
+                                    // inputs
+                                    // {
+                                        lib = nixosLib;
+                                    };
+                            in
+                            inputs.nixpkgs-patcher.lib.nixosSystem (args // { inherit specialArgs; })
+                        );
                     }
                 )
             ];
 
-            # Enable home-manager for all hosts
+            # Add Den's Home Manager class to users by default, so each user gets a
+            # Home Manager module evaluation in addition to their NixOS user config.
             user.classes = mkDefault [ "homeManager" ];
         };
     };
