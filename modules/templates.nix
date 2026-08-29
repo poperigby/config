@@ -1,13 +1,19 @@
 { lib, ... }:
 
 let
+    inherit (lib)
+        filterAttrs
+        mapAttrs
+        toSentenceCase
+        ;
+
     templatesDir = ../templates;
     entries = if builtins.pathExists templatesDir then builtins.readDir templatesDir else { };
-    templateDirs = lib.filterAttrs (_: type: type == "directory") entries;
+    templateDirs = filterAttrs (_: type: type == "directory") entries;
 in
 {
-    flake.templates = lib.mapAttrs (name: _: {
+    flake.templates = mapAttrs (name: _: {
         path = templatesDir + "/${name}";
-        description = name;
+        description = toSentenceCase name;
     }) templateDirs;
 }
