@@ -10,11 +10,19 @@
 let
     inherit (lib) mkDefault mkIf optionalAttrs;
 
+    # Configuration shared between NixOS and Home Manager
     stateVersion = "25.11";
+    moduleArgs = {
+        inherit inputs;
+        privateInfo = inputs.private-config.privateInfo;
+    };
+    nixpkgsDefaults = {
+        config.allowUnfree = true;
+        # We can use the overlay exposed by the flake in overlay.nix
+        overlays = [ config.flake.overlays.default ];
+    };
 
-    privateInfo = inputs.private-config.privateInfo;
-
-    # Local library definitions
+    # Extend the upstream libraries with local functions
     localLib = config.flake.lib.local;
     nixosLib = lib // {
         local = localLib;
@@ -51,11 +59,8 @@ in
                         inputs.ucodenix.nixosModules.default
                     ];
 
-                    _module.args = {
-                        inherit inputs privateInfo;
-                    };
-
-                    nixpkgs.config.allowUnfree = true;
+                    _module.args = moduleArgs;
+                    nixpkgs = nixpkgsDefaults;
 
                     system.stateVersion = mkDefault stateVersion;
                 }
@@ -72,11 +77,8 @@ in
                         inputs.private-config.homeModules.default
                     ];
 
-                    _module.args = {
-                        inherit inputs privateInfo;
-                    };
-
-                    nixpkgs.config.allowUnfree = true;
+                    _module.args = moduleArgs;
+                    nixpkgs = nixpkgsDefaults;
 
                     home.stateVersion = mkDefault stateVersion;
                 };
@@ -90,23 +92,31 @@ in
                         instantiate = mkDefault (
                             args:
                             let
-                                # Den provides host-specific nixosSystem arguments. Preserve any extra
-                                # specialArgs, then add the repo-wide inputs and extended lib.
-                                specialArgs =
-                                    (args.specialArgs or { })
-                                    // inputs
-                                    // {
-                                        lib = nixosLib;
-                                    };
+                                denSpecialArgs = args.specialArgs or { };
+
+                                # Extend Den's nixosSystem arguments with the merged local library
+                                specialArgs = denSpecialArgs // {
+                                    lib = nixosLib;
+                                };
+
+                                # Supply flake inputs to nixpkgs-patcher
+                                nixpkgsPatcher = (args.nixpkgsPatcher or { }) // {
+                                    inherit inputs;
+                                };
                             in
-                            inputs.nixpkgs-patcher.lib.nixosSystem (args // { inherit specialArgs; })
+                            inputs.nixpkgs-patcher.lib.nixosSystem (
+                                args
+                                // {
+                                    inherit nixpkgsPatcher specialArgs;
+                                }
+                            )
                         );
                     }
                 )
             ];
 
             # Add Den's Home Manager class to users by default, so each user gets a
-            # Home Manager module evaluation in addition to their NixOS user config.
+            # Home Manager module evaluation in addition to their NixOS user configuration.
             user.classes = mkDefault [ "homeManager" ];
         };
     };

@@ -76,24 +76,21 @@ let
     ];
 in
 {
-    den.default = {
-        # Den applies these defaults to both NixOS and Home Manager evaluations,
-        # so pkgs.local is available from either module system.
-        nixos.nixpkgs.overlays = overlays;
-        homeManager.nixpkgs.overlays = overlays;
-    };
+    flake = {
+        overlays.default = composeManyExtensions overlays;
 
-    # pkgs.local can hold pkgs-scoped helpers alongside packages. Flake package
-    # outputs must stay derivations so `nix flake show` and `nix build` see a
-    # valid package set.
-    flake.packages = genAttrs systems.flakeExposed (
-        system:
-        let
-            pkgs = import inputs.nixpkgs {
-                inherit system overlays;
-                config.allowUnfree = true;
-            };
-        in
-        filterAttrs (_: isDerivation) pkgs.local
-    );
+        # pkgs.local can hold pkgs-scoped helpers alongside packages. Flake package
+        # outputs must stay derivations so `nix flake show` and `nix build` see a
+        # valid package set.
+        packages = genAttrs systems.flakeExposed (
+            system:
+            let
+                pkgs = import inputs.nixpkgs {
+                    inherit system overlays;
+                    config.allowUnfree = true;
+                };
+            in
+            filterAttrs (_: isDerivation) pkgs.local
+        );
+    };
 }

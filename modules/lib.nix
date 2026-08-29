@@ -1,4 +1,4 @@
-# Construct a local library from entries in <root>/lib
+# Constructs a local library from entries in <root>/lib
 
 {
     inputs,
