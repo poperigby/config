@@ -125,6 +125,7 @@
                         };
                     };
 
+                    # FIXME: This should already be set by niri but Steam doesn't seem to pickup the size?
                     home.sessionVariables = {
                         XCURSOR_THEME = "Adwaita";
                         XCURSOR_SIZE = 20;
