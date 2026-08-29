@@ -4,7 +4,14 @@
         homeManager =
             { lib, pkgs, ... }:
             let
-                inherit (lib) readFile;
+                inherit (lib)
+                    getExe
+                    listToAttrs
+                    readFile
+                    removeSuffix
+                    ;
+
+                ouchExe = getExe pkgs.ouch;
             in
             {
                 programs.yazi = {
@@ -21,57 +28,37 @@
                         };
                         opener.extract = [
                             {
-                                run = "ouch d -y \"$@\"";
+                                run = "${ouchExe} d -y %s";
                                 desc = "Extract here with ouch";
                                 for = "unix";
                             }
                         ];
                         plugin.prepend_previewers = [
                             {
-                                mime = "application/*zip";
-                                run = "ouch";
-                            }
-                            {
-                                mime = "application/x-tar";
-                                run = "ouch";
-                            }
-                            {
-                                mime = "application/x-bzip2";
-                                run = "ouch";
-                            }
-                            {
-                                mime = "application/x-7z-compressed";
-                                run = "ouch";
-                            }
-                            {
-                                mime = "application/x-rar";
-                                run = "ouch";
-                            }
-                            {
-                                mime = "application/x-xz";
-                                run = "ouch";
+                                mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}";
+                                run = ouchExe;
                             }
                         ];
                     };
-                    plugins = {
-                        yamb = pkgs.fetchFromGitHub {
-                            owner = "h-hg";
-                            repo = "yamb.yazi";
-                            rev = "22af0033be18eead7b04c2768767d38ccfbaa05b";
-                            hash = "sha256-NMxZ8/7HQgs+BsZeH4nEglWsRH2ibAzq7hRSyrtFDTA=";
-                        };
-                        ouch = pkgs.fetchFromGitHub {
-                            owner = "ndtoan96";
-                            repo = "ouch.yazi";
-                            rev = "v0.6.0";
-                            hash = "sha256-mtXl76a54Deg4cyrD0wr++sD/5b/kCsnJ+ngM6OokTc=";
-                        };
-                        starship = pkgs.yaziPlugins.starship;
-                    };
+                    plugins = listToAttrs (
+                        map
+                            (plugin: {
+                                name = removeSuffix ".yazi" plugin.pname;
+                                value = plugin;
+                            })
+                            (
+                                with pkgs.yaziPlugins;
+                                [
+                                    ouch
+                                    starship
+                                    yamb
+                                ]
+                            )
+                    );
                     keymap.mgr.prepend_keymap = [
                         {
                             on = [ "C" ];
-                            run = "plugin ouch --args=zip";
+                            run = "plugin ouch";
                             desc = "Compress with ouch";
                         }
                         {
