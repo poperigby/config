@@ -105,11 +105,6 @@
                     inputs.vpn-confinement.nixosModules.default
                 ];
 
-                disabledModules = [
-                    "services/security/crowdsec-firewall-bouncer.nix"
-                    "services/security/crowdsec.nix"
-                ];
-
                 nixpkgs.overlays = [ inputs.flux.overlays.default ];
                 flux.enable = true;
 

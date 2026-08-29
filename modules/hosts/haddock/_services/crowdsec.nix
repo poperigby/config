@@ -21,6 +21,7 @@
                 # enroll this engine using a token kept outside the Nix store.
                 config.api.server.online_client.credentials_path =
                     "/var/lib/crowdsec/data/online_api_credentials.yaml";
+                config.config_paths.simulation_path = "/etc/crowdsec/simulation.yaml";
                 console.enrollKeyFile = config.sops.secrets."haddock/crowdsec/enroll_key".path;
                 acquisitions = [
                     {
