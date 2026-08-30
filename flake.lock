@@ -959,6 +959,18 @@
         "url": "https://github.com/NixOS/nixpkgs/pull/538226.diff"
       }
     },
+    "nixpkgs-patch-uzdoom": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-BqIwzFLXf05tQbaHWBSRC4cYdKTI7y4fN2ZT/RGAkJk=",
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/557571.diff"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/NixOS/nixpkgs/pull/557571.diff"
+      }
+    },
     "nixpkgs-patcher": {
       "locked": {
         "lastModified": 1787266535,
@@ -1308,6 +1320,7 @@
         "nixpkgs-patch-crowdsec-10-core": "nixpkgs-patch-crowdsec-10-core",
         "nixpkgs-patch-crowdsec-20-default-text": "nixpkgs-patch-crowdsec-20-default-text",
         "nixpkgs-patch-millennium": "nixpkgs-patch-millennium",
+        "nixpkgs-patch-uzdoom": "nixpkgs-patch-uzdoom",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
