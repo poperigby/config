@@ -175,7 +175,7 @@
                         };
                         Service = {
                             Type = "simple";
-                            ExecStart = lib.getExe pkgs.local.oniri;
+                            ExecStart = "${lib.getExe pkgs.local.oniri} --reclaim-space";
                             Restart = "on-failure";
                         };
                         Install.WantedBy = [ "graphical-session.target" ];
