@@ -32,16 +32,12 @@ sync:
     jj pull
     nh os switch .
 
-# Build my recovery/install ISO
-build-skut:
-    nix build .#nixosConfigurations.skut.config.system.build.isoImage
-
 flash-nestor disk="/dev/sdc":
     sudo -v
-    nix --accept-flake-config build .#installerImages.nestor
+    nix build .#images.aarch64-linux.nestor
 
     sudo dd \
-        if=result/sd-image/nixos-image-nestor-rpi02-kernel.img \
+        if=result/sd-image/nixos-image-rpi02-kernel.img \
         of={{disk}} \
         bs=4M \
         status=progress \
@@ -59,6 +55,7 @@ flash-nestor disk="/dev/sdc":
 
     sync
     sudo umount /mnt/sdroot
+    sudo rm result/sd-image/nixos-image-rpi02-kernel.img
 
 update-nestor:
     nh os switch .#nestor \

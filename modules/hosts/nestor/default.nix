@@ -27,6 +27,23 @@
                     inputs.nixos-raspberrypi.nixosModules.raspberry-pi-02.base
                 ];
 
+                # This image is written directly to the SD card. When booted, it will
+                # deploy the full host configuration.
+                image.modules.rpi-sd =
+                    { lib, ... }:
+                    {
+                        imports = [
+                            inputs.nixos-raspberrypi.nixosModules.sd-image
+                        ];
+
+                        boot.supportedFilesystems = lib.mkForce [
+                            "ext4"
+                            "vfat"
+                        ];
+
+                        sdImage.compressImage = false;
+                    };
+
                 boot = {
                     # We need to force this so we can remove "console=serial0,115200"
                     # https://github.com/nvmd/nixos-raspberrypi/issues/97

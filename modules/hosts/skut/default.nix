@@ -11,21 +11,32 @@
             inherit (lib) mkForce;
         in
         {
-            # Turn this host into an installation ISO; these modules provide the
-            # root FS / bootloader bits that a normal host configuration expects.
             imports = [
-                (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+                (modulesPath + "/profiles/minimal.nix")
+                (modulesPath + "/profiles/installation-device.nix")
             ];
+
+            image.modules.iso =
+                { modulesPath, ... }:
+                {
+                    imports = [
+                        (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+                    ];
+                };
+
+            fileSystems."/" = {
+                device = "tmpfs";
+                fsType = "tmpfs";
+            };
+            boot.loader.grub.devices = [ "nodev" ];
 
             users.users.nixos.initialHashedPassword = mkForce "$y$j9T$w.lPI/qMkKd7GU.8pBU.L1$ykS3e6w4FX1MF6f12mfjNkXDBScP75/jNyEjNH68bS8";
 
-            # Setup neovim
             programs.neovim = {
                 enable = true;
                 defaultEditor = true;
             };
 
-            # Enable New CLI and Flakes
             nix.settings.experimental-features = [
                 "nix-command"
                 "flakes"

@@ -9,6 +9,7 @@
             # 3D printer
             nestor = {
                 instantiate = inputs.nixos-raspberrypi.lib.nixosSystem;
+                images = [ "rpi-sd" ];
                 users.cassidy = { };
             };
         };
@@ -34,7 +35,9 @@
                 users.cassidy = { };
             };
             # Installer/recovery ISO
-            skut = { };
+            skut = {
+                images = [ "iso" ];
+            };
         };
     };
 }
