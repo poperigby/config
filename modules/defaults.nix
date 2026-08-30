@@ -11,7 +11,7 @@ let
     inherit (lib) mkDefault mkIf optionalAttrs;
 
     # Configuration shared between NixOS and Home Manager
-    stateVersion = "25.11";
+    stateVersion = "26.11";
     moduleArgs = {
         inherit inputs;
         privateInfo = inputs.private-config.privateInfo;
