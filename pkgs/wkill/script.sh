@@ -1,4 +1,4 @@
-set -xeou pipefail
+set -eou pipefail
 
 PID=$(niri msg --json focused-window | jq '.pid')
 

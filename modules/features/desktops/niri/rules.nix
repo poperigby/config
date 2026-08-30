@@ -23,6 +23,12 @@
             }
             {
                 window-rule._children = [
+                    { match._props.app-id = "^com\\.gabm\\.satty$"; }
+                    { open-maximized = true; }
+                ];
+            }
+            {
+                window-rule._children = [
                     { match._props.app-id = "steam"; }
                     { open-focused = false; }
                 ];

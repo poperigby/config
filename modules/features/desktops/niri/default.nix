@@ -167,6 +167,8 @@
 
                     dconf.settings."org/gnome/desktop/interface".accent-color = "yellow";
 
+                    services.wl-clip-persist.enable = true;
+
                     systemd.user.services.oniri = {
                         Unit = {
                             Description = "Maximize the only niri window on a workspace";
@@ -189,11 +191,9 @@
 
                     home.packages = with pkgs; [
                         adwaita-icon-theme
-                        local.wkill
+                        local.screenshot
                         nautilus
-                        numbat
                         oculante
-                        wl-freeze
                     ];
 
                     # Fix Steam not using correct cursor theme
