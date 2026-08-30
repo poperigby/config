@@ -1,10 +1,5 @@
 { den, ... }:
 {
-    flake-file.inputs.nixpkgs-patch-uzdoom = {
-        url = "https://github.com/NixOS/nixpkgs/pull/557571.diff";
-        flake = false;
-    };
-
     den.aspects.gaming = {
         includes = with den.aspects; [
             programs._.gpu-screen-recorder
