@@ -1,6 +1,9 @@
 { ... }:
 {
-    flake-file.inputs.jj-starship.url = "github:dmmulroy/jj-starship";
+    flake-file.inputs.jj-starship = {
+        url = "github:dmmulroy/jj-starship";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     den.aspects.programs.provides.starship.homeManager =
         {

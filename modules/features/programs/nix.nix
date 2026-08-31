@@ -3,9 +3,11 @@
 {
     den.aspects.programs.provides.nix = {
         nixos =
-            { ... }:
+            { pkgs, ... }:
             {
                 nix = {
+                    package = pkgs.lix;
+
                     settings = {
                         experimental-features = [
                             "flakes"

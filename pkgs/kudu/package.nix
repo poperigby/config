@@ -2,11 +2,13 @@
     e2fsprogs,
     fetchFromGitHub,
     lib,
+    makeWrapper,
     nix-update-script,
     passt,
     pkg-config,
     qemu,
     rustPlatform,
+    tigervnc,
     xorriso,
 }:
 
@@ -27,14 +29,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     nativeBuildInputs = [
         pkg-config
+        makeWrapper
     ];
 
-    buildInputs = [
-        e2fsprogs
-        passt
-        qemu
-        xorriso
-    ];
+    postInstall = ''
+        wrapProgram $out/bin/${finalAttrs.pname} \
+            --prefix PATH : ${
+                lib.makeBinPath [
+                    e2fsprogs
+                    passt
+                    qemu
+                    tigervnc
+                    xorriso
+                ]
+            }
+    '';
 
     passthru.updateScript = nix-update-script { };
 

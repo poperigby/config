@@ -9,7 +9,7 @@
     package ? null,
     source ? null,
     desktopFile ? null,
-    outputFile ? null,
+    outputFile ? desktopFile,
     replace ? { },
 }:
 let

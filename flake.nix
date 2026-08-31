@@ -21,7 +21,10 @@
     };
     hushmic.url = "github:crowquillx/hushmic-nix";
     import-tree.url = "github:vic/import-tree";
-    jj-starship.url = "github:dmmulroy/jj-starship";
+    jj-starship = {
+      url = "github:dmmulroy/jj-starship";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,13 +59,13 @@
       url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
       flake = false;
     };
+    nixpkgs-patch-uzdoom = {
+      url = "https://github.com/NixOS/nixpkgs/pull/557571.diff";
+      flake = false;
+    };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
-    openmw-nix = {
-      url = "git+https://codeberg.org/PopeRigby/openmw-nix.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     piggyback = {
       url = "git+https://codeberg.org/PopeRigby/piggyback.git";
       inputs.nixpkgs.follows = "nixpkgs";
