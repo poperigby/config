@@ -1,6 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
 # Nix substitutes this with the config source that installed the command.
 # New projects use templates from that same source revision.
 template_source="@template_source@"
@@ -40,7 +37,7 @@ rust() {
     run_step "Creating Cargo project" cargo new --vcs none "$@" "$name"
 
     (
-        cd "$name"
+        cd "$name" || exit
 
         run_step "Initializing Jujutsu repository" jj git init
         run_step "Adding Nix Rust template"        nix flake init --template "path:${template_source}#rust"

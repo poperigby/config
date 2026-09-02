@@ -1,5 +1,3 @@
-set -euo pipefail
-
 temporary_input=""
 cleanup() {
     if [[ -n "$temporary_input" ]]; then

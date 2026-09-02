@@ -233,9 +233,10 @@
                         enable = true;
                         entries =
                             let
-                                inherit (lib.local.desktop) filePath';
+                                inherit (lib.local.desktop) filePath' filePath;
                             in
                             (with pkgs; [
+                                (filePath firefox)
                                 (filePath' hushmicAutostart "hushmic-autostart-tray")
                                 (filePath' local.android-messages-desktop "pw.kmr.amd")
                                 (filePath' signalAutostart "signal-start-in-tray")

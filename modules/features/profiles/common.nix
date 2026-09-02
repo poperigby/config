@@ -14,8 +14,6 @@
             den.aspects.programs._.jujutsu
             den.aspects.programs._.nix
             den.aspects.security._.sudo
-            den.aspects.services._.envfs
-            den.aspects.services._.ld
         ];
 
         homeManager =

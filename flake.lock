@@ -858,18 +858,6 @@
         "url": "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff"
       }
     },
-    "nixpkgs-patch-millennium": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-mUbcdVJUTdgZZxsmdGB5MtNmLp8qAil/vCAaL9/8wSg=",
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/538226.diff"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/NixOS/nixpkgs/pull/538226.diff"
-      }
-    },
     "nixpkgs-patch-uzdoom": {
       "flake": false,
       "locked": {
@@ -1191,7 +1179,6 @@
         "nixpkgs-multiverse": "nixpkgs-multiverse",
         "nixpkgs-patch-crowdsec-10-core": "nixpkgs-patch-crowdsec-10-core",
         "nixpkgs-patch-crowdsec-20-default-text": "nixpkgs-patch-crowdsec-20-default-text",
-        "nixpkgs-patch-millennium": "nixpkgs-patch-millennium",
         "nixpkgs-patch-uzdoom": "nixpkgs-patch-uzdoom",
         "nixpkgs-patcher": "nixpkgs-patcher",
         "noctalia": "noctalia",

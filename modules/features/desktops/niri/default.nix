@@ -43,6 +43,7 @@
                 {
                     wayland.windowManager.niri = {
                         enable = true;
+                        xwaylandSatellitePackage = pkgs.xwayland-satellite."0.8.1";
                         settings = {
                             cursor = {
                                 xcursor-theme = "Adwaita";

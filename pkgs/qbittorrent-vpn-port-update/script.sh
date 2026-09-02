@@ -5,8 +5,6 @@
 
 trap "echo Caught SIGTERM, exiting; exit 0" TERM
 
-set -euo pipefail
-
 echo "Starting qbittorent-vpn-port-update"
 echo "Config:"
 echo "VPN_INTERFACE=$VPN_INTERFACE"

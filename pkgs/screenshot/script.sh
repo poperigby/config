@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-
 SCREENSHOTS_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
 mkdir -p "$SCREENSHOTS_DIR"
 

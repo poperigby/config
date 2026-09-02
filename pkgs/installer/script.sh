@@ -1,5 +1,3 @@
-set -euo pipefail
-
 CONFIG_DIR="$HOME/config"
 AGE_KEY_INSTALL_PATH="/mnt/var/lib/sops-nix/key.txt"
 BITWARDEN_EMAIL="${BITWARDEN_EMAIL:-}"

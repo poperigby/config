@@ -55,10 +55,6 @@
       url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
       flake = false;
     };
-    nixpkgs-patch-millennium = {
-      url = "https://github.com/NixOS/nixpkgs/pull/538226.diff";
-      flake = false;
-    };
     nixpkgs-patch-uzdoom = {
       url = "https://github.com/NixOS/nixpkgs/pull/557571.diff";
       flake = false;
