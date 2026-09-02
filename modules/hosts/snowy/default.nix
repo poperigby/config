@@ -57,20 +57,6 @@
             services._.virtualization
             services._.virt-manager
 
-            # CLI
-            programs._.atuin
-            programs._.bat
-            programs._.bottom
-            programs._.direnv
-            programs._.fish
-            programs._.git
-            programs._.gpg
-            programs._.neovim
-            programs._.starship
-            programs._.tealdeer
-            programs._.television
-            programs._.yazi
-
             # Development services
             services._.lspmux
 

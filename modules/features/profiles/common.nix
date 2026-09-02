@@ -9,11 +9,20 @@
     };
 
     den.aspects.common = {
-        includes = [
-            den.aspects.programs._.codex
-            den.aspects.programs._.jujutsu
-            den.aspects.programs._.nix
-            den.aspects.security._.sudo
+        includes = with den.aspects; [
+            programs._.atuin
+            programs._.bottom
+            programs._.codex
+            programs._.fish
+            programs._.git
+            programs._.gpg
+            programs._.jujutsu
+            programs._.neovim
+            programs._.nix
+            programs._.starship
+            programs._.television
+            programs._.yazi
+            security._.sudo
         ];
 
         homeManager =
@@ -38,12 +47,26 @@
                 };
 
                 programs = {
+                    bat = {
+                        enable = true;
+                        config = {
+                            theme = "gruvbox-dark";
+                            plain = true;
+                        };
+                    };
                     eza.enable = true;
-                    direnv.enable = true;
+                    direnv = {
+                        enable = true;
+                        nix-direnv.enable = true;
+                    };
                     home-manager.enable = true;
                     nix-index.enable = true;
                     nix-index-database.comma.enable = true;
                     pay-respects.enable = true;
+                    tealdeer = {
+                        enable = true;
+                        settings.updates.auto_update = true;
+                    };
                     zoxide = {
                         enable = true;
                         options = [ "--cmd cd" ];

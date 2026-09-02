@@ -73,20 +73,6 @@
             services._.postfix
             services._.smartd
 
-            # CLI
-            programs._.bat
-            programs._.bottom
-            programs._.direnv
-            programs._.fish
-            programs._.git
-            programs._.gpg
-            programs._.jujutsu
-            programs._.neovim
-            programs._.starship
-            programs._.tealdeer
-            programs._.television
-            programs._.yazi
-
             # Development services
             services._.lspmux
         ];
@@ -155,7 +141,6 @@
         provides.cassidy = {
             includes = [
                 den.aspects.cassidy-accounts
-                den.aspects.programs._.atuin
             ];
 
             homeManager =
