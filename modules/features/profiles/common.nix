@@ -13,6 +13,7 @@
             programs._.atuin
             programs._.bottom
             programs._.codex
+            programs._.direnv
             programs._.fish
             programs._.git
             programs._.gpg
@@ -55,10 +56,6 @@
                         };
                     };
                     eza.enable = true;
-                    direnv = {
-                        enable = true;
-                        nix-direnv.enable = true;
-                    };
                     home-manager.enable = true;
                     nix-index.enable = true;
                     nix-index-database.comma.enable = true;

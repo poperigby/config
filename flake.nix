@@ -5,6 +5,7 @@
 
   inputs = {
     den.url = "github:vic/den";
+    direnv-instant.url = "github:Mic92/direnv-instant";
     disko.url = "github:nix-community/disko";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
