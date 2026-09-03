@@ -10,17 +10,13 @@
             direnv = {
                 enable = true;
 
+                # Use direnv-instant hooks instead
                 enableBashIntegration = false;
                 enableFishIntegration = false;
 
                 nix-direnv.enable = true;
             };
-            direnv-instant = {
-                enable = true;
-
-                enableBashIntegration = true;
-                enableFishIntegration = true;
-            };
+            direnv-instant.enable = true;
         };
     };
 }
