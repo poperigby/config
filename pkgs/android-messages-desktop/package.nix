@@ -10,7 +10,7 @@
     pnpm,
     pnpmConfigHook,
     pnpmBuildHook,
-    electron_41,
+    electron,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         ln -s pw.kmr.amd.png \
             "$out/share/icons/hicolor/256x256/apps/android-messages-desktop.png"
 
-        makeWrapper ${lib.getExe electron_41} "$out/bin/android-messages-desktop" \
+        makeWrapper ${lib.getExe electron} "$out/bin/android-messages-desktop" \
             --add-flags "$appDir" \
             --set ELECTRON_IS_DEV 0
 

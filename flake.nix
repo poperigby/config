@@ -56,10 +56,6 @@
       url = "https://github.com/NixOS/nixpkgs/commit/196e02c147d558a86f881f85f338c1063f14c6cb.diff";
       flake = false;
     };
-    nixpkgs-patch-uzdoom = {
-      url = "https://github.com/NixOS/nixpkgs/pull/557571.diff";
-      flake = false;
-    };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";

@@ -11,6 +11,19 @@
                         bigfile = { enabled = true },
                         input = { enabled = true },
                         scratch = { enabled = true },
+                        styles = {
+                            input = {
+                              on_win = function(self)
+                                vim.schedule(function()
+                                  if not self:valid() then
+                                    return
+                                  end
+                                  vim.cmd("stopinsert")
+                                  vim.api.nvim_win_set_cursor(self.win, { 1, 0 })
+                                end)
+                              end,
+                            },
+			},
                     })
 
                     require("which-key").add({

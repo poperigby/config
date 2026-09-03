@@ -55,7 +55,6 @@
                                     numlock = { };
                                     xkb.options = "caps:super";
                                 };
-                                focus-follows-mouse._props.max-scroll-amount = "95%";
                             };
 
                             recent-windows.highlight.corner-radius = 8;
