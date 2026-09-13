@@ -18,7 +18,7 @@
 
             hardware = {
                 facter.reportPath = ./facter.json;
-                amdgpu.overdrive.enable = true;
+                # amdgpu.overdrive.enable = true;
                 enableRedistributableFirmware = true;
                 i2c.enable = true;
             };

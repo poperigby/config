@@ -17,7 +17,7 @@
             ];
 
             nixos =
-                { pkgs, ... }:
+                { lib, pkgs, ... }:
                 {
                     programs = {
                         niri.enable = true;
@@ -26,6 +26,14 @@
 
                     # Polkit agent
                     security.soteria.enable = true;
+
+                    # Secret service
+                    services = {
+                        gnome.gnome-keyring.enable = false;
+                        oo7.enable = true;
+                    };
+
+                    xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
 
                     environment.systemPackages = with pkgs; [
                         adw-gtk3
@@ -194,6 +202,7 @@
                         local.screenshot
                         nautilus
                         oculante
+                        seahorse
                     ];
 
                     # Fix Steam not using correct cursor theme

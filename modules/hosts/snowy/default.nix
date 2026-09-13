@@ -115,51 +115,38 @@
 
                 networking.networkmanager.enable = true;
 
-                services.flatpak.enable = true;
-
-                services.openssh = {
-                    enable = true;
-                    settings = {
-                        # https://www.digitalocean.com/community/tutorials/how-to-harden-openssh-on-ubuntu-20-04
-                        PermitRootLogin = "no";
-                        MaxAuthTries = 3;
-                        PasswordAuthentication = false;
-                        PermitEmptyPasswords = false;
-                        ChallengeResponseAuthentication = false;
-                        PermitUserEnvironment = false;
-                        AllowAgentForwarding = false;
-                        AllowTcpForwarding = false;
-                        PermitTunnel = false;
+                services = {
+                    flatpak.enable = true;
+                    openssh.enable = true;
+                    postgresql = {
+                        enable = true;
+                        ensureUsers = [
+                            {
+                                name = "cassidy";
+                                ensureClauses.superuser = true;
+                            }
+                            {
+                                name = "root";
+                                ensureClauses.superuser = true;
+                            }
+                        ];
+                        authentication = lib.mkForce ''
+                            # TYPE  DATABASE        USER            ADDRESS                 METHOD
+                            local   all             all                                     peer
+                            host    all             all             127.0.0.1/32            trust
+                            host    all             all             ::1/128                 trust
+                        '';
                     };
                 };
 
                 virtualisation.docker.enable = true;
-
-                services.postgresql = {
-                    enable = true;
-                    ensureUsers = [
-                        {
-                            name = "cassidy";
-                            ensureClauses.superuser = true;
-                        }
-                        {
-                            name = "root";
-                            ensureClauses.superuser = true;
-                        }
-                    ];
-                    authentication = lib.mkForce ''
-                        # TYPE  DATABASE        USER            ADDRESS                 METHOD
-                        local   all             all                                     peer
-                        host    all             all             127.0.0.1/32            trust
-                        host    all             all             ::1/128                 trust
-                    '';
-                };
 
                 # For installing Nestor configuration to SD card
                 boot.binfmt = {
                     emulatedSystems = [ "aarch64-linux" ];
                     preferStaticEmulators = true;
                 };
+
                 nix.settings.extra-platforms = [ "aarch64-linux" ];
 
                 # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

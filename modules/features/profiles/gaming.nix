@@ -40,7 +40,7 @@
                 "amdgpu.freesync_video" = 1;
             };
 
-            services.lact.enable = true;
+            # services.lact.enable = true;
         };
 
         provides.morrowind = {
