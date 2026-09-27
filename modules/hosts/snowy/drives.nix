@@ -69,12 +69,11 @@
         "/mnt/ssd0" = {
             device = "/dev/disk/by-uuid/be9f123f-1da8-4821-bf2a-a1ac1f00d4ab";
             fsType = "ext4";
-            options = [ "noatime" ];
-        };
-        "/mnt/hdd0" = {
-            device = "/dev/disk/by-uuid/5d997a5b-4ddd-4962-bc36-13faf673d881";
-            fsType = "ext4";
-            options = [ "noatime" ];
+            options = [
+                "noatime"
+                # Prevent boot from failing if systemd can't mount this drive
+                "nofail"
+            ];
         };
     };
 }

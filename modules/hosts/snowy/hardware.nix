@@ -2,7 +2,7 @@
 
 {
     den.aspects.snowy.nixos =
-        { ... }:
+        { config, ... }:
 
         {
             boot = {
@@ -10,6 +10,11 @@
                 kernelParams = [
                     "nowatchdog"
                 ];
+                extraModulePackages = with config.boot.kernelPackages; [
+                    # Control motherboard connected fans
+                    nct6687d
+                ];
+                kernelModules = [ "nct6687" ];
                 blacklistedKernelModules = [
                     # Ryzen hardware watchdog
                     "sp5100-tco"
@@ -18,7 +23,7 @@
 
             hardware = {
                 facter.reportPath = ./facter.json;
-                # amdgpu.overdrive.enable = true;
+                amdgpu.overdrive.enable = true;
                 enableRedistributableFirmware = true;
                 i2c.enable = true;
             };

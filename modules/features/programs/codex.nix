@@ -20,25 +20,13 @@
                     profiles.default = {
                         approval_policy = "on-request";
                         sandbox_mode = "workspace-write";
-                        model = "gpt-5.5";
                         personality = "pragmatic";
                         model_reasoning_effort = "medium";
                         approvals_reviewer = "auto_review";
 
                         sandbox_workspace_write.network_access = true;
 
-                        notice.model_migrations = {
-                            "gpt-5.2-codex" = "gpt-5.4";
-                            "gpt-5.4" = "gpt-5.5";
-                        };
-
-                        tui = {
-                            notifications = false;
-                            model_availability_nux = {
-                                "gpt-5.5" = 4;
-                                "gpt-5.6-sol" = 2;
-                            };
-                        };
+                        tui.notifications = false;
 
                         mcp_servers.nixos.command = getExe pkgs.mcp-nixos;
                     };

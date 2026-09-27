@@ -139,6 +139,8 @@
                     };
                 };
 
+                programs.coolercontrol.enable = true;
+
                 virtualisation.docker.enable = true;
 
                 # For installing Nestor configuration to SD card
@@ -211,7 +213,6 @@
                             (with pkgs; [
                                 (filePath firefox)
                                 (filePath' hushmicAutostart "hushmic-autostart-tray")
-                                (filePath' local.android-messages-desktop "pw.kmr.amd")
                                 (filePath' signalAutostart "signal-start-in-tray")
                                 (filePath' steamAutostart "steam-silent-autostart")
                             ]);

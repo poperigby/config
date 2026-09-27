@@ -4,7 +4,7 @@ final: prev: {
             owner = "OpenMW";
             repo = "openmw";
             rev = "master";
-            hash = "sha256-vTBny3aD8vHwx16iCV6ftDhf8NhMspRRXH1h7/kD5rY=";
+            hash = "sha256-YQUwBYBilhmQciWxsO9kKCN4TU/atRc2XNZiP+iRNI8=";
         };
 
         nativeBuildInputs = old.nativeBuildInputs ++ [ prev.makeWrapper ];
