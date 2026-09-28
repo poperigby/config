@@ -99,7 +99,6 @@
                         inherit (lib.local.caddy) authReverseProxy';
                     in
                     {
-                        redis.servers.haddock.enable = true;
                         caddy.virtualHosts."print.haddock.cc".extraConfig = authReverseProxy' "192.168.1.27" 5000;
                         openssh = {
                             enable = true;

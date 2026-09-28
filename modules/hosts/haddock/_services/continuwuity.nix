@@ -3,6 +3,8 @@
 let
     inherit (lib) mkForce;
 
+    socketPath = "/var/run/continuwuity/continuwuity.sock";
+
     matrixDomain = "matrix.haddock.cc";
     livekitDomain = "livekit.haddock.cc";
     turnDomain = "turn.haddock.cc";
@@ -17,11 +19,14 @@ in
             settings = {
                 global = {
                     server_name = "haddock.cc";
+                    unix_socket_path = socketPath;
 
                     new_user_displayname_suffix = "";
 
                     # Unbound provides the cache for federation lookups.
                     dns_cache_entries = 0;
+                    # TCP isolates local DNS queries from delayed upstream UDP replies.
+                    query_over_tcp_only = true;
                     # https://continuwuity.org/guides/performance.html#cache-capacities
                     cache_capacity_modifier = 2.0;
                     # Don't wast time looking up IPv6 addresses.
@@ -113,12 +118,11 @@ in
                     }
                 '';
             virtualHosts = {
-                "haddock.cc".extraConfig = # caddy
-                    ''
-                        reverse_proxy /.well-known/matrix/* :6167
-                    '';
+                "haddock.cc".extraConfig = ''
+                    reverse_proxy /.well-known/matrix/* unix/${socketPath}
+                '';
                 "${matrixDomain}".extraConfig = ''
-                    reverse_proxy :6167
+                    reverse_proxy unix/${socketPath}
                 '';
                 "${livekitDomain}".extraConfig = ''
                     @lk-jwt-service path /sfu/get* /healthz* /get_token*
@@ -184,6 +188,8 @@ in
 
     users = {
         users = {
+            # Give Caddy permission to access the socket
+            caddy.extraGroups = [ "continuwuity" ];
             livekit = {
                 group = "livekit";
                 isSystemUser = true;
