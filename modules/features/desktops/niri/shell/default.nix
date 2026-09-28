@@ -40,18 +40,15 @@
                         inputs.noctalia-greeter.nixosModules.default
                     ];
 
-                    programs = {
-                        noctalia = {
-                            enable = true;
-                            systemd.enable = true;
+                    programs.noctalia = {
+                        enable = true;
+                        systemd.enable = true;
 
-                            # Enables NetworkManager, Bluetooth, UPower, and a power profile service.
-                            recommendedServices.enable = true;
-                        };
-                        noctalia-greeter = {
-                            enable = true;
-                        };
+                        # Enables NetworkManager, Bluetooth, UPower, and a power profile service.
+                        recommendedServices.enable = true;
                     };
+
+                    services.displayManager.noctalia-greeter.enable = true;
 
                     environment.systemPackages = [ pkgs.ddcutil ];
                     hardware.i2c.enable = true;
