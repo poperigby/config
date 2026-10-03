@@ -40,6 +40,9 @@ in
                     ];
                     trusted_server_batch_size = 2048;
 
+                    startup_netburst = false;
+                    startup_netburst_keep = 0;
+
                     oauth.oidc = {
                         discovery_url = "https://auth.haddock.cc";
                         client_id = "continuwuity";
