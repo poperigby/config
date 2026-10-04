@@ -122,8 +122,8 @@
                 programs.yazi.keymap.mgr.prepend_keymap = [
                     {
                         on = [ "<C-n>" ];
-                        run = "shell '${getExe pkgs.ripdrag} \"$@\" -x 2>/dev/null &' --confirm";
-                        description = "Open ripdrag for dragging and dropping";
+                        run = "shell --orphan -- ${getExe pkgs.ripdrag} -x %s";
+                        desc = "Open ripdrag for dragging and dropping";
                     }
                 ];
 
