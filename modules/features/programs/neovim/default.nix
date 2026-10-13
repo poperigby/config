@@ -65,7 +65,7 @@
                     SYSTEMD_EDITOR = "${nvim}";
                 };
 
-                xdg.configFile."nvim/lua" = {
+                xdg.configFile."nvim" = {
                     source = ./config;
                     recursive = true;
                 };

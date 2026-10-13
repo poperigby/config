@@ -99,7 +99,13 @@
                                     cargo = {
                                         -- Make rust-analyzer use the system target directory
                                         targetDir = true,
-                                    }
+                                    },
+                                    semanticHighlighting = {
+                                        strings = {
+                                            -- Make our SQL highlighting work
+                                            enable = false,
+                                        },
+                                    },
                                 },
                             },
                         },

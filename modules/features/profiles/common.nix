@@ -144,6 +144,11 @@
         nixos =
             { pkgs, ... }:
             {
+                programs.appimage = {
+                    enable = true;
+                    binfmt = true;
+                };
+
                 boot.kernelPackages = pkgs.linuxPackages_latest;
 
                 zramSwap.enable = true;
