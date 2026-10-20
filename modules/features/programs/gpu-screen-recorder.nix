@@ -54,6 +54,7 @@
                         time = 120;
 
                         record_options = {
+                            record_area_option = "DP-1";
                             codec = "av1";
                             audio_track_item = [
                                 "false [add_audio_track]"

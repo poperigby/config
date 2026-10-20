@@ -19,11 +19,11 @@ stdenv.mkDerivation {
     pname = "w3modmanager";
     version = "0.41b";
 
-    # Fetch during evaluation so private repository access uses the caller's SSH credentials.
-    src = builtins.fetchGit {
+    src = fetchGit {
         url = "ssh://git@github.com/poperigby/w3modmanager.git";
-        rev = "7d639cfad42b232c0078aaf56a8cd4b7af04a247";
+        rev = "f4bae3b467c97667f7ac442a597246a04578d12f";
     };
+
     dontBuild = true;
 
     nativeBuildInputs = [
