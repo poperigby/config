@@ -3,8 +3,8 @@ final: prev: {
         src = prev.fetchFromGitLab {
             owner = "OpenMW";
             repo = "openmw";
-            rev = "master";
-            hash = "sha256-YQUwBYBilhmQciWxsO9kKCN4TU/atRc2XNZiP+iRNI8=";
+            rev = "b1612f97357616f578fa66cbf3e97b9b50349c7d";
+            hash = "sha256-Ra6jhfw/yw1xPgRviQ9NMSj14/JZvG3U38624gJcMFg=";
         };
 
         nativeBuildInputs = old.nativeBuildInputs ++ [ prev.makeWrapper ];

@@ -48,10 +48,6 @@
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
-    nixpkgs-patch-crowdsec = {
-      url = "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff";
-      flake = false;
-    };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
     noctalia.url = "github:noctalia-dev/noctalia";
     noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";

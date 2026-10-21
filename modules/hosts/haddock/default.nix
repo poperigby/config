@@ -5,10 +5,6 @@
 }:
 {
     flake-file.inputs = {
-        nixpkgs-patch-crowdsec = {
-            url = "https://github.com/NixOS/nixpkgs/compare/0ab126b075a218b7d5f07267314ecc03a4d48c20...378988470235f869a3cd04750e899d9df0dc23b1.diff";
-            flake = false;
-        };
         flux = {
             url = "github:IogaMaster/flux";
             inputs.nixpkgs.follows = "nixpkgs";

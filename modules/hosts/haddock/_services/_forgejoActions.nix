@@ -24,22 +24,26 @@ let
     };
 in
 {
-    services.gitea-actions-runner = {
-        package = pkgs.forgejo-runner;
+    services.forgejo-runner = {
         instances.default = {
             enable = true;
-            name = config.networking.hostName;
-            url = "https://codeberg.org";
-            tokenFile = config.sops.templates.forgejo-actions-codeberg-token.path;
-            labels = [ "haddock:docker://${actionsImage.imageName}:latest" ];
+            runtimes.docker = true;
+            secrets.server.connections.default.token_url =
+                config.sops.secrets."haddock/forgejo_actions/tokens/codeberg".path;
             settings = {
+                server.connections.default = {
+                    url = "https://codeberg.org";
+                    uuid = "9ed8a7d3-02b8-4c0c-b309-402fef28baf9";
+                    token = null;
+                };
+                runner.labels = [ "haddock:docker://${actionsImage.imageName}:latest" ];
                 cache.enabled = true;
-                network = "host";
+                container.network = "host";
             };
         };
     };
 
-    systemd.services.gitea-runner-default = {
+    systemd.services.forgejo-runner-default = {
         preStart = "${getExe config.virtualisation.docker.package} load < ${actionsImage}";
         after = [ "docker.service" ];
         serviceConfig = {
@@ -60,13 +64,5 @@ in
         groups.forgejo_actions = { };
     };
 
-    sops = {
-        templates.forgejo-actions-codeberg-token = {
-            content = ''
-                TOKEN=${config.sops.placeholder."haddock/forgejo_actions/tokens/codeberg"}
-            '';
-            owner = "forgejo_actions";
-        };
-        secrets."haddock/forgejo_actions/tokens/codeberg".owner = "forgejo_actions";
-    };
+    sops.secrets."haddock/forgejo_actions/tokens/codeberg".owner = "forgejo_actions";
 }

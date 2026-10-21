@@ -45,7 +45,6 @@
             hardware._.bluetooth
             hardware._.corsair
             hardware._.printing
-            hardware._.scanning
 
             # Services
             services._.cache

@@ -46,7 +46,7 @@ in
                 namespaceAddress = config.vpnNamespaces.${netns}.namespaceAddress;
             in
             {
-                "subtitles.haddock.cc".extraConfig = authReverseProxy config.services.bazarr.listenPort;
+                "subtitles.haddock.cc".extraConfig = authReverseProxy config.services.bazarr.settings.general.port;
                 "music.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 8686;
                 "indexers.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 9696;
                 "movies.haddock.cc".extraConfig = authReverseProxy' namespaceAddress 7878;
