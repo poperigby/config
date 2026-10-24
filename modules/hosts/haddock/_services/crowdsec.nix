@@ -62,6 +62,20 @@
                         };
                     }
                     {
+                        name = "local/auditd-nix-build-sandbox-whitelist-process";
+                        description = "Whitelist executables run by Nix build users inside the build sandbox";
+                        filter = "evt.Meta.log_type == 'execve'";
+                        whitelist = {
+                            # Builds compile and run helpers (e.g. Mage's cached
+                            # magefile binary in $HOME/.magefile) under the
+                            # sandbox directory, which is mounted at /build.
+                            reason = "Executable is run by a Nix build user from the build sandbox";
+                            expression = [
+                                "evt.Meta.exe startsWith '/build/' && evt.Meta.str_UID matches '^nixbld[0-9]+$'"
+                            ];
+                        };
+                    }
+                    {
                         name = "local/auditd-nixos-docker-runc-whitelist-process";
                         description = "Whitelist NixOS Docker runc init processes";
                         filter = "evt.Meta.log_type == 'execve'";

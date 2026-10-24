@@ -19,9 +19,6 @@
                     imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
                     boot = lib.mkMerge [
-                        {
-                            initrd.systemd.enable = true;
-                        }
                         (lib.mkIf secureBoot {
                             lanzaboote = {
                                 enable = true;

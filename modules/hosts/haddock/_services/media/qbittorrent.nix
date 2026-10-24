@@ -110,15 +110,20 @@ in
             script = ''
                 set -euo pipefail
 
+                status=0
                 response=$(${getExe pkgs.curl} \
-                    --fail \
+                    --fail-with-body \
                     --ipv4 \
                     --show-error \
                     --silent \
                     --cookie "mam_id=$(<${config.sops.secrets."haddock/myanonamouse/id".path})" \
-                    https://t.myanonamouse.net/json/dynamicSeedbox.php)
+                    https://t.myanonamouse.net/json/dynamicSeedbox.php) || status=$?
 
+                # MAM explains rejections in the response body
                 printf '%s\n' "$response"
+                if ((status != 0)); then
+                    exit "$status"
+                fi
                 ${getExe pkgs.jq} --exit-status '.Success == true' <<< "$response" >/dev/null
             '';
             vpnConfinement = {

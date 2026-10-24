@@ -1,9 +1,17 @@
 { pkgs, ... }:
 
+let
+    # scale_vulkan requires a shader compiler at build time.
+    jellyfinFfmpeg = pkgs.jellyfin-ffmpeg.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.glslang ];
+        configureFlags = old.configureFlags ++ [ "--enable-filter=scale_vulkan" ];
+    });
+in
 {
     services = {
         jellyfin = {
             enable = true;
+            package = pkgs.jellyfin.override { jellyfin-ffmpeg = jellyfinFfmpeg; };
         };
         caddy.virtualHosts."media.haddock.cc".extraConfig = ''
             # Jellyfin uses its own non-standard `MediaBrowser` Authorization
@@ -23,9 +31,9 @@
     # Enable hardware acceleration
     hardware.graphics.enable = true;
 
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
         # Needed for hardware acceleration
-        jellyfin-ffmpeg
+        jellyfinFfmpeg
     ];
 
     users.users.jellyfin.extraGroups = [

@@ -179,8 +179,17 @@ in
         };
 
     systemd.services = {
+        # OIDC discovery at startup goes through Caddy to Authelia.
         continuwuity = {
-            after = [ "unbound.service" ];
+            wants = [
+                "authelia-haddock.service"
+                "caddy.service"
+            ];
+            after = [
+                "unbound.service"
+                "authelia-haddock.service"
+                "caddy.service"
+            ];
         };
         livekit.serviceConfig.DynamicUser = mkForce false;
         lk-jwt-service = {
