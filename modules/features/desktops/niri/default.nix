@@ -33,6 +33,9 @@
                         oo7.enable = true;
                     };
 
+                    # The keyring is only unlocked by PAM at login, so a restart leaves it locked for the rest of the session.
+                    systemd.user.services.oo7-daemon.restartIfChanged = false;
+
                     xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
 
                     environment.systemPackages = with pkgs; [
@@ -51,7 +54,6 @@
                 {
                     wayland.windowManager.niri = {
                         enable = true;
-                        xwaylandSatellitePackage = pkgs.xwayland-satellite."0.8.1";
                         settings = {
                             cursor = {
                                 xcursor-theme = "Adwaita";

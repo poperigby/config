@@ -52,7 +52,11 @@
 
                     environment.systemPackages = [ pkgs.ddcutil ];
                     hardware.i2c.enable = true;
-                    systemd.user.services.noctalia.restartTriggers = noctaliaConfigTriggers;
+                    systemd.user.services.noctalia = {
+                        restartTriggers = noctaliaConfigTriggers;
+                        # Noctalia can hang on exit while waiting on a pending Secret Service prompt.
+                        serviceConfig.TimeoutStopSec = "5s";
+                    };
 
                     nix.settings = {
                         extra-substituters = [ "https://noctalia.cachix.org" ];

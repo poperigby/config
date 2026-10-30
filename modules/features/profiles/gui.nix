@@ -3,7 +3,6 @@
     den.aspects.gui = {
         includes = [
             den.aspects.programs._.bottom.gui
-            den.aspects.programs._.codex.gui
             den.aspects.programs._.fish.gui
             den.aspects.programs._.neovim.gui
             den.aspects.programs._.yazi.gui
@@ -48,7 +47,11 @@
                     wl-clipboard-rs
                 ];
 
-                xdg.mimeApps.enable = true;
+                xdg = {
+                    mimeApps.enable = true;
+                    # Apps rewrite mimeapps.list when setting defaults, which would otherwise block activation.
+                    configFile."mimeapps.list".force = true;
+                };
                 home.sessionVariables.NIXOS_OZONE_WL = 1;
             };
 

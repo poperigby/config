@@ -20,6 +20,7 @@
                     heroic
                     libstrangle
                     local.jackify
+                    local.reshadelinux
                     local.w3modmanager
                     prismlauncher
                     protonplus

@@ -7,6 +7,22 @@
             pkgs,
             ...
         }:
+        let
+            # niri exports DISPLAY to the user manager slightly after
+            # graphical-session.target starts, and Qt aborts without it.
+            waitForDisplay = pkgs.writeShellApplication {
+                name = "xembed-sni-proxy-wait-for-display";
+                runtimeInputs = with pkgs; [
+                    gnugrep
+                    systemd
+                ];
+                text = ''
+                    until systemctl --user show-environment | grep -q '^DISPLAY='; do
+                        sleep 0.1
+                    done
+                '';
+            };
+        in
         {
             home.packages = [ pkgs.local.xembed-sni-proxy ];
 
@@ -17,6 +33,8 @@
                 };
                 Service = {
                     Type = "simple";
+                    ExecStartPre = lib.getExe waitForDisplay;
+                    TimeoutStartSec = 30;
                     ExecStart = lib.getExe pkgs.local.xembed-sni-proxy;
                     Restart = "on-failure";
                 };

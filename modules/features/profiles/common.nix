@@ -11,7 +11,6 @@
     den.aspects.common = {
         includes = with den.aspects; [
             programs._.bottom
-            programs._.codex
             programs._.direnv
             programs._.fish
             programs._.git
@@ -75,6 +74,7 @@
                         asciinema
                         binsider
                         caligula
+                        claude-code
                         delta
                         devenv
                         dmidecode

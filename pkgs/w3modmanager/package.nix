@@ -1,13 +1,14 @@
 {
+    _7zz,
+    copyDesktopItems,
+    desktop-file-utils,
     lib,
-    stdenv,
+    makeDesktopItem,
+    makeWrapper,
     python3,
     qt6,
-    makeWrapper,
-    makeDesktopItem,
-    copyDesktopItems,
-    _7zz,
-    desktop-file-utils,
+    stdenv,
+    unrar,
     xdg-user-dirs,
     xdg-utils,
 }:
@@ -61,6 +62,7 @@ stdenv.mkDerivation {
                 lib.makeBinPath [
                     _7zz
                     desktop-file-utils
+                    unrar
                     xdg-user-dirs
                     xdg-utils
                 ]
