@@ -22,6 +22,14 @@
                     }
 
                     local function runCargoBuild(type)
+                        -- Only build the crate containing the current buffer, so a
+                        -- workspace yields that crate's executable rather than whichever
+                        -- member cargo happens to report first
+                        local crate_root = vim.fs.root(0, "Cargo.toml")
+                        if crate_root ~= nil then
+                            type = type .. " --manifest-path " .. vim.fn.shellescape(crate_root .. "/Cargo.toml")
+                        end
+
                         local lines = vim.fn.systemlist(type)
                         local output = table.concat(lines, "\n")
 
@@ -46,6 +54,9 @@
                             args = { "--interpreter=vscode" }
                         }
                     }
+
+                    -- Break on panics, otherwise libtest swallows them and the session just ends
+                    dap.defaults.codelldb.exception_breakpoints = { "rust_panic" }
 
                     dap.configurations = {
                         rust = {

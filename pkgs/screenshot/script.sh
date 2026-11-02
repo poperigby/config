@@ -29,7 +29,8 @@ notify() {
 
 case "${1:-}" in
     fullscreen)
-        grim "$SCREENSHOT_PATH"
+        output="$(niri msg --json focused-output | jq -r .name)"
+        grim -o "$output" "$SCREENSHOT_PATH"
         notify
         ;;
     region)

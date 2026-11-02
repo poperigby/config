@@ -83,8 +83,8 @@
                     spawn = [ wkill ];
                 };
 
-                "Mod+H".focus-column-left = { };
-                "Mod+L".focus-column-right = { };
+                "Mod+H".focus-column-or-monitor-left = { };
+                "Mod+L".focus-column-or-monitor-right = { };
                 "Mod+J".focus-window-or-workspace-down = { };
                 "Mod+K".focus-window-or-workspace-up = { };
 
@@ -132,6 +132,9 @@
                 "Mod+Alt+7".move-column-to-workspace = 7;
                 "Mod+Alt+8".move-column-to-workspace = 8;
                 "Mod+Alt+9".move-column-to-workspace = 9;
+
+                "Mod+Ctrl+H".move-column-to-monitor-left = { };
+                "Mod+Ctrl+L".move-column-to-monitor-right = { };
 
                 "Mod+F".maximize-column = { };
                 "Mod+Shift+F".fullscreen-window = { };

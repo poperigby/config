@@ -196,12 +196,52 @@
                     wayland.windowManager.niri.settings._children = [
                         {
                             output = {
-                                _args = [ "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868" ];
-                                mode = "2560x1440@164.834";
-                                variable-refresh-rate = { };
+                                _args = [ "Dell Inc. AW2726DM 13G77H4" ];
+                                mode = "2560x1440@239.970";
+                                position._props = {
+                                    x = 2560;
+                                    y = 0;
+                                };
+                                focus-at-startup = { };
                             };
                         }
+                        {
+                            output = {
+                                _args = [ "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868" ];
+                                mode = "2560x1440@169.831";
+                                position._props = {
+                                    x = 0;
+                                    y = 0;
+                                };
+                            };
+                        }
+                        {
+                            window-rule._children = [
+                                {
+                                    match._props = {
+                                        app-id = "^firefox$";
+                                        at-startup = true;
+                                    };
+                                }
+                                { open-on-output = "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868"; }
+                            ];
+                        }
                     ];
+
+                    programs.noctalia.settings = {
+                        bar.default.monitor.left = {
+                            match = "M27Q";
+                            start = [ "taskbar" ];
+                            center = [ "clock" ];
+                            end = [ ];
+                        };
+                        # Only the wallpaper on the M27Q while locked
+                        lockscreen_widgets.widget."lockscreen-login-box@DP-2" = {
+                            type = "login_box";
+                            output = "DP-2";
+                            enabled = false;
+                        };
+                    };
 
                     xdg.autostart = {
                         enable = true;

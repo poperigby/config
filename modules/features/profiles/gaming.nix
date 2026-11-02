@@ -39,7 +39,6 @@
             boot.kernel.sysctl = {
                 "vm.max_map_count" = 2147483642;
                 "gpu_sched.sched_policy" = 0;
-                "amdgpu.freesync_video" = 1;
             };
 
             # services.lact.enable = true;

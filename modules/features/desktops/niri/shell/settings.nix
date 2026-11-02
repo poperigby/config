@@ -53,7 +53,7 @@
                                     }
                                 ];
                                 contact_shadow = true;
-                                background_opacity = 0.9;
+                                background_opacity = 0.7;
                                 margin_edge = 10;
                                 margin_ends = 8;
                                 radius = 15;
@@ -97,7 +97,6 @@
                             brightness.enable_ddcutil = true;
                             calendar.enabled = true;
                             location.auto_locate = true;
-                            nightlight.enabled = true;
                             osd = {
                                 position = "bottom_center";
                                 kinds = {
@@ -107,6 +106,8 @@
                             lockscreen = {
                                 transition = [ "fade" ];
                                 transition_duration = 200;
+                                blur_intensity = 0.0;
+                                tint_intensity = 0.0;
                             };
                             shell = {
                                 font_family = "Noto Sans";
