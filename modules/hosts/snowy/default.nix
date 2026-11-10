@@ -226,6 +226,17 @@
                                 { open-on-output = "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868"; }
                             ];
                         }
+                        {
+                            window-rule._children = [
+                                {
+                                    match._props = {
+                                        app-id = "^thunderbird$";
+                                        at-startup = true;
+                                    };
+                                }
+                                { open-on-output = "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q 21070B005868"; }
+                            ];
+                        }
                     ];
 
                     programs.noctalia.settings = {
@@ -251,6 +262,7 @@
                             in
                             (with pkgs; [
                                 (filePath firefox)
+                                (filePath thunderbird)
                                 (filePath' hushmicAutostart "hushmic-autostart-tray")
                                 (filePath' signalAutostart "signal-start-in-tray")
                                 (filePath' steamAutostart "steam-silent-autostart")

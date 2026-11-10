@@ -52,6 +52,14 @@
                             type = "executable",
                             command = "${getExe pkgs.netcoredbg}",
                             args = { "--interpreter=vscode" }
+                        },
+                        delve = {
+                            type = "server",
+                            port = "''${port}",
+                            executable = {
+                                command = "${getExe pkgs.delve}",
+                                args = { "dap", "-l", "127.0.0.1:''${port}" },
+                            }
                         }
                     }
 
@@ -79,6 +87,27 @@
                                 end,
                                 cwd = "''${workspaceFolder}",
                                 stopOnEntry = false,
+                            },
+                        },
+                        go = {
+                            {
+                                name = "Debug package",
+                                type = "delve",
+                                request = "launch",
+                                program = "''${fileDirname}",
+                            },
+                            {
+                                name = "Debug file",
+                                type = "delve",
+                                request = "launch",
+                                program = "''${file}",
+                            },
+                            {
+                                name = "Debug package tests",
+                                type = "delve",
+                                request = "launch",
+                                mode = "test",
+                                program = "''${fileDirname}",
                             },
                         },
                         cs = {{

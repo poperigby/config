@@ -14,7 +14,11 @@
                     # Control motherboard connected fans
                     nct6687d
                 ];
-                kernelModules = [ "nct6687" ];
+                kernelModules = [
+                    "nct6687"
+                    # NT synchronization primitives for Wine/Proton
+                    "ntsync"
+                ];
                 blacklistedKernelModules = [
                     # Ryzen hardware watchdog
                     "sp5100-tco"
@@ -27,6 +31,9 @@
                 enableRedistributableFirmware = true;
                 i2c.enable = true;
             };
+
+            # GPU power limit, undervolt, and clocks
+            services.lact.enable = true;
 
             # Keep microcode updated
             services.ucodenix = {

@@ -43,13 +43,13 @@
                         };
                         source.command = lib.getExe pkgs.local.tv-man;
                         preview = {
-                            command = "man $(echo '{}' | awk '{print $2, $1}' | tr -d '()')";
+                            command = "man '{0}{1}'";
                             env.MANWIDTH = "80";
                         };
                         keybindings.enter = "actions:open";
                         actions.open = {
                             description = "Open the selected man page";
-                            command = "man $(echo '{}' | awk '{print $2, $1}' | tr -d '()')";
+                            command = "man '{0}{1}'";
                             mode = "execute";
                         };
                         ui.layout = "portrait";

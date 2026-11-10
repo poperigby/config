@@ -30,6 +30,7 @@
                         bash-language-server
                         clang-tools
                         csharp-ls
+                        gopls
                         harper
                         lua-language-server
                         luajitPackages.teal-language-server
@@ -37,11 +38,11 @@
                         nodejs
                         pyright
                         rust-analyzer
+                        slint-lsp
                         tinymist
                         typescript
                         vscode-langservers-extracted
                         yaml-language-server
-                        slint-lsp
                     ];
                     initLua = ''
                         require("options")

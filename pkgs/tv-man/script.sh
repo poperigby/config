@@ -22,4 +22,4 @@ for d in "${dirs[@]}"; do
     fi
 done
 
-"$man_db/apropos" -C "$cfg" . 2>/dev/null || true
+"$man_db/apropos" -l -C "$cfg" . 2>/dev/null || true

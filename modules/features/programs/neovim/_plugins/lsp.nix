@@ -53,10 +53,12 @@
                                 "--pch-storage=memory",
                             },
                         },
+                        gopls = {},
                         harper_ls = {
                             settings = {
                                 ["harper-ls"] = {
                                     linters = {
+                                        ExpandMemoryShorthands = false,
                                         -- https://www.etymonline.com/word/OK
                                         OkToOkay = false,
                                         SentenceCapitalization = false,
