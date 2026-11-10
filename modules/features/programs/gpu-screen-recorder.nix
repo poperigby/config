@@ -17,19 +17,17 @@
             {
                 home.packages = [ pkgs.gpu-screen-recorder-ui ];
 
-                systemd.user.services.gpu-screen-recorder-ui = {
-                    Unit = {
-                        Description = "GPU Screen Recorder UI daemon";
-                        PartOf = [ "graphical-session.target" ];
-                        After = [ "graphical-session.target" ];
-                    };
-
-                    Service = {
-                        ExecStart = "${lib.getExe' pkgs.gpu-screen-recorder-ui "gsr-ui"} launch-daemon";
-                        Restart = "on-failure";
-                    };
-
-                    Install.WantedBy = [ "graphical-session.target" ];
+                xdg.autostart = {
+                    enable = true;
+                    entries = [
+                        (lib.local.desktop.filePath' (pkgs.makeDesktopItem {
+                            name = "gpu-screen-recorder-ui";
+                            desktopName = "GPU Screen Recorder";
+                            exec = "${lib.getExe' pkgs.gpu-screen-recorder-ui "gsr-ui"} launch-daemon";
+                            icon = "gpu-screen-recorder";
+                            terminal = false;
+                        }) "gpu-screen-recorder-ui")
+                    ];
                 };
 
                 xdg.desktopEntries.gpu-screen-recorder = {

@@ -1,8 +1,11 @@
 { ... }:
 {
     den.aspects.programs.provides.television.homeManager =
-        { ... }:
+        { lib, pkgs, ... }:
         {
+            # tv-man touches each index it uses, so only unused ones expire.
+            systemd.user.tmpfiles.rules = [ "e %C/tv-man - - - 30d" ];
+
             programs.television = {
                 enable = true;
                 settings = {
@@ -28,6 +31,28 @@
                             };
                         };
                         keybindings.shortcut = "f3";
+                    };
+                    man = {
+                        metadata = {
+                            name = "man";
+                            description = "Browse and preview system manual pages";
+                            requirements = [
+                                "apropos"
+                                "man"
+                            ];
+                        };
+                        source.command = lib.getExe pkgs.local.tv-man;
+                        preview = {
+                            command = "man $(echo '{}' | awk '{print $2, $1}' | tr -d '()')";
+                            env.MANWIDTH = "80";
+                        };
+                        keybindings.enter = "actions:open";
+                        actions.open = {
+                            description = "Open the selected man page";
+                            command = "man $(echo '{}' | awk '{print $2, $1}' | tr -d '()')";
+                            mode = "execute";
+                        };
+                        ui.layout = "portrait";
                     };
                 };
             };
