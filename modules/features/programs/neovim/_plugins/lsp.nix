@@ -57,6 +57,8 @@
                             settings = {
                                 ["harper-ls"] = {
                                     linters = {
+                                        -- https://www.etymonline.com/word/OK
+                                        OkToOkay = false,
                                         SentenceCapitalization = false,
                                         SpellCheck = false
                                     }

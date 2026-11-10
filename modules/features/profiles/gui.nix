@@ -42,7 +42,6 @@
                     noto-fonts-cjk-sans
                     noto-fonts-color-emoji
                     signal-desktop
-                    tenacity
                     tor-browser
                     wl-clipboard-rs
                 ];
