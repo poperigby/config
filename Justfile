@@ -2,6 +2,9 @@
 switch:
     nh os switch .
 
+boot:
+    nh os boot .
+
 # Build the current configuration
 test:
    nh os test .
