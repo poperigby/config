@@ -283,22 +283,8 @@
         };
         crowdsec-firewall-bouncer = {
             enable = true;
-            # Docker-published ports traverse DOCKER-USER instead of INPUT.
-            settings = {
-                api_url = "http://127.0.0.1:8080";
-                iptables_chains = [
-                    "INPUT"
-                    "DOCKER-USER"
-                ];
-            };
+            settings.api_url = "http://127.0.0.1:8080";
         };
-    };
-
-    # Docker creates DOCKER-USER when its firewall is initialized. Ensure that
-    # chain exists before the bouncer installs its rules.
-    systemd.services.crowdsec-firewall-bouncer = {
-        after = [ "docker.service" ];
-        requires = [ "docker.service" ];
     };
 
     # Activation may restart registration while CrowdSec itself remains up.
