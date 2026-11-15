@@ -7,7 +7,7 @@
 }:
 
 let
-    # Enable once haddock/marine-jobs/usajobs_api_key is in private-config.
+    # Enable once haddock/marine_jobs/usajobs_api_key is in private-config.
     # Without it, marine-jobs skips the USAJOBS source.
     useUsajobs = false;
 
@@ -93,9 +93,9 @@ in
 
     sops = lib.mkIf useUsajobs {
         templates.marine-jobs-environment.content = ''
-            USAJOBS_API_KEY=${config.sops.placeholder."haddock/marine-jobs/usajobs_api_key"}
+            USAJOBS_API_KEY=${config.sops.placeholder."haddock/marine_jobs/usajobs_api_key"}
             USAJOBS_EMAIL=${privateInfo.cassidy.email}
         '';
-        secrets."haddock/marine-jobs/usajobs_api_key" = { };
+        secrets."haddock/marine_jobs/usajobs_api_key" = { };
     };
 }
