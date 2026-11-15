@@ -87,6 +87,11 @@ in
             RestartSec = "10s";
             StateDirectory = "temperature-monitor";
             DynamicUser = true;
+            # DynamicUser implies NoNewPrivileges, so the setgid sendmail wrapper
+            # cannot gain the postdrop group needed to write to the maildrop queue.
+            SupplementaryGroups = [ "postdrop" ];
+            # ProtectSystem=strict mounts /var read-only, which postdrop writes into.
+            ReadWritePaths = [ "/var/lib/postfix/queue/maildrop" ];
             ProtectSystem = "strict";
             ProtectHome = true;
             PrivateTmp = true;

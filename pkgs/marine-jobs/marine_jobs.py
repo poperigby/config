@@ -26,6 +26,9 @@ Usage:
     python3 marine_jobs.py --any-topic      # skip the marine-topic filter
     python3 marine_jobs.py --include-expired
     python3 marine_jobs.py --new --quiet    # print nothing unless there's a match
+    python3 marine_jobs.py --new --seen-out pending.json
+                                            # stage the seen list, to move over
+                                            # seen.json once the report is delivered
 """
 
 import argparse
@@ -373,9 +376,9 @@ def load_seen():
     return {k if isinstance(k, str) else f"mes:{k}" for k in raw}
 
 
-def save_seen(seen):
-    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(sorted(seen)))
+def save_seen(seen, path):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(sorted(seen)))
 
 
 def show(job):
@@ -393,6 +396,58 @@ def show(job):
     print()
 
 
+# Mail clients ignore <style> blocks unevenly, so every rule is inlined.
+CELL = "padding:10px 12px;border-bottom:1px solid #d8e3ea;vertical-align:top;"
+HEAD = "padding:8px 12px;text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:#ffffff;background:#1d5c7a;"
+MUTED = "color:#5b6b75;"
+
+
+def render_html(summary, skipped_line, keep, dropped):
+    e = html.escape
+
+    def row(j, i):
+        shade = "#f4f8fa" if i % 2 else "#ffffff"
+        notes = f'<span style="color:#9a5b00;">⚑ {e(", ".join(j["flags"]))}</span>' if j["flags"] else ""
+        return (
+            f'<tr style="background:{shade};">'
+            f'<td style="{CELL}"><a href="{e(j["link"])}" style="color:#0b5d8a;font-weight:600;text-decoration:none;">{e(j["title"])}</a>'
+            f'<div style="{MUTED}font-size:12px;margin-top:3px;">{e(j["source"])}</div></td>'
+            f'<td style="{CELL}white-space:nowrap;">{e(str(j["date"]))}</td>'
+            f'<td style="{CELL}white-space:nowrap;">{e(j["deadline_str"] or "—")}</td>'
+            f'<td style="{CELL}">{e(j["pay"] or "—")}</td>'
+            f'<td style="{CELL}font-size:13px;">{notes}</td>'
+            "</tr>"
+        )
+
+    heads = "".join(f'<th style="{HEAD}">{h}</th>' for h in ("Post", "Posted", "Deadline", "Pay", "Notes"))
+    rows = "".join(row(j, i) for i, j in enumerate(keep))
+    out = [
+        "<!doctype html>",
+        '<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
+        f"<title>{e(summary)}</title></head>",
+        '<body style="margin:0;padding:24px 12px;background:#eef3f6;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;color:#1b2a33;">',
+        '<div style="max-width:900px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #d8e3ea;">',
+        '<div style="padding:20px 20px 14px;">',
+        f'<h1 style="margin:0 0 4px;font-size:20px;color:#123f55;">🐙 {e(summary)}</h1>',
+        f'<p style="margin:0;{MUTED}font-size:13px;">{e(skipped_line)}</p>',
+        "</div>",
+        f'<table role="presentation" cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;"><tr>{heads}</tr>{rows}</table>',
+    ]
+    if dropped:
+        items = "".join(
+            f'<li style="margin:0 0 4px;"><a href="{e(j["link"])}" style="color:#5b6b75;">{e(j["title"])}</a>'
+            f' <span style="{MUTED}">({e(", ".join(j["excluded"]))})</span></li>'
+            for j in dropped
+        )
+        out.append(
+            f'<div style="padding:16px 20px;border-top:1px solid #d8e3ea;font-size:13px;">'
+            f'<div style="font-weight:600;margin-bottom:6px;{MUTED}">Excluded for animal use</div>'
+            f'<ul style="margin:0;padding-left:18px;">{items}</ul></div>'
+        )
+    out += ["</div>", "</body></html>"]
+    return "\n".join(out)
+
+
 def main():
     ap = argparse.ArgumentParser(
         description=__doc__.split("\n\n")[0],
@@ -408,6 +463,9 @@ def main():
     ap.add_argument("--include-expired", action="store_true", help="keep posts past their deadline")
     ap.add_argument("--quiet", action="store_true",
                     help="print nothing (besides errors) when there are no matching posts")
+    ap.add_argument("--html", action="store_true", help="print the report as an HTML document")
+    ap.add_argument("--seen-out", type=Path, default=STATE_FILE, metavar="PATH",
+                    help=f"where to write the updated seen list (default {STATE_FILE})")
     args = ap.parse_args()
 
     jobs, failures, ran = [], 0, 0
@@ -454,13 +512,21 @@ def main():
     dropped = [j for j in candidates if j["excluded"]]
 
     if args.quiet and not keep:
-        save_seen(seen | fetched_keys)
+        save_seen(seen | fetched_keys, args.seen_out)
         return 0
 
     label = "new " if args.new else ""
     skipped = ", ".join(f"{n} {k}" for k, n in counts.items() if n)
-    print(f"\n{len(keep)} {label}matching posts in the last {args.days} days")
-    print(f"(skipped: {len(dropped)} animal-use{', ' + skipped if skipped else ''})\n")
+    summary = f"{len(keep)} {label}matching post{'' if len(keep) == 1 else 's'} in the last {args.days} days"
+    skipped_line = f"(skipped: {len(dropped)} animal-use{', ' + skipped if skipped else ''})"
+
+    if args.html:
+        print(render_html(summary, skipped_line, keep, dropped if args.show_excluded else []))
+        save_seen(seen | fetched_keys, args.seen_out)
+        return 0
+
+    print(f"\n{summary}")
+    print(f"{skipped_line}\n")
     for j in keep:
         show(j)
 
@@ -470,7 +536,7 @@ def main():
             print(f"• [{j['source']}] {j['title']}  [{', '.join(j['excluded'])}]")
             print(f"  {j['link']}\n")
 
-    save_seen(seen | fetched_keys)
+    save_seen(seen | fetched_keys, args.seen_out)
     return 0
 
 
