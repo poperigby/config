@@ -46,6 +46,9 @@ in
     };
 
     den = {
+        # Hosts accept their users' nixos content, such as password secrets.
+        schema.host.includes = [ den.batteries.user-aspects ];
+
         default = {
             includes = [
                 # Batteries: https://den.denful.dev/guides/batteries
