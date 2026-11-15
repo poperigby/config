@@ -9,6 +9,10 @@
             url = "github:IogaMaster/flux";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        ledger-bot = {
+            url = "github:poperigby/ledger-bot";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         nix-minecraft = {
             url = "github:Infinidoge/nix-minecraft";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -33,6 +37,7 @@
                     "/var/lib/continuwuity"
                     "/var/lib/immich"
                     "/var/lib/jellyfin"
+                    "/var/lib/ledger-bot"
                     "/var/lib/lidarr"
                     "/var/lib/lldap"
                     "/var/lib/mealie"
@@ -77,6 +82,7 @@
                 imports = [
                     (inputs.import-tree ./_services)
                     inputs.flux.nixosModules.default
+                    inputs.ledger-bot.nixosModules.default
                     inputs.nix-minecraft.nixosModules.minecraft-servers
                     inputs.vpn-confinement.nixosModules.default
                 ];

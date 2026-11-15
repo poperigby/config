@@ -22,12 +22,12 @@
     };
     hushmic.url = "github:crowquillx/hushmic-nix";
     import-tree.url = "github:vic/import-tree";
-    jj-starship = {
-      url = "github:dmmulroy/jj-starship";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ledger-bot = {
+      url = "github:poperigby/ledger-bot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix = {
