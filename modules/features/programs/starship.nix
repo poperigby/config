@@ -1,19 +1,9 @@
 { ... }:
 {
-    flake-file.inputs.jj-starship = {
-        url = "github:dmmulroy/jj-starship";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     den.aspects.programs.provides.starship.homeManager =
-        {
-            lib,
-            inputs',
-            ...
-        }:
+        { lib, ... }:
         let
-            inherit (lib) concatStrings getExe;
-            jj-starship = inputs'.jj-starship.packages.jj-starship;
+            inherit (lib) concatStrings;
         in
         {
             programs.starship = {
@@ -23,7 +13,7 @@
                     format = concatStrings [
                         "$directory"
                         "$shlvl"
-                        "\${custom.jj}"
+                        "$vcs"
                         "$jobs"
                         "$status"
                         "$container"
@@ -44,12 +34,15 @@
                         fish_style_pwd_dir_length = 3;
                         truncation_length = 3;
                     };
-                    custom.jj = {
-                        when = "${getExe jj-starship} detect";
-                        command = "${getExe jj-starship} --no-jj-prefix";
-                        symbol = "󱗆 ";
-                        format = "[$symbol](blue)$output ";
+                    vcs = {
+                        order = [
+                            "jj"
+                            "git"
+                        ];
+                        jj_modules = "$jj_change$jj_bookmark$jj_status";
                     };
+                    jj_change.format = "[󱗆 ](blue)$change ";
+                    jj_bookmark.format = "[$bookmark(@$remote)$diverged]($style) ";
                     nix_shell = {
                         format = "[$symbol]($style)";
                         symbol = "󱄅 ";
