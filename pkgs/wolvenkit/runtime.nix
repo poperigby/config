@@ -29,6 +29,10 @@ inputs.erosanix.lib.x86_64-linux.mkWindowsAppNoCC {
         # servicing package that Wine cannot install. The 4.8 runtime runs it.
         # dotnet48 leaves the prefix on Windows 7, so win10 restores it.
         winetricks -q dotnet48 win10
+        # The prefix discards registry changes after each run, so wcc_lite's
+        # EULA acceptance is set here to keep it from prompting on every call.
+        "$WINE" reg add 'HKCU\Software\CD Projekt RED\Mod Tools\1.0' \
+            /v DoNotShowEula /t REG_DWORD /d 1 /f
     '';
 
     winAppRun = ''

@@ -43,6 +43,7 @@
                     };
                     jj_change.format = "[󱗆 ](blue)$change ";
                     jj_bookmark.format = "[$bookmark(@$remote)$diverged]($style) ";
+                    jj_status.style = "bold yellow";
                     nix_shell = {
                         format = "[$symbol]($style)";
                         symbol = "󱄅 ";

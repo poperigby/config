@@ -2,7 +2,7 @@
 
 {
     den.aspects.snowy.nixos =
-        { config, ... }:
+        { config, pkgs, ... }:
 
         {
             boot = {
@@ -26,6 +26,10 @@
             };
 
             hardware = {
+                graphics = {
+                    package = pkgs.mesa."26.2.6";
+                    package32 = pkgs.mesa_i686."26.2.6";
+                };
                 facter.reportPath = ./facter.json;
                 amdgpu.overdrive.enable = true;
                 enableRedistributableFirmware = true;

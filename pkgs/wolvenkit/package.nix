@@ -22,6 +22,7 @@ let
         inherit inputs;
         wine = wineWow64Packages.stable;
     };
+    fetchWcc = callPackage ./fetch-wcc.nix { };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "wolvenkit";
@@ -76,6 +77,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         mkdir -p "$out/bin"
         installWrapper wolvenkit WolvenKit.exe
         installWrapper wolvenkit-cli WolvenKit.CLI.exe
+        ln -s ${lib.getExe fetchWcc} "$out/bin/wolvenkit-fetch-wcc"
 
         wrestool -x -t 14 WolvenKit.exe -o wolvenkit.ico
         icotool -x -w 512 wolvenkit.ico -o wolvenkit.png
