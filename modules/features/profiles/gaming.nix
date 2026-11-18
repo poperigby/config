@@ -1,5 +1,10 @@
 { den, ... }:
 {
+    flake-file.inputs.erosanix = {
+        url = "github:emmanuelrosa/erosanix";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     den.aspects.gaming = {
         includes = with den.aspects; [
             programs._.gpu-screen-recorder
@@ -22,6 +27,7 @@
                     local.jackify
                     local.reshadelinux
                     local.w3modmanager
+                    local.wolvenkit
                     prismlauncher
                     protonplus
                     protontricks

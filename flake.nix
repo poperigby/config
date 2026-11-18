@@ -7,6 +7,10 @@
     den.url = "github:vic/den";
     direnv-instant.url = "github:Mic92/direnv-instant";
     disko.url = "github:nix-community/disko";
+    erosanix = {
+      url = "github:emmanuelrosa/erosanix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
