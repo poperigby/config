@@ -18,7 +18,7 @@
             })
 
             # System
-            (system._.boot { })
+            (system._.boot { secureBoot = true; })
             (services._.backups {
                 paths =
                     let

@@ -23,6 +23,10 @@
                             lanzaboote = {
                                 enable = true;
                                 pkiBundle = "/etc/secureboot";
+                                # Keys are generated on first boot if missing. Enrollment is staged on the
+                                # ESP and applied by systemd-boot when the firmware is in setup mode.
+                                autoGenerateKeys.enable = true;
+                                autoEnrollKeys.enable = true;
                             };
 
                             loader.systemd-boot.enable = false;
