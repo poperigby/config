@@ -80,7 +80,10 @@
                                     hide_empty_workspaces = true;
                                     show_workspace_label = false;
                                 };
-                                tray.capsule = true;
+                                tray = {
+                                    capsule = true;
+                                    hidden = [ "gpu-screen-recorder-ui" ];
+                                };
                                 volume.show_label = false;
                             };
                             control_center = {
