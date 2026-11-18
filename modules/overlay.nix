@@ -3,7 +3,6 @@
 { inputs, lib, ... }:
 let
     inherit (lib)
-        callPackageWith
         composeManyExtensions
         filterAttrs
         filterAttrsRecursive
@@ -16,7 +15,8 @@ let
     # Expose every package under <root>/pkgs as pkgs.local.<name>.
     packageOverlay = final: prev: {
         local = filesystem.packagesFromDirectoryRecursive {
-            callPackage = callPackageWith (prev // { inherit inputs; });
+            inherit (final.newScope { inherit inputs; }) callPackage;
+            newScope = extra: final.newScope ({ inherit inputs; } // extra);
             directory = ../pkgs;
         };
     };
