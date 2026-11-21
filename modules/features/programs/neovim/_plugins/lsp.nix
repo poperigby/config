@@ -55,16 +55,25 @@
                         },
                         gopls = {},
                         harper_ls = {
+                            -- Prose only; in code it mostly produces false positives
+                            filetypes = {
+                                "asciidoc",
+                                "gitcommit",
+                                "markdown",
+                                "text",
+                                "typst",
+                            },
                             settings = {
                                 ["harper-ls"] = {
                                     linters = {
                                         -- Misjudges pronunciation (acronyms, uncommon words)
                                         AnA = false,
+                                        -- Fuck you
+                                        AvoidCurses = false,
+                                        -- People know what these mean
                                         ExpandMemoryShorthands = false,
                                         -- https://www.etymonline.com/word/OK
                                         OkToOkay = false,
-                                        SentenceCapitalization = false,
-                                        SpellCheck = false
                                     }
                                 },
                             },
