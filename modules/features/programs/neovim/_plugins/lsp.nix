@@ -58,6 +58,8 @@
                             settings = {
                                 ["harper-ls"] = {
                                     linters = {
+                                        -- Misjudges pronunciation (acronyms, uncommon words)
+                                        AnA = false,
                                         ExpandMemoryShorthands = false,
                                         -- https://www.etymonline.com/word/OK
                                         OkToOkay = false,
