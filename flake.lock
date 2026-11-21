@@ -1202,12 +1202,12 @@
         "rev": "78e7a1eb25b1e85fecc1a81ccb6841cd9ad8f995",
         "revCount": 37,
         "type": "git",
-        "url": "ssh://git@codeberg.org/PopeRigby/private-config.git"
+        "url": "ssh://git@github.com/poperigby/private-config.git"
       },
       "original": {
         "ref": "trunk",
         "type": "git",
-        "url": "ssh://git@codeberg.org/PopeRigby/private-config.git"
+        "url": "ssh://git@github.com/poperigby/private-config.git"
       }
     },
     "proton-cachyos": {

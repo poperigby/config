@@ -60,7 +60,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     private-config = {
-      url = "git+ssh://git@codeberg.org/PopeRigby/private-config.git?ref=trunk";
+      url = "git+ssh://git@github.com/poperigby/private-config.git?ref=trunk";
       inputs.sops-nix.follows = "sops-nix";
     };
     proton-cachyos = {
