@@ -60,6 +60,9 @@
                 programs.wireshark.enable = true;
                 environment.systemPackages = with pkgs; [ wireshark ];
                 services.systembus-notify.enable = true;
+
+                # Programs like yazi can ignore SIGTERM and hold up shutdown for the default 90 seconds.
+                systemd.user.settings.Manager.DefaultTimeoutStopSec = "10s";
             };
 
         # GUI users get packet capture access for Wireshark.
