@@ -11,7 +11,7 @@
     den.aspects.common = {
         includes = with den.aspects; [
             programs._.bottom
-            programs._.claude-code
+            programs._.claude
             programs._.direnv
             programs._.fish
             programs._.git

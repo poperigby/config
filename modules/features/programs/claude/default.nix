@@ -1,6 +1,6 @@
 { ... }:
 {
-    den.aspects.programs.provides.claude-code.homeManager =
+    den.aspects.programs.provides.claude.homeManager =
         { lib, pkgs, ... }:
         let
             notify = pkgs.writeShellApplication {
