@@ -27,8 +27,8 @@
 
             hardware = {
                 graphics = {
-                    package = pkgs.mesa."26.2.6";
-                    package32 = pkgs.mesa_i686."26.2.6";
+                    package = pkgs.versions.mesa."26.2.6";
+                    package32 = pkgs.versions.mesa_i686."26.2.6";
                 };
                 facter.reportPath = ./facter.json;
                 amdgpu.overdrive.enable = true;

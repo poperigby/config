@@ -21,25 +21,16 @@ let
         };
     };
 
-    # Attach historical versions from nixpkgs-multiverse to matching current
-    # derivations. `pkgs.foo` remains the package from the active nixpkgs, and
-    # `pkgs.foo."<version>"` resolves that version from the multiverse index.
-    multiverseOverlay =
-        final: prev:
-        let
-            multiverse = inputs.nixpkgs-multiverse.lib.mkMultiverse {
+    # Expose historical versions from nixpkgs-multiverse as
+    # `pkgs.versions.foo."<version>"`. The index sits behind a single attribute,
+    # so it is only evaluated when a pinned version is requested.
+    multiverseOverlay = final: prev: {
+        versions =
+            (inputs.nixpkgs-multiverse.lib.mkMultiverse {
                 config = filterAttrsRecursive (_: value: value != null) final.config;
                 system = final.stdenv.hostPlatform.system;
-            };
-
-            attachVersions =
-                name: versions:
-                let
-                    package = prev.${name};
-                in
-                if isDerivation package then package // versions else package;
-        in
-        builtins.mapAttrs attachVersions (builtins.intersectAttrs prev multiverse.versions);
+            }).versions;
+    };
 
     # Repository overlays live under <root>/overlays as either foo.nix or
     # foo/default.nix. Each file must evaluate to a normal Nixpkgs overlay.
@@ -67,8 +58,6 @@ let
         in
         composeManyExtensions (map (name: import (overlayFileFor name)) overlayNames);
 
-    # Multiverse decorates the package values produced by earlier overlays, so
-    # it runs last and attaches versions to the same `pkgs.foo` modules see.
     overlays = [
         packageOverlay
         localOverlay

@@ -9,7 +9,7 @@ pkgs.writeShellApplication {
     runtimeInputs = with pkgs; [
         cargo
         direnv
-        gum."0.17.0"
+        versions.gum."0.17.0"
         jujutsu
         nix
     ];
