@@ -31,9 +31,14 @@ urgency=normal
 
 case "$event" in
 Notification)
+    type=$(jq -r '.notification_type // empty' <<<"$input")
+    # Stop already announces the end of a turn.
+    if [[ $type == idle_prompt ]]; then
+        exit 0
+    fi
     summary=$(jq -r '.title // "Claude Code"' <<<"$input")
     body=$(jq -r '.message // empty' <<<"$input")
-    if [[ $(jq -r '.notification_type // empty' <<<"$input") == permission_prompt ]]; then
+    if [[ $type == permission_prompt ]]; then
         urgency=critical
     fi
     ;;
