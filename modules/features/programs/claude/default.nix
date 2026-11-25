@@ -35,6 +35,7 @@
                         Notification = hook;
                         Stop = hook;
                     };
+                    autoCompactWindow = 200000;
                 };
             };
         };
