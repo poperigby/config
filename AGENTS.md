@@ -7,3 +7,4 @@
 * I use `fish` for my shell. Give me commands in the `fish` format, but keep scripts in `bash` for portability.
 * If I ask you a question, you shouldn't automatically start doing things. Ask after you've performed your investigation.
 * Stop and notify me if what you're doing requires a gross hack.
+* The following rule *must* be followed when interacting with MyAnonaMouse: <https://www.myanonamouse.net/rules.php#rsc68>

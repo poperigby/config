@@ -18,6 +18,8 @@ in
     services = {
         qbittorrent = {
             enable = true;
+            # MAM doesn't yet allow v5.3.x
+            package = pkgs.qbittorrent-nox."5.2.4";
             # To give qBittorrent access to /mnt/media/data, and make hardlinks work
             group = "media";
             webuiPort = 8083;
