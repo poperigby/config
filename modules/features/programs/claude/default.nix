@@ -36,6 +36,7 @@
                         Stop = hook;
                     };
                     autoCompactWindow = 200000;
+                    remoteControlAtStartup = true;
                 };
             };
         };
