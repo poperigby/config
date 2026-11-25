@@ -142,10 +142,15 @@
 
                 virtualisation.docker.enable = true;
 
-                # For installing Nestor configuration to SD card
-                boot.binfmt = {
-                    emulatedSystems = [ "aarch64-linux" ];
-                    preferStaticEmulators = true;
+                boot = {
+                    # The SysRq key filter intercepts Alt+Print, which gpu-screen-recorder binds
+                    kernel.sysctl."kernel.sysrq" = 0;
+
+                    # For installing Nestor configuration to SD card
+                    binfmt = {
+                        emulatedSystems = [ "aarch64-linux" ];
+                        preferStaticEmulators = true;
+                    };
                 };
 
                 nix.settings.extra-platforms = [ "aarch64-linux" ];
