@@ -19,7 +19,7 @@
             round_corners = 1;
             no_display = true;
             toggle_hud = "End";
-            blacklist = "wezterm-gui";
+            blacklist = "wezterm-gui,mpv";
         };
     };
 }
