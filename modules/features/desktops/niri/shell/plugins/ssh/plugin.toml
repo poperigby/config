@@ -1,0 +1,15 @@
+id = "poperigby/ssh"
+name = "SSH"
+version = "1.0.0"
+plugin_api = 24
+author = "PopeRigby"
+icon = "terminal"
+description = "Open LAN hosts that accept your SSH key in WezTerm."
+tags = ["launcher", "network"]
+dependencies = ["openssh", "systemd", "wezterm"]
+
+[[launcher_provider]]
+id = "launcher"
+entry = "launcher.luau"
+prefix = "ssh"
+glyph = "terminal"

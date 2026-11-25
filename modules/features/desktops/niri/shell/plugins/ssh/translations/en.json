@@ -1,0 +1,6 @@
+{
+    "checking": "Checking hosts…",
+    "none": "No matching hosts accept your SSH key",
+    "unreadable": "Could not read known_hosts",
+    "launch-failed": "Could not start WezTerm"
+}

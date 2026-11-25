@@ -99,6 +99,26 @@
                             };
                             brightness.enable_ddcutil = true;
                             calendar.enabled = true;
+                            plugins = {
+                                enabled = [ "poperigby/ssh" ];
+                                source = [
+                                    {
+                                        name = "official";
+                                        kind = "git";
+                                        location = "https://github.com/noctalia-dev/official-plugins";
+                                    }
+                                    {
+                                        name = "community";
+                                        kind = "git";
+                                        location = "https://github.com/noctalia-dev/community-plugins";
+                                    }
+                                    {
+                                        name = "config";
+                                        kind = "path";
+                                        location = "${./plugins}";
+                                    }
+                                ];
+                            };
                             location.auto_locate = true;
                             osd = {
                                 position = "bottom_center";
