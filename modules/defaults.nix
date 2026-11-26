@@ -77,7 +77,11 @@ in
                 # Wire in local library to home-manager through an argument.
                 # Only applies to hosts that have home-manager enabled.
                 // optionalAttrs (host."home-manager".enable or false) {
-                    home-manager.extraSpecialArgs.lib = homeLib;
+                    home-manager = {
+                        extraSpecialArgs.lib = homeLib;
+                        # Home Manager shares the host's pkgs, including its overlays.
+                        useGlobalPkgs = true;
+                    };
                 };
 
             homeManager =
@@ -88,7 +92,6 @@ in
                     ];
 
                     _module.args = moduleArgs;
-                    nixpkgs = nixpkgsDefaults;
 
                     home.stateVersion = mkDefault stateVersion;
                 };
