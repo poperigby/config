@@ -36,9 +36,6 @@
                 i2c.enable = true;
             };
 
-            # GPU power limit, undervolt, and clocks
-            services.lact.enable = true;
-
             # Keep microcode updated
             services.ucodenix = {
                 enable = true;
