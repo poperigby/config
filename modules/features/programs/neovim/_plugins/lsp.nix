@@ -99,7 +99,7 @@
                                         command = { "nixfmt", "--indent=4" }
                                     },
                                     home_manager = {
-                                         expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."cassidy@snowy".options',
+                                         expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.snowy.options.home-manager.users.type.getSubOptions []',
                                     },
                                 }
                             }
