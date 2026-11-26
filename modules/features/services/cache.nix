@@ -35,6 +35,9 @@
                 wantedBy = [ "multi-user.target" ];
                 after = [ "network-online.target" ];
                 wants = [ "network-online.target" ];
+                # attic holds a lock on the local store, which blocks the daemon when a
+                # new Nix version needs exclusive access to upgrade the store database.
+                restartTriggers = [ config.nix.package ];
                 environment.XDG_CONFIG_HOME = clientConfig;
                 serviceConfig = {
                     ExecStart = "${lib.getExe pkgs.attic-client} watch-store haddock:${cache}";

@@ -6,7 +6,7 @@
             { pkgs, ... }:
             {
                 nix = {
-                    package = pkgs.lix;
+                    package = pkgs.nixVersions.latest;
 
                     settings = {
                         experimental-features = [
