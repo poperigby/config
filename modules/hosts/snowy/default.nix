@@ -2,7 +2,10 @@
 
 {
     flake-file.inputs = {
-        hushmic.url = "github:crowquillx/hushmic-nix";
+        hushmic = {
+            url = "github:crowquillx/hushmic-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
         nix-flatpak.url = "github:gmodena/nix-flatpak";
     };
 

@@ -24,7 +24,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hushmic.url = "github:crowquillx/hushmic-nix";
+    hushmic = {
+      url = "github:crowquillx/hushmic-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     import-tree.url = "github:vic/import-tree";
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -53,8 +56,14 @@
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nixpkgs-multiverse.url = "github:fzakaria/nixpkgs-multiverse";
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
-    noctalia.url = "github:noctalia-dev/noctalia";
-    noctalia-greeter.url = "github:noctalia-dev/noctalia-greeter";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     piggyback = {
       url = "git+https://codeberg.org/PopeRigby/piggyback.git";
       inputs.nixpkgs.follows = "nixpkgs";
