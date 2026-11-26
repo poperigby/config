@@ -156,7 +156,13 @@
                     };
                 };
 
-                nix.settings.extra-platforms = [ "aarch64-linux" ];
+                nix.settings = {
+                    extra-platforms = [ "aarch64-linux" ];
+                    extra-substituters = [ "https://hushmic-nix.cachix.org" ];
+                    extra-trusted-public-keys = [
+                        "hushmic-nix.cachix.org-1:29j1XWTAAnb869spxlZ937ITJI9MCU1Wre+z7+1HJUM="
+                    ];
+                };
 
                 # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
                 system.stateVersion = "23.11";
