@@ -36,6 +36,7 @@
                         Stop = hook;
                     };
                     autoCompactWindow = 200000;
+                    bashOutputMaxChars = 10000;
                     remoteControlAtStartup = true;
                 };
             };
