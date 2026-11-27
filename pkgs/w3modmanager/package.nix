@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
     src = fetchGit {
         url = "ssh://git@github.com/poperigby/w3modmanager.git";
-        rev = "f4bae3b467c97667f7ac442a597246a04578d12f";
+        rev = "8c3d9bb5f8b19cdc37e0ebb3966fb1c37b3131ea";
     };
 
     dontBuild = true;
